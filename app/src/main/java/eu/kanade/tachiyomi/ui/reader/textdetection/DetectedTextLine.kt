@@ -41,3 +41,18 @@ data class DetectedTextLine(
  * good ones. It's a hint, never a block. Tunable — bump up to flag more aggressively.
  */
 const val LOW_CONFIDENCE_THRESHOLD = 0.5f
+
+/**
+ * True if [text] is just a number — it contains at least one digit and no letters (e.g. a page
+ * number bleeding into the scan, or a bubble that's only a number). Such lines carry no text worth
+ * listing or translating, so they're filtered out. Punctuation and spaces are ignored; a line with
+ * any letter (e.g. "Chapter 1") is kept.
+ */
+fun isNumberOnlyLine(text: String): Boolean {
+    var hasDigit = false
+    for (char in text) {
+        if (char.isLetter()) return false
+        if (char.isDigit()) hasDigit = true
+    }
+    return hasDigit
+}

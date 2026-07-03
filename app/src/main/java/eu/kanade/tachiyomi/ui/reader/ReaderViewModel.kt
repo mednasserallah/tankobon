@@ -35,6 +35,7 @@ import eu.kanade.tachiyomi.ui.reader.textdetection.TextRecognizer
 import eu.kanade.tachiyomi.ui.reader.textdetection.TextTranslator
 import eu.kanade.tachiyomi.ui.reader.textdetection.TranslationState
 import eu.kanade.tachiyomi.ui.reader.textdetection.decodePageBitmap
+import eu.kanade.tachiyomi.ui.reader.textdetection.isNumberOnlyLine
 import eu.kanade.tachiyomi.ui.reader.viewer.Viewer
 import eu.kanade.tachiyomi.util.chapter.removeDuplicates
 import eu.kanade.tachiyomi.util.editCover
@@ -670,6 +671,7 @@ class ReaderViewModel @JvmOverloads constructor(
                 }
                 val merged = TextLineMerger.merge(lines)
                     .map { it.copy(text = SentenceCase.normalize(it.text)) }
+                    .filterNot { isNumberOnlyLine(it.text) }
                 val sorted = ReadingOrderSorter.sort(merged, rtl = isRtl)
                 if (sorted.isEmpty()) {
                     TextDetectionState.Empty
