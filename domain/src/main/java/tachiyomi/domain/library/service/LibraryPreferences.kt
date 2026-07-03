@@ -6,6 +6,7 @@ import tachiyomi.core.common.preference.TriState
 import tachiyomi.core.common.preference.getEnum
 import tachiyomi.domain.library.model.LibraryDisplayMode
 import tachiyomi.domain.library.model.LibrarySort
+import tachiyomi.domain.library.model.VolumeDisplayMode
 import tachiyomi.domain.manga.model.Manga
 
 class LibraryPreferences(
@@ -17,6 +18,12 @@ class LibraryPreferences(
         LibraryDisplayMode.default,
         LibraryDisplayMode.Serializer::serialize,
         LibraryDisplayMode.Serializer::deserialize,
+    )
+
+    // How each manga's volume list is displayed (text list vs. cover grid). App-wide.
+    val volumeDisplayMode: Preference<VolumeDisplayMode> = preferenceStore.getEnum(
+        "pref_volume_display_mode",
+        VolumeDisplayMode.List,
     )
 
     val sortingMode: Preference<LibrarySort> = preferenceStore.getObjectFromString(

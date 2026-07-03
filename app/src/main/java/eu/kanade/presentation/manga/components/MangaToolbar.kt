@@ -1,8 +1,10 @@
 package eu.kanade.presentation.manga.components
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.ViewList
 import androidx.compose.material.icons.outlined.FilterList
 import androidx.compose.material.icons.outlined.FlipToBack
+import androidx.compose.material.icons.outlined.GridView
 import androidx.compose.material.icons.outlined.SelectAll
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
@@ -22,8 +24,10 @@ import tachiyomi.presentation.core.theme.active
 fun MangaToolbar(
     title: String,
     hasFilters: Boolean,
+    isGridDisplayMode: Boolean,
     navigateUp: () -> Unit,
     onClickFilter: () -> Unit,
+    onClickDisplayMode: () -> Unit,
     onClickEditCategory: (() -> Unit)?,
     onClickRefresh: () -> Unit,
     onClickEditNotes: () -> Unit,
@@ -73,6 +77,17 @@ fun MangaToolbar(
                         )
                         return@buildList
                     }
+                    add(
+                        AppBar.Action(
+                            title = stringResource(MR.strings.action_display_mode),
+                            icon = if (isGridDisplayMode) {
+                                Icons.AutoMirrored.Outlined.ViewList
+                            } else {
+                                Icons.Outlined.GridView
+                            },
+                            onClick = onClickDisplayMode,
+                        ),
+                    )
                     add(
                         AppBar.Action(
                             title = stringResource(MR.strings.action_filter),

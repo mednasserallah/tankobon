@@ -5,6 +5,8 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.asPaddingValues
@@ -43,6 +45,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastAll
 import androidx.compose.ui.util.fastAny
 import androidx.compose.ui.util.fastMap
@@ -52,6 +55,7 @@ import eu.kanade.presentation.manga.components.MangaActionRow
 import eu.kanade.presentation.manga.components.MangaBottomActionMenu
 import eu.kanade.presentation.manga.components.MangaInfoBox
 import eu.kanade.presentation.manga.components.MangaToolbar
+import eu.kanade.presentation.manga.components.MangaVolumeCoverGridItem
 import eu.kanade.presentation.manga.components.MangaVolumeListItem
 import eu.kanade.presentation.manga.components.MissingVolumeCountListItem
 import eu.kanade.presentation.manga.components.VolumeHeader
@@ -62,6 +66,7 @@ import eu.kanade.tachiyomi.ui.manga.VolumeList
 import eu.kanade.tachiyomi.util.system.copyToClipboard
 import tachiyomi.domain.chapter.model.Volume
 import tachiyomi.domain.chapter.service.missingVolumesCount
+import tachiyomi.domain.library.model.VolumeDisplayMode
 import tachiyomi.domain.library.service.LibraryPreferences
 import tachiyomi.domain.manga.model.Manga
 import tachiyomi.domain.source.model.StubSource
@@ -91,6 +96,7 @@ fun MangaScreen(
     onTagSearch: (String) -> Unit,
 
     onFilterButtonClicked: () -> Unit,
+    onDisplayModeClicked: () -> Unit,
     onRefresh: () -> Unit,
     onContinueReading: () -> Unit,
     onSearch: (query: String, global: Boolean) -> Unit,
@@ -137,6 +143,7 @@ fun MangaScreen(
             onTagSearch = onTagSearch,
             onCopyTagToClipboard = onCopyTagToClipboard,
             onFilterClicked = onFilterButtonClicked,
+            onDisplayModeClicked = onDisplayModeClicked,
             onRefresh = onRefresh,
             onContinueReading = onContinueReading,
             onSearch = onSearch,
@@ -166,6 +173,7 @@ fun MangaScreen(
             onTagSearch = onTagSearch,
             onCopyTagToClipboard = onCopyTagToClipboard,
             onFilterButtonClicked = onFilterButtonClicked,
+            onDisplayModeClicked = onDisplayModeClicked,
             onRefresh = onRefresh,
             onContinueReading = onContinueReading,
             onSearch = onSearch,
@@ -201,6 +209,7 @@ private fun MangaScreenSmallImpl(
     onCopyTagToClipboard: (tag: String) -> Unit,
 
     onFilterClicked: () -> Unit,
+    onDisplayModeClicked: () -> Unit,
     onRefresh: () -> Unit,
     onContinueReading: () -> Unit,
     onSearch: (query: String, global: Boolean) -> Unit,
@@ -262,8 +271,10 @@ private fun MangaScreenSmallImpl(
             MangaToolbar(
                 title = state.manga.title,
                 hasFilters = state.filterActive,
+                isGridDisplayMode = state.volumeDisplayMode == VolumeDisplayMode.Grid,
                 navigateUp = navigateUp,
                 onClickFilter = onFilterClicked,
+                onClickDisplayMode = onDisplayModeClicked,
                 onClickEditCategory = onEditCategoryClicked,
                 onClickRefresh = onRefresh,
                 onClickEditNotes = onEditNotesClicked,
@@ -395,16 +406,27 @@ private fun MangaScreenSmallImpl(
                         )
                     }
 
-                    sharedChapterItems(
-                        manga = state.manga,
-                        chapters = listItem,
-                        isAnyChapterSelected = chapters.fastAny { it.selected },
-                        chapterSwipeStartAction = chapterSwipeStartAction,
-                        chapterSwipeEndAction = chapterSwipeEndAction,
-                        onChapterClicked = onChapterClicked,
-                        onChapterSelected = onChapterSelected,
-                        onChapterSwipe = onChapterSwipe,
-                    )
+                    if (state.volumeDisplayMode == VolumeDisplayMode.Grid) {
+                        sharedVolumeCoverGridItems(
+                            manga = state.manga,
+                            items = chapters,
+                            columns = VOLUME_GRID_COLUMNS_COMPACT,
+                            isAnyChapterSelected = chapters.fastAny { it.selected },
+                            onChapterClicked = onChapterClicked,
+                            onChapterSelected = onChapterSelected,
+                        )
+                    } else {
+                        sharedChapterItems(
+                            manga = state.manga,
+                            chapters = listItem,
+                            isAnyChapterSelected = chapters.fastAny { it.selected },
+                            chapterSwipeStartAction = chapterSwipeStartAction,
+                            chapterSwipeEndAction = chapterSwipeEndAction,
+                            onChapterClicked = onChapterClicked,
+                            onChapterSelected = onChapterSelected,
+                            onChapterSwipe = onChapterSwipe,
+                        )
+                    }
                 }
             }
         }
@@ -428,6 +450,7 @@ fun MangaScreenLargeImpl(
     onCopyTagToClipboard: (tag: String) -> Unit,
 
     onFilterButtonClicked: () -> Unit,
+    onDisplayModeClicked: () -> Unit,
     onRefresh: () -> Unit,
     onContinueReading: () -> Unit,
     onSearch: (query: String, global: Boolean) -> Unit,
@@ -482,8 +505,10 @@ fun MangaScreenLargeImpl(
                 modifier = Modifier.onSizeChanged { topBarHeight = it.height },
                 title = state.manga.title,
                 hasFilters = state.filterActive,
+                isGridDisplayMode = state.volumeDisplayMode == VolumeDisplayMode.Grid,
                 navigateUp = navigateUp,
                 onClickFilter = onFilterButtonClicked,
+                onClickDisplayMode = onDisplayModeClicked,
                 onClickEditCategory = onEditCategoryClicked,
                 onClickRefresh = onRefresh,
                 onClickEditNotes = onEditNotesClicked,
@@ -617,16 +642,27 @@ fun MangaScreenLargeImpl(
                                 )
                             }
 
-                            sharedChapterItems(
-                                manga = state.manga,
-                                chapters = listItem,
-                                isAnyChapterSelected = chapters.fastAny { it.selected },
-                                chapterSwipeStartAction = chapterSwipeStartAction,
-                                chapterSwipeEndAction = chapterSwipeEndAction,
-                                onChapterClicked = onChapterClicked,
-                                onChapterSelected = onChapterSelected,
-                                onChapterSwipe = onChapterSwipe,
-                            )
+                            if (state.volumeDisplayMode == VolumeDisplayMode.Grid) {
+                                sharedVolumeCoverGridItems(
+                                    manga = state.manga,
+                                    items = chapters,
+                                    columns = VOLUME_GRID_COLUMNS_WIDE,
+                                    isAnyChapterSelected = chapters.fastAny { it.selected },
+                                    onChapterClicked = onChapterClicked,
+                                    onChapterSelected = onChapterSelected,
+                                )
+                            } else {
+                                sharedChapterItems(
+                                    manga = state.manga,
+                                    chapters = listItem,
+                                    isAnyChapterSelected = chapters.fastAny { it.selected },
+                                    chapterSwipeStartAction = chapterSwipeStartAction,
+                                    chapterSwipeEndAction = chapterSwipeEndAction,
+                                    onChapterClicked = onChapterClicked,
+                                    onChapterSelected = onChapterSelected,
+                                    onChapterSwipe = onChapterSwipe,
+                                )
+                            }
                         }
                     }
                 },
@@ -732,6 +768,61 @@ private fun LazyListScope.sharedChapterItems(
                         onChapterSwipe(item, it)
                     },
                 )
+            }
+        }
+    }
+}
+
+private const val VOLUME_GRID_COLUMNS_COMPACT = 3
+private const val VOLUME_GRID_COLUMNS_WIDE = 4
+
+/**
+ * Emits the volume list as a grid of per-volume cover thumbnails, chunked into rows so it can live
+ * inside the same [LazyColumn] as the manga info header. Only visible rows compose, so covers load
+ * lazily as the user scrolls. Missing-count separators are omitted in the grid.
+ */
+private fun LazyListScope.sharedVolumeCoverGridItems(
+    manga: Manga,
+    items: List<VolumeList.Item>,
+    columns: Int,
+    isAnyChapterSelected: Boolean,
+    onChapterClicked: (Volume) -> Unit,
+    onChapterSelected: (VolumeList.Item, Boolean, Boolean) -> Unit,
+) {
+    val rows = items.chunked(columns)
+    items(
+        items = rows,
+        key = { row -> "volume-cover-row-${row.first().id}" },
+        contentType = { MangaScreenItem.CHAPTER },
+    ) { row ->
+        val haptic = LocalHapticFeedback.current
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp),
+        ) {
+            row.forEach { item ->
+                MangaVolumeCoverGridItem(
+                    manga = manga,
+                    item = item,
+                    onClick = {
+                        onChapterItemClick(
+                            chapterItem = item,
+                            isAnyChapterSelected = isAnyChapterSelected,
+                            onToggleSelection = { onChapterSelected(item, !item.selected, false) },
+                            onChapterClicked = onChapterClicked,
+                        )
+                    },
+                    onLongClick = {
+                        onChapterSelected(item, !item.selected, true)
+                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                    },
+                    modifier = Modifier.weight(1f),
+                )
+            }
+            // Keep the final row's cells aligned with the grid columns.
+            repeat(columns - row.size) {
+                Spacer(modifier = Modifier.weight(1f))
             }
         }
     }

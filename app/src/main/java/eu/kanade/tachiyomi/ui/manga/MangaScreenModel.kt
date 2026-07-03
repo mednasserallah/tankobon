@@ -61,6 +61,7 @@ import tachiyomi.domain.chapter.model.Volume
 import tachiyomi.domain.chapter.model.VolumeUpdate
 import tachiyomi.domain.chapter.service.calculateVolumeGap
 import tachiyomi.domain.chapter.service.getVolumeSort
+import tachiyomi.domain.library.model.VolumeDisplayMode
 import tachiyomi.domain.library.service.LibraryPreferences
 import tachiyomi.domain.manga.interactor.GetDuplicateLibraryManga
 import tachiyomi.domain.manga.interactor.GetMangaWithVolumes
@@ -209,6 +210,7 @@ class MangaScreenModel(
                     isRefreshingData = needRefreshInfo || needRefreshChapter,
                     dialog = null,
                     hideMissingChapters = libraryPreferences.hideMissingChapters.get(),
+                    volumeDisplayMode = libraryPreferences.volumeDisplayMode.get(),
                 )
             }
 
@@ -620,6 +622,23 @@ class MangaScreenModel(
     }
 
     /**
+     * Toggles the volume list between the text list and the cover grid, persisting the choice
+     * app-wide so it survives navigation.
+     */
+    fun setVolumeDisplayMode(mode: VolumeDisplayMode) {
+        libraryPreferences.volumeDisplayMode.set(mode)
+        updateSuccessState { it.copy(volumeDisplayMode = mode) }
+    }
+
+    /** Flips the volume list between the text list and the cover grid. */
+    fun toggleVolumeDisplayMode() {
+        val current = successState?.volumeDisplayMode ?: VolumeDisplayMode.List
+        setVolumeDisplayMode(
+            if (current == VolumeDisplayMode.Grid) VolumeDisplayMode.List else VolumeDisplayMode.Grid,
+        )
+    }
+
+    /**
      * Sets the sorting method and requests an UI update.
      * @param sort the sorting mode.
      */
@@ -820,6 +839,7 @@ class MangaScreenModel(
             val dialog: Dialog? = null,
             val hasPromptedToAddBefore: Boolean = false,
             val hideMissingChapters: Boolean = false,
+            val volumeDisplayMode: VolumeDisplayMode = VolumeDisplayMode.List,
         ) : State {
             val processedChapters by lazy {
                 chapters.applyFilters(manga).toList()
