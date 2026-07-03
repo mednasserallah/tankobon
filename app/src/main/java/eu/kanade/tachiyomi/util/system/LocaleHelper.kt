@@ -2,7 +2,6 @@ package eu.kanade.tachiyomi.util.system
 
 import android.content.Context
 import androidx.core.os.LocaleListCompat
-import eu.kanade.tachiyomi.ui.browse.source.SourcesScreenModel
 import tachiyomi.core.common.i18n.stringResource
 import tachiyomi.i18n.MR
 import java.util.Locale
@@ -30,8 +29,8 @@ object LocaleHelper {
      */
     fun getSourceDisplayName(lang: String?, context: Context): String {
         return when (lang) {
-            SourcesScreenModel.LAST_USED_KEY -> context.stringResource(MR.strings.last_used_source)
-            SourcesScreenModel.PINNED_KEY -> context.stringResource(MR.strings.pinned_sources)
+            LAST_USED_KEY -> context.stringResource(MR.strings.last_used_source)
+            PINNED_KEY -> context.stringResource(MR.strings.pinned_sources)
             "other" -> context.stringResource(MR.strings.other_source)
             "all" -> context.stringResource(MR.strings.multi_lang)
             else -> getLocalizedDisplayName(lang)
@@ -84,4 +83,7 @@ object LocaleHelper {
     fun getDefaultEnabledLanguages(): Set<String> {
         return setOf("all", "en", Locale.getDefault().language)
     }
+
+    private const val PINNED_KEY = "pinned"
+    private const val LAST_USED_KEY = "last_used"
 }

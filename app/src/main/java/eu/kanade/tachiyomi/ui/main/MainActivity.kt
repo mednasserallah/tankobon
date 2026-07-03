@@ -115,6 +115,7 @@ import tachiyomi.presentation.core.components.material.Scaffold
 import tachiyomi.presentation.core.components.material.padding
 import tachiyomi.presentation.core.i18n.stringResource
 import tachiyomi.presentation.core.util.collectAsState
+import tachiyomi.source.local.LocalSource
 import uy.kohesive.injekt.injectLazy
 import kotlin.time.Clock
 import kotlin.time.Duration.Companion.days
@@ -519,7 +520,11 @@ class MainActivity : BaseActivity() {
             }
             Constants.SHORTCUT_UPDATES -> HomeScreen.Tab.Updates
             Constants.SHORTCUT_HISTORY -> HomeScreen.Tab.History
-            Constants.SHORTCUT_SOURCES -> HomeScreen.Tab.Browse
+            Constants.SHORTCUT_SOURCES -> {
+                navigator.popUntilRoot()
+                navigator.push(BrowseSourceScreen(LocalSource.ID, null))
+                null
+            }
             Constants.SHORTCUT_DOWNLOADS -> {
                 navigator.popUntilRoot()
                 HomeScreen.Tab.More(toDownloads = true)

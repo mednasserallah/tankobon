@@ -35,7 +35,6 @@ import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.TabNavigator
 import eu.kanade.presentation.util.Screen
 import eu.kanade.presentation.util.isTabletUi
-import eu.kanade.tachiyomi.ui.browse.BrowseTab
 import eu.kanade.tachiyomi.ui.download.DownloadQueueScreen
 import eu.kanade.tachiyomi.ui.history.HistoryTab
 import eu.kanade.tachiyomi.ui.library.LibraryTab
@@ -74,7 +73,6 @@ object HomeScreen : Screen() {
         LibraryTab,
         UpdatesTab,
         HistoryTab,
-        BrowseTab,
         MoreTab,
     )
 
@@ -155,7 +153,6 @@ object HomeScreen : Screen() {
                             is Tab.Library -> LibraryTab
                             Tab.Updates -> UpdatesTab
                             Tab.History -> HistoryTab
-                            is Tab.Browse -> BrowseTab
                             is Tab.More -> MoreTab
                         }
 
@@ -281,7 +278,6 @@ object HomeScreen : Screen() {
         data class Library(val mangaIdToOpen: Long? = null) : Tab
         data object Updates : Tab
         data object History : Tab
-        data object Browse : Tab
         data class More(val toDownloads: Boolean) : Tab
     }
 }
