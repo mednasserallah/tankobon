@@ -311,7 +311,6 @@
     <string name="action_oldest">Terlama</string>
     <string name="action_move_to_top">Naik ke atas</string>
     <string name="action_move_to_bottom">Turun ke bawah</string>
-    <string name="channel_ext_updates">Kemas kini sambungan</string>
     <string name="updating_library">Mengemas kini pustaka</string>
     <string name="pref_category_reading">Membaca</string>
     <string name="vertical_plus_viewer">Sebaris panjang dengan sela</string>

@@ -311,7 +311,6 @@
     <string name="action_oldest">Vanhin</string>
     <string name="action_move_to_top">Siirrä alkuun</string>
     <string name="action_move_to_bottom">Siirrä loppuun</string>
-    <string name="channel_ext_updates">Laajennuspäivitykset</string>
     <string name="restoring_backup_canceled">Palautus peruttu</string>
     <string name="restoring_backup_error">Varmuuskopion palautus epäonnistui</string>
     <string name="creating_backup_error">Varmuuskopiointi epäonnistui</string>

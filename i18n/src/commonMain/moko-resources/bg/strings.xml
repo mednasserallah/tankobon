@@ -280,7 +280,6 @@
     <string name="logout_success">Излязохте успешно</string>
     <string name="paused">На пауза</string>
     <string name="secure_screen">Сигурност</string>
-    <string name="channel_ext_updates">Ъпдейти на разширенията</string>
     <string name="channel_new_chapters">Нови глави</string>
     <string name="information_webview_outdated">Моля, обновете WebView за по-добра съвместимост</string>
     <string name="information_webview_required">WebView е необходим за Mihon</string>

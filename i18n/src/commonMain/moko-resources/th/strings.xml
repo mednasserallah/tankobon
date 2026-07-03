@@ -446,7 +446,6 @@
     <string name="notification_chapters_single_and_more">ตอนที่ %1$s และอีก %2$d ตอน</string>
     <string name="notification_chapters_single">ตอนที่ %1$s</string>
     <string name="spen_previous_page">หน้าก่อน</string>
-    <string name="channel_ext_updates">การอัปเดตส่วนขยาย</string>
     <string name="channel_new_chapters">อัปเดตตอน</string>
     <string name="channel_errors">ข้อผิดพลาด</string>
     <string name="channel_complete">เสร็จสมบูรณ์</string>

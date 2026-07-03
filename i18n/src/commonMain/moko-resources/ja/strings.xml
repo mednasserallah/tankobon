@@ -347,7 +347,6 @@
     <string name="updating_library">ライブラリを更新中</string>
     <string name="viewer">ビューアモード</string>
     <string name="manga_info_collapse">詳細を非表示</string>
-    <string name="channel_ext_updates">拡張機能の更新</string>
     <string name="information_cloudflare_bypass_failure">Cloudflareをバイパスできませんでした</string>
     <string name="notification_chapters_single_and_more">第%1$s章とその他%2$d章</string>
     <string name="notification_chapters_multiple">第%1$s章</string>

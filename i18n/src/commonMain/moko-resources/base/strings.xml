@@ -939,7 +939,6 @@
     <string name="channel_errors">Errors</string>
     <string name="channel_new_chapters">Volume updates</string>
     <string name="channel_app_updates">App updates</string>
-    <string name="channel_ext_updates">Extension updates</string>
 
     <!-- S Pen actions -->
     <string name="spen_previous_page">Previous page</string>

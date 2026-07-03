@@ -308,7 +308,6 @@
     <string name="action_oldest">Els més antics</string>
     <string name="action_move_to_top">Mou a dalt de tot</string>
     <string name="action_move_to_bottom">Mou a sota de tot</string>
-    <string name="channel_ext_updates">Actualitzacions d’extensions</string>
     <string name="updating_library">S’està actualitzant la biblioteca</string>
     <string name="pref_category_reading">Lectura</string>
     <string name="pref_skip_filtered_chapters">Omet els capítols filtrats</string>

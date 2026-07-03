@@ -450,7 +450,6 @@
     <string name="nav_zone_left">Vľavo</string>
     <string name="rotation_reverse_portrait">Obrátený portrét</string>
     <string name="pref_remove_bookmarked_chapters">Povoliť odstraňovanie kapitol so záložkami</string>
-    <string name="channel_ext_updates">Aktualizácie rozšírení</string>
     <string name="pref_app_language">Jazyk aplikácie</string>
     <string name="pref_show_navigation_mode_summary">Krátko ukázať, keď je čítačka otvorená</string>
     <string name="pref_dual_page_invert">Prevrátiť rozdelenie na dve strany</string>

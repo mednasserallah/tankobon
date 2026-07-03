@@ -309,7 +309,6 @@
     <string name="action_oldest">Prus betzos</string>
     <string name="action_move_to_top">Manda a pitzus</string>
     <string name="action_move_to_bottom">Manda a fundu</string>
-    <string name="channel_ext_updates">Agiornamentos de sas estensiones</string>
     <string name="updating_library">Agiornende sa biblioteca</string>
     <string name="pref_category_reading">Leghende</string>
     <string name="pref_skip_filtered_chapters">Brinca sos capìtulos filtrados</string>

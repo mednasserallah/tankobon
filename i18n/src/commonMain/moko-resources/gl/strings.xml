@@ -538,7 +538,6 @@
     <string name="label_titles_section">Elementos</string>
     <string name="label_tracker_section">Servizos de seguimento</string>
     <string name="hour_short">%dh</string>
-    <string name="channel_ext_updates">Actualizacións das extensións</string>
     <string name="local_source">Fonte local</string>
     <string name="manga_tracking_tab">En seguimento</string>
     <string name="reading">Lendo</string>

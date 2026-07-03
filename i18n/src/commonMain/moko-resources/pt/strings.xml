@@ -309,7 +309,6 @@
     <string name="action_move_to_top">Mover para o topo</string>
     <string name="action_move_to_bottom">Mover para o final</string>
     <string name="notification_chapters_single">Capítulo %1$s</string>
-    <string name="channel_ext_updates">Atualizações de extensão</string>
     <string name="updating_library">Atualizando biblioteca</string>
     <string name="pinned_sources">Fixado</string>
     <string name="pref_webtoon_side_padding">Preenchimento lateral</string>

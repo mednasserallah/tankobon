@@ -311,7 +311,6 @@
     <string name="action_oldest">Cele mai vechi</string>
     <string name="action_move_to_top">Mută pe prima poziție</string>
     <string name="action_move_to_bottom">Mută pe ultima poziție</string>
-    <string name="channel_ext_updates">Actualizări de extensie</string>
     <string name="updating_library">Se actualizează biblioteca</string>
     <string name="pref_category_reading">Citind</string>
     <string name="pref_skip_filtered_chapters">Săriți peste capitolele filtrate</string>

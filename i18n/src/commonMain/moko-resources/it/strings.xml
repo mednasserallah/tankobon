@@ -297,7 +297,6 @@
     <string name="channel_new_chapters">Aggiornamenti capitoli</string>
     <string name="secure_screen_summary">Schermo sicuro nasconde i contenuti dell\'app quando cambi applicazione e blocca gli screenshot</string>
     <string name="pref_category_display">Visualizzazione</string>
-    <string name="channel_ext_updates">Aggiornamenti estensione</string>
     <string name="notification_chapters_multiple">Capitoli %1$s</string>
     <string name="notification_chapters_single_and_more">Capitolo %1$s e altri %2$d</string>
     <string name="notification_chapters_single">Capitolo %1$s</string>

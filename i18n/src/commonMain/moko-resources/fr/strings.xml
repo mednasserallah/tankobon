@@ -311,7 +311,6 @@
     <string name="action_oldest">Plus ancien</string>
     <string name="action_move_to_top">Déplacer au début</string>
     <string name="action_move_to_bottom">Déplacer à la fin</string>
-    <string name="channel_ext_updates">Mises à jour d\'extensions</string>
     <string name="updating_library">Mise à jour de la bibliothèque</string>
     <string name="label_sources">Sources</string>
     <string name="pref_category_reading">En cours</string>

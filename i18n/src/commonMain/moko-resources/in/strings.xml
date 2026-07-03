@@ -310,7 +310,6 @@
     <string name="notification_chapters_multiple">Bab %1$s</string>
     <string name="pref_disable_battery_optimization_summary">Membantu pembaruan pustaka dan pencadangan di latar belakang</string>
     <string name="label_sources">Sumber</string>
-    <string name="channel_ext_updates">Pembaruan ekstensi</string>
     <string name="pref_category_reading">Membaca</string>
     <string name="information_webview_required">WebView diperlukan agar aplikasi dapat berfungsi</string>
     <string name="recent_manga_time">Bab %1$s - %2$s</string>

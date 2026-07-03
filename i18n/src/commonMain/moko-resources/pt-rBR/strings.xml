@@ -311,7 +311,6 @@
     <string name="action_oldest">Mais antigos</string>
     <string name="action_move_to_top">Mover para o começo</string>
     <string name="action_move_to_bottom">Mover para o final</string>
-    <string name="channel_ext_updates">Atualizações de extensões</string>
     <string name="updating_library">Atualizando a biblioteca</string>
     <string name="pref_category_reading">Leitura</string>
     <string name="pref_skip_filtered_chapters">Pular os capítulos filtrados</string>

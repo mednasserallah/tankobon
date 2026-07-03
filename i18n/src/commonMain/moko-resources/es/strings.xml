@@ -311,7 +311,6 @@
     <string name="action_move_to_top">Mover al principio</string>
     <string name="action_move_to_bottom">Mover al final</string>
     <string name="updating_library">Actualizando biblioteca</string>
-    <string name="channel_ext_updates">Actualizaciones de extensiones</string>
     <string name="pref_skip_filtered_chapters">Saltar capítulos excluidos por filtros</string>
     <string name="pref_category_reading">Lectura</string>
     <string name="label_sources">Fuentes</string>

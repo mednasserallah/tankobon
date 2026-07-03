@@ -359,7 +359,6 @@
     <string name="cache_deleted">Cache खाली गरियो। %1$d फाइलहरू हटाएका छन्</string>
     <string name="notification_chapters_single_and_more">अध्याय %1$s र %2$d अरू</string>
     <string name="update_check_notification_download_error">डाउनलोड त्रुटि</string>
-    <string name="channel_ext_updates">एक्सटेन्शन अपडेट्स</string>
     <string name="pref_dump_crash_logs_summary">विकासकर्ताहरूसँग साझेदारी गर्नको लागि फाइलमा error logs सेभ गर्दछ</string>
     <string name="label_background_activity">ब्याकग्राउण्ड गतिविधि</string>
     <string name="whats_new">नयाँ के छ</string>

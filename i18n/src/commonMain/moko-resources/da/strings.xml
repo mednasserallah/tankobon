@@ -258,7 +258,6 @@
     <string name="pref_create_backup">Opret sikkerhedskopi</string>
     <string name="rotation_portrait">Stående</string>
     <string name="pref_category_reading">Læser</string>
-    <string name="channel_ext_updates">Udvidelsesopdateringer</string>
     <string name="creating_backup_error">Sikkerhedskopiering mislykkedes</string>
     <string name="rotation_free">Fri</string>
     <string name="channel_errors">Fejl</string>

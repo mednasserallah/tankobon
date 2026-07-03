@@ -263,7 +263,6 @@
     <string name="filter_mode_multiply">Nhân</string>
     <string name="label_help">Trợ giúp</string>
     <string name="no_results_found">Không tìm thấy kết quả nào</string>
-    <string name="channel_ext_updates">Cập nhật tiện ích mở rộng</string>
     <string name="information_webview_outdated">Vui lòng cập nhật WebView để tương thích tốt hơn</string>
     <string name="information_cloudflare_bypass_failure">Bỏ qua Cloudflare thất bại</string>
     <string name="notification_chapters_single">Chương %1$s</string>

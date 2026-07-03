@@ -311,7 +311,6 @@
     <string name="action_oldest">从旧到新</string>
     <string name="action_move_to_top">移到顶部</string>
     <string name="action_move_to_bottom">移到底部</string>
-    <string name="channel_ext_updates">插件更新</string>
     <string name="label_sources">图源</string>
     <string name="updating_library">正在更新书架</string>
     <string name="pref_category_reading">阅读</string>

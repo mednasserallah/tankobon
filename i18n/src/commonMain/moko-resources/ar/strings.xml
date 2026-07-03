@@ -314,7 +314,6 @@
     <string name="action_unpin">إلغاء التثبيت</string>
     <string name="action_pin">تثبيت</string>
     <string name="action_select_inverse">عكس التحديد</string>
-    <string name="channel_ext_updates">تحديثات اﻹضافات</string>
     <string name="channel_new_chapters">تحديثات الفصول</string>
     <string name="information_webview_outdated">يرجى تحديث تطبيق WebView لتوافق أفضل</string>
     <string name="information_webview_required">إن وجود WebView لازم ليعمل التطبيق</string>

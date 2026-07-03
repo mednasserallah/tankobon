@@ -304,7 +304,6 @@
     <string name="action_select_inverse">Velg motsatt</string>
     <string name="action_menu">Meny</string>
     <string name="label_sources">Kilder</string>
-    <string name="channel_ext_updates">Utvidelsesoppdateringer</string>
     <string name="information_webview_required">Appen fungerer ikke uten WebView</string>
     <string name="add_tracking">Legg til sporing</string>
     <string name="manga_info_collapse">Mindre</string>

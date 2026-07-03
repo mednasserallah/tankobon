@@ -311,7 +311,6 @@
     <string name="action_oldest">Äldsta</string>
     <string name="action_move_to_top">Flytta till toppen</string>
     <string name="action_move_to_bottom">Flytta till botten</string>
-    <string name="channel_ext_updates">Tilläggsuppdateringar</string>
     <string name="updating_library">Uppdaterar biblioteket</string>
     <string name="pref_category_reading">Läser</string>
     <string name="pref_skip_filtered_chapters">Hoppa över filtrerade kapitel</string>

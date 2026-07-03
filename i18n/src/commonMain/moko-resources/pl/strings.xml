@@ -336,7 +336,6 @@
     <string name="pinned_sources">Przypięte</string>
     <string name="last_used_source">Ostatnio używane</string>
     <string name="tracking_info">Przesyłanie postępu czytania do zewnętrznego serwisu. Ustaw śledzenie guzikiem \"Śledzenie\" w wybranych tytułach.</string>
-    <string name="channel_ext_updates">Aktualizacje rozszerzeń</string>
     <string name="information_webview_required">WebView jest wymagany do poprawnego działania aplikacji</string>
     <string name="notification_chapters_multiple">Rozdziały %1$s</string>
     <string name="notification_chapters_single_and_more">Rozdział %1$s i %2$d więcej</string>

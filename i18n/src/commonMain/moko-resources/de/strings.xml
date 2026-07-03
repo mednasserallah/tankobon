@@ -311,7 +311,6 @@
     <string name="action_oldest">Älteste</string>
     <string name="action_move_to_top">Nach oben verschieben</string>
     <string name="action_move_to_bottom">Nach unten verschieben</string>
-    <string name="channel_ext_updates">Erweiterungsupdates</string>
     <string name="updating_library">Bibliothek wird aktualisiert</string>
     <string name="pref_skip_filtered_chapters">Gefilterte Kapitel überspringen</string>
     <string name="pref_category_reading">Beim Lesen</string>

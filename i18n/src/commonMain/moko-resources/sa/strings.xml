@@ -433,7 +433,6 @@
     <string name="channel_complete">पूर्णम्</string>
     <string name="channel_new_chapters">अध्यायनवीकरणानि</string>
     <string name="channel_app_updates">अनुप्रयोगनवीकरणानि</string>
-    <string name="channel_ext_updates">विस्तारनवीकरणानि</string>
     <string name="pref_dns_over_https">HTTPS उपरि DNS (DoH)</string>
     <string name="getting_started_guide">प्रारम्भिकमार्गदर्शनम्</string>
     <string name="battery_optimization_setting_activity_not_found">साधनसमायोजनानि उद्घाटयितुं न अशक्नोम्</string>

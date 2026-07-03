@@ -88,7 +88,6 @@
     <string name="tapping_inverted_horizontal">Horizontāls</string>
     <string name="tapping_inverted_none">Nav</string>
     <string name="pref_read_with_tapping_inverted">Invertētas skāriena zonas</string>
-    <string name="channel_ext_updates">Paplašinājumu atjauninājumi</string>
     <string name="channel_new_chapters">Nodaļu atjauninājumi</string>
     <string name="download_notifier_download_paused">Lejupielādes pauzētas</string>
     <string name="information_no_downloads">Nav lejuplāžu</string>
