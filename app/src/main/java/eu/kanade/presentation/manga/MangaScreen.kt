@@ -696,7 +696,7 @@ private fun LazyListScope.sharedChapterItems(
                     title = if (manga.displayMode == Manga.CHAPTER_DISPLAY_NUMBER) {
                         stringResource(
                             MR.strings.display_mode_chapter,
-                            formatVolumeNumber(item.chapter.volumeNumber),
+                            formatVolumeNumber(item.chapter),
                         )
                     } else {
                         item.chapter.name

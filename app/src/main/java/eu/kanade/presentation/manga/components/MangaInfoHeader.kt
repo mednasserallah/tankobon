@@ -358,6 +358,7 @@ private fun MangaAndSourceTitlesLarge(
             author = manga.author,
             artist = manga.artist,
             status = manga.status,
+            edition = manga.edition,
             sourceName = sourceName,
             isStubSource = isStubSource,
             doSearch = doSearch,
@@ -401,6 +402,7 @@ private fun MangaAndSourceTitlesSmall(
                 author = manga.author,
                 artist = manga.artist,
                 status = manga.status,
+                edition = manga.edition,
                 sourceName = sourceName,
                 isStubSource = isStubSource,
                 doSearch = doSearch,
@@ -415,6 +417,7 @@ private fun ColumnScope.MangaContentInfo(
     author: String?,
     artist: String?,
     status: Long,
+    edition: String?,
     sourceName: String,
     isStubSource: Boolean,
     doSearch: (query: String, global: Boolean) -> Unit,
@@ -437,6 +440,17 @@ private fun ColumnScope.MangaContentInfo(
         ),
         textAlign = textAlign,
     )
+
+    if (!edition.isNullOrBlank()) {
+        Spacer(modifier = Modifier.height(2.dp))
+        Text(
+            text = edition,
+            style = MaterialTheme.typography.titleSmall,
+            color = MaterialTheme.colorScheme.primary,
+            modifier = Modifier.secondaryItemAlpha(),
+            textAlign = textAlign,
+        )
+    }
 
     Spacer(modifier = Modifier.height(2.dp))
 

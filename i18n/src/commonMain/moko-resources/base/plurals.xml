@@ -21,8 +21,8 @@
     </plurals>
 
     <plurals name="next_unread_chapters">
-        <item quantity="one">Next unread chapter</item>
-        <item quantity="other">Next %d unread chapters</item>
+        <item quantity="one">Next unread volume</item>
+        <item quantity="other">Next %d unread volumes</item>
     </plurals>
 
     <plurals name="restore_completed_message">
@@ -47,13 +47,13 @@
 
     <!-- Manga info -->
     <plurals name="missing_chapters">
-        <item quantity="one">Missing %1$s chapter</item>
-        <item quantity="other">Missing %1$s chapters</item>
+        <item quantity="one">Missing %1$s volume</item>
+        <item quantity="other">Missing %1$s volumes</item>
     </plurals>
 
     <plurals name="manga_num_chapters">
-        <item quantity="one">%1$s chapter</item>
-        <item quantity="other">%1$s chapters</item>
+        <item quantity="one">%1$s volume</item>
+        <item quantity="other">%1$s volumes</item>
     </plurals>
 
     <plurals name="download_amount">
@@ -67,8 +67,8 @@
     </plurals>
 
     <plurals name="missing_chapters_warning">
-        <item quantity="one">Skipping %d chapter, either the source is missing it or it has been filtered out</item>
-        <item quantity="other">Skipping %d chapters, either the source is missing them or they have been filtered out</item>
+        <item quantity="one">Skipping %d volume, either the source is missing it or it has been filtered out</item>
+        <item quantity="other">Skipping %d volumes, either the source is missing them or they have been filtered out</item>
     </plurals>
 
     <plurals name="notification_new_chapters_summary">
