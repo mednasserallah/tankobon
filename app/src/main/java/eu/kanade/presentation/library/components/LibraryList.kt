@@ -21,23 +21,11 @@ internal fun LibraryList(
     onClick: (LibraryManga) -> Unit,
     onLongClick: (LibraryManga) -> Unit,
     onClickContinueReading: ((LibraryManga) -> Unit)?,
-    searchQuery: String?,
-    onGlobalSearchClicked: () -> Unit,
 ) {
     FastScrollLazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = contentPadding + PaddingValues(vertical = 8.dp),
     ) {
-        item {
-            if (!searchQuery.isNullOrEmpty()) {
-                GlobalSearchItem(
-                    modifier = Modifier.fillMaxWidth(),
-                    searchQuery = searchQuery,
-                    onClick = onGlobalSearchClicked,
-                )
-            }
-        }
-
         items(
             items = items,
             contentType = { "library_list_item" },

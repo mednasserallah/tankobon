@@ -27,20 +27,3 @@ internal fun LazyLibraryGrid(
         content = content,
     )
 }
-
-internal fun LazyGridScope.globalSearchItem(
-    searchQuery: String?,
-    onGlobalSearchClicked: () -> Unit,
-) {
-    if (!searchQuery.isNullOrEmpty()) {
-        item(
-            span = { GridItemSpan(maxLineSpan) },
-            contentType = { "library_global_search_item" },
-        ) {
-            GlobalSearchItem(
-                searchQuery = searchQuery,
-                onClick = onGlobalSearchClicked,
-            )
-        }
-    }
-}
