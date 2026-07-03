@@ -15,5 +15,27 @@ sealed interface TextDetectionState {
     data object Error : TextDetectionState
 
     @Immutable
-    data class Success(val lines: List<DetectedTextLine>) : TextDetectionState
+    data class Success(val items: List<DetectedLineItem>) : TextDetectionState
+}
+
+/** A detected line plus its (optional) translation state. */
+@Immutable
+data class DetectedLineItem(
+    val line: DetectedTextLine,
+    val translation: TranslationState = TranslationState.Idle,
+)
+
+/**
+ * Per-line translation state. [Downloading] covers the one-time language-pack download; all states
+ * other than [Done] are transient or expected (not error-styled beyond [Error]).
+ */
+@Immutable
+sealed interface TranslationState {
+    data object Idle : TranslationState
+    data object Downloading : TranslationState
+    data object Translating : TranslationState
+    data object Error : TranslationState
+
+    @Immutable
+    data class Done(val text: String) : TranslationState
 }

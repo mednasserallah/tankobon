@@ -152,6 +152,14 @@ object AboutScreen : Screen() {
                 }
 
                 item {
+                    // Attribution required by Google's ML Kit / Cloud Translation usage guidelines
+                    // for the on-device English → Arabic translation feature.
+                    TextPreferenceWidget(
+                        title = stringResource(MR.strings.translation_powered_by_google),
+                    )
+                }
+
+                item {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()

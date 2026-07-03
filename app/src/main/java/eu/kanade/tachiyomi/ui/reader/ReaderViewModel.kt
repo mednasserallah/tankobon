@@ -26,9 +26,12 @@ import eu.kanade.tachiyomi.ui.reader.model.ViewerVolumes
 import eu.kanade.tachiyomi.ui.reader.setting.ReaderOrientation
 import eu.kanade.tachiyomi.ui.reader.setting.ReaderPreferences
 import eu.kanade.tachiyomi.ui.reader.setting.ReadingMode
+import eu.kanade.tachiyomi.ui.reader.textdetection.DetectedLineItem
 import eu.kanade.tachiyomi.ui.reader.textdetection.ReadingOrderSorter
 import eu.kanade.tachiyomi.ui.reader.textdetection.TextDetectionState
 import eu.kanade.tachiyomi.ui.reader.textdetection.TextRecognizer
+import eu.kanade.tachiyomi.ui.reader.textdetection.TextTranslator
+import eu.kanade.tachiyomi.ui.reader.textdetection.TranslationState
 import eu.kanade.tachiyomi.ui.reader.textdetection.decodePageBitmap
 import eu.kanade.tachiyomi.ui.reader.viewer.Viewer
 import eu.kanade.tachiyomi.util.chapter.removeDuplicates
@@ -99,6 +102,7 @@ class ReaderViewModel @JvmOverloads constructor(
     val eventFlow = eventChannel.receiveAsFlow()
 
     private val textRecognizer by lazy { TextRecognizer() }
+    private val textTranslator by lazy { TextTranslator() }
 
     /**
      * The manga loaded in the reader. It can be null when instantiated for a short time.
@@ -212,6 +216,7 @@ class ReaderViewModel @JvmOverloads constructor(
             currentChapters.unref()
         }
         textRecognizer.close()
+        textTranslator.close()
     }
 
     /**
@@ -659,7 +664,11 @@ class ReaderViewModel @JvmOverloads constructor(
                     bitmap.recycle()
                 }
                 val sorted = ReadingOrderSorter.sort(lines, rtl = isRtl)
-                if (sorted.isEmpty()) TextDetectionState.Empty else TextDetectionState.Success(sorted)
+                if (sorted.isEmpty()) {
+                    TextDetectionState.Empty
+                } else {
+                    TextDetectionState.Success(sorted.map { DetectedLineItem(it) })
+                }
             }.getOrElse { e ->
                 logcat(LogPriority.ERROR, e) { "On-page text detection failed" }
                 TextDetectionState.Error
@@ -676,6 +685,55 @@ class ReaderViewModel @JvmOverloads constructor(
             } else {
                 it
             }
+        }
+    }
+
+    /** Translates every detected line that hasn't been translated yet. */
+    fun translateDetectedText() {
+        val success = currentDetectionSuccess() ?: return
+        success.items.forEachIndexed { index, item ->
+            if (item.translation is TranslationState.Idle || item.translation is TranslationState.Error) {
+                translateLine(index)
+            }
+        }
+    }
+
+    /** Translates the detected line at [index] from English to Arabic, downloading the model if needed. */
+    fun translateLine(index: Int) {
+        val text = currentDetectionSuccess()?.items?.getOrNull(index)?.line?.text ?: return
+        val requireWifi = readerPreferences.translationWifiOnly.get()
+
+        viewModelScope.launchIO {
+            val result = runCatching {
+                if (textTranslator.isModelMissing()) {
+                    updateLineTranslation(index, TranslationState.Downloading)
+                    textTranslator.ensureModelDownloaded(requireWifi)
+                }
+                updateLineTranslation(index, TranslationState.Translating)
+                TranslationState.Done(textTranslator.translate(text))
+            }.getOrElse { e ->
+                logcat(LogPriority.ERROR, e) { "Translation failed" }
+                TranslationState.Error
+            }
+            updateLineTranslation(index, result)
+        }
+    }
+
+    private fun currentDetectionSuccess(): TextDetectionState.Success? {
+        val dialog = state.value.dialog as? Dialog.TextDetection ?: return null
+        return dialog.state as? TextDetectionState.Success
+    }
+
+    /** Updates a single line's translation state, but only while the same detection sheet is open. */
+    private fun updateLineTranslation(index: Int, translation: TranslationState) {
+        mutableState.update { state ->
+            val dialog = state.dialog as? Dialog.TextDetection ?: return@update state
+            val success = dialog.state as? TextDetectionState.Success ?: return@update state
+            if (index !in success.items.indices) return@update state
+            val updatedItems = success.items.toMutableList().apply {
+                this[index] = this[index].copy(translation = translation)
+            }
+            state.copy(dialog = Dialog.TextDetection(success.copy(items = updatedItems)))
         }
     }
 
