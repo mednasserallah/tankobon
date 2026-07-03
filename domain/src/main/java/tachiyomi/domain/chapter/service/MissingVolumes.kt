@@ -2,45 +2,37 @@ package tachiyomi.domain.chapter.service
 
 import tachiyomi.domain.chapter.model.Volume
 
-fun List<Long>.missingVolumesCount(): Int {
-    if (this.isEmpty()) {
-        return 0
-    }
+/**
+ * Counts the volumes missing between the lowest and highest owned volume.
+ *
+ * Range files (omnibus, `Volume 01-02`) cover every volume from `volumeNumber` to
+ * `volumeNumberEnd`, so they are expanded before counting — an `01-02` plus an `03-04` file
+ * leaves nothing missing.
+ */
+fun List<Volume>.missingVolumesCount(): Int {
+    val present = this
+        .asSequence()
+        .filter { it.isRecognizedNumber }
+        .flatMap { it.volumeNumber..(it.volumeNumberEnd ?: it.volumeNumber) }
+        .toSortedSet()
 
-    val volumes = this
-        // Ignore unknown volume numbers
-        .filterNot { it == -1L }
-        // Only keep unique volumes so that -1 or 16 are not counted multiple times
-        .distinct()
-        .sorted()
+    if (present.isEmpty()) return 0
 
-    if (volumes.isEmpty()) {
-        return 0
-    }
-
-    var missingVolumesCount = 0
-    var previousVolume = 0L // The actual volume number, not the array index
-
-    // We go from 0 to lastVolume - Make sure to use the current index instead of the value
-    for (i in volumes.indices) {
-        val currentVolume = volumes[i]
-        if (currentVolume > previousVolume + 1) {
-            // Add the amount of missing volumes
-            missingVolumesCount += (currentVolume - previousVolume - 1).toInt()
-        }
-        previousVolume = currentVolume
-    }
-
-    return missingVolumesCount
+    // Every whole number between the first and last owned volume that isn't covered.
+    return (present.last() - present.first() + 1 - present.size).toInt()
 }
 
 fun calculateVolumeGap(higherVolume: Volume?, lowerVolume: Volume?): Int {
     if (higherVolume == null || lowerVolume == null) return 0
     if (!higherVolume.isRecognizedNumber || !lowerVolume.isRecognizedNumber) return 0
-    return calculateVolumeGap(higherVolume.volumeNumber, lowerVolume.volumeNumber)
+    // The lower unit may itself be a range; measure the gap from the end of what it covers.
+    return calculateVolumeGap(
+        higherVolume.volumeNumber,
+        lowerVolume.volumeNumberEnd ?: lowerVolume.volumeNumber,
+    )
 }
 
 fun calculateVolumeGap(higherVolumeNumber: Long, lowerVolumeNumber: Long): Int {
     if (higherVolumeNumber < 0L || lowerVolumeNumber < 0L) return 0
-    return (higherVolumeNumber - lowerVolumeNumber - 1).toInt()
+    return (higherVolumeNumber - lowerVolumeNumber - 1).toInt().coerceAtLeast(0)
 }

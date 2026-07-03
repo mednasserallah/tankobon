@@ -385,7 +385,7 @@ private fun MangaScreenSmallImpl(
                         contentType = MangaScreenItem.CHAPTER_HEADER,
                     ) {
                         val missingVolumeCount = remember(chapters) {
-                            chapters.map { it.chapter.volumeNumber }.missingVolumesCount()
+                            chapters.map { it.chapter }.missingVolumesCount()
                         }
                         VolumeHeader(
                             enabled = !isAnySelected,
@@ -607,7 +607,7 @@ fun MangaScreenLargeImpl(
                                 contentType = MangaScreenItem.CHAPTER_HEADER,
                             ) {
                                 val missingVolumeCount = remember(chapters) {
-                                    chapters.map { it.chapter.volumeNumber }.missingVolumesCount()
+                                    chapters.map { it.chapter }.missingVolumesCount()
                                 }
                                 VolumeHeader(
                                     enabled = !isAnySelected,
