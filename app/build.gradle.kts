@@ -291,7 +291,6 @@ dependencies {
 
     // UI libraries
     implementation(libs.material)
-    implementation(libs.flexibleAdapter)
     implementation(libs.photoView)
     implementation(libs.directionalViewPager) {
         exclude(group = "androidx.viewpager", module = "viewpager")
@@ -309,9 +308,6 @@ dependencies {
 
     // Logging
     implementation(libs.logcat)
-
-    // Shizuku
-    implementation(libs.bundles.shizuku)
 
     // String similarity
     implementation(libs.stringSimilarity)
