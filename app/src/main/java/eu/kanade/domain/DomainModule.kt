@@ -9,7 +9,6 @@ import eu.kanade.domain.manga.interactor.SetMangaViewerFlags
 import eu.kanade.domain.manga.interactor.UpdateManga
 import eu.kanade.domain.source.interactor.GetEnabledSources
 import eu.kanade.domain.source.interactor.GetIncognitoState
-import eu.kanade.domain.source.interactor.GetLanguagesWithSources
 import eu.kanade.domain.source.interactor.ToggleIncognito
 import eu.kanade.domain.source.interactor.ToggleLanguage
 import eu.kanade.domain.source.interactor.ToggleSource
@@ -131,7 +130,7 @@ class DomainModule : InjektModule {
         addFactory { GetTracksPerManga(get()) }
         addFactory { GetTracks(get()) }
         addFactory { InsertTrack(get()) }
-        addFactory { SyncChapterProgressWithTrack(get(), get(), get()) }
+        addFactory { SyncChapterProgressWithTrack() }
 
         addSingletonFactory<ChapterRepository> { ChapterRepositoryImpl(get()) }
         addFactory { GetChapter(get()) }
@@ -156,7 +155,6 @@ class DomainModule : InjektModule {
         addSingletonFactory<SourceRepository> { SourceRepositoryImpl(get(), get()) }
         addSingletonFactory<StubSourceRepository> { StubSourceRepositoryImpl(get()) }
         addFactory { GetEnabledSources(get(), get()) }
-        addFactory { GetLanguagesWithSources(get(), get()) }
         addFactory { GetRemoteManga(get()) }
         addFactory { GetSourcesWithNonLibraryManga(get()) }
         addFactory { ToggleLanguage(get()) }

@@ -2,7 +2,6 @@ package tachiyomi.data.source
 
 import eu.kanade.tachiyomi.source.Source
 import eu.kanade.tachiyomi.source.model.FilterList
-import eu.kanade.tachiyomi.source.online.HttpSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
@@ -27,14 +26,6 @@ class SourceRepositoryImpl(
                     supportsLatest = it.supportsLatest,
                 )
             }
-        }
-    }
-
-    override fun getOnlineSources(): Flow<List<DomainSource>> {
-        return sourceManager.sources.map { sources ->
-            sources
-                .filterIsInstance<HttpSource>()
-                .map(::mapSourceToDomainSource)
         }
     }
 

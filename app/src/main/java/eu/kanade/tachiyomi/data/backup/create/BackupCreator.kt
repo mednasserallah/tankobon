@@ -138,9 +138,8 @@ class BackupCreator(
     }
 
     private fun backupSourcePreferences(options: BackupOptions): List<BackupSourcePreferences> {
-        if (!options.sourceSettings) return emptyList()
-
-        return preferenceBackupCreator.createSource(includePrivatePreferences = options.privateSettings)
+        // Per-source (ConfigurableSource) preferences no longer exist; kept empty for backup format compatibility.
+        return emptyList()
     }
 
     companion object {

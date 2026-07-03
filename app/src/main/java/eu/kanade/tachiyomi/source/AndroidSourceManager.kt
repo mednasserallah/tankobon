@@ -1,7 +1,6 @@
 package eu.kanade.tachiyomi.source
 
 import android.content.Context
-import eu.kanade.tachiyomi.source.online.HttpSource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -59,8 +58,6 @@ class AndroidSourceManager(
     }
 
     override fun getAll(): List<Source> = sourcesMapFlow.value.values.toList()
-
-    override fun getOnlineSources(): List<HttpSource> = emptyList()
 
     override fun getStubSources(): List<StubSource> = stubSourcesMap.values.toList()
 
