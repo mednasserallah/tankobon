@@ -29,6 +29,7 @@ import eu.kanade.tachiyomi.ui.reader.setting.ReadingMode
 import eu.kanade.tachiyomi.ui.reader.textdetection.DetectedLineItem
 import eu.kanade.tachiyomi.ui.reader.textdetection.ReadingOrderSorter
 import eu.kanade.tachiyomi.ui.reader.textdetection.TextDetectionState
+import eu.kanade.tachiyomi.ui.reader.textdetection.TextLineMerger
 import eu.kanade.tachiyomi.ui.reader.textdetection.TextRecognizer
 import eu.kanade.tachiyomi.ui.reader.textdetection.TextTranslator
 import eu.kanade.tachiyomi.ui.reader.textdetection.TranslationState
@@ -663,7 +664,8 @@ class ReaderViewModel @JvmOverloads constructor(
                 } finally {
                     bitmap.recycle()
                 }
-                val sorted = ReadingOrderSorter.sort(lines, rtl = isRtl)
+                val merged = TextLineMerger.merge(lines)
+                val sorted = ReadingOrderSorter.sort(merged, rtl = isRtl)
                 if (sorted.isEmpty()) {
                     TextDetectionState.Empty
                 } else {
