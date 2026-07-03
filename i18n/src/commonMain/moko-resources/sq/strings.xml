@@ -11,8 +11,6 @@
     <string name="label_sources">Burimet</string>
     <string name="label_backup">Ruaj dhe rikthe</string>
     <string name="label_migration">Shpërngulu</string>
-    <string name="label_extensions">Shtesa</string>
-    <string name="label_extension_info">Informacione shtesë</string>
     <string name="label_help">Ndihmë</string>
     <string name="information_no_recent">S\'ka përditësime të reja</string>
     <string name="action_disable">Çaktivizo</string>
@@ -64,8 +62,6 @@
     <string name="include">Përfshi: %s</string>
     <string name="exclude">Përjashtoni: %s</string>
     <string name="multi_lang">Shumë</string>
-    <string name="ext_update">Përditëso</string>
-    <string name="ext_obsolete">I vjetëruar</string>
     <string name="channel_progress">Përparim</string>
     <string name="download_notifier_split_page_path_not_found">Nuk mund të gjendej shtegu i skedarit të faqes %d</string>
     <string name="information_no_recent_manga">Asgjë e lexuar kohët e fundit</string>
@@ -176,10 +172,7 @@
     <string name="update_48hour">Çdo 2 ditë</string>
     <string name="pref_library_update_refresh_metadata">Rifresko automatikisht të dhënat meta</string>
     <string name="default_category_summary">Gjithmonë pyesni</string>
-    <string name="ext_install">Instaloni</string>
     <string name="categorized_display_settings">Cilësimet sipas kategorisë për renditjen dhe shfaqjen</string>
-    <string name="ext_update_all">Përditëso të gjitha</string>
-    <string name="ext_updates_pending">Përditësimet në pritje</string>
     <string name="on">Aktiv</string>
     <string name="off">Fikur</string>
     <string name="categories">Kategoritë</string>
@@ -195,7 +188,6 @@
     <string name="action_search">Kërko</string>
     <string name="action_search_hint">Kërko…</string>
     <string name="action_search_settings">Cilësimet e kërkimit</string>
-    <string name="action_global_search">Kërkimi global</string>
     <string name="action_select_all">Selekto të gjitha</string>
     <string name="action_select_inverse">Zgjidhni anasjelltas</string>
     <string name="action_mark_as_unread">Shëno si të palexuar</string>
@@ -237,18 +229,7 @@
     <string name="appwidget_updates_description">Shiko përditësimin e fundit të elementeve të bibliotekes tuaj</string>
     <string name="remove_manga">Ju jeni gati të hiqni \"%s\" nga biblioteka juaj</string>
     <string name="appwidget_unavailable_locked">Miniaplikacioni nuk ofrohet kur kyçja e aplikacionit është aktivizuar</string>
-    <string name="ext_pending">Në pritje</string>
-    <string name="ext_installing">duke instaluar</string>
-    <string name="ext_untrusted">E pabesueshme</string>
-    <string name="ext_app_info">Informacioni i aplikacionit</string>
     <string name="untrusted_extension">Shtesë pabesueshme</string>
-    <string name="extension_api_error">Marrja e listës së shtesave dështoi</string>
-    <string name="ext_info_version">Versioni</string>
-    <string name="ext_info_age_rating">Vlerësimi i moshës</string>
-    <string name="ext_nsfw_short">18+</string>
-    <string name="ext_nsfw_warning">Burimet nga kjo shtesë mund të përmbajnë përmbajtje NSFW (18+)</string>
-    <string name="ext_install_service_notif">Po instalon shtesën…</string>
-    <string name="ext_installer_pref">Instalues</string>
     <string name="pref_fullscreen">Ekran i plotë</string>
     <string name="pref_show_navigation_mode">Shfaq mbivendosjen e zonave të prekjes</string>
     <string name="pref_show_navigation_mode_summary">Trego shkurtimisht kur hapet lexuesi</string>
@@ -282,21 +263,13 @@
     <string name="pref_color_filter_mode">Filtri me ngjyra modaliteti i përzierjes</string>
     <string name="tapping_inverted_horizontal">Horizontale</string>
     <string name="tapping_inverted_both">te dyja</string>
-    <string name="ext_installed">Instaluar</string>
-    <string name="ext_trust">Besim</string>
-    <string name="ext_downloading">Po shkarkohet</string>
-    <string name="ext_uninstall">Çinstaloni</string>
-    <string name="ext_installer_legacy">Trashëgimia</string>
     <string name="untrusted_extension_message">Kjo shtesë u nënshkrua me një certifikatë të pabesueshme dhe nuk u aktivizua.
 \n
 \n Një shtesë me qëllim të keq mund të lexojë çdo kredencial identifikimi të ruajtur në Mihon ose të ekzekutojë kod arbitrar.
 \n
 \n Duke i besuar kësaj certifikate ju i pranoni këto rreziqe.</string>
     <string name="obsolete_extension_message">Kjo shtesë nuk është më e disponueshme. Mund të mos funksionojë siç duhet dhe mund të shkaktojë probleme me aplikacionin. Rekomandohet ta çinstaloni.</string>
-    <string name="ext_info_language">Gjuha</string>
     <string name="pref_read_with_volume_keys">Çelsat e volumit</string>
-    <string name="ext_installer_shizuku_stopped">Shizuku nuk po kandidon</string>
-    <string name="ext_installer_shizuku_unavailable_dialog">Instaloni dhe filloni Shizuku për të përdorur Shizuku si instalues shtesë.</string>
     <string name="pref_page_transitions">Animoni tranzicionet e faqeve</string>
     <string name="pref_show_reading_mode_summary">Trego shkurtimisht modalitetin aktual kur hapet lexuesi</string>
     <string name="pref_create_folder_per_manga">Ruani faqet në dosje të veçanta</string>
@@ -542,8 +515,6 @@
     <string name="local_source">Burimi lokal</string>
     <string name="other_source">Tjetër</string>
     <string name="pinned_sources">Fiksuar</string>
-    <string name="action_global_search_hint">Kërkimi global…</string>
-    <string name="action_global_search_query">Kërkoni për \"%1$s\" globalisht</string>
     <string name="popular">Popullor</string>
     <string name="browse">Shfletoni</string>
     <string name="local_source_help_guide">Udhëzues burimi lokal</string>
@@ -604,9 +575,6 @@
     <string name="clear_history_completed">Historia u fshi</string>
     <string name="source_empty_screen">Nuk u gjet asnjë burim</string>
     <string name="source_filter_empty_screen">Nuk u gjet asnjë burim i instaluar</string>
-    <string name="migration_help_guide">Udhëzuesi i migrimit të burimit</string>
-    <string name="migration_selection_prompt">Zgjidhni një burim për të migruar</string>
-    <string name="migrate">Migroni</string>
     <string name="crash_screen_description">%s hasi në një gabim të papritur. Ne ju sugjerojmë që të fotografoni këtë mesazh, të hidhni regjistrat e aksidenteve dhe më pas ta shpërndani në kanalin tonë të mbështetjes në Discord.</string>
     <string name="crash_screen_restart_application">Rinisni aplikacionin</string>
     <string name="download_insufficient_space">Kapitujt nuk mund të shkarkoheshin për shkak të hapësirës së ulët të ruajtjes</string>

@@ -221,21 +221,12 @@
     <string name="download_notifier_downloader_title">Pobieranie</string>
     <string name="download_notifier_text_only_wifi">Brak połączenia Wi-Fi</string>
     <string name="download_notifier_no_network">Brak połączenia z internetem</string>
-    <string name="action_global_search">Wyszukiwanie globalne</string>
     <string name="other_source">Inne</string>
-    <string name="action_global_search_hint">Wyszukiwanie globalne…</string>
     <string name="browse">Przeglądaj</string>
     <string name="channel_common">Zwykły</string>
     <string name="latest">Najnowsze</string>
     <string name="action_display_download_badge">Pobrane rozdziały</string>
     <string name="information_empty_category">Nie masz żadnych kategorii. Dotknij plusa, aby je utworzyć i zorganizować swoją bibliotekę.</string>
-    <string name="label_extensions">Rozszerzenia</string>
-    <string name="ext_install">Zainstaluj</string>
-    <string name="ext_pending">Oczekujące</string>
-    <string name="ext_downloading">Pobieranie</string>
-    <string name="ext_installing">Instalowanie</string>
-    <string name="ext_installed">Zainstalowano</string>
-    <string name="ext_uninstall">Odinstaluj</string>
     <string name="pref_double_tap_anim_speed">Szybkość animacji podwójnego dotknięcia</string>
     <string name="double_tap_anim_speed_0">Bez animacji</string>
     <string name="double_tap_anim_speed_normal">Normalna</string>
@@ -246,10 +237,6 @@
     <string name="copied_to_clipboard">Skopiowano do schowka:
 \n %1$s</string>
     <string name="copy">Kopiuj</string>
-    <string name="label_extension_info">Szczegóły rozszerzenia</string>
-    <string name="ext_update">Aktualizuj</string>
-    <string name="ext_trust">Ufaj</string>
-    <string name="ext_untrusted">Niezaufane</string>
     <string name="untrusted_extension">Niezaufane rozszerzenie</string>
     <string name="untrusted_extension_message">To rozszerzenie było podpisane niezaufanym certyfikatem i nie zostało aktywowane.
 \n
@@ -257,7 +244,6 @@
 \n
 \nUfając temu rozszerzeniu akceptujesz to zagrożenie.</string>
     <string name="migration_dialog_what_to_include">Zaznacz dane do zawarcia</string>
-    <string name="migrate">Migruj</string>
     <string name="pager_viewer">Widok stron</string>
     <string name="source_not_installed">Nie zainstalowano źródła: %1$s</string>
     <string name="repeating">Czytane ponownie</string>
@@ -283,11 +269,9 @@
     <string name="action_webview_back">Wstecz</string>
     <string name="filter_mode_screen">Ekran</string>
     <string name="no_results_found">Nie znaleziono wyników</string>
-    <string name="migration_selection_prompt">Wybierz źródło, z którego chcesz migrować</string>
     <string name="action_webview_forward">Dalej</string>
     <string name="action_webview_refresh">Odśwież</string>
     <string name="pref_category_library">Biblioteka</string>
-    <string name="ext_obsolete">Przestarzałe</string>
     <string name="obsolete_extension_message">To rozszerzenie nie jest już dostępne i może nie funkcjonować prawidłowo, powodując problemy z aplikacją. Zalecamy odinstalowanie go.</string>
     <string name="pref_date_format">Format daty</string>
     <string name="pref_category_library_update">Globalna aktualizacja</string>
@@ -343,7 +327,6 @@
     <string name="restore_duration">%1$02d min, %2$02d s</string>
     <string name="pref_webtoon_side_padding">Marginesy boczne</string>
     <string name="gray_background">Szary</string>
-    <string name="ext_updates_pending">Dostępne aktualizacje</string>
     <string name="secure_screen">Ukryj ekran</string>
     <string name="action_unpin">Odepnij</string>
     <string name="action_pin">Przypnij</string>
@@ -396,7 +379,6 @@
     <string name="download_insufficient_space">Nie udało się pobrać rozdziałów z powodu braku miejsca na urządzeniu</string>
     <string name="unknown_status">Nieznany status</string>
     <string name="unknown_author">Nieznany autor</string>
-    <string name="action_global_search_query">Szukaj \"%1$s\" globalnie</string>
     <string name="whats_new">Co nowego</string>
     <string name="pref_category_reading_mode">Tryb czytania</string>
     <string name="pref_category_theme">Motyw</string>
@@ -408,7 +390,6 @@
     <string name="channel_complete">Ukończone</string>
     <string name="channel_progress">Postęp</string>
     <string name="chapter_settings_updated">Zaktualizowano domyślne ustawienia rozdziałów</string>
-    <string name="migration_help_guide">Instrukcja przenoszenia źródeł</string>
     <string name="share_page_info">%1$s: %2$s, strona %3$d</string>
     <string name="no_chapters_error">Nie znaleziono rozdziałów</string>
     <string name="set_chapter_settings_as_default">Ustaw jako domyślne</string>
@@ -426,8 +407,6 @@
     <string name="backup_restore_missing_trackers">Serwisy, do których nie zalogowono:</string>
     <string name="pref_remove_bookmarked_chapters">Usuwaj rozdziały dodane do zakładek</string>
     <string name="pref_category_delete_chapters">Usuń rozdziały</string>
-    <string name="ext_nsfw_warning">Źródła z tej wtyczki mogą zawierać treści NSFW (18+)</string>
-    <string name="ext_nsfw_short">18+</string>
     <string name="parental_controls_info">Nie zapobiega to nieoficjalnym lub potencjalnie niepoprawnie oflagowanym rozszerzeniom przed pokazywaniem zwartości NSFW(18+) w aplikacji.</string>
     <string name="pref_category_nsfw_content">NFSW Materiały 18+</string>
     <string name="file_picker_error">Nie znaleziono aplikacji do przeglądania plików</string>
@@ -525,16 +504,11 @@
     <string name="pref_high">Wysokie</string>
     <string name="pref_highest">Najwyższy</string>
     <string name="pref_inverted_colors">Odwrócone</string>
-    <string name="ext_app_info">Informacje o aplikacji</string>
     <string name="relative_time_today">Dzisiaj</string>
     <string name="theme_tealturquoise">Błękitny &amp; Turkusowy</string>
     <string name="theme_midnightdusk">Zmierzch północy</string>
     <string name="notification_size_warning">Ostrzeżenie: duże aktualizacje biblioteki mogą prowadzić do zwiększonego zużycia baterii oraz spowolnienia działania źródeł. Kliknij, by dowiedzieć się więcej.</string>
-    <string name="ext_installer_shizuku_unavailable_dialog">Zainstaluj i uruchom Shizuku, aby używać go jako instalatora rozszerzeń.</string>
-    <string name="ext_installer_pref">Instalator</string>
     <string name="pref_verbose_logging">Szczegółowe logi</string>
-    <string name="ext_install_service_notif">Instalowanie rozszerzenia…</string>
-    <string name="ext_installer_shizuku_stopped">Shizuku nie jest aktywne</string>
     <string name="pref_verbose_logging_summary">Zapisuje szczegółowe logi w logu systemu (obniża wydajność aplikacji)</string>
     <string name="backup_info">Radzimy przechowywać kopie również w innych miejscach.</string>
     <string name="action_sort_count">Ilość wejść</string>
@@ -546,10 +520,7 @@
     <string name="enhanced_tracking_info">Usługi dostarczania ulepszonych funkcji dla niektórych źródeł. Mangi po dodaniu do biblioteki są automatycznie śledzone.</string>
     <string name="enhanced_services">Ulepszone usługi śledzenia</string>
     <string name="channel_app_updates">Aktualizacje aplikacji</string>
-    <string name="ext_update_all">Zaktualizuj wszystko</string>
-    <string name="ext_installer_legacy">Przestarzały</string>
     <string name="pref_auto_clear_chapter_cache">Wyczyść cache rozdziałów przy uruchamianiu aplikacji</string>
-    <string name="extension_api_error">Nie można uzyskać listy rozszerzeń</string>
     <string name="publishing_finished">Opublikowane w całości</string>
     <string name="database_clean">Nie ma nic do wyczyszczynia</string>
     <string name="cancelled">Anulowane</string>
@@ -573,7 +544,6 @@
     <string name="learn_more">Kliknij, by dowiedzieć się więcej</string>
     <string name="update_check_open">Otwórz na GitHubie</string>
     <string name="pref_reset_viewer_flags_success">Reset wszystkich ustawień czytnika</string>
-    <string name="ext_info_version">Wersja</string>
     <string name="cant_open_last_read_chapter">Nie można otworzyć ostatnio czytanego rozdziału</string>
     <string name="not_installed">Niezainstalowane</string>
     <string name="theme_lavender">Lawenda</string>
@@ -593,7 +563,6 @@
     <string name="source_empty_screen">Nie znaleziono źródła</string>
     <string name="source_filter_empty_screen">Nie znaleziono zainstalowanego źródła</string>
     <string name="empty_screen">Cóż, to troszkę niezręczne</string>
-    <string name="ext_info_language">Język</string>
     <string name="reading_list">Lista czytanych</string>
     <string name="custom_cover">Niestandardowa okładka</string>
     <string name="complete_list">Lista zakończonych</string>
@@ -601,7 +570,6 @@
     <string name="pref_reset_viewer_flags">Resetowanie ustawień czytników serii</string>
     <string name="pref_reset_viewer_flags_summary">Resetuje tryb czytania i orientację wszystkich serii</string>
     <string name="download_notifier_split_page_not_found">Strona %d nie została znaleziona podczas podziału</string>
-    <string name="ext_info_age_rating">Oznaczenie wiekowe</string>
     <string name="rotation_reverse_portrait">Do góry nogami</string>
     <string name="download_notifier_split_page_path_not_found">Nie można było znaleźć ścieżki %d strony</string>
     <string name="pref_user_agent_string">Domyślny user agent string</string>
@@ -754,13 +722,11 @@
     <string name="onboarding_description">Na początek ustawmy kilka rzeczy. Zawsze możesz je później zmienić w ustawieniach.</string>
     <string name="onboarding_storage_help_info">Aktualizujesz ze starszej wersji i nie jesteś pewien co wybrać? Zobacz na przewodnik po pamięci.</string>
     <string name="pref_update_only_in_release_period">Przewiduj następną aktualizację</string>
-    <string name="ext_permission_install_apps_warning">Uprawnienia są wymagane aby zainstalować rozszerzenia. Kliknij tutaj aby je przyznać.</string>
     <string name="onboarding_storage_info">Wybierz folder gdzie %1$s będzie zapisywał pobrane rozdziały, kopie zapasowe i inne.
 \n
 \nZalecany jest dedykowany folder.
 \n
 \nWybrany folder:%2$s</string>
-    <string name="ext_revoke_trust">Unieważnij zaufanie nieznanym rozszerzeniom</string>
     <string name="action_open_repo">Repozytorium open source</string>
     <string name="pref_flash_page_summ">Redukuje ghosting na wyświetlaczach e-ink</string>
     <string name="no_location_set">Brak ustawionej ścieżki pamięci</string>
@@ -804,8 +770,6 @@
     <string name="pref_security">Bezpieczeństwo i prywatność</string>
     <string name="pref_auto_update_manga_on_mark_read">Aktualizuj postęp po oznaczeniu jako przeczytane</string>
     <string name="pref_firebase">Dane użytkownika i dzienniki awarii</string>
-    <string name="ext_remove">Usuń</string>
-    <string name="ext_confirm_remove">Usunąć Rozszerzenie?</string>
     <string name="remove_private_extension_message">Czy na pewno chcesz usunąć rozszerzenie \"%s\"?</string>
     <string name="firebase_summary">Przesyłanie dzienników awarii i danych użytkowania pozwoli nam na zidentyfikowanie i naprawę błędów, poprawę wydajności oraz dopasowanie przyszłych wersji aplikacji do twoich potrzeb</string>
     <string name="pref_hardware_bitmap_threshold_default">Domyślne (%d)</string>

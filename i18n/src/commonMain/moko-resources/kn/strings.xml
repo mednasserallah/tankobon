@@ -76,7 +76,6 @@
     <string name="action_mark_as_read">ಓದಿರುವುದಾಗಿ ಗುರುತಿಸು</string>
     <string name="action_select_inverse">ಎಲ್ಲವನ್ನೂ ತ್ಯಜಿಸಿ</string>
     <string name="action_select_all">ಎಲ್ಲವನ್ನು ಆರಿಸು</string>
-    <string name="action_global_search">ಎಲ್ಲೆಡೆ ಹುಡುಕಿ</string>
     <string name="action_search">ಹುಡುಕಿ</string>
     <string name="action_sort_latest_chapter">ಇತ್ತೀಚಿನ ಅಧ್ಯಾಯ</string>
     <string name="action_sort_last_read">ಕೊನೆಯದಾಗಿ ಓದಿದ</string>
@@ -99,8 +98,6 @@
     <string name="information_no_recent">ಹೊಸ ನವೀಕರಣಗಳಿಲ್ಲ</string>
     <string name="information_no_downloads">ಡೌನ್‌ಲೋಡ್‌ಗಳಿಲ್ಲ</string>
     <string name="label_help">ಸಹಾಯ</string>
-    <string name="label_extension_info">ವಿಸ್ತರಣೆ ಮಾಹಿತಿ</string>
-    <string name="label_extensions">ವಿಸ್ತರಣೆಗಳು</string>
     <string name="label_migration">ಮೂಲ ಸ್ಥಳಾಂತರ</string>
     <string name="label_backup">ಬ್ಯಾಕಪ್ ಮತ್ತು ಮರುಸ್ಥಾಪನೆ</string>
     <string name="label_sources">ಮೂಲಗಳು</string>
@@ -196,17 +193,6 @@
 \n
 \nಈ ಪ್ರಮಾಣಪತ್ರವನ್ನು ನಂಬುವ ಮೂಲಕ ನೀವು ಈ ಅಪಾಯಗಳನ್ನು ಸ್ವೀಕರಿಸುತ್ತೀರಿ.</string>
     <string name="untrusted_extension">ವಿಶ್ವಾಸಾರ್ಹವಲ್ಲದ ವಿಸ್ತರಣೆ</string>
-    <string name="ext_uninstall">ಅನ್ಇನ್ಸ್ಟಾಲ್</string>
-    <string name="ext_untrusted">ವಿಶ್ವಾಸಾರ್ಹವಲ್ಲ</string>
-    <string name="ext_trust">ನ೦ಬು</string>
-    <string name="ext_installed">ಇನ್ಸ್ಟಾಲ್ಲ್ಡ್</string>
-    <string name="ext_installing">ಇನ್ಸ್ಟಾಲಿಂಗ್</string>
-    <string name="ext_downloading">ಡೌನ್‌ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ</string>
-    <string name="ext_pending">ಬಾಕಿ ಉಳಿದಂತಹ</string>
-    <string name="ext_install">ಇನ್ಸ್ಟಾಲ್</string>
-    <string name="ext_obsolete">ಬಳಕೆಯಲ್ಲಿಲ್ಲದ</string>
-    <string name="ext_update">ನವೀಕರಿಸಿ</string>
-    <string name="ext_updates_pending">ಬಾಕಿ ಉಳಿದಿರುವ ನವೀಕರಣಗಳು</string>
     <string name="all">ಎಲ್ಲಾ</string>
     <string name="default_category_summary">ಯಾವಾಗಲೂ ಕೇಳಿ</string>
     <string name="default_category">ಡೀಫಾಲ್ಟ್ ವರ್ಗ</string>
@@ -249,8 +235,6 @@
     <string name="notification_new_chapters">ಹೊಸ ಅಧ್ಯಾಯಗಳು ಕಂಡುಬಂದಿವೆ</string>
     <string name="download_queue_error">ಅಧ್ಯಾಯಗಳನ್ನು ಡೌನ್‌ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ಡೌನ್‌ಲೋಡ್‌ಗಳ ವಿಭಾಗದಲ್ಲಿ ನೀವು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಬಹುದು</string>
     <string name="copy">ನಕಲಿಸಿ</string>
-    <string name="migrate">ಸ್ಥಳಾಂತರಿಸಿ</string>
-    <string name="migration_selection_prompt">ಮಾಂಗಾ ಸ್ಥಳಾಂತರಗೊಳಿಸಲು ಮೂಲವನ್ನು ಆಯ್ಕೆ ಮಾಡಿ</string>
     <string name="migration_dialog_what_to_include">ಸೇರಿಸಲು ಡೇಟಾವನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
     <string name="recent_manga_time">ಅಧ್ಯಾಯ. %1$s - %2$s</string>
     <string name="updating_library">ಗ್ರಂಥಾಲಯವನ್ನು ನವೀಕರಿಸಲಾಗುತ್ತಿದೆ</string>
@@ -319,7 +303,6 @@
     <string name="local_source_help_guide">ಲೋಕಲ್ ಮೂಲದ ಮಾರ್ಗದರ್ಶಿ</string>
     <string name="browse">ಬ್ರೌಸ್</string>
     <string name="latest">ಹೊಸದಾದ</string>
-    <string name="action_global_search_hint">ಎಲ್ಲೆಡೆ ಹುಡುಕಿ…</string>
     <string name="pinned_sources">ಪಿನ್ ಮಾಡಿದ</string>
     <string name="last_used_source">ಕೊನೆಯದಾಗಿ ಉಪಯೋಗಿಸಿದ</string>
     <string name="other_source">ಇತರೆ</string>
@@ -394,7 +377,6 @@
     <string name="download_insufficient_space">ಕಡಿಮೆ ಶೇಖರಣಾ ಸ್ಥಳದ ಕಾರಣ ಅಧ್ಯಾಯಗಳನ್ನು ಡೌನ್‌ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ</string>
     <string name="unknown_status">ಅಜ್ಞಾತ ಸ್ಥಿತಿ</string>
     <string name="unknown_author">ಅಜ್ಞಾತ ಲೇಖಕ</string>
-    <string name="action_global_search_query">\"%1$s\" ಅನ್ನು ಗ್ಲೋಬಲ್ ಸರ್ಚ್ ಮಾಡಿ</string>
     <string name="whats_new">ಹೊಸತೇನಿದೆ</string>
     <string name="requires_app_restart">ಅನ್ವಯಿಸಲು ಅಪ್ಲಿಕೇಶನ್ ಮರುಪ್ರಾರಂಭದ ಅಗತ್ಯವಿದೆ</string>
     <string name="label_network">ಅಡ್ವಾನ್ಸ್ಡ್ ಸೆಕ್ಷನ್</string>
@@ -418,13 +400,10 @@
     <string name="backup_restore_missing_trackers">ಟ್ರ್ಯಾಕರ್ ಗಳು ಲಾಗಿನ್ ಆಗಿಲ್ಲ:</string>
     <string name="pref_remove_bookmarked_chapters">ಬುಕ್ ಮಾರ್ಕ್ ಮಾಡಿದ ಅಧ್ಯಾಯಗಳನ್ನು ಅಳಿಸಿ</string>
     <string name="pref_category_delete_chapters">ಅಧ್ಯಾಯಗಳನ್ನು ಅಳಿಸಿ</string>
-    <string name="ext_nsfw_warning">NSFW (18+) ವಿಷಯವನ್ನು ಹೊಂದಿರಬಹುದು</string>
-    <string name="ext_nsfw_short">18+</string>
     <string name="action_search_settings">ಸಂಯೋಜನೆಗಳಲ್ಲಿ ಹುಡುಕಿ</string>
     <string name="spen_next_page">ಮುಂದಿನ ಪುಟ</string>
     <string name="spen_previous_page">ಹಿಂದಿನ ಪುಟ</string>
     <string name="file_picker_error">ಯಾವುದೇ ಫೈಲ್ ಪಿಕ್ಕರ್ ಅಪ್ಲಿಕೇಶನ್ ಕಂಡುಬಂದಿಲ್ಲ</string>
-    <string name="migration_help_guide">ಮೂಲ ವಲಸೆ ಮಾರ್ಗದರ್ಶಿ</string>
     <string name="myanimelist_relogin">ದಯವಿಟ್ಟು ಮತ್ತೆ MAL ಗೆ ಲಾಗಿನ್ ಮಾಡಿ</string>
     <string name="pref_incognito_mode_summary">ಓದುವ ಇತಿಹಾಸವನ್ನು ವಿರಾಮಗೊಳಿಸುತ್ತದೆ</string>
     <string name="pref_incognito_mode">ಅಜ್ಞಾತ ಮೋಡ್</string>

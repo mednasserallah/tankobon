@@ -33,8 +33,6 @@
     <string name="label_data_storage">Data and storage</string>
     <string name="label_stats">Statistics</string>
     <string name="label_migration">Migrate</string>
-    <string name="label_extensions">Extensions</string>
-    <string name="label_extension_info">Extension info</string>
     <string name="label_help">Help</string>
     <string name="label_support_us">Support Us</string>
     <string name="label_default">Default</string>
@@ -75,7 +73,6 @@
     <string name="action_search">Search</string>
     <string name="action_search_hint">Search…</string>
     <string name="action_search_settings">Search settings</string>
-    <string name="action_global_search">Global search</string>
     <string name="action_select_all">Select all</string>
     <string name="action_select_inverse">Select inverse</string>
     <string name="action_mark_as_read">Mark as read</string>
@@ -326,56 +323,16 @@
 
       <!-- Extension section -->
     <string name="multi_lang">Multi</string>
-    <string name="ext_updates_pending">Updates pending</string>
-    <string name="ext_update">Update</string>
-    <string name="ext_update_all">Update all</string>
-    <string name="ext_obsolete">Orphaned</string>
-    <string name="ext_install">Install</string>
-    <string name="ext_pending">Pending</string>
-    <string name="ext_downloading">Downloading</string>
-    <string name="ext_installing">Installing</string>
-    <string name="ext_installed">Installed</string>
-    <string name="ext_trust">Trust</string>
-    <string name="ext_untrusted">Untrusted</string>
-    <string name="ext_uninstall">Uninstall</string>
-    <string name="ext_remove">Remove</string>
-    <string name="ext_confirm_remove">Remove Extension?</string>
-    <string name="ext_app_info">App info</string>
     <string name="untrusted_extension">Untrusted extension</string>
     <string name="untrusted_extension_message">Malicious extensions can read any stored login credentials or execute arbitrary code.\n\nBy trusting this extension, you accept these risks.</string>
     <string name="obsolete_extension_message">This extension is not associated with any store. It will not receive updates, may not function properly, and can cause issues with the app. Uninstalling it is recommended.</string>
     <string name="remove_private_extension_message">Do you really want to remove \"%s\" extension?</string>
-    <string name="extension_api_error">Failed to fetch available extensions</string>
-    <string name="ext_info_version">Version</string>
-    <string name="ext_info_language">Language</string>
-    <string name="ext_info_age_rating">Age rating</string>
-    <string name="ext_nsfw_short">18+</string>
-    <string name="ext_nsfw_warning">Sources from this extension may contain NSFW (18+) content</string>
-    <string name="ext_permission_install_apps_warning">Permissions are needed to install extensions. Tap here to grant.</string>
-    <string name="ext_install_service_notif">Installing extension…</string>
-    <string name="ext_installer_pref">Installer</string>
-    <string name="ext_installer_legacy">Legacy</string>
-    <string name="ext_installer_packageinstaller" translatable="false">PackageInstaller</string>
-    <string name="ext_installer_shizuku" translatable="false">Shizuku</string>
-    <string name="ext_installer_private" translatable="false">Private</string>
-    <string name="ext_installer_shizuku_stopped">Shizuku is not running</string>
-    <string name="ext_installer_shizuku_unavailable_dialog">Install and start Shizuku to use Shizuku as extension installer.</string>
-    <string name="ext_revoke_trust">Revoke trusted unknown extensions</string>
 
     <!-- Extension repos -->
     <string name="action_open_repo">Open source repo</string>
 
     <!-- Extension store -->
-    <string name="extensionStores">Extension stores</string>
     <string name="action.addExtensionStore">Add extension store</string>
-    <string name="extensionStoresScreen.emptyLabel">You haven\'t added an extension store yet</string>
-    <string name="extensionStoresScreen.addStore.title">Add extension store</string>
-    <string name="extensionStoresScreen.addStore.alreadyExists">This extension store already exists</string>
-    <string name="extensionStoresScreen.addStore.processing">Processing…</string>
-    <string name="extensionStoresScreen.addStoreInput.inputLabel">Store index URL</string>
-    <string name="extensionStoresScreen.addStoreDeeplink.bodyText">Do you wish to add the extension store below?</string>
-    <string name="extensionStoresScreen.deleteStore.title">Remove extension store</string>
-    <string name="extensionStoresScreen.deleteStore.body">Do you wish to remove the extension store \"%1$s\" (%2$s)?</string>
 
       <!-- Reader section -->
     <string name="pref_fullscreen">Fullscreen</string>
@@ -694,8 +651,6 @@
     <string name="other_source">Other</string>
     <string name="last_used_source">Last used</string>
     <string name="pinned_sources">Pinned</string>
-    <string name="action_global_search_hint">Global search…</string>
-    <string name="action_global_search_query">Search for \"%1$s\" globally</string>
     <string name="latest">Latest</string>
     <string name="popular">Popular</string>
     <string name="browse">Browse</string>
@@ -876,10 +831,7 @@
     <string name="source_filter_empty_screen">No installed source found</string>
 
     <!-- Source migration screen -->
-    <string name="migration_help_guide">Source migration guide</string>
     <string name="migration_dialog_what_to_include">Select data to include</string>
-    <string name="migration_selection_prompt">Select a source to migrate from</string>
-    <string name="migrate">Migrate</string>
     <!-- Make a copy (noun) when migrating. Don't use for copying to clipboard. -->
     <string name="copy">Copy</string>
     <string name="empty_screen">Well, this is awkward</string>
@@ -1007,45 +959,6 @@
     <!-- Notes screen -->
     <string name="notes_placeholder">Enjoyed the part where…</string>
 
-    <string name="migrationConfigScreen.selectedHeader">Selected</string>
-    <string name="migrationConfigScreen.availableHeader">Available</string>
-    <string name="migrationConfigScreen.selectAllLabel">Select all</string>
-    <string name="migrationConfigScreen.selectNoneLabel">Select none</string>
-    <string name="migrationConfigScreen.selectEnabledLabel">Select enabled sources</string>
-    <string name="migrationConfigScreen.selectPinnedLabel">Select pinned sources</string>
-    <string name="migrationConfigScreen.continueButtonText">Continue</string>
-    <string name="migrationConfigScreen.dataToMigrateHeader">Data to migrate</string>
-    <string name="migrationConfigScreen.removeDownloadsTitle">Delete downloads of current entry after migration</string>
-    <string name="migrationConfigScreen.additionalSearchQueryLabel">Additional keywords (optional)</string>
-    <string name="migrationConfigScreen.additionalSearchQuerySupportingText">Helps narrow down search results by adding additional keywords</string>
-    <string name="migrationConfigScreen.hideUnmatchedTitle">Hide entries without a match</string>
-    <string name="migrationConfigScreen.hideWithoutUpdatesTitle">Hide entries without newer chapters</string>
-    <string name="migrationConfigScreen.hideWithoutUpdatesSubtitle">Only show entry if the match has additional chapters</string>
-    <string name="migrationConfigScreen.enhancedOptionsWarning">These options are slow and dangerous and may lead to restrictions from sources</string>
-    <string name="migrationConfigScreen.deepSearchModeTitle">Advanced search mode</string>
-    <string name="migrationConfigScreen.deepSearchModeSubtitle">Breaks down the title into keywords for a wider search</string>
-    <string name="migrationConfigScreen.prioritizeByChaptersTitle">Match based on chapter number</string>
-    <string name="migrationConfigScreen.prioritizeByChaptersSubtitle">If enabled, chooses the match furthest ahead. Otherwise, picks the first match by source priority.</string>
-    <string name="migrationListScreenTitle">Migration</string>
-    <string name="migrationListScreenTitleWithProgress">Migration (%1$d/%2$d)</string>
-    <string name="migrationListScreen.copyActionLabel">Copy</string>
-    <string name="migrationListScreen.migrateActionLabel">Migrate</string>
-    <string name="migrationListScreen.noMatchFoundText">No alternatives found</string>
-    <string name="migrationListScreen.latestChapterLabel">Latest: %1$s</string>
-    <string name="migrationListScreen.unknownLatestChapter">Unknown</string>
-    <string name="migrationListScreen.searchManuallyActionLabel">Search manually</string>
-    <string name="migrationListScreen.skipActionLabel">Don\'t migrate</string>
-    <string name="migrationListScreen.migrateNowActionLabel">Migrate now</string>
-    <string name="migrationListScreen.copyNowActionLabel">Copy now</string>
-    <string name="migrationListScreen.copyNowActionLabel">Copy now</string>
-    <string name="migrationListScreen.exitDialogTitle">Stop migrating?</string>
-    <string name="migrationListScreen.exitDialog.stopLabel">Stop</string>
-    <string name="migrationListScreen.exitDialog.cancelLabel">Cancel</string>
-    <string name="migrationListScreen.migrateDialog.copyLabel">Copy</string>
-    <string name="migrationListScreen.migrateDialog.migrateLabel">Migrate</string>
-    <string name="migrationListScreen.migrateDialog.cancelLabel">Cancel</string>
-    <string name="migrationListScreen.progressDialog.cancelLabel">Cancel</string>
-    <string name="migrationListScreen.matchWithoutChapterToast">No chapters found, this entry cannot be used for migration</string>
 
     <string name="supportUsScreen.perks">Patrons get access to exclusive channels, with more perks to come.</string>
     <string name="supportUsScreen.donationPlatform.patreon">Patreon (preferred)</string>

@@ -21,7 +21,6 @@
     <string name="label_data_storage">ဒေတာနှင့် သိမ်းဆည်းမှု</string>
     <string name="label_stats">စာရင်းအင်းများ</string>
     <string name="label_migration">ပေါင်းစပ်မှု</string>
-    <string name="label_extension_info">ချိတ်ဆက်မှု အချက်အလက်</string>
     <string name="label_help">အကူအညီ</string>
     <string name="label_default">ပုံသေ</string>
     <string name="label_warning">သတိပေးချက်</string>
@@ -32,7 +31,6 @@
     <string name="history">မှတ်တမ်း</string>
     <string name="label_settings">ဆက်တင်များ</string>
     <string name="label_upcoming">နောက်ဆက်တွဲ</string>
-    <string name="label_extensions">ချိတ်ဆက်မှုများ</string>
     <string name="label_backup">အရံသိမ်းဆည်းခြင်းနှင့် ပြန်လည်ရယူခြင်း</string>
     <string name="unlock_app_title">%s ကို လော့ခ်ဖွင့်ပါ။</string>
     <string name="confirm_lock_change">ဖြည့်ထားသည်ကို အတည်ပြုပါ။</string>
@@ -86,7 +84,6 @@
     <string name="action_select_all">အားလုံးကို ရွေးချယ်ပါ</string>
     <string name="action_select_inverse">ရွေးချယ်မှု ပြောင်းပြန်ပါ</string>
     <string name="action_mark_as_read">ဖတ်ပြီးပြီး</string>
-    <string name="action_global_search">ကမ္ဘာလုံးဆိုင်ရာ ရှာဖွေမှု</string>
     <string name="action_mark_as_unread">မဖတ်ရသေးဘူး</string>
     <string name="action_mark_previous_as_read">ယခင် အပိုင်းများကို ဖတ်ပြီးပြီး</string>
     <string name="action_download">သိမ်းယူထားမယ်</string>
@@ -205,11 +202,7 @@
     <string name="secure_screen_summary">လုံခြုံသော စခရင်သည် အက်ပ်များကို ပြောင်းလဲသည့်အခါ အက်ပ်အကြောင်းအရာများကို ဖုံးကွယ်ပေးပြီး စခရင်ရှော့များကို ပိတ်ဆို့ပါမည်။</string>
     <string name="parental_controls_info">ဒါက တရားမဝင်တဲ့ ဒါမှမဟုတ် မှားယွင်းစွာ သတ်မှတ်ထားတဲ့ တိုးချဲ့ပလပ်အင်တွေက အက်ပ်ထဲမှာ လိင်ပိုင်းဆိုင်ရာ အကြောင်းအရာတွေ ပေါ်လာတာကို တားမရနိုင်ပါဘူး။</string>
     <string name="firebase_summary">ခရပ်စ်လော့ဂ်များနှင့် ခွဲခြမ်းစိတ်ဖြာမှုဒေတာများကို ပေးပို့ခြင်းဖြင့် ပြဿနာများကို ဖော်ထုတ်ပြီး ပြင်ဆင်နိုင်မည်ဖြစ်ပြီး စွမ်းဆောင်ရည်ကို တိုးတက်စေကာ သုံးစွဲသူများ၏ လိုအပ်ချက်များနှင့် ပိုမိုသက်ဆိုင်သော အနာဂတ် အပ်ဒိတ်များကို ပြုလုပ်နိုင်မည်ဖြစ်သည်။\"</string>
-    <string name="ext_confirm_remove">ဖယ်ရှားမည်လား</string>
     <string name="pref_chapter_swipe_start">ဘယ်ဘက်သို့ ပွတ်ဆွဲရန်</string>
-    <string name="ext_update_all">အကုန် အပ်ဒိတ်လုပ်မည်။</string>
-    <string name="ext_pending">စောင့်ဆိုင်းဆဲ</string>
-    <string name="ext_installed">ထည့်သွင်းပြီး</string>
     <string name="obsolete_extension_message">ယခုအခါ ရရှိနိုင်ပါတော့မည်မဟုတ်ပါ။ ၎င်းသည် စနစ်တကျ မလုပ်ဆောင်နိုင်တော့ဘဲ အက်ပ်လီကေးရှင်းတွင် ပြဿနာများ ဖြစ်ပေါ်စေနိုင်ပါသည်။ ဖယ်ရှားပစ်ရန် အကြံပြုအပ်ပါသည်။</string>
     <string name="pref_update_only_in_release_period">နောက်မည့် အချိန်ကို ခန့်မှန်းခြင်း</string>
     <string name="lock_with_biometrics">လော့ခ်ဖြည်ရန် လိုအပ်သည်</string>
@@ -241,22 +234,7 @@
     <string name="exclude">Exclude: %s</string>
     <string name="pref_chapter_swipe_end">ညာဘက်သို့ ပွတ်ဆွဲ</string>
     <string name="multi_lang">အစုံ</string>
-    <string name="ext_updates_pending">လုပ်ဆောင်နေဆဲ</string>
-    <string name="ext_update">အပ်ဒိတ်လုပ်မည်</string>
-    <string name="ext_install">ထည့်သွင်းမည်</string>
-    <string name="ext_downloading">ဒေါင်းလုပ် လုပ်နေသည်</string>
-    <string name="ext_installing">ထည့်သွင်းနေသည်</string>
-    <string name="ext_remove">ဖယ်ရှားသည်</string>
-    <string name="ext_app_info">အက်ပ် အချက်အလက်</string>
     <string name="remove_private_extension_message">\"%s\" ကို တကယ်ဖယ်ရှားလိုပါသလား။</string>
-    <string name="extension_api_error">ရယူခြင်း ကျရှုံးသွားသည်</string>
-    <string name="ext_info_version">ဗာရှင်း</string>
-    <string name="ext_info_language">ဘာသာစကား</string>
-    <string name="ext_info_age_rating">အသက်အကန့်အသတ်</string>
-    <string name="ext_permission_install_apps_warning">ထည့်သွင်းရန် ခွင့်ပြုချက်လိုအပ်သည်။</string>
-    <string name="ext_nsfw_short">၁၈+</string>
-    <string name="ext_install_service_notif">ထည့်သွင်းနေဆဲ…</string>
-    <string name="ext_nsfw_warning">ဤတွင် လိင်ပိုင်းဆိုင်ရာ အကြောင်းအရာများ (၁၈+နှစ်အထက်သာ သင့်လျော်သော) ပါဝင်နိုင်ပါသည်။</string>
     <string name="pref_fullscreen">မျက်နှာပြင်အပြည့်</string>
     <string name="pref_flash_style_black">အမည်း</string>
     <string name="pref_flash_style_white">အဖြူ</string>
@@ -275,12 +253,9 @@
     <string name="pref_library_update_refresh_metadata">metadataကို အလိုလျောက် ပြန်လည်ဆန်းသစ်ပေးပါ။</string>
     <string name="pref_library_update_refresh_metadata_summary">စာအုပ်စင်ကို အပ်ဒိတ်လုပ်လျှင် ကာဗာနှင့် အချက်အလက်သစ်များ ရယူရန်။</string>
     <string name="default_category">မူရင်းကဏ္ဍ</string>
-    <string name="ext_obsolete">အသုံးပြု၍မရ</string>
-    <string name="ext_trust">ယုံကြည်ရန်</string>
     <string name="untrusted_extension">မယုံကြည်ရသေးသော အစိတ်အပိုင်းများ</string>
     <string name="restrictions">ကန့်သက်ထားခြင်း %s</string>
     <string name="network_not_metered">ကန့်သက်မထားသော ကွန်ရက်ပေါ်တွင်သာ</string>
-    <string name="ext_uninstall">သင့်ဖုန်းမှ ဖယ်ရှားရန်</string>
     <string name="theme_monet">Dynamic</string>
     <string name="label_auto">အလိုအလျောက်</string>
 </resources>

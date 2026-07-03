@@ -17,7 +17,6 @@
     <string name="action_sort_date_added">Gidugang ang petsa</string>
     <string name="action_search">Pangitaa</string>
     <string name="action_search_settings">Mga setting sa pagpangita</string>
-    <string name="action_global_search">Pangkalibutanon nga pagpangita</string>
     <string name="action_select_all">Pilia ang tanan</string>
     <string name="action_select_inverse">Pagpili inverse</string>
     <string name="action_mark_as_read">Markahi nga gibasa</string>
@@ -36,8 +35,6 @@
     <string name="label_library">Librarya</string>
     <string name="categories">Mga Kategoriya</string>
     <string name="label_migration">Molalin</string>
-    <string name="label_extensions">Pagpadako</string>
-    <string name="label_extension_info">Impormasyon sa Extension</string>
     <string name="label_recent_manga">Kasaysayan</string>
     <string name="label_backup">Tabang ug sa Pagpasig-uli</string>
     <string name="action_filter">Pagsala</string>
@@ -181,24 +178,8 @@
     <string name="update_72hour">Kada 3 ka adlaw</string>
     <string name="pref_library_update_refresh_metadata_summary">Susiha ang bag-ong hapin ug mga detalye kung mag-update sa librarya</string>
     <string name="include">Apil ang: %s</string>
-    <string name="ext_updates_pending">Naghulat ang mga update</string>
-    <string name="ext_update">Update</string>
-    <string name="ext_update_all">Update tanan</string>
-    <string name="ext_installing">Pag-instalar</string>
-    <string name="ext_installed">Gi-install</string>
-    <string name="ext_trust">Pagsalig</string>
-    <string name="ext_untrusted">Dili kasaligan</string>
-    <string name="ext_uninstall">I-uninstall</string>
     <string name="untrusted_extension">Dili kasaligan nga extension</string>
     <string name="obsolete_extension_message">Kini nga extension dili na magamit.</string>
-    <string name="extension_api_error">Napakyas sa pagkuha sa listahan sa mga extension</string>
-    <string name="ext_nsfw_short">18+</string>
-    <string name="ext_nsfw_warning">Ang mga tinubdan gikan niini nga extension mahimong adunay sulod nga NSFW (18+)</string>
-    <string name="ext_install_service_notif">Nag-instalar og extension…</string>
-    <string name="ext_installer_pref">Installer</string>
-    <string name="ext_installer_legacy">Kabilin</string>
-    <string name="ext_installer_shizuku_stopped">Si Shizuku wala modagan</string>
-    <string name="ext_installer_shizuku_unavailable_dialog">I-install ug sugdi ang Shizuku aron gamiton ang Shizuku isip extension installer.</string>
     <string name="pref_fullscreen">Fullscreen</string>
     <string name="pref_dual_page_split">Duha ka panid nga bahin</string>
     <string name="pref_dual_page_invert">Balita ang duha ka panid nga pagbahin sa pagbutang</string>
@@ -238,14 +219,9 @@
     <string name="pref_show_navigation_mode">Ipakita ang mga tap zone nga overlay</string>
     <string name="pref_show_navigation_mode_summary">Sa daklit ipakita kung giablihan ang magbabasa</string>
     <string name="pref_read_with_tapping_inverted">Balika ang mga tap zone</string>
-    <string name="ext_obsolete">Karaan na</string>
     <string name="exclude">Dili iapil: %s</string>
-    <string name="ext_install">Pag-instalar</string>
-    <string name="ext_downloading">Nag-download</string>
     <string name="pref_library_update_categories_details">Ang manga sa wala iapil nga mga kategorya dili ma-update bisan kung naa usab sila sa mga gilakip nga kategorya.</string>
     <string name="none">Wala</string>
-    <string name="ext_pending">Naghulat</string>
-    <string name="ext_app_info">Impormasyon sa app</string>
     <string name="untrusted_extension_message">Kini nga extension gipirmahan gamit ang dili kasaligan nga sertipiko ug wala gi-aktibo.
 \n
 \nAng usa ka malisyoso nga extension mahimong makabasa sa bisan unsang mga kredensyal sa pag-login nga gitipigan sa Mihon o ipatuman ang arbitraryong code.
@@ -302,9 +278,6 @@
     <string name="save_chapter_as_cbz">I-save ingon CBZ archive</string>
     <string name="tracking_guide">Giya sa pagsubay</string>
     <string name="network_not_metered">Lamang sa ummetered network</string>
-    <string name="ext_info_language">Pinulongan sa Extension</string>
-    <string name="ext_info_version">Extension nga Bersyon</string>
-    <string name="ext_info_age_rating">Rating sa Edad sa Extension</string>
     <string name="vertical_plus_viewer">Padayon nga bertikal</string>
     <string name="scale_type_original_size">Orihinal nga gidak-on</string>
     <string name="scale_type_fit_screen">Haom nga screen</string>

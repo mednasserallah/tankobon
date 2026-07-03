@@ -2,8 +2,6 @@
 <resources>
     <string name="information_no_downloads">దిగుమతులు ఏమి లేవు</string>
     <string name="label_help">సహాయము</string>
-    <string name="label_extension_info">పొడిగింపు యొక్క సమాచారము</string>
-    <string name="label_extensions">పొడిగింపులు</string>
     <string name="label_migration">వలస</string>
     <string name="label_backup">భద్రపరచడము మరియు పునరుద్ధారణ</string>
     <string name="label_sources">మూలాలు</string>
@@ -31,7 +29,6 @@
     <string name="action_mark_as_read">చదివినట్లు గుర్తును పెట్టుము</string>
     <string name="action_select_inverse">ఎంపికలను విపరీతమును చేయుము</string>
     <string name="action_select_all">అన్నిటినీ ఎంచుకోండి</string>
-    <string name="action_global_search">ప్రాపంచిక శోధన</string>
     <string name="action_search_settings">శోధన అమరికలు</string>
     <string name="action_search">వెతకండి</string>
     <string name="action_sort_date_added">జోడించబడిన తేదీ</string>

@@ -21,7 +21,6 @@
     <string name="label_recent_updates">نوێکارییەکان</string>
     <string name="label_backup">یەدەگ کردن و گەڕانەوە بۆ باری سەرەکی</string>
     <string name="label_migration">گواستنەوە</string>
-    <string name="label_extensions">زیادکراوەکان</string>
     <string name="label_recent_manga">تۆماری ڕابردوو</string>
     <string name="manga">مانگا</string>
     <string name="chapters">چاپتەرەکان</string>
@@ -44,7 +43,6 @@
     <string name="action_filter_empty">سڕینەوەی فلتەر</string>
     <string name="action_sort_latest_chapter">نوێترین چاپتەر</string>
     <string name="action_sort_chapter_fetch_date">بەرواری دەرچوون</string>
-    <string name="action_global_search">گەڕانی گشتگیر</string>
     <string name="action_sort_date_added">بەرواری بەردەست بوون</string>
     <string name="action_search">گەڕان</string>
     <string name="action_download">داونلۆد</string>
@@ -53,7 +51,6 @@
     <string name="information_no_recent">هێج نوێکارییەک نییە لەم دواییانەدا</string>
     <string name="label_sources">سەرچاوەکان</string>
     <string name="information_no_recent_manga">هیچ مانگایەکت لەم دواییانە نەخوێندووەتەوە</string>
-    <string name="label_extension_info">زانیاری زیادکراو</string>
     <string name="label_help">یارمەتی</string>
     <string name="information_empty_library">تۆماری ڕابردووەکەت بەتاڵە</string>
     <string name="action_search_settings">گەڕان لە ناو سازکارییەکان</string>
@@ -187,7 +184,6 @@
     <string name="add_to_library">کردنە ناو کۆکراوەکان</string>
     <string name="notification_first_add_to_library">تکایە مانگا بۆ کۆکراوەکان زیاد بکە پێش کردنی ئەمە</string>
     <string name="snack_add_to_library">زیادکردنی مانگا بۆ کۆکراوەکان؟</string>
-    <string name="ext_downloading">داونلۆدکردن</string>
     <string name="label_downloaded_only">تەنها داونلۆدکراوەکان</string>
     <string name="parental_controls_info">ئەمە ڕێگری ناکات لە دەرکەوتنی بابەتی سەروو 18 ی نا فەرمی لە بەرنامەکە.</string>
     <string name="automatic_background">ئۆتۆماتیک</string>

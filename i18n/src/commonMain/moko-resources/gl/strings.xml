@@ -75,24 +75,11 @@
     <string name="pref_page_transitions">Animar transición de páxinas</string>
     <string name="pref_cutout_short">Mostrar contido na área recortada</string>
     <string name="pref_fullscreen">Pantalla completa</string>
-    <string name="ext_nsfw_warning">As fontes desta extensión poden ter contido NSFW (+18)</string>
-    <string name="ext_nsfw_short">+18</string>
     <string name="obsolete_extension_message">Esta extensión xa non está dispoñible. Pode que non funcione ben e cause problemas na aplicación. Recoméndase desinstalala.</string>
     <string name="untrusted_extension_message">Unha extensión maliciosa podería ler calquera credencial de inicio de sesión gardada en Mihon ou executar calquera tipo de código.
 \n
 \nSe confías nesta extensión, aceptas estes riscos.</string>
     <string name="untrusted_extension">Extensión non confiable</string>
-    <string name="ext_untrusted">Non confiable</string>
-    <string name="ext_uninstall">Desinstalar</string>
-    <string name="ext_trust">De confianza</string>
-    <string name="ext_installed">Instaladas</string>
-    <string name="ext_installing">Instalando</string>
-    <string name="ext_downloading">Descargando</string>
-    <string name="ext_pending">Pendentes</string>
-    <string name="ext_install">Instalar</string>
-    <string name="ext_obsolete">Obsoletas</string>
-    <string name="ext_update">Actualizar</string>
-    <string name="ext_updates_pending">Actualizacións pendentes</string>
     <string name="all">Todas</string>
     <string name="default_category_summary">Preguntar sempre</string>
     <string name="default_category">Categoría por defecto</string>
@@ -199,7 +186,6 @@
     <string name="action_mark_as_read">Marcar como lido</string>
     <string name="action_select_inverse">Selección inversa</string>
     <string name="action_select_all">Seleccionar todos</string>
-    <string name="action_global_search">Procura global</string>
     <string name="action_search_settings">Axustes de busca</string>
     <string name="action_search">Procurar</string>
     <string name="action_sort_date_added">Data de adición</string>
@@ -224,8 +210,6 @@
     <string name="information_no_recent">Sen actualizacións recentes</string>
     <string name="information_no_downloads">Sen descargas</string>
     <string name="label_help">Axuda</string>
-    <string name="label_extension_info">Información da extensión</string>
-    <string name="label_extensions">Extensións</string>
     <string name="label_migration">Migrar</string>
     <string name="label_backup">Copia de seguridade e restauración</string>
     <string name="manga">Elementos da biblioteca</string>
@@ -247,9 +231,6 @@
     <string name="relative_time_today">Hoxe</string>
     <string name="pref_update_only_completely_read">Con capítulos sin ler</string>
     <string name="pref_library_update_categories_details">Os elementos das categorías excluídas non se actualizarán aínda se están tamén nas categorías incluídas.</string>
-    <string name="ext_info_version">Versión</string>
-    <string name="ext_install_service_notif">Instalando a extensión…</string>
-    <string name="ext_installer_legacy">Clásico</string>
     <string name="pref_show_navigation_mode">Mostrar a superposición das zonas de toque</string>
     <string name="pref_grayscale">Escala de grises</string>
     <string name="pref_inverted_colors">Invertido</string>
@@ -329,7 +310,6 @@
     <string name="pref_backup_summary">Copias de seguridade manuais e automáticas</string>
     <string name="pref_security_summary">Bloqueo da aplicación e modo discreto</string>
     <string name="pref_update_only_started">Que non foran comezadas</string>
-    <string name="ext_update_all">Actualizar todo</string>
     <string name="tracking_info">Sincronización unidireccional para actualizar o progreso dos capítulos en servizos de seguimento externos. Configúraa na biblioteca, dende o botón de seguimento de cada elemento.</string>
     <string name="action_track">Seguir</string>
     <string name="clear_database_source_item_count">Hai %1$d elementos na base de datos que non están na biblioteca</string>
@@ -342,9 +322,6 @@
     <string name="label_downloaded">Descargados</string>
     <string name="pref_app_language">Idioma da aplicación</string>
     <string name="internal_error">ErroInterno: Revisa o rexistro de erros para máis información</string>
-    <string name="ext_app_info">Información da aplicación</string>
-    <string name="ext_installer_shizuku_stopped">Shizuku non se está executando</string>
-    <string name="ext_installer_shizuku_unavailable_dialog">Instala e inicia Shizuku para utilizalo como instalador de extensións.</string>
     <string name="automatic_background">Automático</string>
     <string name="l_nav">En forma de L</string>
     <string name="pref_navigate_pan">Desprazarse polas imaxes anchas</string>
@@ -356,7 +333,6 @@
     <string name="fdroid_warning">As versións de F-Droid non teñen soporte oficial.
 \nPreme para saber máis.</string>
     <string name="login_success">Conectado</string>
-    <string name="ext_info_age_rating">Clasificación por idades</string>
     <string name="enhanced_services">Servizos de seguimento mellorados</string>
     <string name="enhanced_tracking_info">Estes servizos proporcionan funcións melloradas para fontes concretas. Faise un seguimento automático dos elementos ao engadilos á biblioteca.</string>
     <string name="backup_in_progress">Xa se está facendo unha copia de seguridade</string>
@@ -419,13 +395,11 @@
     <string name="theme_yinyang">Yin e Yang</string>
     <string name="pref_dark_theme_pure_black">Modo negro puro</string>
     <string name="include">Incluír: %s</string>
-    <string name="extension_api_error">Non se puido obter as extensións dispoñibles</string>
     <string name="pref_clear_database">Borrar a base de datos</string>
     <string name="nav_zone_prev">Anterior</string>
     <string name="connected_to_wifi">Só con Wi-Fi</string>
     <string name="network_not_metered">Só en conexións ilimitadas</string>
     <string name="webview_data_deleted">Borráronse os datos do WebView</string>
-    <string name="action_global_search_hint">Procura global…</string>
     <string name="action_sort_last_manga_update">Última comprobación de actualizacións</string>
     <string name="action_sort_count">Número total de entradas</string>
     <string name="action_not_now">Agora non</string>
@@ -446,8 +420,6 @@
     <string name="nav_zone_next">Seguinte</string>
     <string name="rotation_type">Tipo de rotación</string>
     <string name="pref_lowest">A máis baixa</string>
-    <string name="ext_info_language">Idioma</string>
-    <string name="ext_installer_pref">Instalador</string>
     <string name="on">Activado</string>
     <string name="off">Desactivado</string>
     <string name="action_filter_tracked">En seguimento</string>
@@ -531,7 +503,6 @@
     <string name="download_unread">Non lidos</string>
     <string name="track_remove_start_date_conf_text">Isto eliminará a data de comezo seleccionada de %s</string>
     <string name="spen_next_page">Páxina seguinte</string>
-    <string name="migrate">Migrar</string>
     <string name="manga_removed_library">Eliminado da biblioteca</string>
     <string name="manga_info_expand">Máis</string>
     <string name="copied_to_clipboard_plain">Copiado ao portapapeis</string>
@@ -631,9 +602,7 @@
     <string name="pref_clear_history">Eliminar o historial</string>
     <string name="clear_history_completed">Eliminouse o historial</string>
     <string name="source_empty_screen">Non se atopou ningunha fonte</string>
-    <string name="migration_help_guide">Guía de migración de fontes</string>
     <string name="migration_dialog_what_to_include">Escoller os datos a incluír</string>
-    <string name="migration_selection_prompt">Escoller unha fonte da que migrar</string>
     <string name="copy">Copiar</string>
     <string name="empty_screen">Houston, temos un problema</string>
     <string name="not_installed">Non instalado</string>
@@ -676,7 +645,6 @@
     <string name="update_check_no_new_updates">Non hai novas actualizacións dispoñibles</string>
     <string name="update_check_notification_update_available">Nova versión dispoñible!</string>
     <string name="channel_errors">Erros</string>
-    <string name="action_global_search_query">Procurar \"%1$s\" globalmente</string>
     <string name="split_tall_images">Dividir as imaxes altas</string>
     <string name="action_update_category">Actualizar categoría</string>
     <string name="pref_hide_in_library_items">Ocultar elementos que xa estén na biblioteca</string>
@@ -736,8 +704,6 @@
     <string name="onboarding_guides_returning_user">Volvendo instalar %s?</string>
     <string name="pref_relative_format_summary">«%1$s» en lugar de «%2$s»</string>
     <string name="pref_update_only_in_release_period">Predicir cando sae o seguinte capítulo</string>
-    <string name="ext_permission_install_apps_warning">Preme aquí para conceder os permisos para instalar extensións.</string>
-    <string name="ext_revoke_trust">Revogar as extensións de confianza de orixe descoñecida</string>
     <string name="action_open_repo">Abrir o repositorio</string>
     <string name="pref_flash_page">Tremelucir ao cambiar de páxina</string>
     <string name="pref_flash_page_summ">Reducir o efecto de retención de imaxe nas pantallas de tinta electrónica</string>
@@ -799,7 +765,6 @@
     <string name="pref_hardware_bitmap_threshold_summary">Se o lector carga unha páxina en branco, recomendámoste reducilo pouco a pouco.\nLímite actual: %s</string>
     <string name="pref_always_decode_long_strip_with_ssiv_summary">Afecta ao rendemento. Recomendámosche activalo só se a imaxe segue sen verse ao reducir o tamaño máximo</string>
     <string name="pref_download_new_unread_chapters_only">Omitir a descarga de capítulos duplicados xa lidos</string>
-    <string name="ext_confirm_remove">Queres eliminar a extensión?</string>
     <string name="remove_private_extension_message">Seguro que queres eliminar a extensión \"%s\"?</string>
     <string name="pref_flash_duration_summary">%1$s ms</string>
     <string name="invalid_backup_file_json">Copia de seguridade JSON non compatible</string>
@@ -813,7 +778,6 @@
     <string name="pref_flash_page_interval">Escintilar cada</string>
     <string name="pref_flash_with">Escintilar con</string>
     <string name="file_picker_uri_permission_unsupported">Non se puido obter un acceso continuo ao cartafol. É posible que a aplicación se comporte de xeito imprevisto.</string>
-    <string name="ext_remove">Eliminar</string>
     <string name="pref_flash_duration">Duración do flash</string>
     <string name="label_auto">Automático</string>
     <string name="theme_monochrome">Monocromo</string>

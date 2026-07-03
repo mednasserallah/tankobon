@@ -13,8 +13,6 @@
     <string name="label_recent_updates">Updaty</string>
     <string name="label_backup">Záloha a obnova</string>
     <string name="label_migration">Migrácia</string>
-    <string name="label_extensions">Rozšírenia</string>
-    <string name="label_extension_info">Info o rozšíreniach</string>
     <string name="label_help">Pomoc</string>
     <string name="action_settings">Nastavenia</string>
     <string name="action_filter">Filter</string>
@@ -25,7 +23,6 @@
     <string name="action_sort_total">Všetky kapitoly</string>
     <string name="action_sort_last_read">Naposledy čítané</string>
     <string name="action_search">Hľadať</string>
-    <string name="action_global_search">Hľadať všade</string>
     <string name="action_select_all">Vybrať všetko</string>
     <string name="action_mark_as_read">Označiť ako prečítané</string>
     <string name="action_mark_as_unread">Označiť ako neprečítané</string>
@@ -89,15 +86,6 @@
     <string name="pref_auto_update_manga_sync">Aktualizácia priebehu po prečítaní</string>
     <string name="default_category">Predvolená kategória</string>
     <string name="default_category_summary">Vždy sa opýtať</string>
-    <string name="ext_update">aktualizovať</string>
-    <string name="ext_install">Nainštalovať</string>
-    <string name="ext_pending">Čakajúce</string>
-    <string name="ext_downloading">Sťahujem</string>
-    <string name="ext_installing">Inštalujem</string>
-    <string name="ext_installed">Nainštalovaný</string>
-    <string name="ext_trust">Dôverovať</string>
-    <string name="ext_untrusted">Odobrať dôveru</string>
-    <string name="ext_uninstall">Odinštalovať</string>
     <string name="untrusted_extension">Nedôveryhodné rozšírenie</string>
     <string name="untrusted_extension_message">Toto rozšírenie bolo podpísané nedôveryhodným certifikátom a nebolo aktivované.
 \n
@@ -187,7 +175,6 @@
     <string name="action_webview_forward">Vpred</string>
     <string name="action_webview_refresh">Obnoviť</string>
     <string name="pref_category_library">Knižnica</string>
-    <string name="ext_obsolete">Zastaraný</string>
     <string name="obsolete_extension_message">Toto rozšírenie už nie je k dispozícii.</string>
     <string name="clear_database_completed">Záznamy boli odstránené</string>
     <string name="version">Verzia</string>
@@ -203,7 +190,6 @@
     <string name="no_more_results">Žiadne ďalšie výsledky</string>
     <string name="local_source">Lokálny zdroj</string>
     <string name="other_source">Ostatné</string>
-    <string name="action_global_search_hint">Globálne vyhľadávanie…</string>
     <string name="latest">Najnovší</string>
     <string name="browse">Prehľadávať</string>
     <string name="ongoing">Pokračujúci</string>
@@ -261,7 +247,6 @@
     <string name="transition_pages_loading">Načítání stránok…</string>
     <string name="transition_pages_error">Chyba pri načítání stránok: %1$s</string>
     <string name="migration_dialog_what_to_include">Vyberte data, ktoré chcete zahrnúť</string>
-    <string name="migrate">Migrovať</string>
     <string name="copy">Kopírovať</string>
     <string name="download_queue_error">Nepodarilo sa stiahnuť kapitoly. Môžete to skúsiť znova v sekcii na stiahnutie</string>
     <string name="notification_new_chapters">Boli nájdené nové kapitoly</string>
@@ -288,7 +273,6 @@
     <string name="download_notifier_download_paused">Sťahovanie bolo pozastavené</string>
     <string name="channel_common">Bežný</string>
     <string name="no_results_found">Neboli nájdené žiadne výsledky</string>
-    <string name="migration_selection_prompt">Vyberte zdroj zo ktorého chcete migrovat</string>
     <string name="action_sort_latest_chapter">Najnovšia kapitola</string>
     <string name="action_view_chapters">Zobraziť kapitoly</string>
     <string name="action_cancel_all">Zrušiť všetky</string>
@@ -440,7 +424,6 @@
     <string name="add_tracking">Pridať sledovanie</string>
     <string name="unfinished_list">Nedokončený zoznam</string>
     <string name="information_empty_category_dialog">Zatiaľ nemáte žiadne kategórie.</string>
-    <string name="ext_info_age_rating">Vekové hodnotenie</string>
     <string name="date">Dátum</string>
     <string name="tapping_inverted_both">Obe</string>
     <string name="nav_zone_prev">Predchádzajúci</string>
@@ -456,7 +439,6 @@
     <string name="off">Vyp.</string>
     <string name="download_insufficient_space">Nepodarilo sa stiahnuť kapitoly z dôvodu nedostatku úložného priestoru</string>
     <string name="action_sort_count">Celkový počet</string>
-    <string name="ext_installer_legacy">Pôvodný</string>
     <string name="automatic_background">Automatický</string>
     <string name="tapping_inverted_none">Žiadne</string>
     <string name="delete_category">Odstrániť kategóriu</string>
@@ -470,10 +452,6 @@
     <string name="pref_remove_bookmarked_chapters">Povoliť odstraňovanie kapitol so záložkami</string>
     <string name="channel_ext_updates">Aktualizácie rozšírení</string>
     <string name="pref_app_language">Jazyk aplikácie</string>
-    <string name="ext_info_language">Jazyk</string>
-    <string name="ext_installer_pref">Inštalátor</string>
-    <string name="ext_installer_shizuku_stopped">Shizuku nebeží</string>
-    <string name="ext_installer_shizuku_unavailable_dialog">Nainštalujte a spustite Shizuku, aby ste mohli používať Shizuku ako inštalátor rozšírení.</string>
     <string name="pref_show_navigation_mode_summary">Krátko ukázať, keď je čítačka otvorená</string>
     <string name="pref_dual_page_invert">Prevrátiť rozdelenie na dve strany</string>
     <string name="nav_zone_right">Vpravo</string>
@@ -510,9 +488,6 @@
     <string name="backup_restore_missing_sources">Chýbajúce zdroje:</string>
     <string name="pref_verbose_logging_summary">Výpis podrobných logov do systémových logov (znižuje výkon aplikácie)</string>
     <string name="network_not_metered">Iba v nemeranej sieti</string>
-    <string name="ext_update_all">Aktualizovať všetko</string>
-    <string name="extension_api_error">Nepodarilo sa získať zoznam rozšírení</string>
-    <string name="ext_install_service_notif">Inštaluje sa rozšírenie…</string>
     <string name="pref_read_with_tapping_inverted">Invertovať oblasti dotyku</string>
     <string name="pref_create_folder_per_manga">Uloženie stránok do samostatných priečinkov</string>
     <string name="gray_background">Šedivá</string>
@@ -529,8 +504,6 @@
     <string name="restore_duration">%1$02d min., %2$02d s</string>
     <string name="multi_lang">Viacjazyčné</string>
     <string name="no_chapters_error">Nenašli sa žiadne kapitoly</string>
-    <string name="ext_app_info">Informácie o aplikácii</string>
-    <string name="ext_info_version">Verzia</string>
     <string name="pref_cutout_short">Zobraziť obsah v oblasti výrezu</string>
     <string name="tapping_inverted_horizontal">Horizontálne</string>
     <string name="disabled_nav">Zakázané</string>
@@ -545,7 +518,6 @@
     <string name="rotation_type">Typ rotácie</string>
     <string name="action_close">Zatvoriť</string>
     <string name="pref_library_update_categories_details">Záznamy vo vylúčených kategóriách nebudú aktualizované, aj keď sú tiež v zahrnutých kategóriách.</string>
-    <string name="ext_updates_pending">Čakajúce aktualizácie</string>
     <string name="spen_next_page">Ďalšia strana</string>
     <string name="update_check_open">Otvoriť na GitHub-e</string>
     <string name="getting_started_guide">Príručka pre začiatočníkov</string>
@@ -556,8 +528,6 @@
     <string name="action_sort_last_manga_update">Posledná aktualizácia</string>
     <string name="action_remove_everything">Odstrániť všetko</string>
     <string name="internal_error">InternalError: Skontrolujte záznmy pre ďalšie informácie</string>
-    <string name="ext_nsfw_short">18+</string>
-    <string name="ext_nsfw_warning">Zdroje z tohto rozšírenia môžu obsahovať obsah pre dospleých (18+)</string>
     <string name="pref_dual_page_invert_summary">Ak umiestnenie rozdelenia na dve strany nezodpovedá smeru čítania</string>
     <string name="pref_show_reading_mode">Zobraziť režim čítania</string>
     <string name="invalid_backup_file_missing_manga">Záloha neobsahuje žiadnu mangu.</string>
@@ -565,7 +535,6 @@
     <string name="backup_info">Dôrazne sa odporúča automatické zálohovanie. Kópie by ste si mali uchovávať aj na iných miestach.</string>
     <string name="pref_dump_crash_logs">Výpis logu o zlyhaní</string>
     <string name="pref_reset_user_agent_string">Obnoviť predvolený reťazec User-Agent</string>
-    <string name="action_global_search_query">Globálne vyhľadať \"%1$s\"</string>
     <string name="description_placeholder">Bez popisu</string>
     <string name="chapter_settings">Nastavenia kapitoly</string>
     <string name="also_set_chapter_settings_for_library">Taktiež nastaviť pre všetky mangy v mojej knižnici</string>
@@ -574,7 +543,6 @@
     <string name="cant_open_last_read_chapter">Nie je možné otvoriť poslednú prečítanú kapitolu</string>
     <string name="learn_more">Klepnutím sa dozviete viac</string>
     <string name="downloaded_chapters">Stiahnuté kapitoly</string>
-    <string name="migration_help_guide">Príručka k migrácií zdrojov</string>
     <string name="pref_reset_viewer_flags_success">Všetky nastavenia čítačky sa obnovia</string>
     <string name="label_background_activity">Aktivita na pozadí</string>
     <string name="pref_disable_battery_optimization_summary">Pomáha s aktualizáciami a zálohovaním knižnice na pozadí</string>
@@ -642,7 +610,6 @@
     <string name="onboarding_permission_install_apps">Povolenie na inštalovanie ľubovoľných aplikácii</string>
     <string name="pref_security">Bezpečnosť</string>
     <string name="onboarding_action_finish">Začíname</string>
-    <string name="ext_confirm_remove">Odstrániť rozšírenie?</string>
     <string name="remove_private_extension_message">Naozaj chcete odstrániť \"%s\" rozšírenie?</string>
     <string name="pref_flash_duration_summary">%1$s ms</string>
     <string name="no_location_set">Nie je nastavené miesto uloženia</string>
@@ -720,9 +687,6 @@
     <string name="pref_hide_missing_chapter_indicators">Schovať chýbajúce indikátory kapitol</string>
     <string name="pref_disallow_non_ascii_filenames">Zakázať názvy súborov, ktoré nie sú v kódovaní ASCII</string>
     <string name="pref_disallow_non_ascii_filenames_details">Zaručí kompatibilitu s niektorými úložiskami, ktoré nepodporujú kódovanie Unicode. Keď je táto možnosť zvolená, budete musieť manuálne premenovať priečinky zdrojov a mangy tak, že nahradíte znaky, ktoré nie sú podporované v kódovaní ASCII, ich malými hexadecimálnymi reprezentáciami. Súbory kapitol netreba premenovávať.</string>
-    <string name="ext_remove">Odstrániť</string>
-    <string name="ext_permission_install_apps_warning">Na inštaláciu rozšírení sú potrebné povolenia. Ťuknite sem, aby ste ich udelili.</string>
-    <string name="ext_revoke_trust">Odstrániť status \"dôveryhodné\" z neznámych rozšírení</string>
     <string name="action_open_repo">Open-source repozitár</string>
     <string name="pref_page_rotate">Otočiť široké strany, aby sa zmestili</string>
     <string name="pref_page_rotate_invert">Preklopiť orientáciu otočených širokých strán</string>

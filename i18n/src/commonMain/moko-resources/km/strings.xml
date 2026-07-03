@@ -19,7 +19,6 @@
     <string name="label_library">បណ្ណាល័យ</string>
     <string name="label_recent_updates">បច្ចុប្បន្នភាព</string>
     <string name="label_migration">ផ្លាស់ប្ដូរ</string>
-    <string name="label_extensions">ប្រភពម៊េងហ្គា</string>
     <string name="label_help">ជំនួយ</string>
     <string name="label_default">លំនាំដើម</string>
     <string name="action_filter">តម្រង</string>
@@ -30,7 +29,6 @@
     <string name="action_sort_total">ចំនួនភាគសរុប</string>
     <string name="action_sort_chapter_fetch_date">ថ្ងៃខែដែលបានឆែកមើល</string>
     <string name="action_sort_date_added">តាមកាលបរិច្ឆេទដែលបានបញ្ចូល</string>
-    <string name="action_global_search">ស្វែងរកជាសកល</string>
     <string name="action_select_inverse">ជ្រើសរើសផ្ទុយ</string>
     <string name="action_mark_as_read">បញ្ជាក់ថាបានអាន</string>
     <string name="action_download">ទាញយក</string>
@@ -70,7 +68,6 @@
     <string name="information_no_downloads">មិនមានការទាញយក</string>
     <string name="information_no_recent">មិនមានបច្ចុប្បន្នភាពថ្មីៗ</string>
     <string name="information_no_recent_manga">អ្នកពុំបានអានអ្វីថ្មីឡើយ</string>
-    <string name="label_extension_info">អំពីប្រភពម៊េងហ្គា</string>
     <string name="information_empty_library">បណ្ណាល័យរបស់អ្នកទទេស្អាត</string>
     <string name="information_empty_category">អ្នកពុំមានការទម្រៀបម៊េងហ្គាឡើយ។ ចុចប៊ូតុងសញ្ញាបូកដើម្បីទម្រៀបម៊េងហ្គាសម្រាប់បណ្ណាល័យរបស់អ្នក។</string>
     <string name="manga">បណ្តុំក្នុងបណ្ណាល័យ</string>

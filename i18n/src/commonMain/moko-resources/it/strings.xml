@@ -220,20 +220,8 @@
     <string name="snack_add_to_library">Aggiungere alla libreria?</string>
     <string name="download_notifier_download_paused">Download in pausa</string>
     <string name="label_migration">Migra</string>
-    <string name="label_extensions">Estensioni</string>
-    <string name="label_extension_info">Informazioni estensione</string>
-    <string name="action_global_search">Ricerca globale</string>
     <string name="action_display_download_badge">Capitoli scaricati</string>
     <string name="action_reset">Reimposta</string>
-    <string name="ext_update">Aggiorna</string>
-    <string name="ext_install">Installa</string>
-    <string name="ext_pending">In coda</string>
-    <string name="ext_downloading">Scaricamento in corso</string>
-    <string name="ext_installing">Installazione in corso</string>
-    <string name="ext_installed">Installato</string>
-    <string name="ext_trust">Attendibile</string>
-    <string name="ext_untrusted">Non attendibile</string>
-    <string name="ext_uninstall">Disinstalla</string>
     <string name="untrusted_extension">Estensione non attendibile</string>
     <string name="untrusted_extension_message">Le estensioni dannose possono leggere le credenziali di accesso memorizzate o eseguire codice arbitrario.
 \n
@@ -244,7 +232,6 @@
     <string name="double_tap_anim_speed_normal">Normale</string>
     <string name="double_tap_anim_speed_fast">Veloce</string>
     <string name="other_source">Altro</string>
-    <string name="action_global_search_hint">Ricerca globale…</string>
     <string name="latest">Ultimi</string>
     <string name="browse">Sfoglia</string>
     <string name="manga_added_library">Aggiunto alla libreria</string>
@@ -257,7 +244,6 @@
     <string name="track_type">Tipo</string>
     <string name="snack_categories_deleted">Categorie rimosse</string>
     <string name="migration_dialog_what_to_include">Seleziona i dati da includere</string>
-    <string name="migrate">Migra</string>
     <string name="copy">Copia</string>
     <string name="information_empty_category">Non hai categorie. Tocca il pulsante più per crearne una e organizzare la tua libreria.</string>
     <string name="channel_common">Comune</string>
@@ -280,12 +266,10 @@
     <string name="filter_mode_darken">Brucia / Scurisci</string>
     <string name="label_help">Aiuto</string>
     <string name="no_results_found">Nessun risultato trovato</string>
-    <string name="migration_selection_prompt">Seleziona una fonte da cui migrare</string>
     <string name="action_webview_back">Indietro</string>
     <string name="action_webview_forward">Avanti</string>
     <string name="action_webview_refresh">Aggiorna</string>
     <string name="pref_category_library">Libreria</string>
-    <string name="ext_obsolete">Obsoleta</string>
     <string name="obsolete_extension_message">Questa estensione non è più disponibile. Potrebbe non funzionare correttamente e causare problemi con l\'app. Si consiglia di disinstallarla.</string>
     <string name="pref_date_format">Formato data</string>
     <string name="pref_category_library_update">Aggiornamenti globali</string>
@@ -307,7 +291,6 @@
     <string name="lock_always">Sempre</string>
     <string name="lock_never">Mai</string>
     <string name="secure_screen">Schermo sicuro</string>
-    <string name="ext_updates_pending">Aggiornamenti in sospeso</string>
     <string name="pref_cutout_short">Mostra il contenuto dell\'area ritagliata</string>
     <string name="information_cloudflare_bypass_failure">Impossibile bypassare Cloudflare</string>
     <string name="information_webview_outdated">Per favore aggiorna l\'app WebView per una migliore compatibilità</string>
@@ -394,7 +377,6 @@
     <string name="pref_show_reading_mode">Mostra modalità di lettura</string>
     <string name="action_disable">Disabilita</string>
     <string name="action_start">Inizia</string>
-    <string name="action_global_search_query">Ricerca «%1$s» globalmente</string>
     <string name="download_insufficient_space">Impossibile scaricare i capitoli a causa dello spazio di archiviazione insufficiente</string>
     <string name="pref_category_reading_mode">Modalità di lettura</string>
     <string name="pref_category_theme">Tema</string>
@@ -405,8 +387,6 @@
     <string name="no_pinned_sources">Non hai fonti fissate</string>
     <string name="pref_remove_bookmarked_chapters">Consenti eliminazione capitoli con segnalibro</string>
     <string name="pref_category_delete_chapters">Elimina capitoli</string>
-    <string name="ext_nsfw_warning">Fonti di questa estensione potrebbero contenere materiale NSFW (18+)</string>
-    <string name="ext_nsfw_short">18+</string>
     <string name="backup_restore_missing_trackers">Tracker non collegati:</string>
     <string name="no_chapters_error">Nessun capitolo trovato</string>
     <string name="parental_controls_info">Questo non impedisce a estensioni non ufficiali oppure incorrettamente segnalate di mostrare contenuti 18+ all\'interno dell\'applicazione.</string>
@@ -426,7 +406,6 @@
     <string name="clear_history_completed">Cronologia cancellata</string>
     <string name="spen_next_page">Pagina successiva</string>
     <string name="spen_previous_page">Pagina precedente</string>
-    <string name="migration_help_guide">Guida alla migrazione delle fonti</string>
     <string name="pref_category_nsfw_content">Fonti NSFW (18+)</string>
     <string name="pref_show_nsfw_source">Mostra nelle liste delle fonti e delle estensioni</string>
     <string name="myanimelist_relogin">Per favore accedi di nuovo a MAL</string>
@@ -526,12 +505,6 @@
     <string name="pref_tablet_ui_mode">Interfaccia tablet</string>
     <string name="pref_remove_exclude_categories">Categorie escluse</string>
     <string name="help_translate">Aiuta a tradurre</string>
-    <string name="ext_app_info">Informazioni app</string>
-    <string name="ext_installer_shizuku_unavailable_dialog">Installa e avvia Shizuku per usarlo come installatore delle estensioni.</string>
-    <string name="ext_installer_shizuku_stopped">Shizuku non è in esecuzione</string>
-    <string name="ext_installer_legacy">Legacy</string>
-    <string name="ext_installer_pref">Installatore</string>
-    <string name="ext_install_service_notif">Installazione dell\'estensione…</string>
     <string name="action_sort_count">Voci totali</string>
     <string name="pref_verbose_logging_summary">Salva i registri dettagliati nel registro di sistema (riduce le prestazioni dell\'app)</string>
     <string name="pref_verbose_logging">Registrazione dettagliata</string>
@@ -542,12 +515,10 @@
     <string name="connected_to_wifi">Solo su Wi-Fi</string>
     <string name="update_72hour">Ogni 3 giorni</string>
     <string name="download_queue_size_warning">Attenzione: grossi download di massa possono rallentare le fonti e/o bloccare %s. Tocca per saperne di più.</string>
-    <string name="ext_update_all">Aggiorna tutto</string>
     <string name="channel_app_updates">Aggiornamenti dell\'applicazione</string>
     <string name="pref_auto_clear_chapter_cache">Cancella la cache capitoli all\'avvio dell\'app</string>
     <string name="clear_database_source_item_count">%1$d voci non presenti in libreria nel database</string>
     <string name="database_clean">Niente da Pulire</string>
-    <string name="extension_api_error">Impossibile ottenere l\'elenco estensioni</string>
     <string name="privacy_policy">Politica sulla privacy</string>
     <string name="pref_update_only_completely_read">Con capitoli non letti</string>
     <string name="library_errors_help">Per un aiuto su come risolvere gli errori di aggiornamento della libreria vedi %1$s</string>
@@ -585,9 +556,6 @@
     <string name="pref_reset_viewer_flags_success">Ripristinate tutte le opzioni del lettore</string>
     <string name="pref_reset_viewer_flags_error">Impossibile ripristinare le opzioni del lettore</string>
     <string name="empty_screen">Beh, questo è imbarazzante</string>
-    <string name="ext_info_age_rating">Classificazione per età</string>
-    <string name="ext_info_version">Versione</string>
-    <string name="ext_info_language">Lingua</string>
     <string name="on_hold_list">In Pausa</string>
     <string name="reading_list">Lista di lettura</string>
     <string name="wish_list">Da Leggere</string>
@@ -739,7 +707,6 @@
     <string name="action_bar_up_description">Navigare su</string>
     <string name="onboarding_description">Per prima cosa impostiamo alcune cose. Puoi sempre cambiarle successivamente nelle impostazioni.</string>
     <string name="onboarding_permission_notifications_description">Ricevi notifiche per aggiornamenti della libreria e altro.</string>
-    <string name="ext_permission_install_apps_warning">È necessaria l\'autorizzazione per installare le estensioni. Tocca qui per concederla.</string>
     <string name="onboarding_storage_info">Selezione una cartella dove %1$s salverà i capitoli scaricati, i backup e altro.
 \n
 \nÈ raccomandato usare una cartella dedicata.
@@ -771,7 +738,6 @@
     <string name="onboarding_storage_help_info">Sti aggiornando da una vecchia versione e non sai cosa selezionare? Consulta la guida all\'archiviazione per info.</string>
     <string name="theme_nord">Nord</string>
     <string name="pref_library_update_smart_update">Aggiornamento intelligente</string>
-    <string name="ext_revoke_trust">Revoca le estensioni sconosciute affidabili</string>
     <string name="invalid_backup_file_error">Errore completo:</string>
     <string name="manga_interval_expected_update">Si prevede che i nuovi capitoli saranno rilasciati tra circa %1$s, con controlli ogni %2$s.</string>
     <string name="action_add_anyway">Aggiungere comunque</string>
@@ -802,8 +768,6 @@
     <string name="confirm_tracker_update">Aggiornare i tracker al capitolo %d?</string>
     <string name="pref_download_new_unread_chapters_only">Salta il download dei capitoli letti duplicati</string>
     <string name="firebase_summary">L\'invio dei registri dei crash e delle analitiche ci consentirà di identificare e risolvere i problemi, migliorare le prestazioni e rendere gli aggiornamenti futuri più pertinenti alle tue esigenze</string>
-    <string name="ext_remove">Rimuovi</string>
-    <string name="ext_confirm_remove">Rimuovere l\'estensione?</string>
     <string name="remove_private_extension_message">Vuoi davvero rimuovere l\'estensione \"%s\"?</string>
     <string name="invalid_backup_file_json">Backup JSON non supportato</string>
     <string name="invalid_backup_file_unknown">Il file di backup è corrotto</string>
@@ -838,13 +802,6 @@
     <string name="logging_in">Autenticazione in corso…</string>
     <string name="possible_duplicates_title">Possibili duplicati</string>
     <string name="theme_catppuccin">Gattuccino</string>
-    <string name="migrationConfigScreen.selectNoneLabel">Annulla selezione</string>
-    <string name="migrationConfigScreen.selectEnabledLabel">Seleziona fonti attive</string>
-    <string name="migrationConfigScreen.selectPinnedLabel">Seleziona fonti fissate</string>
-    <string name="migrationConfigScreen.continueButtonText">Continua</string>
-    <string name="migrationConfigScreen.availableHeader">Disponibile</string>
-    <string name="migrationConfigScreen.selectAllLabel">Seleziona tutto</string>
-    <string name="migrationConfigScreen.selectedHeader">Selezionato</string>
     <string name="clear_database_history_warning">I capitoli letti e i progressi di lettura di entità non in libreria andranno persi</string>
     <string name="clear_db_exclude_read">Mantieni entità con capitoli letti</string>
     <string name="clear_database_text">Stai per rimuovere elementi dal database</string>
@@ -860,37 +817,6 @@
     <string name="pref_download_concurrent_sources">Download da fonti simultanee</string>
     <string name="pref_download_concurrent_pages">Download da pagine simultanee</string>
     <string name="pref_download_concurrent_pages_summary">Pagine scaricate simultaneamente per fonte</string>
-    <string name="migrationConfigScreen.dataToMigrateHeader">Dati da migrare</string>
-    <string name="migrationConfigScreen.removeDownloadsTitle">Elimina i download della voce corrente dopo la migrazione</string>
-    <string name="migrationConfigScreen.additionalSearchQueryLabel">Parole chiave aggiuntive (facoltative)</string>
-    <string name="migrationConfigScreen.additionalSearchQuerySupportingText">Aiuta a restringere i risultati della ricerca aggiungendo parole chiave aggiuntive</string>
-    <string name="migrationConfigScreen.hideUnmatchedTitle">Nascondi le voci senza corrispondenza</string>
-    <string name="migrationConfigScreen.hideWithoutUpdatesTitle">Nascondi le voci senza nuovi capitoli</string>
-    <string name="migrationConfigScreen.hideWithoutUpdatesSubtitle">Mostra la voce solo se ha capitoli aggiuntivi</string>
-    <string name="migrationConfigScreen.enhancedOptionsWarning">Queste opzioni sono lente e pericolose e possono comportare restrizioni da parte delle fonti</string>
-    <string name="migrationConfigScreen.deepSearchModeTitle">Modalità di ricerca avanzata</string>
-    <string name="migrationConfigScreen.deepSearchModeSubtitle">Suddivide il titolo in parole chiave per una ricerca più ampia</string>
-    <string name="migrationConfigScreen.prioritizeByChaptersTitle">Corrispondenza in base al numero del capitolo</string>
-    <string name="migrationConfigScreen.prioritizeByChaptersSubtitle">Se abilitato, sceglie l\'ultima corrispondenza. Altrimenti, sceglie la prima corrispondenza in base alla priorità della fonte.</string>
-    <string name="migrationListScreenTitle">Migrazione</string>
-    <string name="migrationListScreenTitleWithProgress">Migrazione (%1$d/%2$d)</string>
-    <string name="migrationListScreen.copyActionLabel">Copia</string>
-    <string name="migrationListScreen.migrateActionLabel">Migra</string>
-    <string name="migrationListScreen.noMatchFoundText">Nessuna alternativa trovata</string>
-    <string name="migrationListScreen.latestChapterLabel">Ultimo: %1$s</string>
-    <string name="migrationListScreen.unknownLatestChapter">Sconosciuto</string>
-    <string name="migrationListScreen.searchManuallyActionLabel">Cerca manualmente</string>
-    <string name="migrationListScreen.skipActionLabel">Non migrare</string>
-    <string name="migrationListScreen.migrateNowActionLabel">Migra ora</string>
-    <string name="migrationListScreen.copyNowActionLabel">Copia ora</string>
-    <string name="migrationListScreen.exitDialogTitle">Interrompere la migrazione?</string>
-    <string name="migrationListScreen.exitDialog.stopLabel">Interrompi</string>
-    <string name="migrationListScreen.exitDialog.cancelLabel">Annulla</string>
-    <string name="migrationListScreen.migrateDialog.copyLabel">Copia</string>
-    <string name="migrationListScreen.migrateDialog.migrateLabel">Migra</string>
-    <string name="migrationListScreen.migrateDialog.cancelLabel">Annulla</string>
-    <string name="migrationListScreen.progressDialog.cancelLabel">Annulla</string>
-    <string name="migrationListScreen.matchWithoutChapterToast">Nessun capitolo trovato, questa voce non può essere utilizzata per la migrazione</string>
     <string name="download_bookmarked">Segnato</string>
     <string name="action_filter_excluded_scanlators">Filtrare i scanlator esclusi</string>
 </resources>

@@ -10,8 +10,6 @@
     <string name="label_download_queue">คิวดาวน์โหลด</string>
     <string name="label_library">คลัง</string>
     <string name="label_backup">สำรองข้อมูลและการเรียกคืน</string>
-    <string name="label_extensions">ส่วนขยาย</string>
-    <string name="label_extension_info">ข้อมูลส่วนขยาย</string>
     <string name="action_settings">ตั้งค่า</string>
     <string name="action_filter">ตัวกรอง</string>
     <string name="label_recent_updates">อัปเดต</string>
@@ -56,18 +54,11 @@
     <string name="all">ทั้งหมด</string>
     <string name="charging">ขณะกำลังชาร์จ</string>
     <string name="default_category_summary">ถามทุกครั้ง</string>
-    <string name="ext_update">อัปเดต</string>
-    <string name="ext_install">ติดตั้ง</string>
-    <string name="ext_pending">รอดำเนินการ</string>
-    <string name="ext_downloading">กำลังดาวน์โหลด</string>
-    <string name="ext_installing">กำลังติดตั้ง</string>
-    <string name="ext_installed">ติดตั้งแล้ว</string>
     <string name="pref_reader_navigation">การนำทาง</string>
     <string name="pref_reader_theme">สีพื้นหลัง</string>
     <string name="white_background">ขาว</string>
     <string name="black_background">ดำ</string>
     <string name="label_recent_manga">ประวัติ</string>
-    <string name="action_global_search">ค้นหาทั้งหมด</string>
     <string name="action_mark_previous_as_read">ตั้งก่อนหน้านี้เป็นอ่านแล้ว</string>
     <string name="label_help">ช่วยเหลือ</string>
     <string name="label_migration">โยกย้าย</string>
@@ -98,9 +89,6 @@
     <string name="pref_update_only_non_completed">ข้ามรายการที่มีสถานะ \"จบแล้ว\"</string>
     <string name="pref_auto_update_manga_sync">อัปเดตความคืบหน้าหลังอ่าน</string>
     <string name="default_category">หมวดหมู่เริ่มต้น</string>
-    <string name="ext_trust">เชื่อถือได้</string>
-    <string name="ext_untrusted">ไม่น่าเชื่อถือ</string>
-    <string name="ext_uninstall">ถอนการติดตั้ง</string>
     <string name="untrusted_extension">ส่วนขยายที่ไม่น่าเชื่อถือ</string>
     <string name="untrusted_extension_message">ส่วนขยายที่เป็นอันตรายสามารถอ่านข้อมูลการเข้าสู่ระบบที่จัดเก็บไว้ หรือเรียกใช้โค้ดโดยอำเภอใจ
 \n
@@ -186,7 +174,6 @@
     <string name="no_more_results">ไม่มีผลลัพธ์เพิ่มเติม</string>
     <string name="local_source">แหล่งที่มาภายในเครื่อง</string>
     <string name="other_source">อื่น ๆ</string>
-    <string name="action_global_search_hint">ค้นหาทั้งหมด…</string>
     <string name="latest">ล่าสุด</string>
     <string name="browse">เรียกดู</string>
     <string name="ongoing">ยังไม่จบ</string>
@@ -252,7 +239,6 @@
     <string name="transition_pages_loading">กำลังโหลดหน้า …</string>
     <string name="transition_pages_error">ไม่สามารถโหลดหน้า: %1$s</string>
     <string name="migration_dialog_what_to_include">เลือกข้อมูลที่จะรวมไว้</string>
-    <string name="migrate">โยกย้าย</string>
     <string name="copy">คัดลอก</string>
     <string name="download_queue_error">ไม่สามารถดาวน์โหลดตอน สามารถลองอีกครั้งได้ในส่วนการดาวน์โหลด</string>
     <string name="notification_new_chapters">พบตอนใหม่</string>
@@ -280,7 +266,6 @@
     <string name="channel_common">ทั่วไป</string>
     <string name="filter_mode_multiply">หลากหลาย</string>
     <string name="filter_mode_darken">เบิร์น / มืดขึ้น</string>
-    <string name="migration_selection_prompt">เลือกแหล่งที่มาที่จะย้ายจาก</string>
     <string name="pref_remove_bookmarked_chapters">อนุญาตให้ลบตอนที่บุ๊คมาร์คไว้</string>
     <string name="pref_category_delete_chapters">การลบตอน</string>
     <string name="pref_always_show_chapter_transition">แสดงการเปลี่ยนผ่านตอนเสมอ</string>
@@ -311,11 +296,7 @@
     <string name="pref_dual_page_split">แยกส่วนหน้ากว้าง</string>
     <string name="pref_show_navigation_mode_summary">แสดงครู่หนึ่งเมื่อเปิดตัวอ่าน</string>
     <string name="pref_show_navigation_mode">แสดงตำแหน่งโซนการแตะ</string>
-    <string name="ext_nsfw_warning">แหล่งที่มาจากส่วนขยายนี้อาจมีเนื้อหา NSFW (18+)</string>
-    <string name="ext_nsfw_short">18+</string>
     <string name="obsolete_extension_message">ส่วนขยายนี้ไม่สามารถใช้ได้อีกต่อไป แอปอาจทำงานไม่ถูกต้องและอาจทำให้เกิดปัญหากับแอปได้ ขอแนะนำให้ถอนการติดตั้งออก</string>
-    <string name="ext_obsolete">ล้าสมัย</string>
-    <string name="ext_updates_pending">อัปเดตที่รอดำเนินการ</string>
     <string name="exclude">ที่ยกเว้นไว้: %s</string>
     <string name="include">ที่รวมไว้: %s</string>
     <string name="none">ไม่มี</string>
@@ -385,7 +366,6 @@
     <string name="nav_zone_right">ขวา</string>
     <string name="nav_zone_next">ถัดไป</string>
     <string name="edge_nav">ขอบ</string>
-    <string name="migration_help_guide">คู่มือการโยกย้ายแหล่งที่มา</string>
     <string name="clear_history_confirmation">แน่ใจไหม? ประวัติทั้งหมดจะหายไป</string>
     <string name="clear_history_completed">ลบประวัติแล้ว</string>
     <string name="pref_clear_history">ล้างประวัติ</string>
@@ -416,7 +396,6 @@
     <string name="unknown_author">ไม่ทราบผู้แต่ง</string>
     <string name="no_pinned_sources">ไม่มีแหล่งที่มาที่ตรึงไว้</string>
     <string name="local_source_help_guide">คู่มือแหล่งที่มาภายในเครื่อง</string>
-    <string name="action_global_search_query">ค้นหา \"%1$s\" ในทั้งหมด</string>
     <string name="pinned_sources">ที่ตรึงไว้</string>
     <string name="last_used_source">ใช้ล่าสุด</string>
     <string name="tabs_header">แท็บ</string>
@@ -488,18 +467,12 @@
     <string name="local_filter_order_by">เรียงตาม</string>
     <string name="date">วันที่</string>
     <string name="categorized_display_settings">การตั้งค่าการจัดเรียงตามหมวดหมู่</string>
-    <string name="ext_install_service_notif">กำลังติดตั้งส่วนขยาย…</string>
     <string name="pref_hide_threshold">ความเร็วในการซ่อนเมนูบนเมื่อเลื่อน</string>
     <string name="restore_miui_warning">การสำรอง/กู้คืนอาจทำงานไม่ถูกต้องหากปิดใช้งานการเพิ่มประสิทธิภาพ MIUI</string>
     <string name="label_background_activity">กิจกรรมเบื้องหลัง</string>
     <string name="error_no_match">ไม่พบรายการที่ตรงกัน</string>
     <string name="getting_started_guide">คู่มือเริ่มต้นใช้งาน</string>
     <string name="spen_next_page">หน้าถัดไป</string>
-    <string name="ext_update_all">อัปเดตทั้งหมด</string>
-    <string name="ext_installer_pref">ตัวติดตั้ง</string>
-    <string name="ext_installer_legacy">แบบเก่า</string>
-    <string name="ext_installer_shizuku_stopped">Shizuku ไม่ทำงาน</string>
-    <string name="ext_installer_shizuku_unavailable_dialog">ติดตั้งและเริ่ม Shizuku เพื่อใช้ Shizuku เป็นตัวติดตั้งส่วนขยาย</string>
     <string name="action_track">ติดตาม</string>
     <string name="chapter_not_found">ไม่พบตอน</string>
     <string name="cover_saved">บันทึกปกแล้ว</string>
@@ -535,8 +508,6 @@
     <string name="tracking_guide">คู่มือการติดตาม</string>
     <string name="pref_remove_exclude_categories">หมวดหมู่ที่ยกเว้นไว้</string>
     <string name="enhanced_tracking_info">ใช้สำหรับเฉพาะบางแหล่งที่มา รายการจะถูกติดตามโดยอัตโนมัติเมื่อเพิ่มลงในคลัง</string>
-    <string name="ext_app_info">ข้อมูลแอพ</string>
-    <string name="extension_api_error">เกิดข้อผิดพลาดในการดึงรายการส่วนขยายที่พร้อมใช้งาน</string>
     <string name="pref_auto_clear_chapter_cache">ล้างแคชตอนในเมื่อเปิดแอพ</string>
     <string name="label_warning">คำเตือน</string>
     <string name="action_display_local_badge">แหล่งที่มาในเครื่อง</string>
@@ -585,9 +556,6 @@
     <string name="pref_reset_viewer_flags_success">รีเซ็ตค่ากำหนดตัวอ่านทั้งหมดแล้ว</string>
     <string name="pref_reset_viewer_flags_error">ไม่สามารถรีเซ็ตค่ากำหนดตัวอ่าน</string>
     <string name="empty_screen">เอ่อ นี้มันงี่เง่าชะมัด</string>
-    <string name="ext_info_version">เวอร์ชัน</string>
-    <string name="ext_info_language">ภาษา</string>
-    <string name="ext_info_age_rating">ระดับความเหมาะสม</string>
     <string name="wish_list">รายการที่อยากอ่าน</string>
     <string name="on_hold_list">รายการที่พักอ่านไว้</string>
     <string name="unfinished_list">รายการที่ยังไม่จบ</string>
@@ -758,7 +726,6 @@
     <string name="onboarding_description">มาตั้งค่าอะไรสักอย่างกันก่อน คุณสามารถเปลี่ยนสิ่งเหล่านี้ในการตั้งค่าในภายหลังได้</string>
     <string name="no_location_set">ไม่มีการกำหนดตำแหน่งจัดเก็บ</string>
     <string name="onboarding_permission_notifications_description">รับการแจ้งเตือนการอัปเดตคลังและอื่น ๆ</string>
-    <string name="ext_permission_install_apps_warning">จำเป็นต้องมีสิทธิ์ในการติดตั้งส่วนขยาย แตะที่นี่เพื่อให้สิทธิ์</string>
     <string name="private_settings">รวมการตั้งค่าที่ละเอียดอ่อน (เช่น โทเค็นการเข้าสู่ระบบตัวติดตาม)</string>
     <string name="onboarding_permission_action_grant">อนุญาต</string>
     <string name="onboarding_storage_info">เลือกโฟลเดอร์ที่ %1$s จะจัดเก็บการดาวน์โหลดบท การสำรองข้อมูล และอื่นๆ
@@ -769,7 +736,6 @@
     <string name="pref_library_update_smart_update">อัปเดตอัจฉริยะ</string>
     <string name="manga_interval_custom_amount">ความถี่ในการอัปเดตกำหนดเอง:</string>
     <string name="onboarding_storage_help_action">คู่มือการจัดเก็บข้อมูล</string>
-    <string name="ext_revoke_trust">เพิกถอนส่วนขยายที่ไม่รู้จักที่เชื่อถือไว้</string>
     <string name="manga_interval_expected_update_soon">เร็ว ๆ นี้</string>
     <string name="onboarding_storage_help_info">กำลังอัปเดตจากเวอร์ชันเก่าและไม่แน่ใจว่าจะเลือกอะไรใช่ไหม? โปรดดูคู่มือการจัดเก็บข้อมูลสำหรับข้อมูลเพิ่มเติม</string>
     <string name="theme_nord">นอร์ด</string>
@@ -783,8 +749,6 @@
     <string name="onboarding_permission_crashlytics">ส่งบันทึกข้อผิดพลาด</string>
     <string name="onboarding_permission_analytics_description">ส่งข้อมูลการใช้งานที่ไม่ระบุตัวตนเพื่อปรับปรุงคุณสมบัติของแอป</string>
     <string name="firebase_summary">การส่งบันทึกข้อผิดพลาดและการวิเคราะห์จะช่วยให้เราระบุและแก้ไขปัญหา ปรับปรุงประสิทธิภาพ และทำให้การอัปเดตในอนาคตมีความเกี่ยวข้องกับความต้องการของคุณมากขึ้น</string>
-    <string name="ext_remove">นำออก</string>
-    <string name="ext_confirm_remove">ต้องการนำส่วนขยายออกหรือไม่?</string>
     <string name="remove_private_extension_message">ต้องการนำส่วนขยาย \"%s\" ออกหรือไม่?</string>
     <string name="label_upcoming">ที่กำลังจะมีขึ้น</string>
     <string name="action_add_anyway">เพิ่มอยู่ดี</string>

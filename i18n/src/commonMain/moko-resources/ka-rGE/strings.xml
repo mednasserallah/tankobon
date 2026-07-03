@@ -111,13 +111,6 @@
     <string name="default_category">ნაგულისხმევი კატეგორია</string>
     <string name="default_category_summary">ყოველთვის მკითხე</string>
     <string name="all">ყველა</string>
-    <string name="ext_update">განაცლება</string>
-    <string name="ext_install">დაინსტალირება</string>
-    <string name="ext_installing">ინსტალირდება</string>
-    <string name="ext_installed">დაისნტალირებული</string>
-    <string name="ext_downloading">იტვირთება</string>
-    <string name="ext_pending">მოლოდინში</string>
-    <string name="ext_uninstall">წაშლა</string>
     <string name="pref_fullscreen">მთლიან ეკრანზე</string>
     <string name="pref_cutout_short">კონტენტის ჩვენება ჩამოჭრილ ადგილზე</string>
     <string name="pref_page_transitions">გვერდის გადასვლების ანიმირება</string>
@@ -237,7 +230,6 @@
     <string name="local_source">ლოცალური წყარო</string>
     <string name="other_source">სხვა</string>
     <string name="last_used_source">ბოლოს გამოყენებული</string>
-    <string name="action_global_search_hint">გლობალური ძებნა…</string>
     <string name="latest">უკანასკნელი</string>
     <string name="browse">დათვალიერება</string>
     <string name="ongoing">მიმდინარე</string>
@@ -302,8 +294,6 @@
     <string name="updating_library">ბიბლიოთეკის განახლება</string>
     <string name="recent_manga_time">თავ. %1$s - %2$s</string>
     <string name="migration_dialog_what_to_include">ამოირჩიე მონაცემები შესაყვანად</string>
-    <string name="migration_selection_prompt">ამოირჩიე წყარო საიდანაც გინდა მიგრაცია</string>
-    <string name="migrate">მიგრაცია</string>
     <string name="copy">კოპირება</string>
     <string name="download_queue_error">ვერ მოხერხდა თავების გადმოწერა. შეგიძლია სცადო თავიდან გადმოწერების სექციაში</string>
     <string name="notification_new_chapters">ახალი თავები მოიძებნა</string>
@@ -333,19 +323,12 @@
     <string name="track">თვალყურის დევნება</string>
     <string name="label_sources">წყაროები</string>
     <string name="label_backup">რეზერვი</string>
-    <string name="label_extensions">გავრცობები</string>
-    <string name="label_extension_info">გავრცობის შესახებ</string>
-    <string name="action_global_search">გლობალური ძებნა</string>
     <string name="action_move_category">კატეგორიების მინიჭება</string>
     <string name="action_edit_cover">ყდის რედაქტირება</string>
     <string name="action_migrate">მიგრაცია</string>
     <string name="action_pin">მიმაგრება</string>
     <string name="action_unpin">მიმაგრების მოხსნა</string>
     <string name="pref_library_update_refresh_metadata_summary">ბიბლიოთეკის განახლებისას მოძებნე ახალი ყდები და დეტალები</string>
-    <string name="ext_updates_pending">განახლებები მოლოდინის რეჟიმშია</string>
-    <string name="ext_obsolete">მოძველებული</string>
-    <string name="ext_trust">ნდობა</string>
-    <string name="ext_untrusted">არასანდო</string>
     <string name="untrusted_extension">არასანდო დამატება</string>
     <string name="obsolete_extension_message">დამატება ხელმისაწვდომი აღარაა. მან შეიძლება არასწორად იმუშაოს და აპლიკაციას პრობლემები შეუქმნას. გირჩევთ, წაშალოთ ის.</string>
     <string name="pref_double_tap_anim_speed">ორჯერ დაჭერისას ანიმაციის სისწრაფე</string>
@@ -392,7 +375,6 @@
     <string name="loader_not_implemented_error">წყარო ვერ მოიძებნა</string>
     <string name="unknown_status">უცნობი სტატუსი</string>
     <string name="unknown_author">უცნობი ავტორი</string>
-    <string name="action_global_search_query">მოიძებნოს \"%1$s\"-თვის გლობალურად</string>
     <string name="whats_new">რა არის ახალი</string>
     <string name="requires_app_restart">ასამოქმედებლად საჭიროა აპლიკაციის გადატვირთვა</string>
     <string name="label_network">ქსელი</string>
@@ -401,8 +383,6 @@
     <string name="action_disable">გამორთვა</string>
     <string name="action_start">დაწყება</string>
     <string name="action_sort_date_added">დამატების თარიღი</string>
-    <string name="ext_nsfw_warning">შეიძლება შეიჩაცდეს უცენზურო(18+) კონტენტს</string>
-    <string name="ext_nsfw_short">18+</string>
     <string name="pref_remove_bookmarked_chapters">მონიშნული თავების წაშლა</string>
     <string name="pref_category_delete_chapters">თავების წაშლა</string>
     <string name="right_and_left_nav">მარჯვენა და მარცხენა</string>

@@ -44,7 +44,6 @@
     <string name="cover_saved">Azala gorde da</string>
     <string name="cover_updated">Azala eguneratu da</string>
     <string name="clear_database_completed">Sarrerak ezabatu dira</string>
-    <string name="migrate">Migratu</string>
     <string name="set_as_cover">Ezarri azal gisa</string>
     <string name="remove_from_library">Kendu liburutegitik</string>
     <string name="services">Zerbitzuak</string>
@@ -53,8 +52,6 @@
     <string name="restoring_backup_canceled">Berreskuratzea bertan behera utzi da</string>
     <string name="restore_miui_warning">Baliteke babeskopiak/berreskuratzeak behar bezala ez funtzionatzea MIUI optimizazioa desgaituta badago.</string>
     <string name="requires_app_restart">Aplikazioa berrabiarazi behar da indarrean jartzeko</string>
-    <string name="ext_installer_shizuku_unavailable_dialog">Instalatu eta abiarazi Shizuku luzapen instalatzaile gisa erabiltzeko.</string>
-    <string name="ext_installer_shizuku_stopped">Shizuku ez dago martxan</string>
     <string name="restore_completed">Berreskuratu egin da</string>
     <string name="cookies_cleared">Cookieak garbitu dira</string>
     <string name="dropped">Alde batera utzia</string>
@@ -65,8 +62,6 @@
     <string name="invalid_backup_file">Babeskopia fitxategi baliogabea</string>
     <string name="label_backup">Babeskopia egin eta leheneratu</string>
     <string name="label_migration">Migratu</string>
-    <string name="label_extensions">Luzapenak</string>
-    <string name="label_extension_info">Luzapenaren informazioa</string>
     <string name="label_help">Laguntza</string>
     <string name="label_more">Gehiago</string>
     <string name="label_settings">Ezarpenak</string>
@@ -94,13 +89,6 @@
     <string name="logout">Saioa itxi</string>
     <string name="logout_success">Saioa itxi da</string>
     <string name="exclude">Baztertu: %s</string>
-    <string name="ext_update_all">Eguneratu guztiak</string>
-    <string name="ext_install">Instalatu</string>
-    <string name="ext_pending">Egiteke</string>
-    <string name="ext_downloading">Deskargatzen</string>
-    <string name="ext_installing">Instalatzen</string>
-    <string name="ext_nsfw_warning">NSFW (18+) edukia izan dezake</string>
-    <string name="ext_installer_pref">Instalatzailea</string>
     <string name="pref_fullscreen">Pantaila osoa</string>
     <string name="pref_grayscale">Gris-eskala</string>
     <string name="pref_inverted_colors">Alderantzikatua</string>
@@ -164,8 +152,6 @@
     <string name="update_check_confirm">Deskargatu</string>
     <string name="update_check_notification_download_complete">Deskarga bukatua</string>
     <string name="download_notifier_title_error">Errorea</string>
-    <string name="ext_installer_legacy">Ondare</string>
-    <string name="ext_nsfw_short">18+</string>
     <string name="off">Itzali</string>
     <string name="pref_reader_navigation">Nabigazioa</string>
     <string name="color_filter_b_value">U</string>
@@ -183,8 +169,6 @@
     <string name="transition_no_previous">Ez dago aurreko kapitulurik</string>
     <string name="copy">Kopiatu</string>
     <string name="update_check_eol">Android bertsio hau jada ez da onartzen</string>
-    <string name="ext_obsolete">Zaharkitua</string>
-    <string name="ext_uninstall">Desinstalatu</string>
     <string name="pref_show_page_number">Erakutsi orrialdearen zenbakia</string>
     <string name="in_library">Liburutegian</string>
     <string name="manga_info_expand">Gehiago</string>
@@ -223,15 +207,11 @@
     <string name="all">Denak</string>
     <string name="about_dont_kill_my_app">Fabrikatzaile batzuek aplikazioen murrizketa gehigarriak dituzte, atzeko planoko zerbitzuak akabatzen dituztenak. Webgune honek informazio gehiago du nola konpondu jakiteko.</string>
     <string name="untrusted_extension_message">Luzapen maltzurrek gordetako edozein saio kredentzialak irakur ditzake edota kode arbitrarioa exekutatu.\n\nLuzapen honetaz fidatzen bazara, arrisku horiek onartzen dituzu.</string>
-    <string name="ext_untrusted">Fidatu gabekoa</string>
     <string name="pref_reader_theme">Atzeko planoaren kolorea</string>
-    <string name="ext_update">Eguneratu</string>
     <string name="pref_custom_brightness">Distira pertsonalizatua</string>
     <string name="filter_mode_multiply">Biderkatu</string>
     <string name="creating_backup_error">Babeskopia egiteak huts egin du</string>
     <string name="theme_midnightdusk">Gauerdiko ilunabarra</string>
-    <string name="ext_installed">Instalatuak</string>
-    <string name="ext_app_info">Aplikazioaren informazioa</string>
     <string name="pref_page_transitions">Animatu orrialdeen trantsizioak</string>
     <string name="pref_show_reading_mode">Erakutsi irakurketa modua</string>
     <string name="gray_background">Grisa</string>
@@ -239,7 +219,6 @@
     <string name="pref_clear_history">Garbitu historia</string>
     <string name="lock_with_biometrics">Desblokeatzea eskatu</string>
     <string name="default_category_summary">Galdetu beti</string>
-    <string name="ext_install_service_notif">Luzapena instalatzen…</string>
     <string name="filter_mode_overlay">Gainjarri</string>
     <string name="white_background">Zuria</string>
     <string name="black_background">Beltza</string>
@@ -305,7 +284,6 @@
     <string name="error_category_exists">Izen hori daukan kategoria bat badago dagoeneko!</string>
     <string name="update_check_notification_download_in_progress">Deskargatzen…</string>
     <string name="update_check_notification_download_error">Errorea deskargan</string>
-    <string name="migration_selection_prompt">Hautatu migratzeko iturri bat</string>
     <string name="notification_first_add_to_library">Mesedez, gehitu manga zure liburutegian hau egin aurretik</string>
     <string name="transition_pages_loading">Orriak kargatzen…</string>
     <string name="channel_common">Arrunta</string>
@@ -351,7 +329,6 @@
     <string name="action_sort_date_added">Gehiketa data</string>
     <string name="action_search">Bilatu</string>
     <string name="action_search_settings">Bilatu ezarpenak</string>
-    <string name="action_global_search">Bilaketa globala</string>
     <string name="action_select_all">Hautatu dena</string>
     <string name="action_select_inverse">Hautatu alderantzizkoa</string>
     <string name="action_mark_as_read">Markatu irakurria bezala</string>
@@ -414,10 +391,8 @@
     <string name="include">Sartu: %s</string>
     <string name="color_filter_r_value">G</string>
     <string name="other_source">Besteak</string>
-    <string name="action_global_search_hint">Bilaketa globala…</string>
     <string name="clear_history_completed">Historia ezabatu da</string>
     <string name="clear_history_confirmation">Ziur zaude? Historia guztia galduko da.</string>
-    <string name="migration_help_guide">Iturrien migrazio gida</string>
     <string name="migration_dialog_what_to_include">Hautatu sartu nahi dituzun datuak</string>
     <string name="notification_new_chapters">Kapitulu berriak aurkituak</string>
     <string name="information_no_recent_manga">Ez da ezer irakurri azkenaldian</string>
@@ -493,7 +468,6 @@
     <string name="update_12hour">12 orduro</string>
     <string name="update_24hour">Egunero</string>
     <string name="update_48hour">2 egunean behin</string>
-    <string name="ext_trust">Fidagarritzat jo</string>
     <string name="tapping_inverted_both">Biak</string>
     <string name="pref_reader_actions">Ekintzak</string>
     <string name="pref_read_with_long_tap">Erakutsi sakaketa luzean</string>
@@ -502,7 +476,6 @@
     <string name="email">Posta elektroniko helbidea</string>
     <string name="password">Pasahitza</string>
     <string name="login">Hasi saioa</string>
-    <string name="action_global_search_query">Bilatu \"%1$s\" toki guztietan</string>
     <string name="action_show_errors">Sakatu xehetasunak ikusteko</string>
     <string name="update_72hour">3 egunean behin</string>
     <string name="update_weekly">Astero</string>
@@ -522,7 +495,6 @@
     <string name="pref_disable_battery_optimization_summary">Liburutegiaren eguneraketak eta babeskopiak atzeko planoan egiten laguntzen du</string>
     <string name="battery_optimization_setting_activity_not_found">Ezin izan dira gailuaren ezarpenak ireki</string>
     <string name="local_filter_order_by">Ordenatu honen arabera</string>
-    <string name="ext_updates_pending">Eguneraketak egiteke</string>
     <string name="pref_cutout_short">Erakutsi edukia eremu ebakian</string>
     <string name="download_queue_error">Ezin izan dira kapituluak deskargatu. Berriro saia zaitezke deskargen atalean</string>
     <string name="save_chapter_as_cbz">Gorde CBZ artxibo gisa</string>
@@ -530,7 +502,6 @@
     <string name="pref_tablet_ui_mode">Tablet interfazea</string>
     <string name="share_page_info">%1$s: %2$s, %3$d orrialdea</string>
     <string name="information_empty_category_dialog">Oraindik ez duzu kategoriarik sortu.</string>
-    <string name="extension_api_error">Ezin izan da luzapenen zerrenda lortu</string>
     <string name="pref_library_update_refresh_metadata_summary">Bilatu azal eta xehetasun berriak liburutegia eguneratzean</string>
     <string name="pref_library_update_categories_details">Baztertutako kategorietako mangak ez dira eguneratuko, sarturiko kategorietan egon arren.</string>
     <string name="pref_hide_threshold">Pantaila mugitzean menua ezkutatzeko sentikortasuna</string>
@@ -560,12 +531,10 @@
     <string name="pref_update_only_started">Kapitulurik irakurri gabe</string>
     <string name="skipped_reason_completed">Saltatu egin da seriea bukatua dagoelako</string>
     <string name="skipped_reason_not_started">Saltatua ez daudelako irakurritako kapitulurik</string>
-    <string name="ext_info_version">Bertsioa</string>
     <string name="multi_lang">Multi</string>
     <string name="delete_category">Ezabatu kategoria</string>
     <string name="action_close">Itxi</string>
     <string name="pref_app_language">App hizkuntza</string>
-    <string name="ext_info_language">Hizkuntza</string>
     <string name="action_search_hint">Bilatu…</string>
     <string name="delete_category_confirmation">\"%s\" kategoria ezabatu nahi duzu?</string>
     <string name="action_remove_everything">Guztia kendu</string>

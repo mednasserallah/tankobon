@@ -16,8 +16,6 @@
     <string name="notification_new_chapters">قسمت‌های جدید پیدا شدند</string>
     <string name="download_queue_error">دانلود قسمت ها با خطا مواجه شد. با مراجعه به بخش دانلودها می توانید دوباره تلاش کنید</string>
     <string name="copy">کپی</string>
-    <string name="migrate">تغییر منبع</string>
-    <string name="migration_selection_prompt">منبعی که میخواهید به آن منتقل شود را انتخاب کنید</string>
     <string name="migration_dialog_what_to_include">اطلاعاتی که می‌خواهید منتقل شود را انتخاب کنید</string>
     <string name="recent_manga_time">قسمت %1$s - %2$s</string>
     <string name="updating_library">درحال آپدیت کتابخانه</string>
@@ -92,8 +90,6 @@
     <string name="information_no_recent">هیچ قسمت جدیدی یافت نشد</string>
     <string name="information_no_downloads">لیست دانلود خالی است</string>
     <string name="label_help">راهنما</string>
-    <string name="label_extension_info">اطلاعات افزونه</string>
-    <string name="label_extensions">افزونه‌ها</string>
     <string name="label_migration">تغییر منبع</string>
     <string name="label_backup">پشتیبان گیری و بازیابی</string>
     <string name="label_sources">منابع</string>
@@ -111,7 +107,6 @@
     <string name="local_source_help_guide">راهنمای منبع محلی</string>
     <string name="browse">مرور</string>
     <string name="latest">جدیدترین</string>
-    <string name="action_global_search_hint">جست و جو در تمام منابع…</string>
     <string name="pinned_sources">منابع پین شده</string>
     <string name="last_used_source">آخرین استفاده</string>
     <string name="other_source">دیگر</string>
@@ -145,7 +140,6 @@
     <string name="filter_mode_multiply">Multiply</string>
     <string name="filter_mode_overlay">Overlay</string>
     <string name="pref_double_tap_anim_speed">Double tap animation speed</string>
-    <string name="ext_install">نصب</string>
     <string name="action_bookmark">نشانک قسمت</string>
     <string name="channel_ext_updates">آپدیت افزونه‌ها</string>
     <string name="channel_new_chapters">به روزرسانی قسمت‌ها</string>
@@ -213,16 +207,6 @@
 \n
 \nبا اعتماد به این گواهی شما این خطرات را می‌پذیرید.</string>
     <string name="untrusted_extension">افزونه نامطمئن</string>
-    <string name="ext_uninstall">حذف نصب</string>
-    <string name="ext_untrusted">نامطمئن</string>
-    <string name="ext_trust">مورد اعتماد</string>
-    <string name="ext_installed">نصب شده</string>
-    <string name="ext_installing">در حال نصب</string>
-    <string name="ext_downloading">در حال بارگیری</string>
-    <string name="ext_pending">در انتظار</string>
-    <string name="ext_obsolete">منسوخ شده</string>
-    <string name="ext_update">آپدیت</string>
-    <string name="ext_updates_pending">آپدیت‌های در انتظار</string>
     <string name="all">همه</string>
     <string name="default_category_summary">همیشه بپرس</string>
     <string name="default_category">دسته بندی پیشفرض</string>
@@ -366,7 +350,6 @@
     <string name="action_mark_as_read">علامت گذاری به عنوان خوانده شده</string>
     <string name="action_select_inverse">معکوس کردن انتخاب شده</string>
     <string name="action_select_all">انتخاب همه</string>
-    <string name="action_global_search">جست و جوی کامل</string>
     <string name="action_search">جست و جو</string>
     <string name="action_sort_latest_chapter">اخرین قسمت</string>
     <string name="action_sort_last_read">آخرین خوانده ‌شده</string>
@@ -390,7 +373,6 @@
     <string name="unknown_status">وضعیت ناشناخته</string>
     <string name="unknown_author">نویسنده ناشناخته</string>
     <string name="no_pinned_sources">شما هیچ منبع پین‌شده‌ای ندارید</string>
-    <string name="action_global_search_query">«%1$s» در همه منابع جستجو شود</string>
     <string name="whats_new">موارد جدید</string>
     <string name="requires_app_restart">برای اعمال تغییرات، به راه اندازی مجدد برنامه نیاز است</string>
     <string name="label_network">شبکه</string>
@@ -406,7 +388,6 @@
     <string name="pref_incognito_mode">حالت ناشناس</string>
     <string name="clear_history_confirmation">آیا مطمئن هستید؟ تمام سابقه از دست خواهد رفت.</string>
     <string name="clear_history_completed">سابقه پاک شد</string>
-    <string name="ext_nsfw_short">18+</string>
     <string name="pref_category_nsfw_content">منابع محتوای جنسی (+18)</string>
     <string name="parental_controls_info">این کار از نمایش محتوای 18+ (محتوای نامناسب) توسط افزونه‌های غیررسمی یا اشتباه برچسب‌خورده جلوگیری نمی‌کند.</string>
     <string name="no_chapters_error">هیچ قسمتی پیدا نشد</string>
@@ -415,7 +396,6 @@
     <string name="confirm_set_chapter_settings">آیا مطمئن هستید که می خواهید این تنظیمات را به صورت پیش فرض ذخیره کنید؟</string>
     <string name="pref_remove_bookmarked_chapters">اجازه‌ی پاک‌کردن قسمت‌های نشانک‌گذاری شده را بده</string>
     <string name="pref_category_delete_chapters">حذف قسمت ها</string>
-    <string name="ext_nsfw_warning">منابع این افزونه ممکن است شامل محتوای نامناسب (+18) باشند</string>
     <string name="spen_next_page">صفحه بعدی</string>
     <string name="spen_previous_page">صفحه قبلی</string>
     <string name="tapping_inverted_both">هر دو</string>
@@ -428,23 +408,17 @@
     <string name="myanimelist_relogin">لطفا دوباره به MAL وارد شوید</string>
     <string name="chapter_settings">تنظیمات قسمت ها</string>
     <string name="file_picker_error">هیچ نرم افزار انتخاب فایلی یافت نشد</string>
-    <string name="migration_help_guide">راهنمای تعویض منبع</string>
     <string name="pref_clear_history">پاک کردن سابقه</string>
     <string name="pref_show_nsfw_source">نمایش در لیست منابع و افزونه‌ها</string>
     <string name="nav_zone_left">چپ</string>
     <string name="nav_zone_right">راست</string>
-    <string name="ext_installer_legacy">قدیمی</string>
-    <string name="ext_installer_pref">نصب کننده</string>
     <string name="pref_create_folder_per_manga_summary">ساخت پوشه بر اساس عنوان ورودی</string>
-    <string name="ext_update_all">آپدیت همگی</string>
     <string name="label_background_activity">فعالیت در پس زمینه</string>
     <string name="action_sort_count">مجموع ورودی ها</string>
     <string name="label_default">پیش فرض</string>
     <string name="action_filter_tracked">دنبال شده</string>
     <string name="pref_create_folder_per_manga">ذخیره صفحات در پوشه های جداگانه</string>
     <string name="error_no_match">هیچ مورد مشابهی پیدا نشد</string>
-    <string name="ext_install_service_notif">در حال نصب کردن افزونه …</string>
-    <string name="extension_api_error">دریافت لیست افزونه ها ناموفق بود</string>
     <string name="label_warning">اخطار</string>
     <string name="confirm_lock_change">احراز هویت جهت تایید تغییرات</string>
     <string name="enhanced_services">سرویس های بهینه شده</string>
@@ -491,14 +465,9 @@
     <string name="update_72hour">هر 3 روز</string>
     <string name="connected_to_wifi">فقط روی Wi-Fi</string>
     <string name="categorized_display_settings">تنظیمات بر اساس دسته‌بندی برای ترتیب و نمایش</string>
-    <string name="ext_app_info">اطلاعات برنامه</string>
     <string name="pref_dual_page_invert">معکوس کردن جای دو صفحه‌ی تقسیم شده</string>
     <string name="nav_zone_next">بعدی</string>
-    <string name="ext_installer_shizuku_stopped">Shizuku در حال اجرا نمی‌باشد</string>
     <string name="pref_show_navigation_mode_summary">یک لحظه هنگام باز شدن متن‌خوان نمایش بده</string>
-    <string name="ext_info_version">نسخه</string>
-    <string name="ext_info_language">زبان</string>
-    <string name="ext_info_age_rating">رده‌بندی سنی</string>
     <string name="kindlish_nav">شبیه Kindle</string>
     <string name="rotation_landscape">افقی</string>
     <string name="rotation_reverse_portrait">عمودی معکوس</string>
@@ -523,7 +492,6 @@
     <string name="theme_tako">تاکو</string>
     <string name="off">خاموش</string>
     <string name="pref_show_navigation_mode">مناطق قابل لمس را نشان بده</string>
-    <string name="ext_installer_shizuku_unavailable_dialog">برای استفاده از Shizuku به عنوان یک نصب‌کننده‌ی افزونه، آن را نصب و اجرا کنید.</string>
     <string name="disabled_nav">غیر فعال</string>
     <string name="nav_zone_prev">قبلی</string>
     <string name="right_and_left_nav">راست و چپ</string>
@@ -624,7 +592,6 @@
     <string name="onboarding_guides_returning_user">نصب مجدد %s؟</string>
     <string name="pref_relative_format">زمان بندی های نسبی</string>
     <string name="pref_library_update_smart_update">به روز رسانی هوشمند</string>
-    <string name="ext_revoke_trust">لغو اعتماد افزونه های ناشناخته</string>
     <string name="pref_page_rotate_invert">جهت چرخش صفحات گسترده را برعکس کن</string>
     <string name="no_location_set">مکان ذخیره سازی تنظیم نشده است</string>
     <string name="split_tall_images">عکس های بلند را تقسیم کن</string>
@@ -633,7 +600,6 @@
     <string name="pref_storage_location">محل زخیره سازی</string>
     <string name="onboarding_action_finish">شروع کنید</string>
     <string name="onboarding_action_skip">پرش</string>
-    <string name="ext_permission_install_apps_warning">مجوز برای نصب افزونه ها لازم است. به اینجا ضربه بزنید تا اعطا کنید.</string>
     <string name="action_open_repo">مخزن منبع باز</string>
     <string name="pref_flash_page_summ">مقدار رد باقی مانده در نمایش گر های E-ink کاهش میابد</string>
     <string name="onboarding_storage_action_select">انتخاب یک پوشه</string>
