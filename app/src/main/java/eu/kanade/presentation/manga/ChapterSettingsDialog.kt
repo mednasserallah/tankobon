@@ -27,8 +27,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import eu.kanade.domain.base.BasePreferences
-import eu.kanade.domain.manga.model.downloadedFilter
 import eu.kanade.presentation.components.TabbedDialog
 import eu.kanade.presentation.components.TabbedDialogPaddings
 import tachiyomi.core.common.preference.TriState
@@ -40,14 +38,11 @@ import tachiyomi.presentation.core.components.SortItem
 import tachiyomi.presentation.core.components.TriStateItem
 import tachiyomi.presentation.core.i18n.stringResource
 import tachiyomi.presentation.core.theme.active
-import uy.kohesive.injekt.Injekt
-import uy.kohesive.injekt.api.get
 
 @Composable
 fun ChapterSettingsDialog(
     onDismissRequest: () -> Unit,
     manga: Manga? = null,
-    onDownloadFilterChanged: (TriState) -> Unit,
     onUnreadFilterChanged: (TriState) -> Unit,
     onBookmarkedFilterChanged: (TriState) -> Unit,
     scanlatorFilterActive: Boolean,
@@ -64,8 +59,6 @@ fun ChapterSettingsDialog(
             onConfirmed = onSetAsDefault,
         )
     }
-
-    val downloadedOnly = remember { Injekt.get<BasePreferences>().downloadedOnly.get() }
 
     TabbedDialog(
         onDismissRequest = onDismissRequest,
@@ -99,9 +92,6 @@ fun ChapterSettingsDialog(
             when (page) {
                 0 -> {
                     FilterPage(
-                        downloadFilter = manga?.downloadedFilter ?: TriState.DISABLED,
-                        onDownloadFilterChanged = onDownloadFilterChanged
-                            .takeUnless { downloadedOnly },
                         unreadFilter = manga?.unreadFilter ?: TriState.DISABLED,
                         onUnreadFilterChanged = onUnreadFilterChanged,
                         bookmarkedFilter = manga?.bookmarkedFilter ?: TriState.DISABLED,
@@ -130,8 +120,6 @@ fun ChapterSettingsDialog(
 
 @Composable
 private fun ColumnScope.FilterPage(
-    downloadFilter: TriState,
-    onDownloadFilterChanged: ((TriState) -> Unit)?,
     unreadFilter: TriState,
     onUnreadFilterChanged: (TriState) -> Unit,
     bookmarkedFilter: TriState,
@@ -139,11 +127,6 @@ private fun ColumnScope.FilterPage(
     scanlatorFilterActive: Boolean,
     onScanlatorFilterClicked: (() -> Unit),
 ) {
-    TriStateItem(
-        label = stringResource(MR.strings.label_downloaded),
-        state = downloadFilter,
-        onClick = onDownloadFilterChanged,
-    )
     TriStateItem(
         label = stringResource(MR.strings.action_filter_unread),
         state = unreadFilter,

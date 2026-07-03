@@ -11,9 +11,6 @@ import com.eygraber.sqldelight.androidx.driver.FileProvider
 import eu.kanade.domain.track.store.DelayedTrackingStore
 import eu.kanade.tachiyomi.data.cache.ChapterCache
 import eu.kanade.tachiyomi.data.cache.CoverCache
-import eu.kanade.tachiyomi.data.download.DownloadCache
-import eu.kanade.tachiyomi.data.download.DownloadManager
-import eu.kanade.tachiyomi.data.download.DownloadProvider
 import eu.kanade.tachiyomi.data.saver.ImageSaver
 import eu.kanade.tachiyomi.data.track.TrackerManager
 import eu.kanade.tachiyomi.network.JavaScriptEngine
@@ -116,10 +113,6 @@ class AppModule(val app: Application) : InjektModule {
 
         addSingletonFactory<SourceManager> { AndroidSourceManager(app, get()) }
 
-        addSingletonFactory { DownloadProvider(app) }
-        addSingletonFactory { DownloadManager(app) }
-        addSingletonFactory { DownloadCache(app) }
-
         addSingletonFactory { TrackerManager() }
         addSingletonFactory { DelayedTrackingStore(app) }
 
@@ -137,8 +130,6 @@ class AppModule(val app: Application) : InjektModule {
             get<SourceManager>()
 
             get<Database>()
-
-            get<DownloadManager>()
         }
     }
 }

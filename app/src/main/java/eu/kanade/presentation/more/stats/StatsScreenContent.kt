@@ -122,10 +122,6 @@ private fun LazyItemScope.ChapterStats(
                 data.readChapterCount.toString(),
                 stringResource(MR.strings.label_read_chapters),
             )
-            StatsItem(
-                data.downloadCount.toString(),
-                stringResource(MR.strings.label_downloaded),
-            )
         }
     }
 }

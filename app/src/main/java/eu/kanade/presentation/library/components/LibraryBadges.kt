@@ -10,17 +10,6 @@ import eu.kanade.presentation.theme.TachiyomiPreviewTheme
 import tachiyomi.presentation.core.components.Badge
 
 @Composable
-internal fun DownloadsBadge(count: Int) {
-    if (count > 0) {
-        Badge(
-            text = "$count",
-            color = MaterialTheme.colorScheme.tertiary,
-            textColor = MaterialTheme.colorScheme.onTertiary,
-        )
-    }
-}
-
-@Composable
 internal fun UnreadBadge(count: Long) {
     if (count > 0) {
         Badge(text = "$count")
@@ -52,7 +41,6 @@ internal fun LanguageBadge(
 private fun BadgePreview() {
     TachiyomiPreviewTheme {
         Column {
-            DownloadsBadge(count = 10)
             UnreadBadge(count = 10)
             LanguageBadge(isLocal = true, sourceLanguage = "EN")
             LanguageBadge(isLocal = false, sourceLanguage = "EN")
