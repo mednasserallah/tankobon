@@ -787,7 +787,6 @@
     <string name="text_detection_title">Detected text</string>
     <string name="text_detection_empty">No text detected on this page.</string>
     <string name="text_detection_error">Couldn\'t detect text. Please try again.</string>
-    <string name="text_detection_low_confidence">Low-confidence detection — tap to edit if it looks wrong</string>
     <string name="action_translate">Translate</string>
     <string name="action_translate_all">Translate all</string>
     <string name="translation_downloading">Downloading Arabic language pack…</string>

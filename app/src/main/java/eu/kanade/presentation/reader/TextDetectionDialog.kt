@@ -20,7 +20,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.ContentCopy
 import androidx.compose.material.icons.outlined.Translate
-import androidx.compose.material.icons.outlined.Warning
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -242,21 +241,13 @@ private fun DetectedLineRow(
                 }
             }
         } else {
-            // Flag only un-edited low-confidence lines; once the user corrects one, the hint clears.
+            // Flag only un-edited low-confidence lines (via dimmed text); once corrected, the hint clears.
             val flagged = item.text == item.line.text && item.line.isLowConfidence()
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(MaterialTheme.padding.small),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                if (flagged) {
-                    Icon(
-                        imageVector = Icons.Outlined.Warning,
-                        contentDescription = stringResource(MR.strings.text_detection_low_confidence),
-                        tint = MaterialTheme.colorScheme.tertiary,
-                        modifier = Modifier.size(18.dp),
-                    )
-                }
                 Text(
                     text = item.text,
                     modifier = Modifier
