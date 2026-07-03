@@ -305,6 +305,9 @@ dependencies {
     implementation(libs.bundles.markdown)
     implementation(libs.materialKolor)
 
+    // On-device text recognition (OCR) — Latin script bundle only
+    implementation(libs.mlkit.textRecognition)
+
     // Logging
     implementation(libs.logcat)
 
