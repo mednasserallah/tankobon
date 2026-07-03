@@ -33,7 +33,6 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.TabNavigator
-import eu.kanade.domain.source.service.SourcePreferences
 import eu.kanade.presentation.util.Screen
 import eu.kanade.presentation.util.isTabletUi
 import eu.kanade.tachiyomi.ui.browse.BrowseTab
@@ -156,12 +155,7 @@ object HomeScreen : Screen() {
                             is Tab.Library -> LibraryTab
                             Tab.Updates -> UpdatesTab
                             Tab.History -> HistoryTab
-                            is Tab.Browse -> {
-                                if (it.toExtensions) {
-                                    BrowseTab.showExtension()
-                                }
-                                BrowseTab
-                            }
+                            is Tab.Browse -> BrowseTab
                             is Tab.More -> MoreTab
                         }
 
@@ -261,25 +255,6 @@ object HomeScreen : Screen() {
                             }
                         }
                     }
-                    BrowseTab::class.isInstance(tab) -> {
-                        val count by produceState(initialValue = 0) {
-                            Injekt.get<SourcePreferences>().extensionUpdatesCount.changes()
-                                .collectLatest { value = it }
-                        }
-                        if (count > 0) {
-                            Badge {
-                                val desc = pluralStringResource(
-                                    MR.plurals.update_check_notification_ext_updates,
-                                    count = count,
-                                    count,
-                                )
-                                Text(
-                                    text = count.toString(),
-                                    modifier = Modifier.semantics { contentDescription = desc },
-                                )
-                            }
-                        }
-                    }
                 }
             },
         ) {
@@ -306,7 +281,7 @@ object HomeScreen : Screen() {
         data class Library(val mangaIdToOpen: Long? = null) : Tab
         data object Updates : Tab
         data object History : Tab
-        data class Browse(val toExtensions: Boolean = false) : Tab
+        data object Browse : Tab
         data class More(val toDownloads: Boolean) : Tab
     }
 }
