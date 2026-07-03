@@ -55,22 +55,22 @@ jobs:
         run: |
           set -e
 
-          mv app/build/outputs/apk/release/app-universal-release.apk mihon-${{ needs.get_tag.outputs.tag }}.apk
-          mv app/build/outputs/apk/release/app-arm64-v8a-release.apk mihon-arm64-v8a-${{ needs.get_tag.outputs.tag }}.apk
-          mv app/build/outputs/apk/release/app-armeabi-v7a-release.apk mihon-armeabi-v7a-${{ needs.get_tag.outputs.tag }}.apk
-          mv app/build/outputs/apk/release/app-x86-release.apk mihon-x86-${{ needs.get_tag.outputs.tag }}.apk
-          mv app/build/outputs/apk/release/app-x86_64-release.apk mihon-x86_64-${{ needs.get_tag.outputs.tag }}.apk
+          mv app/build/outputs/apk/release/app-universal-release.apk tankobon-${{ needs.get_tag.outputs.tag }}.apk
+          mv app/build/outputs/apk/release/app-arm64-v8a-release.apk tankobon-arm64-v8a-${{ needs.get_tag.outputs.tag }}.apk
+          mv app/build/outputs/apk/release/app-armeabi-v7a-release.apk tankobon-armeabi-v7a-${{ needs.get_tag.outputs.tag }}.apk
+          mv app/build/outputs/apk/release/app-x86-release.apk tankobon-x86-${{ needs.get_tag.outputs.tag }}.apk
+          mv app/build/outputs/apk/release/app-x86_64-release.apk tankobon-x86_64-${{ needs.get_tag.outputs.tag }}.apk
 
       - name: Upload APK
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: mihon
+          name: tankobon
           path: |
-            mihon-${{ needs.get_tag.outputs.tag }}.apk
-            mihon-arm64-v8a-${{ needs.get_tag.outputs.tag }}.apk
-            mihon-armeabi-v7a-${{ needs.get_tag.outputs.tag }}.apk
-            mihon-x86-${{ needs.get_tag.outputs.tag }}.apk
-            mihon-x86_64-${{ needs.get_tag.outputs.tag }}.apk
+            tankobon-${{ needs.get_tag.outputs.tag }}.apk
+            tankobon-arm64-v8a-${{ needs.get_tag.outputs.tag }}.apk
+            tankobon-armeabi-v7a-${{ needs.get_tag.outputs.tag }}.apk
+            tankobon-x86-${{ needs.get_tag.outputs.tag }}.apk
+            tankobon-x86_64-${{ needs.get_tag.outputs.tag }}.apk
 
   build_foss:
     if: github.repository == 'mihonapp/mihon'
@@ -105,13 +105,13 @@ jobs:
         run: |
           set -e
 
-          mv app/build/outputs/apk/foss/app-universal-foss.apk mihon-${{ needs.get_tag.outputs.tag }}-foss.apk
+          mv app/build/outputs/apk/foss/app-universal-foss.apk tankobon-${{ needs.get_tag.outputs.tag }}-foss.apk
 
       - name: Upload APK
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: mihon-foss
-          path: mihon-${{ needs.get_tag.outputs.tag }}-foss.apk
+          name: tankobon-foss
+          path: tankobon-${{ needs.get_tag.outputs.tag }}-foss.apk
 
   release:
     if: github.repository == 'mihonapp/mihon'
@@ -130,18 +130,16 @@ jobs:
         with:
           failOnError: false
           name: |
-            mihon
-            mihon-foss
+            tankobon
+            tankobon-foss
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@718ea10b132b3b2eba29c1007bb80653f286566b # v3.0.1
         with:
           tag_name: ${{ needs.get_tag.outputs.tag }}
-          name: Mihon ${{ needs.get_tag.outputs.tag }}
+          name: Tankobon ${{ needs.get_tag.outputs.tag }}
           body: |
-            Consider supporting the development on [Patreon](https://www.patreon.com/mihon/membership) or [OpenCollective](https://opencollective.com/mihon/contribute) to keep Mihon improving!
-
-            Check out the [past release notes](https://github.com/mihonapp/mihon/releases) if you're upgrading from an earlier version.
+            Check out the [past release notes](https://github.com/mednasserallah/tankobon/releases) if you're upgrading from an earlier version.
 
             <!-->
 
@@ -151,14 +149,14 @@ jobs:
 
             > [!TIP]
             >
-            > ### If you are unsure which version to download then go with `mihon-${{ needs.get_tag.outputs.tag }}.apk`
+            > ### If you are unsure which version to download then go with `tankobon-${{ needs.get_tag.outputs.tag }}.apk`
           files: |
-            mihon-${{ needs.get_tag.outputs.tag }}.apk
-            mihon-${{ needs.get_tag.outputs.tag }}-foss.apk
-            mihon-arm64-v8a-${{ needs.get_tag.outputs.tag }}.apk
-            mihon-armeabi-v7a-${{ needs.get_tag.outputs.tag }}.apk
-            mihon-x86-${{ needs.get_tag.outputs.tag }}.apk
-            mihon-x86_64-${{ needs.get_tag.outputs.tag }}.apk
+            tankobon-${{ needs.get_tag.outputs.tag }}.apk
+            tankobon-${{ needs.get_tag.outputs.tag }}-foss.apk
+            tankobon-arm64-v8a-${{ needs.get_tag.outputs.tag }}.apk
+            tankobon-armeabi-v7a-${{ needs.get_tag.outputs.tag }}.apk
+            tankobon-x86-${{ needs.get_tag.outputs.tag }}.apk
+            tankobon-x86_64-${{ needs.get_tag.outputs.tag }}.apk
           draft: true
           prerelease: false
           token: ${{ secrets.MIHON_BOT_TOKEN }}

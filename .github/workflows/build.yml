@@ -10,7 +10,8 @@ on:
       - 'i18n/src/commonMain/moko-resources/base/plurals.xml'
   push:
     branches:
-      - main
+      - master
+      - develop
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
