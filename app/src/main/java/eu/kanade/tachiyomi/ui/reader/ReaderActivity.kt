@@ -384,7 +384,6 @@ class ReaderActivity : BaseActivity() {
      * delegated to the presenter.
      */
     override fun finish() {
-        viewModel.onActivityFinish()
         super.finish()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             overrideActivityTransition(
