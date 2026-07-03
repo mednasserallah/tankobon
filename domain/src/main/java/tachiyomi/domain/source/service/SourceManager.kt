@@ -3,7 +3,6 @@ package tachiyomi.domain.source.service
 import eu.kanade.tachiyomi.source.Source
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
-import tachiyomi.domain.source.model.StubSource
 
 interface SourceManager {
 
@@ -16,6 +15,4 @@ interface SourceManager {
     fun getOrStub(sourceKey: Long): Source
 
     fun getAll(): List<Source>
-
-    fun getStubSources(): List<StubSource>
 }

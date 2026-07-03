@@ -59,8 +59,6 @@ class AndroidSourceManager(
 
     override fun getAll(): List<Source> = sourcesMapFlow.value.values.toList()
 
-    override fun getStubSources(): List<StubSource> = stubSourcesMap.values.toList()
-
     private suspend fun createStubSource(id: Long): StubSource {
         sourceRepository.getStubSource(id)?.let { return it }
         return StubSource(id = id, lang = "", name = "")
