@@ -37,26 +37,19 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import eu.kanade.core.util.ifSourcesLoaded
 import eu.kanade.presentation.browse.BrowseSourceContent
-import eu.kanade.presentation.browse.MissingSourceScreen
 import eu.kanade.presentation.browse.components.BrowseSourceToolbar
 import eu.kanade.presentation.browse.components.RemoveMangaDialog
 import eu.kanade.presentation.category.components.ChangeCategoryDialog
 import eu.kanade.presentation.manga.DuplicateMangaDialog
-import eu.kanade.presentation.util.AssistContentScreen
 import eu.kanade.presentation.util.Screen
-import eu.kanade.tachiyomi.source.online.HttpSource
-import eu.kanade.tachiyomi.ui.browse.extension.details.SourcePreferencesScreen
 import eu.kanade.tachiyomi.ui.browse.source.browse.BrowseSourceScreenModel.Listing
 import eu.kanade.tachiyomi.ui.category.CategoryScreen
 import eu.kanade.tachiyomi.ui.manga.MangaScreen
-import eu.kanade.tachiyomi.ui.webview.WebViewScreen
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.receiveAsFlow
 import mihon.presentation.core.util.collectAsLazyPagingItems
-import tachiyomi.core.common.Constants
 import tachiyomi.core.common.util.lang.launchIO
-import tachiyomi.domain.source.model.StubSource
 import tachiyomi.i18n.MR
 import tachiyomi.presentation.core.components.material.Scaffold
 import tachiyomi.presentation.core.components.material.padding
@@ -67,11 +60,7 @@ import tachiyomi.source.local.LocalSource
 data class BrowseSourceScreen(
     val sourceId: Long,
     private val listingQuery: String?,
-) : Screen(), AssistContentScreen {
-
-    private var assistUrl: String? = null
-
-    override fun onProvideAssistUrl() = assistUrl
+) : Screen() {
 
     @Composable
     override fun Content() {
@@ -91,34 +80,12 @@ data class BrowseSourceScreen(
             }
         }
 
-        if (screenModel.source is StubSource) {
-            MissingSourceScreen(
-                source = screenModel.source,
-                navigateUp = navigateUp,
-            )
-            return
-        }
-
         val scope = rememberCoroutineScope()
         val haptic = LocalHapticFeedback.current
         val uriHandler = LocalUriHandler.current
         val snackbarHostState = remember { SnackbarHostState() }
 
         val onHelpClick = { uriHandler.openUri(LocalSource.HELP_URL) }
-        val onWebViewClick = f@{
-            val source = screenModel.source as? HttpSource ?: return@f
-            navigator.push(
-                WebViewScreen(
-                    url = source.getHomeUrl(),
-                    initialTitle = source.name,
-                    sourceId = source.id,
-                ),
-            )
-        }
-
-        LaunchedEffect(screenModel.source) {
-            assistUrl = (screenModel.source as? HttpSource)?.getHomeUrl()
-        }
 
         Scaffold(
             topBar = {
@@ -134,9 +101,7 @@ data class BrowseSourceScreen(
                         displayMode = screenModel.displayMode,
                         onDisplayModeChange = { screenModel.displayMode = it },
                         navigateUp = navigateUp,
-                        onWebViewClick = onWebViewClick,
                         onHelpClick = onHelpClick,
-                        onSettingsClick = { navigator.push(SourcePreferencesScreen(sourceId)) },
                         onSearch = screenModel::search,
                     )
 
@@ -209,14 +174,11 @@ data class BrowseSourceScreen(
             snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         ) { paddingValues ->
             BrowseSourceContent(
-                source = screenModel.source,
                 mangaList = screenModel.mangaPagerFlowFlow.collectAsLazyPagingItems(),
                 columns = screenModel.getColumnsPreference(LocalConfiguration.current.orientation),
                 displayMode = screenModel.displayMode,
                 snackbarHostState = snackbarHostState,
                 contentPadding = paddingValues,
-                onWebViewClick = onWebViewClick,
-                onHelpClick = { uriHandler.openUri(Constants.URL_HELP) },
                 onLocalSourceHelpClick = onHelpClick,
                 onMangaClick = { navigator.push((MangaScreen(it.id, true))) },
                 onMangaLongClick = { manga ->
