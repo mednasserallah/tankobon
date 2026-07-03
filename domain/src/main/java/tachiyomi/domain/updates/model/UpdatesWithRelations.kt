@@ -5,10 +5,10 @@ import tachiyomi.domain.manga.model.MangaCover
 data class UpdatesWithRelations(
     val mangaId: Long,
     val mangaTitle: String,
-    val chapterId: Long,
-    val chapterName: String,
+    val volumeId: Long,
+    val volumeName: String,
     val scanlator: String?,
-    val chapterUrl: String,
+    val volumeUrl: String,
     val read: Boolean,
     val bookmark: Boolean,
     val lastPageRead: Long,

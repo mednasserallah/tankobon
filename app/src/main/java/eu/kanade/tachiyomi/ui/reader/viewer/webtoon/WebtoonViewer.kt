@@ -12,9 +12,9 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.WebtoonLayoutManager
 import eu.kanade.tachiyomi.ui.reader.ReaderActivity
-import eu.kanade.tachiyomi.ui.reader.model.ChapterTransition
 import eu.kanade.tachiyomi.ui.reader.model.ReaderPage
-import eu.kanade.tachiyomi.ui.reader.model.ViewerChapters
+import eu.kanade.tachiyomi.ui.reader.model.ViewerVolumes
+import eu.kanade.tachiyomi.ui.reader.model.VolumeTransition
 import eu.kanade.tachiyomi.ui.reader.setting.ReaderPreferences
 import eu.kanade.tachiyomi.ui.reader.viewer.Viewer
 import eu.kanade.tachiyomi.ui.reader.viewer.ViewerNavigation.NavigationRegion
@@ -94,14 +94,14 @@ class WebtoonViewer(val activity: ReaderActivity, val isContinuous: Boolean = tr
                     if (dy < 0) {
                         val firstIndex = layoutManager.findFirstVisibleItemPosition()
                         val firstItem = adapter.items.getOrNull(firstIndex)
-                        if (firstItem is ChapterTransition.Prev && firstItem.to != null) {
+                        if (firstItem is VolumeTransition.Prev && firstItem.to != null) {
                             activity.requestPreloadChapter(firstItem.to)
                         }
                     }
 
                     val lastIndex = layoutManager.findLastEndVisibleItemPosition()
                     val lastItem = adapter.items.getOrNull(lastIndex)
-                    if (lastItem is ChapterTransition.Next && lastItem.to == null) {
+                    if (lastItem is VolumeTransition.Next && lastItem.to == null) {
                         activity.showMenu()
                     }
                 }
@@ -170,7 +170,7 @@ class WebtoonViewer(val activity: ReaderActivity, val isContinuous: Boolean = tr
         currentPage ?: return true
 
         val nextItem = adapter.items.getOrNull(adapter.items.size - 1)
-        val nextChapter = (nextItem as? ChapterTransition.Next)?.to ?: (nextItem as? ReaderPage)?.chapter
+        val nextChapter = (nextItem as? VolumeTransition.Next)?.to ?: (nextItem as? ReaderPage)?.chapter
 
         // Allow preload for
         // 1. Going between pages of same chapter
@@ -211,9 +211,9 @@ class WebtoonViewer(val activity: ReaderActivity, val isContinuous: Boolean = tr
         if (inPreloadRange && allowPreload && page.chapter == adapter.currentChapter) {
             logcat { "Request preload next chapter because we're at page ${page.number} of ${pages.size}" }
             val nextItem = adapter.items.getOrNull(adapter.items.size - 1)
-            val transitionChapter = (nextItem as? ChapterTransition.Next)?.to ?: (nextItem as?ReaderPage)?.chapter
+            val transitionChapter = (nextItem as? VolumeTransition.Next)?.to ?: (nextItem as?ReaderPage)?.chapter
             if (transitionChapter != null) {
-                logcat { "Requesting to preload chapter ${transitionChapter.chapter.chapter_number}" }
+                logcat { "Requesting to preload chapter ${transitionChapter.chapter.volume_number}" }
                 activity.requestPreloadChapter(transitionChapter)
             }
         }
@@ -223,7 +223,7 @@ class WebtoonViewer(val activity: ReaderActivity, val isContinuous: Boolean = tr
      * Called from the RecyclerView listener when a [transition] is marked as active. It request the
      * preload of the destination chapter of the transition.
      */
-    private fun onTransitionSelected(transition: ChapterTransition) {
+    private fun onTransitionSelected(transition: VolumeTransition) {
         logcat { "onTransitionSelected: $transition" }
         val toChapter = transition.to
         if (toChapter != null) {
@@ -235,8 +235,8 @@ class WebtoonViewer(val activity: ReaderActivity, val isContinuous: Boolean = tr
     /**
      * Tells this viewer to set the given [chapters] as active.
      */
-    override fun setChapters(chapters: ViewerChapters) {
-        val forceTransition = config.alwaysShowChapterTransition || currentPage is ChapterTransition
+    override fun setChapters(chapters: ViewerVolumes) {
+        val forceTransition = config.alwaysShowChapterTransition || currentPage is VolumeTransition
         adapter.setChapters(chapters, forceTransition)
 
         if (recycler.isGone) {
@@ -270,7 +270,7 @@ class WebtoonViewer(val activity: ReaderActivity, val isContinuous: Boolean = tr
             currentPage = item
             when (item) {
                 is ReaderPage -> onPageSelected(item, allowPreload)
-                is ChapterTransition -> onTransitionSelected(item)
+                is VolumeTransition -> onTransitionSelected(item)
             }
         }
     }

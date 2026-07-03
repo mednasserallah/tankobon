@@ -38,8 +38,8 @@ import tachiyomi.core.common.util.lang.launchNonCancellable
 import tachiyomi.domain.category.interactor.GetCategories
 import tachiyomi.domain.category.interactor.SetMangaCategories
 import tachiyomi.domain.category.model.Category
-import tachiyomi.domain.chapter.interactor.GetChaptersByMangaId
-import tachiyomi.domain.chapter.model.Chapter
+import tachiyomi.domain.chapter.interactor.GetVolumesByMangaId
+import tachiyomi.domain.chapter.model.Volume
 import tachiyomi.domain.library.model.LibraryDisplayMode
 import tachiyomi.domain.library.model.LibraryManga
 import tachiyomi.domain.library.model.LibrarySort
@@ -62,7 +62,7 @@ class LibraryScreenModel(
     private val getLibraryManga: GetLibraryManga = Injekt.get(),
     private val getCategories: GetCategories = Injekt.get(),
     private val getTracksPerManga: GetTracksPerManga = Injekt.get(),
-    private val getChaptersByMangaId: GetChaptersByMangaId = Injekt.get(),
+    private val getVolumesByMangaId: GetVolumesByMangaId = Injekt.get(),
     private val setReadStatus: SetReadStatus = Injekt.get(),
     private val updateManga: UpdateManga = Injekt.get(),
     private val setMangaCategories: SetMangaCategories = Injekt.get(),
@@ -292,7 +292,7 @@ class LibraryScreenModel(
                     manga1.libraryManga.latestUpload.compareTo(manga2.libraryManga.latestUpload)
                 }
                 LibrarySort.Type.ChapterFetchDate -> {
-                    manga1.libraryManga.chapterFetchedAt.compareTo(manga2.libraryManga.chapterFetchedAt)
+                    manga1.libraryManga.volumeFetchedAt.compareTo(manga2.libraryManga.volumeFetchedAt)
                 }
                 LibrarySort.Type.DateAdded -> {
                     manga1.libraryManga.manga.dateAdded.compareTo(manga2.libraryManga.manga.dateAdded)
@@ -412,8 +412,8 @@ class LibraryScreenModel(
             .reduce { set1, set2 -> set1.intersect(set2) }
     }
 
-    suspend fun getNextUnreadChapter(manga: Manga): Chapter? {
-        return getChaptersByMangaId.await(manga.id, applyScanlatorFilter = true).getNextUnread(manga)
+    suspend fun getNextUnreadChapter(manga: Manga): Volume? {
+        return getVolumesByMangaId.await(manga.id, applyScanlatorFilter = true).getNextUnread(manga)
     }
 
     /**

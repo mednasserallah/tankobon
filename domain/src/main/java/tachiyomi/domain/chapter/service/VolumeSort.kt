@@ -1,15 +1,15 @@
 package tachiyomi.domain.chapter.service
 
 import tachiyomi.core.common.util.lang.compareToWithCollator
-import tachiyomi.domain.chapter.model.Chapter
+import tachiyomi.domain.chapter.model.Volume
 import tachiyomi.domain.manga.model.Manga
 
-fun getChapterSort(
+fun getVolumeSort(
     manga: Manga,
     sortDescending: Boolean = manga.sortDescending(),
 ): (
-    Chapter,
-    Chapter,
+    Volume,
+    Volume,
 ) -> Int {
     return when (manga.sorting) {
         Manga.CHAPTER_SORTING_SOURCE -> when (sortDescending) {
@@ -17,8 +17,8 @@ fun getChapterSort(
             false -> { c1, c2 -> c2.sourceOrder.compareTo(c1.sourceOrder) }
         }
         Manga.CHAPTER_SORTING_NUMBER -> when (sortDescending) {
-            true -> { c1, c2 -> c2.chapterNumber.compareTo(c1.chapterNumber) }
-            false -> { c1, c2 -> c1.chapterNumber.compareTo(c2.chapterNumber) }
+            true -> { c1, c2 -> c2.volumeNumber.compareTo(c1.volumeNumber) }
+            false -> { c1, c2 -> c1.volumeNumber.compareTo(c2.volumeNumber) }
         }
         Manga.CHAPTER_SORTING_UPLOAD_DATE -> when (sortDescending) {
             true -> { c1, c2 -> c2.dateUpload.compareTo(c1.dateUpload) }

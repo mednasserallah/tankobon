@@ -28,43 +28,43 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import eu.kanade.presentation.theme.TachiyomiPreviewTheme
-import eu.kanade.tachiyomi.data.database.models.toDomainChapter
-import eu.kanade.tachiyomi.ui.reader.model.ChapterTransition
-import eu.kanade.tachiyomi.ui.reader.model.ReaderChapter
-import tachiyomi.domain.chapter.model.Chapter
-import tachiyomi.domain.chapter.service.calculateChapterGap
+import eu.kanade.tachiyomi.data.database.models.toDomainVolume
+import eu.kanade.tachiyomi.ui.reader.model.ReaderVolume
+import eu.kanade.tachiyomi.ui.reader.model.VolumeTransition
+import tachiyomi.domain.chapter.model.Volume
+import tachiyomi.domain.chapter.service.calculateVolumeGap
 import tachiyomi.i18n.MR
 import tachiyomi.presentation.core.i18n.pluralStringResource
 import tachiyomi.presentation.core.i18n.stringResource
 import tachiyomi.presentation.core.util.secondaryItemAlpha
 
 @Composable
-fun ChapterTransition(
-    transition: ChapterTransition,
+fun VolumeTransition(
+    transition: VolumeTransition,
 ) {
-    val currChapter = transition.from.chapter.toDomainChapter()
-    val goingToChapter = transition.to?.chapter?.toDomainChapter()
+    val currChapter = transition.from.chapter.toDomainVolume()
+    val goingToChapter = transition.to?.chapter?.toDomainVolume()
 
     ProvideTextStyle(MaterialTheme.typography.bodyMedium) {
         when (transition) {
-            is ChapterTransition.Prev -> {
+            is VolumeTransition.Prev -> {
                 TransitionText(
                     topLabel = stringResource(MR.strings.transition_previous),
                     topChapter = goingToChapter,
                     bottomLabel = stringResource(MR.strings.transition_current),
                     bottomChapter = currChapter,
                     fallbackLabel = stringResource(MR.strings.transition_no_previous),
-                    chapterGap = calculateChapterGap(currChapter, goingToChapter),
+                    chapterGap = calculateVolumeGap(currChapter, goingToChapter),
                 )
             }
-            is ChapterTransition.Next -> {
+            is VolumeTransition.Next -> {
                 TransitionText(
                     topLabel = stringResource(MR.strings.transition_finished),
                     topChapter = currChapter,
                     bottomLabel = stringResource(MR.strings.transition_next),
                     bottomChapter = goingToChapter,
                     fallbackLabel = stringResource(MR.strings.transition_no_next),
-                    chapterGap = calculateChapterGap(goingToChapter, currChapter),
+                    chapterGap = calculateVolumeGap(goingToChapter, currChapter),
                 )
             }
         }
@@ -74,9 +74,9 @@ fun ChapterTransition(
 @Composable
 private fun TransitionText(
     topLabel: String,
-    topChapter: Chapter?,
+    topChapter: Volume?,
     bottomLabel: String,
-    bottomChapter: Chapter?,
+    bottomChapter: Volume?,
     fallbackLabel: String,
     chapterGap: Int,
 ) {
@@ -86,7 +86,7 @@ private fun TransitionText(
             .fillMaxWidth(),
     ) {
         if (topChapter != null) {
-            ChapterText(
+            VolumeText(
                 header = topLabel,
                 name = topChapter.name,
                 scanlator = topChapter.scanlator,
@@ -94,7 +94,7 @@ private fun TransitionText(
 
             Spacer(Modifier.height(VerticalSpacerSize))
         } else {
-            NoChapterNotification(
+            NoVolumeNotification(
                 text = fallbackLabel,
                 modifier = Modifier.align(Alignment.CenterHorizontally),
             )
@@ -102,7 +102,7 @@ private fun TransitionText(
 
         if (bottomChapter != null) {
             if (chapterGap > 0) {
-                ChapterGapWarning(
+                VolumeGapWarning(
                     gapCount = chapterGap,
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                 )
@@ -110,13 +110,13 @@ private fun TransitionText(
 
             Spacer(Modifier.height(VerticalSpacerSize))
 
-            ChapterText(
+            VolumeText(
                 header = bottomLabel,
                 name = bottomChapter.name,
                 scanlator = bottomChapter.scanlator,
             )
         } else {
-            NoChapterNotification(
+            NoVolumeNotification(
                 text = fallbackLabel,
                 modifier = Modifier.align(Alignment.CenterHorizontally),
             )
@@ -125,7 +125,7 @@ private fun TransitionText(
 }
 
 @Composable
-private fun NoChapterNotification(
+private fun NoVolumeNotification(
     text: String,
     modifier: Modifier = Modifier,
 ) {
@@ -154,7 +154,7 @@ private fun NoChapterNotification(
 }
 
 @Composable
-private fun ChapterGapWarning(
+private fun VolumeGapWarning(
     gapCount: Int,
     modifier: Modifier = Modifier,
 ) {
@@ -182,7 +182,7 @@ private fun ChapterGapWarning(
 }
 
 @Composable
-private fun ChapterHeaderText(
+private fun VolumeHeaderText(
     text: String,
     modifier: Modifier = Modifier,
 ) {
@@ -194,13 +194,13 @@ private fun ChapterHeaderText(
 }
 
 @Composable
-private fun ChapterText(
+private fun VolumeText(
     header: String,
     name: String,
     scanlator: String?,
 ) {
     Column {
-        ChapterHeaderText(
+        VolumeHeaderText(
             text = header,
             modifier = Modifier.padding(bottom = 4.dp),
         )
@@ -236,32 +236,32 @@ private val CardColor: CardColors
 
 private val VerticalSpacerSize = 24.dp
 
-private fun previewChapter(name: String, scanlator: String, chapterNumber: Double) = Chapter.create().copy(
+private fun previewChapter(name: String, scanlator: String, volumeNumber: Long) = Volume.create().copy(
     id = 0L,
     mangaId = 0L,
     url = "",
     name = name,
     scanlator = scanlator,
-    chapterNumber = chapterNumber,
+    volumeNumber = volumeNumber,
 )
-private val FakeChapter = previewChapter(
-    name = "Vol.1, Ch.1 - Fake Chapter Title",
+private val FakeVolume = previewChapter(
+    name = "Vol.1, Ch.1 - Fake Volume Title",
     scanlator = "Scanlator Name",
-    chapterNumber = 1.0,
+    volumeNumber = 1L,
 )
-private val FakeGapChapter = previewChapter(
-    name = "Vol.5, Ch.44 - Fake Gap Chapter Title",
+private val FakeGapVolume = previewChapter(
+    name = "Vol.5, Ch.44 - Fake Gap Volume Title",
     scanlator = "Scanlator Name",
-    chapterNumber = 44.0,
+    volumeNumber = 44L,
 )
-private val FakeChapterLongTitle = previewChapter(
-    name = "Vol.1, Ch.0 - The Mundane Musings of a Metafictional Manga: A Chapter About a Chapter, Featuring" +
+private val FakeVolumeLongTitle = previewChapter(
+    name = "Vol.1, Ch.0 - The Mundane Musings of a Metafictional Manga: A Volume About a Volume, Featuring" +
         " an Absurdly Long Title and a Surprisingly Normal Day in the Lives of Our Heroes, as They Grapple with the " +
         "Daily Challenges of Existence, from Paying Rent to Finding Love, All While Navigating the Strange World of " +
         "Fictional Realities and Reality-Bending Fiction, Where the Fourth Wall is Always in Danger of Being Broken " +
         "and the Line Between Author and Character is Forever Blurred.",
     scanlator = "Long Long Funny Scanlator Sniper Group Name Reborn",
-    chapterNumber = 1.0,
+    volumeNumber = 1L,
 )
 
 @PreviewLightDark
@@ -269,8 +269,8 @@ private val FakeChapterLongTitle = previewChapter(
 private fun TransitionTextPreview() {
     TachiyomiPreviewTheme {
         Surface(modifier = Modifier.padding(48.dp)) {
-            ChapterTransition(
-                transition = ChapterTransition.Next(ReaderChapter(FakeChapter), ReaderChapter(FakeChapter)),
+            VolumeTransition(
+                transition = VolumeTransition.Next(ReaderVolume(FakeVolume), ReaderVolume(FakeVolume)),
             )
         }
     }
@@ -281,8 +281,8 @@ private fun TransitionTextPreview() {
 private fun TransitionTextLongTitlePreview() {
     TachiyomiPreviewTheme {
         Surface(modifier = Modifier.padding(48.dp)) {
-            ChapterTransition(
-                transition = ChapterTransition.Next(ReaderChapter(FakeChapterLongTitle), ReaderChapter(FakeChapter)),
+            VolumeTransition(
+                transition = VolumeTransition.Next(ReaderVolume(FakeVolumeLongTitle), ReaderVolume(FakeVolume)),
             )
         }
     }
@@ -293,8 +293,8 @@ private fun TransitionTextLongTitlePreview() {
 private fun TransitionTextWithGapPreview() {
     TachiyomiPreviewTheme {
         Surface(modifier = Modifier.padding(48.dp)) {
-            ChapterTransition(
-                transition = ChapterTransition.Next(ReaderChapter(FakeChapter), ReaderChapter(FakeGapChapter)),
+            VolumeTransition(
+                transition = VolumeTransition.Next(ReaderVolume(FakeVolume), ReaderVolume(FakeGapVolume)),
             )
         }
     }
@@ -305,8 +305,8 @@ private fun TransitionTextWithGapPreview() {
 private fun TransitionTextNoNextPreview() {
     TachiyomiPreviewTheme {
         Surface(modifier = Modifier.padding(48.dp)) {
-            ChapterTransition(
-                transition = ChapterTransition.Next(ReaderChapter(FakeChapter), null),
+            VolumeTransition(
+                transition = VolumeTransition.Next(ReaderVolume(FakeVolume), null),
             )
         }
     }
@@ -317,8 +317,8 @@ private fun TransitionTextNoNextPreview() {
 private fun TransitionTextNoPreviousPreview() {
     TachiyomiPreviewTheme {
         Surface(modifier = Modifier.padding(48.dp)) {
-            ChapterTransition(
-                transition = ChapterTransition.Prev(ReaderChapter(FakeChapter), null),
+            VolumeTransition(
+                transition = VolumeTransition.Prev(ReaderVolume(FakeVolume), null),
             )
         }
     }

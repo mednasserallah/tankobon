@@ -1,7 +1,7 @@
 package mihon.domain.source.interactor
 
-import eu.kanade.domain.chapter.interactor.SyncChaptersWithSource
-import eu.kanade.domain.chapter.model.toSChapter
+import eu.kanade.domain.chapter.interactor.SyncVolumesWithSource
+import eu.kanade.domain.chapter.model.toSVolume
 import eu.kanade.domain.manga.model.hasCustomCover
 import eu.kanade.domain.manga.model.toSManga
 import eu.kanade.tachiyomi.data.cache.CoverCache
@@ -11,8 +11,8 @@ import logcat.LogPriority
 import mihon.domain.source.models.RemoteMangaUpdate
 import tachiyomi.core.common.util.lang.withIOContext
 import tachiyomi.core.common.util.system.logcat
-import tachiyomi.domain.chapter.model.Chapter
-import tachiyomi.domain.chapter.repository.ChapterRepository
+import tachiyomi.domain.chapter.model.Volume
+import tachiyomi.domain.chapter.repository.VolumeRepository
 import tachiyomi.domain.library.service.LibraryPreferences
 import tachiyomi.domain.manga.model.Manga
 import tachiyomi.domain.manga.model.MangaUpdate
@@ -23,9 +23,9 @@ import java.time.Instant
 
 class UpdateMangaFromRemote(
     private val sourceManager: SourceManager,
-    private val chapterRepository: ChapterRepository,
+    private val chapterRepository: VolumeRepository,
     private val mangaRepository: MangaRepository,
-    private val syncChaptersWithSource: SyncChaptersWithSource,
+    private val syncChaptersWithSource: SyncVolumesWithSource,
     private val coverCache: CoverCache,
     private val libraryPreferences: LibraryPreferences,
 ) {
@@ -60,14 +60,14 @@ class UpdateMangaFromRemote(
             val update = withIOContext {
                 source.getMangaUpdate(
                     manga = manga.toSManga(),
-                    chapters = chapters.map(Chapter::toSChapter),
+                    volumes = chapters.map(Volume::toSVolume),
                     fetchDetails = fetchDetails,
-                    fetchChapters = fetchChapters,
+                    fetchVolumes = fetchChapters,
                 )
             }
             awaitUpdateFromSource(manga, update.manga, manualFetch)
             val newChapters = syncChaptersWithSource.await(
-                rawSourceChapters = update.chapters,
+                rawSourceChapters = update.volumes,
                 manga = manga,
                 source = source,
                 manualFetch = manualFetch,

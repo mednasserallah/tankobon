@@ -27,9 +27,9 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import tachiyomi.core.common.preference.TriState
 import tachiyomi.core.common.util.lang.launchIO
-import tachiyomi.domain.chapter.interactor.GetChapter
-import tachiyomi.domain.chapter.interactor.UpdateChapter
-import tachiyomi.domain.chapter.model.ChapterUpdate
+import tachiyomi.domain.chapter.interactor.GetVolume
+import tachiyomi.domain.chapter.interactor.UpdateVolume
+import tachiyomi.domain.chapter.model.VolumeUpdate
 import tachiyomi.domain.library.service.LibraryPreferences
 import tachiyomi.domain.updates.interactor.GetUpdates
 import tachiyomi.domain.updates.model.UpdatesWithRelations
@@ -39,10 +39,10 @@ import uy.kohesive.injekt.api.get
 import java.time.ZonedDateTime
 
 class UpdatesScreenModel(
-    private val updateChapter: UpdateChapter = Injekt.get(),
+    private val updateChapter: UpdateVolume = Injekt.get(),
     private val setReadStatus: SetReadStatus = Injekt.get(),
     private val getUpdates: GetUpdates = Injekt.get(),
-    private val getChapter: GetChapter = Injekt.get(),
+    private val getChapter: GetVolume = Injekt.get(),
     private val libraryPreferences: LibraryPreferences = Injekt.get(),
     private val updatesPreferences: UpdatesPreferences = Injekt.get(),
     val snackbarHostState: SnackbarHostState = SnackbarHostState(),
@@ -107,7 +107,7 @@ class UpdatesScreenModel(
             .map { update ->
                 UpdatesItem(
                     update = update,
-                    selected = update.chapterId in selectedChapterIds,
+                    selected = update.volumeId in selectedChapterIds,
                 )
             }
     }
@@ -130,7 +130,7 @@ class UpdatesScreenModel(
             setReadStatus.await(
                 read = read,
                 chapters = updates
-                    .mapNotNull { getChapter.await(it.update.chapterId) }
+                    .mapNotNull { getChapter.await(it.update.volumeId) }
                     .toTypedArray(),
             )
         }
@@ -145,7 +145,7 @@ class UpdatesScreenModel(
         screenModelScope.launchIO {
             updates
                 .filterNot { it.update.bookmark == bookmark }
-                .map { ChapterUpdate(id = it.update.chapterId, bookmark = bookmark) }
+                .map { VolumeUpdate(id = it.update.volumeId, bookmark = bookmark) }
                 .let { updateChapter.awaitAll(it) }
         }
         toggleAllSelection(false)
@@ -158,7 +158,7 @@ class UpdatesScreenModel(
     ) {
         mutableState.update { state ->
             val newItems = state.items.toMutableList().apply {
-                val selectedIndex = indexOfFirst { it.update.chapterId == item.update.chapterId }
+                val selectedIndex = indexOfFirst { it.update.volumeId == item.update.volumeId }
                 if (selectedIndex < 0) return@apply
 
                 val selectedItem = get(selectedIndex)
@@ -166,7 +166,7 @@ class UpdatesScreenModel(
 
                 val firstSelection = none { it.selected }
                 set(selectedIndex, selectedItem.copy(selected = selected))
-                selectedChapterIds.addOrRemove(item.update.chapterId, selected)
+                selectedChapterIds.addOrRemove(item.update.volumeId, selected)
 
                 if (selected && fromLongPress) {
                     if (firstSelection) {
@@ -189,7 +189,7 @@ class UpdatesScreenModel(
                         range.forEach {
                             val inbetweenItem = get(it)
                             if (!inbetweenItem.selected) {
-                                selectedChapterIds.add(inbetweenItem.update.chapterId)
+                                selectedChapterIds.add(inbetweenItem.update.volumeId)
                                 set(it, inbetweenItem.copy(selected = true))
                             }
                         }
@@ -217,7 +217,7 @@ class UpdatesScreenModel(
     fun toggleAllSelection(selected: Boolean) {
         mutableState.update { state ->
             val newItems = state.items.map {
-                selectedChapterIds.addOrRemove(it.update.chapterId, selected)
+                selectedChapterIds.addOrRemove(it.update.volumeId, selected)
                 it.copy(selected = selected)
             }
             state.copy(items = newItems)
@@ -230,7 +230,7 @@ class UpdatesScreenModel(
     fun invertSelection() {
         mutableState.update { state ->
             val newItems = state.items.map {
-                selectedChapterIds.addOrRemove(it.update.chapterId, !it.selected)
+                selectedChapterIds.addOrRemove(it.update.volumeId, !it.selected)
                 it.copy(selected = !it.selected)
             }
             state.copy(items = newItems)

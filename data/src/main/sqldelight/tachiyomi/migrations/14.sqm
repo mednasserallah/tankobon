@@ -1,0 +1,190 @@
+import java.util.Date;
+import kotlin.Boolean;
+import kotlinx.serialization.json.JsonObject;
+
+-- Task 3 (Chapter → Volume): rename the local reading-unit model.
+--   * chapters table            -> volumes
+--   * chapter_number REAL        -> volume_number INTEGER (volumes are whole numbers)
+--   * NEW volumes.volume_number_end INTEGER (nullable; omnibus ranges)
+--   * history.chapter_id         -> history.volume_id (+ FK now references volumes)
+--   * NEW mangas.edition TEXT    (nullable; series edition tag)
+-- Every step preserves existing rows. Order is chosen so foreign keys stay valid
+-- throughout (history is re-pointed at volumes before the old chapters table is dropped).
+
+-- Views are rebuilt over the renamed schema at the end.
+DROP VIEW IF EXISTS historyView;
+DROP VIEW IF EXISTS libraryView;
+DROP VIEW IF EXISTS updatesView;
+
+-- 1. Build the volumes table from chapters, flooring the (previously fractional) number.
+CREATE TABLE volumes(
+    _id INTEGER NOT NULL PRIMARY KEY,
+    manga_id INTEGER NOT NULL,
+    url TEXT NOT NULL,
+    name TEXT NOT NULL,
+    scanlator TEXT,
+    read INTEGER AS Boolean NOT NULL,
+    bookmark INTEGER AS Boolean NOT NULL,
+    last_page_read INTEGER NOT NULL,
+    volume_number INTEGER NOT NULL,
+    volume_number_end INTEGER,
+    source_order INTEGER NOT NULL,
+    date_fetch INTEGER NOT NULL,
+    date_upload INTEGER NOT NULL,
+    last_modified_at INTEGER NOT NULL DEFAULT 0,
+    version INTEGER NOT NULL DEFAULT 0,
+    is_syncing INTEGER NOT NULL DEFAULT 0,
+    memo BLOB AS JsonObject NOT NULL DEFAULT '{}',
+    FOREIGN KEY(manga_id) REFERENCES mangas (_id)
+    ON DELETE CASCADE
+);
+
+INSERT INTO volumes(_id, manga_id, url, name, scanlator, read, bookmark, last_page_read, volume_number, volume_number_end, source_order, date_fetch, date_upload, last_modified_at, version, is_syncing, memo)
+SELECT _id, manga_id, url, name, scanlator, read, bookmark, last_page_read, CAST(chapter_number AS INTEGER), NULL, source_order, date_fetch, date_upload, last_modified_at, version, is_syncing, memo
+FROM chapters;
+
+CREATE INDEX volumes_manga_id_index ON volumes(manga_id);
+CREATE INDEX volumes_unread_by_manga_index ON volumes(manga_id, read) WHERE read = 0;
+CREATE INDEX idx_volumes_url ON volumes(url);
+
+CREATE TRIGGER update_last_modified_at_volumes
+AFTER UPDATE ON volumes
+FOR EACH ROW
+BEGIN
+  UPDATE volumes
+  SET last_modified_at = strftime('%s', 'now')
+  WHERE _id = new._id;
+END;
+
+CREATE TRIGGER update_volume_and_manga_version AFTER UPDATE ON volumes
+WHEN new.is_syncing = 0 AND (
+    new.read != old.read OR
+    new.bookmark != old.bookmark OR
+    new.last_page_read != old.last_page_read
+)
+BEGIN
+    UPDATE volumes SET version = version + 1
+    WHERE _id = new._id;
+
+    UPDATE mangas SET version = version + 1
+    WHERE _id = new.manga_id AND (SELECT is_syncing FROM mangas WHERE _id = new.manga_id) = 0;
+END;
+
+-- 2. Re-point history at volumes and rename chapter_id -> volume_id (rebuild required for the FK).
+CREATE TABLE history_new(
+    _id INTEGER NOT NULL PRIMARY KEY,
+    volume_id INTEGER NOT NULL UNIQUE,
+    last_read INTEGER AS Date,
+    time_read INTEGER NOT NULL,
+    FOREIGN KEY(volume_id) REFERENCES volumes (_id)
+    ON DELETE CASCADE
+);
+
+INSERT INTO history_new(_id, volume_id, last_read, time_read)
+SELECT _id, chapter_id, last_read, time_read FROM history;
+
+DROP TABLE history;
+ALTER TABLE history_new RENAME TO history;
+
+CREATE INDEX history_history_volume_id_index ON history(volume_id);
+CREATE INDEX idx_history_last_read ON history(last_read);
+
+-- 3. Old chapters table is now unreferenced; drop it (its indexes/triggers go with it).
+DROP TABLE chapters;
+
+-- 4. Series edition tag.
+ALTER TABLE mangas ADD COLUMN edition TEXT;
+
+-- 5. Recreate views over the renamed schema.
+CREATE VIEW historyView AS
+SELECT
+    history._id AS id,
+    mangas._id AS mangaId,
+    volumes._id AS volumeId,
+    mangas.title,
+    mangas.thumbnail_url AS thumbnailUrl,
+    mangas.source,
+    mangas.favorite,
+    mangas.cover_last_modified,
+    volumes.volume_number AS volumeNumber,
+    history.last_read AS readAt,
+    history.time_read AS readDuration,
+    max_last_read.last_read AS maxReadAt,
+    max_last_read.volume_id AS maxReadAtVolumeId
+FROM mangas
+JOIN volumes
+ON mangas._id = volumes.manga_id
+JOIN history
+ON volumes._id = history.volume_id
+JOIN (
+    SELECT volumes.manga_id,volumes._id AS volume_id, MAX(history.last_read) AS last_read
+    FROM volumes JOIN history
+    ON volumes._id = history.volume_id
+    GROUP BY volumes.manga_id
+) AS max_last_read
+ON volumes.manga_id = max_last_read.manga_id;
+
+CREATE VIEW libraryView AS
+SELECT
+    M.*,
+    coalesce(C.total, 0) AS totalCount,
+    coalesce(C.readCount, 0) AS readCount,
+    coalesce(C.latestUpload, 0) AS latestUpload,
+    coalesce(C.fetchedAt, 0) AS volumeFetchedAt,
+    coalesce(C.lastRead, 0) AS lastRead,
+    coalesce(C.bookmarkCount, 0) AS bookmarkCount,
+    coalesce(MC.categories, '0') AS categories
+FROM mangas M
+LEFT JOIN (
+    SELECT
+        volumes.manga_id,
+        count(*) AS total,
+        sum(read) AS readCount,
+        coalesce(max(volumes.date_upload), 0) AS latestUpload,
+        coalesce(max(history.last_read), 0) AS lastRead,
+        coalesce(max(volumes.date_fetch), 0) AS fetchedAt,
+        sum(volumes.bookmark) AS bookmarkCount
+    FROM volumes
+    LEFT JOIN excluded_scanlators
+    ON volumes.manga_id = excluded_scanlators.manga_id
+    AND volumes.scanlator = excluded_scanlators.scanlator
+    LEFT JOIN history
+    ON volumes._id = history.volume_id
+    WHERE excluded_scanlators.scanlator IS NULL
+    GROUP BY volumes.manga_id
+) AS C
+ON M._id = C.manga_id
+LEFT JOIN (
+    SELECT manga_id, group_concat(category_id) AS categories
+    FROM mangas_categories
+    GROUP BY manga_id
+) AS MC
+ON MC.manga_id = M._id
+WHERE M.favorite = 1;
+
+CREATE VIEW updatesView AS
+SELECT
+    mangas._id AS mangaId,
+    mangas.title AS mangaTitle,
+    volumes._id AS volumeId,
+    volumes.name AS volumeName,
+    volumes.scanlator,
+    volumes.url AS volumeUrl,
+    volumes.read,
+    volumes.bookmark,
+    volumes.last_page_read,
+    mangas.source,
+    mangas.favorite,
+    mangas.thumbnail_url AS thumbnailUrl,
+    mangas.cover_last_modified AS coverLastModified,
+    volumes.date_upload AS dateUpload,
+    volumes.date_fetch AS datefetch,
+    excluded_scanlators.scanlator AS excludedScanlator
+FROM mangas JOIN volumes
+ON mangas._id = volumes.manga_id
+LEFT JOIN excluded_scanlators
+ON mangas._id = excluded_scanlators.manga_id
+AND volumes.scanlator = excluded_scanlators.scanlator
+WHERE favorite = 1
+AND date_fetch > date_added
+ORDER BY date_fetch DESC;

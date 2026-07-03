@@ -31,8 +31,8 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import eu.kanade.presentation.reader.components.ChapterNavigator
-import eu.kanade.presentation.reader.components.ChapterNavigatorType
+import eu.kanade.presentation.reader.components.VolumeNavigator
+import eu.kanade.presentation.reader.components.VolumeNavigatorType
 import eu.kanade.tachiyomi.ui.reader.setting.ReaderOrientation
 import eu.kanade.tachiyomi.ui.reader.setting.ReadingMode
 import tachiyomi.presentation.core.components.material.padding
@@ -54,7 +54,7 @@ fun ReaderAppBars(
     onOpenInBrowser: (() -> Unit)?,
     onShare: (() -> Unit)?,
 
-    chapterNavigatorType: ChapterNavigatorType,
+    volumeNavigatorType: VolumeNavigatorType,
     onNextChapter: () -> Unit,
     enabledNext: Boolean,
     onPreviousChapter: () -> Unit,
@@ -96,8 +96,8 @@ fun ReaderAppBars(
             )
         }
 
-        if (!chapterNavigatorType.isHorizontal()) {
-            val sliderOnLeft = chapterNavigatorType == ChapterNavigatorType.VERTICAL_LEFT
+        if (!volumeNavigatorType.isHorizontal()) {
+            val sliderOnLeft = volumeNavigatorType == VolumeNavigatorType.VERTICAL_LEFT
             CompositionLocalProvider(
                 LocalLayoutDirection provides if (sliderOnLeft) LayoutDirection.Ltr else LayoutDirection.Rtl,
             ) {
@@ -111,8 +111,8 @@ fun ReaderAppBars(
                     ) {
                         Row {
                             Spacer(modifier = Modifier.width(MaterialTheme.padding.small))
-                            ChapterNavigator(
-                                type = chapterNavigatorType,
+                            VolumeNavigator(
+                                type = volumeNavigatorType,
                                 onNextChapter = onNextChapter,
                                 enabledNext = enabledNext,
                                 onPreviousChapter = onPreviousChapter,
@@ -136,9 +136,9 @@ fun ReaderAppBars(
             exit = slideOutVertically(readerBarsSlideAnimationSpec) { it } + fadeOut(readerBarsFadeAnimationSpec),
         ) {
             Column(verticalArrangement = Arrangement.spacedBy(MaterialTheme.padding.small)) {
-                if (chapterNavigatorType.isHorizontal()) {
-                    ChapterNavigator(
-                        type = chapterNavigatorType,
+                if (volumeNavigatorType.isHorizontal()) {
+                    VolumeNavigator(
+                        type = volumeNavigatorType,
                         onNextChapter = onNextChapter,
                         enabledNext = enabledNext,
                         onPreviousChapter = onPreviousChapter,

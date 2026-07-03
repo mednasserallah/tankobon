@@ -2,7 +2,7 @@ package eu.kanade.domain
 
 import eu.kanade.domain.chapter.interactor.GetAvailableScanlators
 import eu.kanade.domain.chapter.interactor.SetReadStatus
-import eu.kanade.domain.chapter.interactor.SyncChaptersWithSource
+import eu.kanade.domain.chapter.interactor.SyncVolumesWithSource
 import eu.kanade.domain.manga.interactor.GetExcludedScanlators
 import eu.kanade.domain.manga.interactor.SetExcludedScanlators
 import eu.kanade.domain.manga.interactor.SetMangaViewerFlags
@@ -20,7 +20,7 @@ import eu.kanade.domain.track.interactor.TrackChapter
 import mihon.domain.source.interactor.UpdateMangaFromRemote
 import mihon.domain.upcoming.interactor.GetUpcomingManga
 import tachiyomi.data.category.CategoryRepositoryImpl
-import tachiyomi.data.chapter.ChapterRepositoryImpl
+import tachiyomi.data.chapter.VolumeRepositoryImpl
 import tachiyomi.data.history.HistoryRepositoryImpl
 import tachiyomi.data.manga.MangaRepositoryImpl
 import tachiyomi.data.release.ReleaseServiceImpl
@@ -39,16 +39,16 @@ import tachiyomi.domain.category.interactor.SetMangaCategories
 import tachiyomi.domain.category.interactor.SetSortModeForCategory
 import tachiyomi.domain.category.interactor.UpdateCategory
 import tachiyomi.domain.category.repository.CategoryRepository
-import tachiyomi.domain.chapter.interactor.GetBookmarkedChaptersByMangaId
-import tachiyomi.domain.chapter.interactor.GetChapter
-import tachiyomi.domain.chapter.interactor.GetChapterByUrlAndMangaId
-import tachiyomi.domain.chapter.interactor.GetChaptersByMangaId
+import tachiyomi.domain.chapter.interactor.GetBookmarkedVolumesByMangaId
+import tachiyomi.domain.chapter.interactor.GetVolume
+import tachiyomi.domain.chapter.interactor.GetVolumeByUrlAndMangaId
+import tachiyomi.domain.chapter.interactor.GetVolumesByMangaId
 import tachiyomi.domain.chapter.interactor.SetMangaDefaultChapterFlags
-import tachiyomi.domain.chapter.interactor.ShouldUpdateDbChapter
-import tachiyomi.domain.chapter.interactor.UpdateChapter
-import tachiyomi.domain.chapter.repository.ChapterRepository
+import tachiyomi.domain.chapter.interactor.ShouldUpdateDbVolume
+import tachiyomi.domain.chapter.interactor.UpdateVolume
+import tachiyomi.domain.chapter.repository.VolumeRepository
 import tachiyomi.domain.history.interactor.GetHistory
-import tachiyomi.domain.history.interactor.GetNextChapters
+import tachiyomi.domain.history.interactor.GetNextVolumes
 import tachiyomi.domain.history.interactor.GetTotalReadDuration
 import tachiyomi.domain.history.interactor.RemoveHistory
 import tachiyomi.domain.history.interactor.UpsertHistory
@@ -59,7 +59,7 @@ import tachiyomi.domain.manga.interactor.GetFavorites
 import tachiyomi.domain.manga.interactor.GetLibraryManga
 import tachiyomi.domain.manga.interactor.GetManga
 import tachiyomi.domain.manga.interactor.GetMangaByUrlAndSourceId
-import tachiyomi.domain.manga.interactor.GetMangaWithChapters
+import tachiyomi.domain.manga.interactor.GetMangaWithVolumes
 import tachiyomi.domain.manga.interactor.NetworkToLocalManga
 import tachiyomi.domain.manga.interactor.ResetViewerFlags
 import tachiyomi.domain.manga.interactor.SetMangaChapterFlags
@@ -102,10 +102,10 @@ class DomainModule : InjektModule {
         addFactory { GetDuplicateLibraryManga(get()) }
         addFactory { GetFavorites(get()) }
         addFactory { GetLibraryManga(get()) }
-        addFactory { GetMangaWithChapters(get(), get()) }
+        addFactory { GetMangaWithVolumes(get(), get()) }
         addFactory { GetMangaByUrlAndSourceId(get()) }
         addFactory { GetManga(get()) }
-        addFactory { GetNextChapters(get(), get(), get()) }
+        addFactory { GetNextVolumes(get(), get(), get()) }
         addFactory { GetUpcomingManga(get()) }
         addFactory { ResetViewerFlags(get()) }
         addFactory { SetMangaChapterFlags(get()) }
@@ -132,15 +132,15 @@ class DomainModule : InjektModule {
         addFactory { InsertTrack(get()) }
         addFactory { SyncChapterProgressWithTrack() }
 
-        addSingletonFactory<ChapterRepository> { ChapterRepositoryImpl(get()) }
-        addFactory { GetChapter(get()) }
-        addFactory { GetChaptersByMangaId(get()) }
-        addFactory { GetBookmarkedChaptersByMangaId(get()) }
-        addFactory { GetChapterByUrlAndMangaId(get()) }
-        addFactory { UpdateChapter(get()) }
+        addSingletonFactory<VolumeRepository> { VolumeRepositoryImpl(get()) }
+        addFactory { GetVolume(get()) }
+        addFactory { GetVolumesByMangaId(get()) }
+        addFactory { GetBookmarkedVolumesByMangaId(get()) }
+        addFactory { GetVolumeByUrlAndMangaId(get()) }
+        addFactory { UpdateVolume(get()) }
         addFactory { SetReadStatus(get()) }
-        addFactory { ShouldUpdateDbChapter() }
-        addFactory { SyncChaptersWithSource(get(), get(), get(), get(), get(), get(), get()) }
+        addFactory { ShouldUpdateDbVolume() }
+        addFactory { SyncVolumesWithSource(get(), get(), get(), get(), get(), get(), get()) }
         addFactory { GetAvailableScanlators(get()) }
 
         addSingletonFactory<HistoryRepository> { HistoryRepositoryImpl(get()) }

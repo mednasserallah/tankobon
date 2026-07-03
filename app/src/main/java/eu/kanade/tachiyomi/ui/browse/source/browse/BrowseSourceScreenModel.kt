@@ -41,7 +41,7 @@ import tachiyomi.domain.library.service.LibraryPreferences
 import tachiyomi.domain.manga.interactor.GetDuplicateLibraryManga
 import tachiyomi.domain.manga.interactor.GetManga
 import tachiyomi.domain.manga.model.Manga
-import tachiyomi.domain.manga.model.MangaWithChapterCount
+import tachiyomi.domain.manga.model.MangaWithVolumeCount
 import tachiyomi.domain.manga.model.toMangaUpdate
 import tachiyomi.domain.source.interactor.GetRemoteManga
 import tachiyomi.domain.source.service.SourceManager
@@ -271,7 +271,7 @@ class BrowseSourceScreenModel(
             .orEmpty()
     }
 
-    suspend fun getDuplicateLibraryManga(manga: Manga): List<MangaWithChapterCount> {
+    suspend fun getDuplicateLibraryManga(manga: Manga): List<MangaWithVolumeCount> {
         return getDuplicateLibraryManga.invoke(manga)
     }
 
@@ -322,7 +322,7 @@ class BrowseSourceScreenModel(
     sealed interface Dialog {
         data object Filter : Dialog
         data class RemoveManga(val manga: Manga) : Dialog
-        data class AddDuplicateManga(val manga: Manga, val duplicates: List<MangaWithChapterCount>) : Dialog
+        data class AddDuplicateManga(val manga: Manga, val duplicates: List<MangaWithVolumeCount>) : Dialog
         data class ChangeMangaCategory(
             val manga: Manga,
             val initialSelection: List<CheckboxState.State<Category>>,

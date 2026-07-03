@@ -3,9 +3,9 @@ package eu.kanade.tachiyomi.source
 import eu.kanade.tachiyomi.source.model.FilterList
 import eu.kanade.tachiyomi.source.model.MangasPage
 import eu.kanade.tachiyomi.source.model.Page
-import eu.kanade.tachiyomi.source.model.SChapter
 import eu.kanade.tachiyomi.source.model.SManga
 import eu.kanade.tachiyomi.source.model.SMangaUpdate
+import eu.kanade.tachiyomi.source.model.SVolume
 import rx.Observable
 
 /**
@@ -66,7 +66,7 @@ interface Source {
      * Fetches updated information for a manga.
      *
      * Depending on the provided flags or source availability, this may include
-     * updated manga metadata, available chapters, or both.
+     * updated manga metadata, available volumes, or both.
      *
      * If a value is not requested, the existing provided value can be returned as-is.
      * The host app may apply any returned updates regardless of the flags,
@@ -74,33 +74,33 @@ interface Source {
      *
      * @since tachiyomix 1.6
      * @param manga The manga to fetch updates for.
-     * @param chapters Existing chapters of the manga
+     * @param volumes Existing volumes of the manga
      * @param fetchDetails Whether to fetch updated manga details.
-     * @param fetchChapters Whether to fetch available chapters.
+     * @param fetchVolumes Whether to fetch available volumes.
      */
     suspend fun getMangaUpdate(
         manga: SManga,
-        chapters: List<SChapter>,
+        volumes: List<SVolume>,
         fetchDetails: Boolean,
-        fetchChapters: Boolean,
+        fetchVolumes: Boolean,
     ): SMangaUpdate
 
     /**
-     * Get the list of pages a chapter has. Pages should be returned
+     * Get the list of pages a volume has. Pages should be returned
      * in the expected order; the index is ignored.
      *
      * @since tachiyomix 1.6
-     * @param chapter the chapter.
-     * @return the pages for the chapter.
+     * @param volume the volume.
+     * @return the pages for the volume.
      */
-    suspend fun getPageList(chapter: SChapter): List<Page>
+    suspend fun getPageList(volume: SVolume): List<Page>
 
     @Deprecated("Use the combined suspend API instead", ReplaceWith("getMangaUpdate"))
     fun fetchMangaDetails(manga: SManga): Observable<SManga> = throw UnsupportedOperationException()
 
     @Deprecated("Use the combined suspend API instead", ReplaceWith("getMangaUpdate"))
-    fun fetchChapterList(manga: SManga): Observable<List<SChapter>> = throw UnsupportedOperationException()
+    fun fetchVolumeList(manga: SManga): Observable<List<SVolume>> = throw UnsupportedOperationException()
 
     @Deprecated("Use the suspend API instead", ReplaceWith("getPageList"))
-    fun fetchPageList(chapter: SChapter): Observable<List<Page>> = throw UnsupportedOperationException()
+    fun fetchPageList(volume: SVolume): Observable<List<Page>> = throw UnsupportedOperationException()
 }

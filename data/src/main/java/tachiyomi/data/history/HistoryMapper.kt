@@ -8,12 +8,12 @@ import java.util.Date
 object HistoryMapper {
     fun mapHistory(
         id: Long,
-        chapterId: Long,
+        volumeId: Long,
         readAt: Date?,
         readDuration: Long,
     ): History = History(
         id = id,
-        chapterId = chapterId,
+        volumeId = volumeId,
         readAt = readAt,
         readDuration = readDuration,
     )
@@ -21,21 +21,21 @@ object HistoryMapper {
     fun mapHistoryWithRelations(
         historyId: Long,
         mangaId: Long,
-        chapterId: Long,
+        volumeId: Long,
         title: String,
         thumbnailUrl: String?,
         sourceId: Long,
         isFavorite: Boolean,
         coverLastModified: Long,
-        chapterNumber: Double,
+        volumeNumber: Long,
         readAt: Date?,
         readDuration: Long,
     ): HistoryWithRelations = HistoryWithRelations(
         id = historyId,
-        chapterId = chapterId,
+        volumeId = volumeId,
         mangaId = mangaId,
         title = title,
-        chapterNumber = chapterNumber,
+        volumeNumber = volumeNumber,
         readAt = readAt,
         readDuration = readDuration,
         coverData = MangaCover(

@@ -1,6 +1,6 @@
 package tachiyomi.data.chapter
 
-object ChapterSanitizer {
+object VolumeSanitizer {
 
     fun String.sanitize(title: String): String {
         return trim()

@@ -9,8 +9,8 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.view.isNotEmpty
 import androidx.core.view.isVisible
 import com.google.android.material.progressindicator.CircularProgressIndicator
-import eu.kanade.tachiyomi.ui.reader.model.ChapterTransition
-import eu.kanade.tachiyomi.ui.reader.model.ReaderChapter
+import eu.kanade.tachiyomi.ui.reader.model.ReaderVolume
+import eu.kanade.tachiyomi.ui.reader.model.VolumeTransition
 import eu.kanade.tachiyomi.ui.reader.viewer.ReaderTransitionView
 import eu.kanade.tachiyomi.util.system.dpToPx
 import kotlinx.coroutines.Job
@@ -63,7 +63,7 @@ class WebtoonTransitionHolder(
     /**
      * Binds the given [transition] with this view holder, subscribing to its state.
      */
-    fun bind(transition: ChapterTransition) {
+    fun bind(transition: VolumeTransition) {
         transitionView.bind(transition)
 
         transition.to?.let { observeStatus(it, transition) }
@@ -80,16 +80,16 @@ class WebtoonTransitionHolder(
      * Observes the status of the page list of the next/previous chapter. Whenever there's a new
      * state, the pages container is cleaned up before setting the new state.
      */
-    private fun observeStatus(chapter: ReaderChapter, transition: ChapterTransition) {
+    private fun observeStatus(chapter: ReaderVolume, transition: VolumeTransition) {
         stateJob?.cancel()
         stateJob = scope.launch {
             chapter.stateFlow
                 .collectLatest { state ->
                     pagesContainer.removeAllViews()
                     when (state) {
-                        is ReaderChapter.State.Loading -> setLoading()
-                        is ReaderChapter.State.Error -> setError(state.error, transition)
-                        is ReaderChapter.State.Wait, is ReaderChapter.State.Loaded -> {
+                        is ReaderVolume.State.Loading -> setLoading()
+                        is ReaderVolume.State.Error -> setError(state.error, transition)
+                        is ReaderVolume.State.Wait, is ReaderVolume.State.Loaded -> {
                             // No additional view is added
                         }
                     }
@@ -117,7 +117,7 @@ class WebtoonTransitionHolder(
     /**
      * Sets the error state on the pages container.
      */
-    private fun setError(error: Throwable, transition: ChapterTransition) {
+    private fun setError(error: Throwable, transition: VolumeTransition) {
         val textView = AppCompatTextView(context).apply {
             wrapContent()
             text = context.stringResource(MR.strings.transition_pages_error, error.message ?: "")

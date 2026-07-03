@@ -144,7 +144,7 @@ class LibraryPreferences(
 
     // endregion
 
-    // region Chapter
+    // region Volume
 
     val filterChapterByRead: Preference<Long> = preferenceStore.getLong(
         "default_chapter_filter_by_read",

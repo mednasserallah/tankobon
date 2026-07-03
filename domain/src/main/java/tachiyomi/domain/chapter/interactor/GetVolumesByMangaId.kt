@@ -2,14 +2,14 @@ package tachiyomi.domain.chapter.interactor
 
 import logcat.LogPriority
 import tachiyomi.core.common.util.system.logcat
-import tachiyomi.domain.chapter.model.Chapter
-import tachiyomi.domain.chapter.repository.ChapterRepository
+import tachiyomi.domain.chapter.model.Volume
+import tachiyomi.domain.chapter.repository.VolumeRepository
 
-class GetChaptersByMangaId(
-    private val chapterRepository: ChapterRepository,
+class GetVolumesByMangaId(
+    private val chapterRepository: VolumeRepository,
 ) {
 
-    suspend fun await(mangaId: Long, applyScanlatorFilter: Boolean = false): List<Chapter> {
+    suspend fun await(mangaId: Long, applyScanlatorFilter: Boolean = false): List<Volume> {
         return try {
             chapterRepository.getChapterByMangaId(mangaId, applyScanlatorFilter)
         } catch (e: Exception) {

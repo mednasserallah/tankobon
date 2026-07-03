@@ -2,7 +2,7 @@ package eu.kanade.tachiyomi.ui.reader.loader
 
 import android.content.Context
 import eu.kanade.tachiyomi.source.Source
-import eu.kanade.tachiyomi.ui.reader.model.ReaderChapter
+import eu.kanade.tachiyomi.ui.reader.model.ReaderVolume
 import mihon.core.archive.archiveReader
 import mihon.core.archive.epubReader
 import tachiyomi.core.common.i18n.stringResource
@@ -16,7 +16,7 @@ import tachiyomi.source.local.io.Format
 /**
  * Loader used to retrieve the [PageLoader] for a given chapter.
  */
-class ChapterLoader(
+class VolumeLoader(
     private val context: Context,
     private val manga: Manga,
     private val source: Source,
@@ -26,12 +26,12 @@ class ChapterLoader(
      * Assigns the chapter's page loader and loads the its pages. Returns immediately if the chapter
      * is already loaded.
      */
-    suspend fun loadChapter(chapter: ReaderChapter) {
+    suspend fun loadChapter(chapter: ReaderVolume) {
         if (chapterIsReady(chapter)) {
             return
         }
 
-        chapter.state = ReaderChapter.State.Loading
+        chapter.state = ReaderVolume.State.Loading
         withIOContext {
             logcat { "Loading pages for ${chapter.chapter.name}" }
             try {
@@ -51,9 +51,9 @@ class ChapterLoader(
                     chapter.requestedPage = chapter.chapter.last_page_read
                 }
 
-                chapter.state = ReaderChapter.State.Loaded(pages)
+                chapter.state = ReaderVolume.State.Loaded(pages)
             } catch (e: Throwable) {
-                chapter.state = ReaderChapter.State.Error(e)
+                chapter.state = ReaderVolume.State.Error(e)
                 throw e
             }
         }
@@ -62,14 +62,14 @@ class ChapterLoader(
     /**
      * Checks [chapter] to be loaded based on present pages and loader in addition to state.
      */
-    private fun chapterIsReady(chapter: ReaderChapter): Boolean {
-        return chapter.state is ReaderChapter.State.Loaded && chapter.pageLoader != null
+    private fun chapterIsReady(chapter: ReaderVolume): Boolean {
+        return chapter.state is ReaderVolume.State.Loaded && chapter.pageLoader != null
     }
 
     /**
      * Returns the page loader to use for this [chapter].
      */
-    private fun getPageLoader(chapter: ReaderChapter): PageLoader {
+    private fun getPageLoader(chapter: ReaderVolume): PageLoader {
         return when (source) {
             is LocalSource -> source.getFormat(chapter.chapter).let { format ->
                 when (format) {

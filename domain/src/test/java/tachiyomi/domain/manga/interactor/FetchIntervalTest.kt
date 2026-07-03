@@ -5,7 +5,7 @@ import io.mockk.mockk
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.parallel.Execution
 import org.junit.jupiter.api.parallel.ExecutionMode
-import tachiyomi.domain.chapter.model.Chapter
+import tachiyomi.domain.chapter.model.Volume
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import kotlin.time.Duration
@@ -20,7 +20,7 @@ class FetchIntervalTest {
 
     private val testTime = ZonedDateTime.parse("2020-01-01T00:00:00Z")
     private val testZoneId = ZoneOffset.UTC
-    private var chapter = Chapter.create().copy(
+    private var chapter = Volume.create().copy(
         dateFetch = testTime.toEpochSecond() * 1000,
         dateUpload = testTime.toEpochSecond() * 1000,
     )
@@ -132,11 +132,11 @@ class FetchIntervalTest {
         fetchInterval.calculateInterval(chapters, testZoneId) shouldBe 2
     }
 
-    private fun chapterWithTime(chapter: Chapter, duration: Duration): Chapter {
+    private fun chapterWithTime(chapter: Volume, duration: Duration): Volume {
         val newTime = testTime.plus(duration.toJavaDuration()).toEpochSecond() * 1000
         return chapter.copy(dateFetch = newTime, dateUpload = newTime)
     }
 
-    private fun List<Chapter>.lastUploadDate() =
+    private fun List<Volume>.lastUploadDate() =
         last().dateUpload.toDuration(DurationUnit.MILLISECONDS)
 }

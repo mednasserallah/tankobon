@@ -64,7 +64,7 @@ import eu.kanade.presentation.more.settings.widget.TextPreferenceWidget
 import eu.kanade.tachiyomi.source.Source
 import eu.kanade.tachiyomi.source.model.SManga
 import tachiyomi.domain.manga.model.Manga
-import tachiyomi.domain.manga.model.MangaWithChapterCount
+import tachiyomi.domain.manga.model.MangaWithVolumeCount
 import tachiyomi.domain.source.model.StubSource
 import tachiyomi.domain.source.service.SourceManager
 import tachiyomi.i18n.MR
@@ -79,7 +79,7 @@ import uy.kohesive.injekt.api.get
 
 @Composable
 fun DuplicateMangaDialog(
-    duplicates: List<MangaWithChapterCount>,
+    duplicates: List<MangaWithVolumeCount>,
     onDismissRequest: () -> Unit,
     onConfirm: () -> Unit,
     onOpenManga: (manga: Manga) -> Unit,
@@ -168,7 +168,7 @@ fun DuplicateMangaDialog(
 
 @Composable
 private fun DuplicateMangaListItem(
-    duplicate: MangaWithChapterCount,
+    duplicate: MangaWithVolumeCount,
     getSource: () -> Source,
     onDismissRequest: () -> Unit,
     onOpenManga: () -> Unit,
@@ -311,7 +311,7 @@ private fun MangaDetailRow(
 }
 
 @Composable
-private fun getMaximumMangaCardHeight(duplicates: List<MangaWithChapterCount>): Dp {
+private fun getMaximumMangaCardHeight(duplicates: List<MangaWithVolumeCount>): Dp {
     val density = LocalDensity.current
     val typography = MaterialTheme.typography
     val textMeasurer = rememberTextMeasurer()

@@ -8,7 +8,7 @@ import eu.kanade.tachiyomi.data.track.TrackerManager
 import eu.kanade.tachiyomi.util.lang.convertEpochMillisZone
 import tachiyomi.core.common.util.lang.withIOContext
 import tachiyomi.core.common.util.lang.withNonCancellableContext
-import tachiyomi.domain.chapter.interactor.GetChaptersByMangaId
+import tachiyomi.domain.chapter.interactor.GetVolumesByMangaId
 import tachiyomi.domain.history.interactor.GetHistory
 import tachiyomi.domain.track.interactor.InsertTrack
 import uy.kohesive.injekt.Injekt
@@ -18,14 +18,14 @@ import java.time.ZoneOffset
 class AddTracks(
     private val insertTrack: InsertTrack,
     private val syncChapterProgressWithTrack: SyncChapterProgressWithTrack,
-    private val getChaptersByMangaId: GetChaptersByMangaId,
+    private val getVolumesByMangaId: GetVolumesByMangaId,
     private val trackerManager: TrackerManager,
 ) {
 
     // TODO: update all trackers based on common data
     suspend fun bind(tracker: Tracker, item: Track, mangaId: Long) = withNonCancellableContext {
         withIOContext {
-            val allChapters = getChaptersByMangaId.await(mangaId)
+            val allChapters = getVolumesByMangaId.await(mangaId)
             val hasReadChapters = allChapters.any { it.read }
             tracker.bind(item, hasReadChapters)
 
@@ -37,14 +37,14 @@ class AddTracks(
             // Update chapter progress if newer chapters marked read locally
             if (hasReadChapters) {
                 val latestLocalReadChapterNumber = allChapters
-                    .sortedBy { it.chapterNumber }
+                    .sortedBy { it.volumeNumber }
                     .takeWhile { it.read }
                     .lastOrNull()
-                    ?.chapterNumber ?: -1.0
+                    ?.volumeNumber ?: -1L
 
-                if (latestLocalReadChapterNumber > track.lastChapterRead) {
+                if (latestLocalReadChapterNumber.toDouble() > track.lastChapterRead) {
                     track = track.copy(
-                        lastChapterRead = latestLocalReadChapterNumber,
+                        lastChapterRead = latestLocalReadChapterNumber.toDouble(),
                     )
                     tracker.setRemoteLastChapterRead(track.toDbTrack(), latestLocalReadChapterNumber.toInt())
                 }

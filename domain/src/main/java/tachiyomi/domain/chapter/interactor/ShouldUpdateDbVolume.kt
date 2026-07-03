@@ -1,14 +1,14 @@
 package tachiyomi.domain.chapter.interactor
 
-import tachiyomi.domain.chapter.model.Chapter
+import tachiyomi.domain.chapter.model.Volume
 
-class ShouldUpdateDbChapter {
+class ShouldUpdateDbVolume {
 
-    fun await(dbChapter: Chapter, sourceChapter: Chapter): Boolean {
+    fun await(dbChapter: Volume, sourceChapter: Volume): Boolean {
         return dbChapter.scanlator != sourceChapter.scanlator ||
             dbChapter.name != sourceChapter.name ||
             dbChapter.dateUpload != sourceChapter.dateUpload ||
-            dbChapter.chapterNumber != sourceChapter.chapterNumber ||
+            dbChapter.volumeNumber != sourceChapter.volumeNumber ||
             dbChapter.sourceOrder != sourceChapter.sourceOrder ||
             dbChapter.memo != sourceChapter.memo
     }

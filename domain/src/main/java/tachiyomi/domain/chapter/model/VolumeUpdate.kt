@@ -2,7 +2,7 @@ package tachiyomi.domain.chapter.model
 
 import kotlinx.serialization.json.JsonObject
 
-data class ChapterUpdate(
+data class VolumeUpdate(
     val id: Long,
     val mangaId: Long? = null,
     val read: Boolean? = null,
@@ -13,14 +13,15 @@ data class ChapterUpdate(
     val url: String? = null,
     val name: String? = null,
     val dateUpload: Long? = null,
-    val chapterNumber: Double? = null,
+    val volumeNumber: Long? = null,
+    val volumeNumberEnd: Long? = null,
     val scanlator: String? = null,
     val version: Long? = null,
     val memo: JsonObject? = null,
 )
 
-fun Chapter.toChapterUpdate(): ChapterUpdate {
-    return ChapterUpdate(
+fun Volume.toVolumeUpdate(): VolumeUpdate {
+    return VolumeUpdate(
         id,
         mangaId,
         read,
@@ -31,7 +32,8 @@ fun Chapter.toChapterUpdate(): ChapterUpdate {
         url,
         name,
         dateUpload,
-        chapterNumber,
+        volumeNumber,
+        volumeNumberEnd,
         scanlator,
         version,
         memo,

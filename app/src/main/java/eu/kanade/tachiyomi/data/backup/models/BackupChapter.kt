@@ -6,10 +6,10 @@ import kotlinx.serialization.protobuf.ProtoNumber
 import mihon.core.common.extensions.EMPTY
 import mihon.core.common.extensions.JsonObjectEmptyBytes
 import tachiyomi.data.MemoColumnAdapter
-import tachiyomi.domain.chapter.model.Chapter
+import tachiyomi.domain.chapter.model.Volume
 
 @Serializable
-class BackupChapter(
+class BackupVolume(
     // in 1.x some of these values have different names
     // url is called key in 1.x
     @ProtoNumber(1) var url: String,
@@ -21,28 +21,33 @@ class BackupChapter(
     @ProtoNumber(6) var lastPageRead: Long = 0,
     @ProtoNumber(7) var dateFetch: Long = 0,
     @ProtoNumber(8) var dateUpload: Long = 0,
-    // chapterNumber is called number is 1.x
-    @ProtoNumber(9) var chapterNumber: Float = 0F,
+    // volumeNumber is called number in 1.x. Kept as Float at proto field 9 for backward
+    // compatibility with existing Mihon/Tachiyomi backups (volumes are whole numbers, so the
+    // value is always integral); it is rounded to a whole volume number on restore.
+    @ProtoNumber(9) var volumeNumber: Float = 0F,
     @ProtoNumber(10) var sourceOrder: Long = 0,
     @ProtoNumber(11) var lastModifiedAt: Long = 0,
     @ProtoNumber(12) var version: Long = 0,
     @ProtoNumber(13) var memo: ByteArray = JsonObjectEmptyBytes,
+    // New in Tankobon: end of an omnibus volume range (null for single-volume files).
+    @ProtoNumber(14) var volumeNumberEnd: Int? = null,
 ) {
-    fun toChapterImpl(): Chapter {
-        return Chapter.create().copy(
-            url = this@BackupChapter.url,
-            name = this@BackupChapter.name,
-            chapterNumber = this@BackupChapter.chapterNumber.toDouble(),
-            scanlator = this@BackupChapter.scanlator,
-            read = this@BackupChapter.read,
-            bookmark = this@BackupChapter.bookmark,
-            lastPageRead = this@BackupChapter.lastPageRead,
-            dateFetch = this@BackupChapter.dateFetch,
-            dateUpload = this@BackupChapter.dateUpload,
-            sourceOrder = this@BackupChapter.sourceOrder,
-            lastModifiedAt = this@BackupChapter.lastModifiedAt,
-            version = this@BackupChapter.version,
-            memo = MemoColumnAdapter.decode(this@BackupChapter.memo),
+    fun toVolumeImpl(): Volume {
+        return Volume.create().copy(
+            url = this@BackupVolume.url,
+            name = this@BackupVolume.name,
+            volumeNumber = this@BackupVolume.volumeNumber.toLong(),
+            volumeNumberEnd = this@BackupVolume.volumeNumberEnd?.toLong(),
+            scanlator = this@BackupVolume.scanlator,
+            read = this@BackupVolume.read,
+            bookmark = this@BackupVolume.bookmark,
+            lastPageRead = this@BackupVolume.lastPageRead,
+            dateFetch = this@BackupVolume.dateFetch,
+            dateUpload = this@BackupVolume.dateUpload,
+            sourceOrder = this@BackupVolume.sourceOrder,
+            lastModifiedAt = this@BackupVolume.lastModifiedAt,
+            version = this@BackupVolume.version,
+            memo = MemoColumnAdapter.decode(this@BackupVolume.memo),
         )
     }
 }
@@ -56,7 +61,8 @@ val backupChapterMapper = {
         read: Boolean,
         bookmark: Boolean,
         lastPageRead: Long,
-        chapterNumber: Double,
+        volumeNumber: Long,
+        volumeNumberEnd: Long?,
         sourceOrder: Long,
         dateFetch: Long,
         dateUpload: Long,
@@ -65,10 +71,11 @@ val backupChapterMapper = {
         _: Long,
         memo: JsonObject,
     ->
-    BackupChapter(
+    BackupVolume(
         url = url,
         name = name,
-        chapterNumber = chapterNumber.toFloat(),
+        volumeNumber = volumeNumber.toFloat(),
+        volumeNumberEnd = volumeNumberEnd?.toInt(),
         scanlator = scanlator,
         read = read,
         bookmark = bookmark,

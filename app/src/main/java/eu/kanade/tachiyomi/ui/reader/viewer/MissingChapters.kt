@@ -1,12 +1,12 @@
 package eu.kanade.tachiyomi.ui.reader.viewer
 
-import eu.kanade.tachiyomi.data.database.models.toDomainChapter
-import eu.kanade.tachiyomi.ui.reader.model.ReaderChapter
-import tachiyomi.domain.chapter.service.calculateChapterGap as domainCalculateChapterGap
+import eu.kanade.tachiyomi.data.database.models.toDomainVolume
+import eu.kanade.tachiyomi.ui.reader.model.ReaderVolume
+import tachiyomi.domain.chapter.service.calculateVolumeGap as domainCalculateChapterGap
 
-fun calculateChapterGap(higherReaderChapter: ReaderChapter?, lowerReaderChapter: ReaderChapter?): Int {
+fun calculateVolumeGap(higherReaderChapter: ReaderVolume?, lowerReaderChapter: ReaderVolume?): Int {
     return domainCalculateChapterGap(
-        higherReaderChapter?.chapter?.toDomainChapter(),
-        lowerReaderChapter?.chapter?.toDomainChapter(),
+        higherReaderChapter?.chapter?.toDomainVolume(),
+        lowerReaderChapter?.chapter?.toDomainVolume(),
     )
 }

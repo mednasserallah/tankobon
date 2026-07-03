@@ -47,21 +47,21 @@ import androidx.compose.ui.util.fastAll
 import androidx.compose.ui.util.fastAny
 import androidx.compose.ui.util.fastMap
 import eu.kanade.presentation.components.relativeDateText
-import eu.kanade.presentation.manga.components.ChapterHeader
 import eu.kanade.presentation.manga.components.ExpandableMangaDescription
 import eu.kanade.presentation.manga.components.MangaActionRow
 import eu.kanade.presentation.manga.components.MangaBottomActionMenu
-import eu.kanade.presentation.manga.components.MangaChapterListItem
 import eu.kanade.presentation.manga.components.MangaInfoBox
 import eu.kanade.presentation.manga.components.MangaToolbar
-import eu.kanade.presentation.manga.components.MissingChapterCountListItem
-import eu.kanade.presentation.util.formatChapterNumber
+import eu.kanade.presentation.manga.components.MangaVolumeListItem
+import eu.kanade.presentation.manga.components.MissingVolumeCountListItem
+import eu.kanade.presentation.manga.components.VolumeHeader
+import eu.kanade.presentation.util.formatVolumeNumber
 import eu.kanade.tachiyomi.source.getNameForMangaInfo
-import eu.kanade.tachiyomi.ui.manga.ChapterList
 import eu.kanade.tachiyomi.ui.manga.MangaScreenModel
+import eu.kanade.tachiyomi.ui.manga.VolumeList
 import eu.kanade.tachiyomi.util.system.copyToClipboard
-import tachiyomi.domain.chapter.model.Chapter
-import tachiyomi.domain.chapter.service.missingChaptersCount
+import tachiyomi.domain.chapter.model.Volume
+import tachiyomi.domain.chapter.service.missingVolumesCount
 import tachiyomi.domain.library.service.LibraryPreferences
 import tachiyomi.domain.manga.model.Manga
 import tachiyomi.domain.source.model.StubSource
@@ -83,7 +83,7 @@ fun MangaScreen(
     chapterSwipeStartAction: LibraryPreferences.ChapterSwipeAction,
     chapterSwipeEndAction: LibraryPreferences.ChapterSwipeAction,
     navigateUp: () -> Unit,
-    onChapterClicked: (Chapter) -> Unit,
+    onChapterClicked: (Volume) -> Unit,
     onAddToLibraryClicked: () -> Unit,
     onTrackingClicked: () -> Unit,
 
@@ -104,15 +104,15 @@ fun MangaScreen(
     onEditNotesClicked: () -> Unit,
 
     // For bottom action menu
-    onMultiBookmarkClicked: (List<Chapter>, bookmarked: Boolean) -> Unit,
-    onMultiMarkAsReadClicked: (List<Chapter>, markAsRead: Boolean) -> Unit,
-    onMarkPreviousAsReadClicked: (Chapter) -> Unit,
+    onMultiBookmarkClicked: (List<Volume>, bookmarked: Boolean) -> Unit,
+    onMultiMarkAsReadClicked: (List<Volume>, markAsRead: Boolean) -> Unit,
+    onMarkPreviousAsReadClicked: (Volume) -> Unit,
 
     // For chapter swipe
-    onChapterSwipe: (ChapterList.Item, LibraryPreferences.ChapterSwipeAction) -> Unit,
+    onChapterSwipe: (VolumeList.Item, LibraryPreferences.ChapterSwipeAction) -> Unit,
 
-    // Chapter selection
-    onChapterSelected: (ChapterList.Item, Boolean, Boolean) -> Unit,
+    // Volume selection
+    onChapterSelected: (VolumeList.Item, Boolean, Boolean) -> Unit,
     onAllChapterSelected: (Boolean) -> Unit,
     onInvertSelection: () -> Unit,
 ) {
@@ -192,7 +192,7 @@ private fun MangaScreenSmallImpl(
     chapterSwipeStartAction: LibraryPreferences.ChapterSwipeAction,
     chapterSwipeEndAction: LibraryPreferences.ChapterSwipeAction,
     navigateUp: () -> Unit,
-    onChapterClicked: (Chapter) -> Unit,
+    onChapterClicked: (Volume) -> Unit,
     onAddToLibraryClicked: () -> Unit,
     onTrackingClicked: () -> Unit,
 
@@ -214,15 +214,15 @@ private fun MangaScreenSmallImpl(
     onEditNotesClicked: () -> Unit,
 
     // For bottom action menu
-    onMultiBookmarkClicked: (List<Chapter>, bookmarked: Boolean) -> Unit,
-    onMultiMarkAsReadClicked: (List<Chapter>, markAsRead: Boolean) -> Unit,
-    onMarkPreviousAsReadClicked: (Chapter) -> Unit,
+    onMultiBookmarkClicked: (List<Volume>, bookmarked: Boolean) -> Unit,
+    onMultiMarkAsReadClicked: (List<Volume>, markAsRead: Boolean) -> Unit,
+    onMarkPreviousAsReadClicked: (Volume) -> Unit,
 
     // For chapter swipe
-    onChapterSwipe: (ChapterList.Item, LibraryPreferences.ChapterSwipeAction) -> Unit,
+    onChapterSwipe: (VolumeList.Item, LibraryPreferences.ChapterSwipeAction) -> Unit,
 
-    // Chapter selection
-    onChapterSelected: (ChapterList.Item, Boolean, Boolean) -> Unit,
+    // Volume selection
+    onChapterSelected: (VolumeList.Item, Boolean, Boolean) -> Unit,
     onAllChapterSelected: (Boolean) -> Unit,
     onInvertSelection: () -> Unit,
 ) {
@@ -384,13 +384,13 @@ private fun MangaScreenSmallImpl(
                         key = MangaScreenItem.CHAPTER_HEADER,
                         contentType = MangaScreenItem.CHAPTER_HEADER,
                     ) {
-                        val missingChapterCount = remember(chapters) {
-                            chapters.map { it.chapter.chapterNumber }.missingChaptersCount()
+                        val missingVolumeCount = remember(chapters) {
+                            chapters.map { it.chapter.volumeNumber }.missingVolumesCount()
                         }
-                        ChapterHeader(
+                        VolumeHeader(
                             enabled = !isAnySelected,
                             chapterCount = chapters.size,
-                            missingChapterCount = missingChapterCount,
+                            missingVolumeCount = missingVolumeCount,
                             onClick = onFilterClicked,
                         )
                     }
@@ -419,7 +419,7 @@ fun MangaScreenLargeImpl(
     chapterSwipeStartAction: LibraryPreferences.ChapterSwipeAction,
     chapterSwipeEndAction: LibraryPreferences.ChapterSwipeAction,
     navigateUp: () -> Unit,
-    onChapterClicked: (Chapter) -> Unit,
+    onChapterClicked: (Volume) -> Unit,
     onAddToLibraryClicked: () -> Unit,
     onTrackingClicked: () -> Unit,
 
@@ -441,15 +441,15 @@ fun MangaScreenLargeImpl(
     onEditNotesClicked: () -> Unit,
 
     // For bottom action menu
-    onMultiBookmarkClicked: (List<Chapter>, bookmarked: Boolean) -> Unit,
-    onMultiMarkAsReadClicked: (List<Chapter>, markAsRead: Boolean) -> Unit,
-    onMarkPreviousAsReadClicked: (Chapter) -> Unit,
+    onMultiBookmarkClicked: (List<Volume>, bookmarked: Boolean) -> Unit,
+    onMultiMarkAsReadClicked: (List<Volume>, markAsRead: Boolean) -> Unit,
+    onMarkPreviousAsReadClicked: (Volume) -> Unit,
 
     // For swipe actions
-    onChapterSwipe: (ChapterList.Item, LibraryPreferences.ChapterSwipeAction) -> Unit,
+    onChapterSwipe: (VolumeList.Item, LibraryPreferences.ChapterSwipeAction) -> Unit,
 
-    // Chapter selection
-    onChapterSelected: (ChapterList.Item, Boolean, Boolean) -> Unit,
+    // Volume selection
+    onChapterSelected: (VolumeList.Item, Boolean, Boolean) -> Unit,
     onAllChapterSelected: (Boolean) -> Unit,
     onInvertSelection: () -> Unit,
 ) {
@@ -606,13 +606,13 @@ fun MangaScreenLargeImpl(
                                 key = MangaScreenItem.CHAPTER_HEADER,
                                 contentType = MangaScreenItem.CHAPTER_HEADER,
                             ) {
-                                val missingChapterCount = remember(chapters) {
-                                    chapters.map { it.chapter.chapterNumber }.missingChaptersCount()
+                                val missingVolumeCount = remember(chapters) {
+                                    chapters.map { it.chapter.volumeNumber }.missingVolumesCount()
                                 }
-                                ChapterHeader(
+                                VolumeHeader(
                                     enabled = !isAnySelected,
                                     chapterCount = chapters.size,
-                                    missingChapterCount = missingChapterCount,
+                                    missingVolumeCount = missingVolumeCount,
                                     onClick = onFilterButtonClicked,
                                 )
                             }
@@ -637,10 +637,10 @@ fun MangaScreenLargeImpl(
 
 @Composable
 private fun SharedMangaBottomActionMenu(
-    selected: List<ChapterList.Item>,
-    onMultiBookmarkClicked: (List<Chapter>, bookmarked: Boolean) -> Unit,
-    onMultiMarkAsReadClicked: (List<Chapter>, markAsRead: Boolean) -> Unit,
-    onMarkPreviousAsReadClicked: (Chapter) -> Unit,
+    selected: List<VolumeList.Item>,
+    onMultiBookmarkClicked: (List<Volume>, bookmarked: Boolean) -> Unit,
+    onMultiMarkAsReadClicked: (List<Volume>, markAsRead: Boolean) -> Unit,
+    onMarkPreviousAsReadClicked: (Volume) -> Unit,
     fillFraction: Float,
     modifier: Modifier = Modifier,
 ) {
@@ -667,20 +667,20 @@ private fun SharedMangaBottomActionMenu(
 
 private fun LazyListScope.sharedChapterItems(
     manga: Manga,
-    chapters: List<ChapterList>,
+    chapters: List<VolumeList>,
     isAnyChapterSelected: Boolean,
     chapterSwipeStartAction: LibraryPreferences.ChapterSwipeAction,
     chapterSwipeEndAction: LibraryPreferences.ChapterSwipeAction,
-    onChapterClicked: (Chapter) -> Unit,
-    onChapterSelected: (ChapterList.Item, Boolean, Boolean) -> Unit,
-    onChapterSwipe: (ChapterList.Item, LibraryPreferences.ChapterSwipeAction) -> Unit,
+    onChapterClicked: (Volume) -> Unit,
+    onChapterSelected: (VolumeList.Item, Boolean, Boolean) -> Unit,
+    onChapterSwipe: (VolumeList.Item, LibraryPreferences.ChapterSwipeAction) -> Unit,
 ) {
     items(
         items = chapters,
         key = { item ->
             when (item) {
-                is ChapterList.MissingCount -> "missing-count-${item.id}"
-                is ChapterList.Item -> "chapter-${item.id}"
+                is VolumeList.MissingCount -> "missing-count-${item.id}"
+                is VolumeList.Item -> "chapter-${item.id}"
             }
         },
         contentType = { MangaScreenItem.CHAPTER },
@@ -688,15 +688,15 @@ private fun LazyListScope.sharedChapterItems(
         val haptic = LocalHapticFeedback.current
 
         when (item) {
-            is ChapterList.MissingCount -> {
-                MissingChapterCountListItem(count = item.count)
+            is VolumeList.MissingCount -> {
+                MissingVolumeCountListItem(count = item.count)
             }
-            is ChapterList.Item -> {
-                MangaChapterListItem(
+            is VolumeList.Item -> {
+                MangaVolumeListItem(
                     title = if (manga.displayMode == Manga.CHAPTER_DISPLAY_NUMBER) {
                         stringResource(
                             MR.strings.display_mode_chapter,
-                            formatChapterNumber(item.chapter.chapterNumber),
+                            formatVolumeNumber(item.chapter.volumeNumber),
                         )
                     } else {
                         item.chapter.name
@@ -738,10 +738,10 @@ private fun LazyListScope.sharedChapterItems(
 }
 
 private fun onChapterItemClick(
-    chapterItem: ChapterList.Item,
+    chapterItem: VolumeList.Item,
     isAnyChapterSelected: Boolean,
     onToggleSelection: (Boolean) -> Unit,
-    onChapterClicked: (Chapter) -> Unit,
+    onChapterClicked: (Volume) -> Unit,
 ) {
     when {
         chapterItem.selected -> onToggleSelection(false)

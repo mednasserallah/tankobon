@@ -27,6 +27,9 @@ interface SManga : Serializable {
 
     var initialized: Boolean
 
+    /** Series edition tag parsed from the folder name (e.g. "Omnibus Edition"); null when absent. */
+    var edition: String?
+
     /**
      * Extra metadata associated with the manga.
      *
@@ -56,6 +59,7 @@ interface SManga : Serializable {
         it.thumbnail_url = thumbnail_url
         it.update_strategy = update_strategy
         it.initialized = initialized
+        it.edition = edition
         it.memo = memo
     }
 

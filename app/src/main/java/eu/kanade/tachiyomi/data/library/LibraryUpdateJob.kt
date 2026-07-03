@@ -41,8 +41,8 @@ import tachiyomi.core.common.preference.getAndSet
 import tachiyomi.core.common.util.lang.withIOContext
 import tachiyomi.core.common.util.system.logcat
 import tachiyomi.domain.category.model.Category
-import tachiyomi.domain.chapter.model.Chapter
-import tachiyomi.domain.chapter.model.NoChaptersException
+import tachiyomi.domain.chapter.model.NoVolumesException
+import tachiyomi.domain.chapter.model.Volume
 import tachiyomi.domain.library.model.LibraryManga
 import tachiyomi.domain.library.service.LibraryPreferences
 import tachiyomi.domain.library.service.LibraryPreferences.Companion.DEVICE_CHARGING
@@ -226,7 +226,7 @@ class LibraryUpdateJob(private val context: Context, workerParams: WorkerParamet
         val semaphore = Semaphore(5)
         val progressCount = AtomicInt(0)
         val currentlyUpdatingManga = CopyOnWriteArrayList<Manga>()
-        val newUpdates = CopyOnWriteArrayList<Pair<Manga, Array<Chapter>>>()
+        val newUpdates = CopyOnWriteArrayList<Pair<Manga, Array<Volume>>>()
         val failedUpdates = CopyOnWriteArrayList<Pair<Manga, String?>>()
         val fetchWindow = fetchInterval.getWindow(ZonedDateTime.now())
 
@@ -261,7 +261,7 @@ class LibraryUpdateJob(private val context: Context, workerParams: WorkerParamet
                                         }
                                     } catch (e: Throwable) {
                                         val errorMessage = when (e) {
-                                            is NoChaptersException -> context.stringResource(
+                                            is NoVolumesException -> context.stringResource(
                                                 MR.strings.no_chapters_error,
                                             )
                                             // failedUpdates will already have the source, don't need to copy it into the message
@@ -301,7 +301,7 @@ class LibraryUpdateJob(private val context: Context, workerParams: WorkerParamet
      * @param manga the manga to update.
      * @return a pair of the inserted and removed chapters.
      */
-    private suspend fun updateManga(manga: Manga, fetchWindow: Pair<Long, Long>): List<Chapter> {
+    private suspend fun updateManga(manga: Manga, fetchWindow: Pair<Long, Long>): List<Volume> {
         val source = sourceManager.getOrStub(manga.source)
 
         val update = updateMangaFromRemote(

@@ -12,7 +12,7 @@ import okhttp3.Response
 import okio.buffer
 import okio.sink
 import tachiyomi.core.common.util.system.logcat
-import tachiyomi.domain.chapter.model.Chapter
+import tachiyomi.domain.chapter.model.Volume
 import java.io.File
 import java.io.IOException
 
@@ -24,7 +24,7 @@ import java.io.IOException
  *
  * @param context the application context.
  */
-class ChapterCache(
+class VolumeCache(
     private val context: Context,
     private val json: Json,
 ) {
@@ -60,7 +60,7 @@ class ChapterCache(
      * @param chapter the chapter.
      * @return the list of pages.
      */
-    fun getPageListFromCache(chapter: Chapter): List<Page> {
+    fun getPageListFromCache(chapter: Volume): List<Page> {
         // Get the key for the chapter.
         val key = DiskUtil.hashKeyForDisk(getKey(chapter))
 
@@ -76,7 +76,7 @@ class ChapterCache(
      * @param chapter the chapter.
      * @param pages list of pages.
      */
-    fun putPageListToCache(chapter: Chapter, pages: List<Page>) {
+    fun putPageListToCache(chapter: Volume, pages: List<Page>) {
         // Convert list of pages to json string.
         val cachedValue = json.encodeToString(pages)
 
@@ -198,7 +198,7 @@ class ChapterCache(
         }
     }
 
-    private fun getKey(chapter: Chapter): String {
+    private fun getKey(chapter: Volume): String {
         return "${chapter.mangaId}${chapter.url}"
     }
 }

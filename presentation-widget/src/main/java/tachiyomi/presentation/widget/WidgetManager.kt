@@ -27,7 +27,7 @@ class WidgetManager(
         )
             .distinctUntilChanged { old, new ->
                 old.second == new.second &&
-                    old.first.map { it.chapterId }.toSet() == new.first.map { it.chapterId }.toSet()
+                    old.first.map { it.volumeId }.toSet() == new.first.map { it.volumeId }.toSet()
             }
             .onEach {
                 try {

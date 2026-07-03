@@ -1,15 +1,15 @@
 package eu.kanade.tachiyomi.util.chapter
 
 import eu.kanade.domain.chapter.model.applyFilters
-import eu.kanade.tachiyomi.ui.manga.ChapterList
-import tachiyomi.domain.chapter.model.Chapter
+import eu.kanade.tachiyomi.ui.manga.VolumeList
+import tachiyomi.domain.chapter.model.Volume
 import tachiyomi.domain.manga.model.Manga
 
 /**
  * Gets next unread chapter with filters and sorting applied
  */
 @JvmName("getNextUnreadFromChapters")
-fun List<Chapter>.getNextUnread(manga: Manga): Chapter? {
+fun List<Volume>.getNextUnread(manga: Manga): Volume? {
     return applyFilters(manga).let { chapters ->
         if (manga.sortDescending()) {
             chapters.findLast { !it.read }
@@ -23,7 +23,7 @@ fun List<Chapter>.getNextUnread(manga: Manga): Chapter? {
  * Gets next unread chapter with filters and sorting applied
  */
 @JvmName("getNextUnreadFromChapterListItems")
-fun List<ChapterList.Item>.getNextUnread(manga: Manga): Chapter? {
+fun List<VolumeList.Item>.getNextUnread(manga: Manga): Volume? {
     return applyFilters(manga).let { chapters ->
         if (manga.sortDescending()) {
             chapters.findLast { !it.chapter.read }

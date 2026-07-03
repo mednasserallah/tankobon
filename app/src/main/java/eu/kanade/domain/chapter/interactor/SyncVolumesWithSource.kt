@@ -1,19 +1,18 @@
 package eu.kanade.domain.chapter.interactor
 
-import eu.kanade.domain.chapter.model.copyFromSChapter
+import eu.kanade.domain.chapter.model.copyFromSVolume
 import eu.kanade.domain.manga.interactor.GetExcludedScanlators
 import eu.kanade.domain.manga.interactor.UpdateManga
 import eu.kanade.tachiyomi.source.Source
-import eu.kanade.tachiyomi.source.model.SChapter
-import tachiyomi.data.chapter.ChapterSanitizer
-import tachiyomi.domain.chapter.interactor.GetChaptersByMangaId
-import tachiyomi.domain.chapter.interactor.ShouldUpdateDbChapter
-import tachiyomi.domain.chapter.interactor.UpdateChapter
-import tachiyomi.domain.chapter.model.Chapter
-import tachiyomi.domain.chapter.model.NoChaptersException
-import tachiyomi.domain.chapter.model.toChapterUpdate
-import tachiyomi.domain.chapter.repository.ChapterRepository
-import tachiyomi.domain.chapter.service.ChapterRecognition
+import eu.kanade.tachiyomi.source.model.SVolume
+import tachiyomi.data.chapter.VolumeSanitizer
+import tachiyomi.domain.chapter.interactor.GetVolumesByMangaId
+import tachiyomi.domain.chapter.interactor.ShouldUpdateDbVolume
+import tachiyomi.domain.chapter.interactor.UpdateVolume
+import tachiyomi.domain.chapter.model.NoVolumesException
+import tachiyomi.domain.chapter.model.Volume
+import tachiyomi.domain.chapter.model.toVolumeUpdate
+import tachiyomi.domain.chapter.repository.VolumeRepository
 import tachiyomi.domain.library.service.LibraryPreferences
 import tachiyomi.domain.manga.model.Manga
 import tachiyomi.source.local.isLocal
@@ -21,12 +20,12 @@ import java.lang.Long.max
 import java.time.ZonedDateTime
 import java.util.TreeSet
 
-class SyncChaptersWithSource(
-    private val chapterRepository: ChapterRepository,
-    private val shouldUpdateDbChapter: ShouldUpdateDbChapter,
+class SyncVolumesWithSource(
+    private val chapterRepository: VolumeRepository,
+    private val shouldUpdateDbChapter: ShouldUpdateDbVolume,
     private val updateManga: UpdateManga,
-    private val updateChapter: UpdateChapter,
-    private val getChaptersByMangaId: GetChaptersByMangaId,
+    private val updateChapter: UpdateVolume,
+    private val getVolumesByMangaId: GetVolumesByMangaId,
     private val getExcludedScanlators: GetExcludedScanlators,
     private val libraryPreferences: LibraryPreferences,
 ) {
@@ -40,14 +39,14 @@ class SyncChaptersWithSource(
      * @return Newly added chapters
      */
     suspend fun await(
-        rawSourceChapters: List<SChapter>,
+        rawSourceChapters: List<SVolume>,
         manga: Manga,
         source: Source,
         manualFetch: Boolean = false,
         fetchWindow: Pair<Long, Long> = Pair(0, 0),
-    ): List<Chapter> {
+    ): List<Volume> {
         if (rawSourceChapters.isEmpty() && !source.isLocal()) {
-            throw NoChaptersException()
+            throw NoVolumesException()
         }
 
         val now = ZonedDateTime.now()
@@ -56,16 +55,16 @@ class SyncChaptersWithSource(
         val sourceChapters = rawSourceChapters
             .distinctBy { it.url }
             .mapIndexed { i, sChapter ->
-                Chapter.create()
-                    .copyFromSChapter(sChapter)
-                    .copy(name = with(ChapterSanitizer) { sChapter.name.sanitize(manga.title) })
+                Volume.create()
+                    .copyFromSVolume(sChapter)
+                    .copy(name = with(VolumeSanitizer) { sChapter.name.sanitize(manga.title) })
                     .copy(mangaId = manga.id, sourceOrder = i.toLong())
             }
 
-        val dbChapters = getChaptersByMangaId.await(manga.id)
+        val dbChapters = getVolumesByMangaId.await(manga.id)
 
-        val newChapters = mutableListOf<Chapter>()
-        val updatedChapters = mutableListOf<Chapter>()
+        val newChapters = mutableListOf<Volume>()
+        val updatedChapters = mutableListOf<Volume>()
         val removedChapters = dbChapters.filterNot { dbChapter ->
             sourceChapters.any { sourceChapter ->
                 dbChapter.url == sourceChapter.url
@@ -77,11 +76,9 @@ class SyncChaptersWithSource(
         var maxSeenUploadDate = 0L
 
         for (sourceChapter in sourceChapters) {
-            var chapter = sourceChapter
-
-            // Recognize chapter number for the chapter.
-            val chapterNumber = ChapterRecognition.parseChapterNumber(manga.title, chapter.name, chapter.chapterNumber)
-            chapter = chapter.copy(chapterNumber = chapterNumber)
+            // The volume number is already parsed from the filename by VolumeRecognition in the
+            // local source, so no further number recognition is needed here.
+            val chapter = sourceChapter
 
             val dbChapter = dbChapters.find { it.url == chapter.url }
 
@@ -98,7 +95,7 @@ class SyncChaptersWithSource(
                 if (shouldUpdateDbChapter.await(dbChapter, chapter)) {
                     var toChangeChapter = dbChapter.copy(
                         name = chapter.name,
-                        chapterNumber = chapter.chapterNumber,
+                        volumeNumber = chapter.volumeNumber,
                         scanlator = chapter.scanlator,
                         sourceOrder = chapter.sourceOrder,
                     )
@@ -125,24 +122,24 @@ class SyncChaptersWithSource(
 
         val changedOrDuplicateReadUrls = mutableSetOf<String>()
 
-        val deletedChapterNumbers = TreeSet<Double>()
-        val deletedReadChapterNumbers = TreeSet<Double>()
-        val deletedBookmarkedChapterNumbers = TreeSet<Double>()
+        val deletedChapterNumbers = TreeSet<Long>()
+        val deletedReadChapterNumbers = TreeSet<Long>()
+        val deletedBookmarkedChapterNumbers = TreeSet<Long>()
 
         val readChapterNumbers = dbChapters
             .asSequence()
             .filter { it.read && it.isRecognizedNumber }
-            .map { it.chapterNumber }
+            .map { it.volumeNumber }
             .toSet()
 
         removedChapters.forEach { chapter ->
-            if (chapter.read) deletedReadChapterNumbers.add(chapter.chapterNumber)
-            if (chapter.bookmark) deletedBookmarkedChapterNumbers.add(chapter.chapterNumber)
-            deletedChapterNumbers.add(chapter.chapterNumber)
+            if (chapter.read) deletedReadChapterNumbers.add(chapter.volumeNumber)
+            if (chapter.bookmark) deletedBookmarkedChapterNumbers.add(chapter.volumeNumber)
+            deletedChapterNumbers.add(chapter.volumeNumber)
         }
 
         val deletedChapterNumberDateFetchMap = removedChapters.sortedByDescending { it.dateFetch }
-            .associate { it.chapterNumber to it.dateFetch }
+            .associate { it.volumeNumber to it.dateFetch }
 
         val markDuplicateAsRead = libraryPreferences.markDuplicateReadChapterAsRead.get()
             .contains(LibraryPreferences.MARK_DUPLICATE_CHAPTER_READ_NEW)
@@ -153,20 +150,20 @@ class SyncChaptersWithSource(
         var updatedToAdd = newChapters.map { toAddItem ->
             var chapter = toAddItem.copy(dateFetch = nowMillis + itemCount--)
 
-            if (chapter.chapterNumber in readChapterNumbers && markDuplicateAsRead) {
+            if (chapter.volumeNumber in readChapterNumbers && markDuplicateAsRead) {
                 changedOrDuplicateReadUrls.add(chapter.url)
                 chapter = chapter.copy(read = true)
             }
 
-            if (!chapter.isRecognizedNumber || chapter.chapterNumber !in deletedChapterNumbers) return@map chapter
+            if (!chapter.isRecognizedNumber || chapter.volumeNumber !in deletedChapterNumbers) return@map chapter
 
             chapter = chapter.copy(
-                read = chapter.chapterNumber in deletedReadChapterNumbers,
-                bookmark = chapter.chapterNumber in deletedBookmarkedChapterNumbers,
+                read = chapter.volumeNumber in deletedReadChapterNumbers,
+                bookmark = chapter.volumeNumber in deletedBookmarkedChapterNumbers,
             )
 
             // Try to to use the fetch date of the original entry to not pollute 'Updates' tab
-            deletedChapterNumberDateFetchMap[chapter.chapterNumber]?.let {
+            deletedChapterNumberDateFetchMap[chapter.volumeNumber]?.let {
                 chapter = chapter.copy(dateFetch = it)
             }
 
@@ -177,7 +174,7 @@ class SyncChaptersWithSource(
 
         if (removedChapters.isNotEmpty()) {
             val toDeleteIds = removedChapters.map { it.id }
-            chapterRepository.removeChaptersWithIds(toDeleteIds)
+            chapterRepository.removeVolumesWithIds(toDeleteIds)
         }
 
         if (updatedToAdd.isNotEmpty()) {
@@ -185,7 +182,7 @@ class SyncChaptersWithSource(
         }
 
         if (updatedChapters.isNotEmpty()) {
-            val chapterUpdates = updatedChapters.map { it.toChapterUpdate() }
+            val chapterUpdates = updatedChapters.map { it.toVolumeUpdate() }
             updateChapter.awaitAll(chapterUpdates)
         }
         updateManga.awaitUpdateFetchInterval(manga, now, fetchWindow)

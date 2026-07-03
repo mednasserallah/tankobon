@@ -2,18 +2,18 @@ package eu.kanade.tachiyomi.ui.reader.viewer.pager
 
 import android.view.View
 import android.view.ViewGroup
-import eu.kanade.tachiyomi.ui.reader.model.ChapterTransition
 import eu.kanade.tachiyomi.ui.reader.model.InsertPage
-import eu.kanade.tachiyomi.ui.reader.model.ReaderChapter
 import eu.kanade.tachiyomi.ui.reader.model.ReaderPage
-import eu.kanade.tachiyomi.ui.reader.model.ViewerChapters
-import eu.kanade.tachiyomi.ui.reader.viewer.calculateChapterGap
+import eu.kanade.tachiyomi.ui.reader.model.ReaderVolume
+import eu.kanade.tachiyomi.ui.reader.model.ViewerVolumes
+import eu.kanade.tachiyomi.ui.reader.model.VolumeTransition
+import eu.kanade.tachiyomi.ui.reader.viewer.calculateVolumeGap
 import eu.kanade.tachiyomi.util.system.createReaderThemeContext
 import eu.kanade.tachiyomi.widget.ViewPagerAdapter
 import tachiyomi.core.common.util.system.logcat
 
 /**
- * Pager adapter used by this [viewer] to where [ViewerChapters] updates are posted.
+ * Pager adapter used by this [viewer] to where [ViewerVolumes] updates are posted.
  */
 class PagerViewerAdapter(private val viewer: PagerViewer) : ViewPagerAdapter() {
 
@@ -28,10 +28,10 @@ class PagerViewerAdapter(private val viewer: PagerViewer) : ViewPagerAdapter() {
      */
     private var preprocessed: MutableMap<Int, InsertPage> = mutableMapOf()
 
-    var nextTransition: ChapterTransition.Next? = null
+    var nextTransition: VolumeTransition.Next? = null
         private set
 
-    var currentChapter: ReaderChapter? = null
+    var currentChapter: ReaderVolume? = null
 
     /**
      * Context that has been wrapped to use the correct theme values based on the
@@ -44,19 +44,19 @@ class PagerViewerAdapter(private val viewer: PagerViewer) : ViewPagerAdapter() {
      * next/previous chapter to allow seamless transitions and inverting the pages if the viewer
      * has R2L direction.
      */
-    fun setChapters(chapters: ViewerChapters, forceTransition: Boolean) {
+    fun setChapters(chapters: ViewerVolumes, forceTransition: Boolean) {
         val newItems = mutableListOf<Any>()
 
         // Forces chapter transition if there is missing chapters
-        val prevHasMissingChapters = calculateChapterGap(chapters.currChapter, chapters.prevChapter) > 0
-        val nextHasMissingChapters = calculateChapterGap(chapters.nextChapter, chapters.currChapter) > 0
+        val prevHasMissingChapters = calculateVolumeGap(chapters.currChapter, chapters.prevChapter) > 0
+        val nextHasMissingChapters = calculateVolumeGap(chapters.nextChapter, chapters.currChapter) > 0
 
         // Add previous chapter pages and transition
         chapters.prevChapter?.pages?.let(newItems::addAll)
 
         // Skip transition page if the chapter is loaded & current page is not a transition page
-        if (prevHasMissingChapters || forceTransition || chapters.prevChapter?.state !is ReaderChapter.State.Loaded) {
-            newItems.add(ChapterTransition.Prev(chapters.currChapter, chapters.prevChapter))
+        if (prevHasMissingChapters || forceTransition || chapters.prevChapter?.state !is ReaderVolume.State.Loaded) {
+            newItems.add(VolumeTransition.Prev(chapters.currChapter, chapters.prevChapter))
         }
 
         var insertPageLastPage: InsertPage? = null
@@ -83,12 +83,12 @@ class PagerViewerAdapter(private val viewer: PagerViewer) : ViewPagerAdapter() {
         currentChapter = chapters.currChapter
 
         // Add next chapter transition and pages.
-        nextTransition = ChapterTransition.Next(chapters.currChapter, chapters.nextChapter)
+        nextTransition = VolumeTransition.Next(chapters.currChapter, chapters.nextChapter)
             .also {
                 if (
                     nextHasMissingChapters ||
                     forceTransition ||
-                    chapters.nextChapter?.state !is ReaderChapter.State.Loaded
+                    chapters.nextChapter?.state !is ReaderVolume.State.Loaded
                 ) {
                     newItems.add(it)
                 }
@@ -126,7 +126,7 @@ class PagerViewerAdapter(private val viewer: PagerViewer) : ViewPagerAdapter() {
     override fun createView(container: ViewGroup, position: Int): View {
         return when (val item = items[position]) {
             is ReaderPage -> PagerPageHolder(readerThemedContext, viewer, item)
-            is ChapterTransition -> PagerTransitionHolder(readerThemedContext, viewer, item)
+            is VolumeTransition -> PagerTransitionHolder(readerThemedContext, viewer, item)
             else -> throw NotImplementedError("Holder for ${item.javaClass} not implemented")
         }
     }

@@ -3,7 +3,7 @@ package tachiyomi.domain.chapter.model
 import kotlinx.serialization.json.JsonObject
 import mihon.core.common.extensions.EMPTY
 
-data class Chapter(
+data class Volume(
     val id: Long,
     val mangaId: Long,
     val read: Boolean,
@@ -14,27 +14,33 @@ data class Chapter(
     val url: String,
     val name: String,
     val dateUpload: Long,
-    val chapterNumber: Double,
+    val volumeNumber: Long,
+    val volumeNumberEnd: Long?,
     val scanlator: String?,
     val lastModifiedAt: Long,
     val version: Long,
     val memo: JsonObject,
 ) {
     val isRecognizedNumber: Boolean
-        get() = chapterNumber >= 0f
+        get() = volumeNumber >= 0
 
-    fun copyFrom(other: Chapter): Chapter {
+    /** True when this reading unit spans more than one volume (an omnibus range). */
+    val isRange: Boolean
+        get() = volumeNumberEnd != null && volumeNumberEnd > volumeNumber
+
+    fun copyFrom(other: Volume): Volume {
         return copy(
             name = other.name,
             url = other.url,
             dateUpload = other.dateUpload,
-            chapterNumber = other.chapterNumber,
+            volumeNumber = other.volumeNumber,
+            volumeNumberEnd = other.volumeNumberEnd,
             scanlator = other.scanlator?.ifBlank { null },
         )
     }
 
     companion object {
-        fun create() = Chapter(
+        fun create() = Volume(
             id = -1,
             mangaId = -1,
             read = false,
@@ -45,7 +51,8 @@ data class Chapter(
             url = "",
             name = "",
             dateUpload = -1,
-            chapterNumber = -1.0,
+            volumeNumber = -1,
+            volumeNumberEnd = null,
             scanlator = null,
             lastModifiedAt = 0,
             version = 1,

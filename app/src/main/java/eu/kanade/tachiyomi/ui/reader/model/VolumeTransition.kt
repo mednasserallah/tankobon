@@ -1,23 +1,23 @@
 package eu.kanade.tachiyomi.ui.reader.model
 
-sealed class ChapterTransition {
+sealed class VolumeTransition {
 
-    abstract val from: ReaderChapter
-    abstract val to: ReaderChapter?
+    abstract val from: ReaderVolume
+    abstract val to: ReaderVolume?
 
     class Prev(
-        override val from: ReaderChapter,
-        override val to: ReaderChapter?,
-    ) : ChapterTransition()
+        override val from: ReaderVolume,
+        override val to: ReaderVolume?,
+    ) : VolumeTransition()
 
     class Next(
-        override val from: ReaderChapter,
-        override val to: ReaderChapter?,
-    ) : ChapterTransition()
+        override val from: ReaderVolume,
+        override val to: ReaderVolume?,
+    ) : VolumeTransition()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is ChapterTransition) return false
+        if (other !is VolumeTransition) return false
         if (from == other.from && to == other.to) return true
         if (from == other.to && to == other.from) return true
         return false

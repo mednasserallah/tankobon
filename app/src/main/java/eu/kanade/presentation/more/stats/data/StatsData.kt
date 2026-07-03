@@ -14,7 +14,7 @@ sealed interface StatsData {
         val localMangaCount: Int,
     ) : StatsData
 
-    data class Chapters(
+    data class Volumes(
         val totalChapterCount: Int,
         val readChapterCount: Int,
     ) : StatsData

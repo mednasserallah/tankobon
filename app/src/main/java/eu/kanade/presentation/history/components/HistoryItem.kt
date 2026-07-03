@@ -25,7 +25,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import eu.kanade.presentation.manga.components.MangaCover
 import eu.kanade.presentation.theme.TachiyomiPreviewTheme
-import eu.kanade.presentation.util.formatChapterNumber
+import eu.kanade.presentation.util.formatVolumeNumber
 import eu.kanade.tachiyomi.util.lang.toTimestampString
 import tachiyomi.domain.history.model.HistoryWithRelations
 import tachiyomi.i18n.MR
@@ -70,10 +70,10 @@ fun HistoryItem(
             )
             val readAt = remember { history.readAt?.toTimestampString() ?: "" }
             Text(
-                text = if (history.chapterNumber > -1) {
+                text = if (history.volumeNumber > -1) {
                     stringResource(
                         MR.strings.recent_manga_time,
-                        formatChapterNumber(history.chapterNumber),
+                        formatVolumeNumber(history.volumeNumber),
                         readAt,
                     )
                 } else {

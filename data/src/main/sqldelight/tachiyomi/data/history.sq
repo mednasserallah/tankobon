@@ -2,37 +2,37 @@ import java.util.Date;
 
 CREATE TABLE history(
     _id INTEGER NOT NULL PRIMARY KEY,
-    chapter_id INTEGER NOT NULL UNIQUE,
+    volume_id INTEGER NOT NULL UNIQUE,
     last_read INTEGER AS Date,
     time_read INTEGER NOT NULL,
-    FOREIGN KEY(chapter_id) REFERENCES chapters (_id)
+    FOREIGN KEY(volume_id) REFERENCES volumes (_id)
     ON DELETE CASCADE
 );
 
-CREATE INDEX history_history_chapter_id_index ON history(chapter_id);
+CREATE INDEX history_history_volume_id_index ON history(volume_id);
 CREATE INDEX idx_history_last_read ON history(last_read);
 
 getHistoryByMangaId:
 SELECT
 H._id,
-H.chapter_id,
+H.volume_id,
 H.last_read,
 H.time_read
 FROM history H
-JOIN chapters C
-ON H.chapter_id = C._id
-WHERE C.manga_id = :mangaId AND C._id = H.chapter_id;
+JOIN volumes V
+ON H.volume_id = V._id
+WHERE V.manga_id = :mangaId AND V._id = H.volume_id;
 
-getHistoryByChapterUrl:
+getHistoryByVolumeUrl:
 SELECT
 H._id,
-H.chapter_id,
+H.volume_id,
 H.last_read,
 H.time_read
 FROM history H
-JOIN chapters C
-ON H.chapter_id = C._id
-WHERE C.url = :chapterUrl AND C._id = H.chapter_id;
+JOIN volumes V
+ON H.volume_id = V._id
+WHERE V.url = :volumeUrl AND V._id = H.volume_id;
 
 resetHistoryById:
 UPDATE history
@@ -45,10 +45,10 @@ SET last_read = 0
 WHERE _id IN (
     SELECT H._id
     FROM mangas M
-    INNER JOIN chapters C
-    ON M._id = C.manga_id
+    INNER JOIN volumes V
+    ON M._id = V.manga_id
     INNER JOIN history H
-    ON C._id = H.chapter_id
+    ON V._id = H.volume_id
     WHERE M._id = :mangaId
 );
 
@@ -60,14 +60,14 @@ DELETE FROM history
 WHERE last_read = 0;
 
 upsert:
-INSERT INTO history(chapter_id, last_read, time_read)
-VALUES (:chapterId, :readAt, :time_read)
-ON CONFLICT(chapter_id)
+INSERT INTO history(volume_id, last_read, time_read)
+VALUES (:volumeId, :readAt, :time_read)
+ON CONFLICT(volume_id)
 DO UPDATE
 SET
     last_read = :readAt,
     time_read = time_read + :time_read
-WHERE chapter_id = :chapterId;
+WHERE volume_id = :volumeId;
 
 getReadDuration:
 SELECT coalesce(sum(time_read), 0)

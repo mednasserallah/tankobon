@@ -9,8 +9,8 @@ import com.eygraber.sqldelight.androidx.driver.AndroidxSqliteDatabaseType
 import com.eygraber.sqldelight.androidx.driver.AndroidxSqliteDriver
 import com.eygraber.sqldelight.androidx.driver.FileProvider
 import eu.kanade.domain.track.store.DelayedTrackingStore
-import eu.kanade.tachiyomi.data.cache.ChapterCache
 import eu.kanade.tachiyomi.data.cache.CoverCache
+import eu.kanade.tachiyomi.data.cache.VolumeCache
 import eu.kanade.tachiyomi.data.saver.ImageSaver
 import eu.kanade.tachiyomi.data.track.TrackerManager
 import eu.kanade.tachiyomi.network.JavaScriptEngine
@@ -24,7 +24,6 @@ import nl.adaptivity.xmlutil.serialization.DefaultXmlSerializationPolicy
 import nl.adaptivity.xmlutil.serialization.XML
 import nl.adaptivity.xmlutil.serialization.XmlConfig
 import tachiyomi.core.common.storage.AndroidStorageFolderProvider
-import tachiyomi.data.Chapters
 import tachiyomi.data.Database
 import tachiyomi.data.DateColumnAdapter
 import tachiyomi.data.History
@@ -32,6 +31,7 @@ import tachiyomi.data.Mangas
 import tachiyomi.data.MemoColumnAdapter
 import tachiyomi.data.StringListColumnAdapter
 import tachiyomi.data.UpdateStrategyColumnAdapter
+import tachiyomi.data.Volumes
 import tachiyomi.domain.source.service.SourceManager
 import tachiyomi.domain.storage.service.StorageManager
 import tachiyomi.source.local.image.LocalCoverManager
@@ -78,7 +78,7 @@ class AppModule(val app: Application) : InjektModule {
                     update_strategyAdapter = UpdateStrategyColumnAdapter,
                     memoAdapter = MemoColumnAdapter,
                 ),
-                chaptersAdapter = Chapters.Adapter(
+                volumesAdapter = Volumes.Adapter(
                     memoAdapter = MemoColumnAdapter,
                 ),
             )
@@ -105,7 +105,7 @@ class AppModule(val app: Application) : InjektModule {
             ProtoBuf
         }
 
-        addSingletonFactory { ChapterCache(app, get()) }
+        addSingletonFactory { VolumeCache(app, get()) }
         addSingletonFactory { CoverCache(app) }
 
         addSingletonFactory { NetworkHelper(app, get()) }

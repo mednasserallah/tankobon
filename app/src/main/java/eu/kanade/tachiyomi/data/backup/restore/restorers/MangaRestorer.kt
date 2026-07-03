@@ -5,17 +5,17 @@ import app.cash.sqldelight.async.coroutines.awaitAsOne
 import app.cash.sqldelight.async.coroutines.awaitAsOneOrNull
 import eu.kanade.domain.manga.interactor.UpdateManga
 import eu.kanade.tachiyomi.data.backup.models.BackupCategory
-import eu.kanade.tachiyomi.data.backup.models.BackupChapter
 import eu.kanade.tachiyomi.data.backup.models.BackupHistory
 import eu.kanade.tachiyomi.data.backup.models.BackupManga
 import eu.kanade.tachiyomi.data.backup.models.BackupTracking
+import eu.kanade.tachiyomi.data.backup.models.BackupVolume
 import tachiyomi.data.Database
 import tachiyomi.data.MemoColumnAdapter
 import tachiyomi.data.MemoColumnAdapter.encode
 import tachiyomi.data.UpdateStrategyColumnAdapter
 import tachiyomi.domain.category.interactor.GetCategories
-import tachiyomi.domain.chapter.interactor.GetChaptersByMangaId
-import tachiyomi.domain.chapter.model.Chapter
+import tachiyomi.domain.chapter.interactor.GetVolumesByMangaId
+import tachiyomi.domain.chapter.model.Volume
 import tachiyomi.domain.manga.interactor.FetchInterval
 import tachiyomi.domain.manga.interactor.GetMangaByUrlAndSourceId
 import tachiyomi.domain.manga.model.Manga
@@ -32,7 +32,7 @@ class MangaRestorer(
     private val database: Database = Injekt.get(),
     private val getCategories: GetCategories = Injekt.get(),
     private val getMangaByUrlAndSourceId: GetMangaByUrlAndSourceId = Injekt.get(),
-    private val getChaptersByMangaId: GetChaptersByMangaId = Injekt.get(),
+    private val getVolumesByMangaId: GetVolumesByMangaId = Injekt.get(),
     private val updateManga: UpdateManga = Injekt.get(),
     private val getTracks: GetTracks = Injekt.get(),
     private val insertTrack: InsertTrack = Injekt.get(),
@@ -137,6 +137,7 @@ class MangaRestorer(
             isSyncing = 1,
             notes = manga.notes,
             memo = manga.memo.let(MemoColumnAdapter::encode),
+            edition = manga.edition,
         )
         return manga
     }
@@ -149,13 +150,13 @@ class MangaRestorer(
         )
     }
 
-    private suspend fun restoreChapters(manga: Manga, backupChapters: List<BackupChapter>) {
-        val dbChaptersByUrl = getChaptersByMangaId.await(manga.id)
+    private suspend fun restoreChapters(manga: Manga, backupChapters: List<BackupVolume>) {
+        val dbChaptersByUrl = getVolumesByMangaId.await(manga.id)
             .associateBy { it.url }
 
         val (existingChapters, newChapters) = backupChapters
             .mapNotNull {
-                val chapter = it.toChapterImpl().copy(mangaId = manga.id)
+                val chapter = it.toVolumeImpl().copy(mangaId = manga.id)
 
                 val dbChapter = dbChaptersByUrl[chapter.url]
                     ?: // New chapter
@@ -191,13 +192,13 @@ class MangaRestorer(
         updateExistingChapters(existingChapters)
     }
 
-    private fun Chapter.forComparison() =
+    private fun Volume.forComparison() =
         this.copy(id = 0L, mangaId = 0L, dateFetch = 0L, dateUpload = 0L, lastModifiedAt = 0L, version = 0L)
 
-    private suspend fun insertNewChapters(chapters: List<Chapter>) {
+    private suspend fun insertNewChapters(chapters: List<Volume>) {
         database.transaction {
             chapters.forEach { chapter ->
-                database.chaptersQueries.insert(
+                database.volumesQueries.insert(
                     chapter.mangaId,
                     chapter.url,
                     chapter.name,
@@ -205,7 +206,8 @@ class MangaRestorer(
                     chapter.read,
                     chapter.bookmark,
                     chapter.lastPageRead,
-                    chapter.chapterNumber,
+                    chapter.volumeNumber,
+                    chapter.volumeNumberEnd,
                     chapter.sourceOrder,
                     chapter.dateFetch,
                     chapter.dateUpload,
@@ -216,10 +218,10 @@ class MangaRestorer(
         }
     }
 
-    private suspend fun updateExistingChapters(chapters: List<Chapter>) {
+    private suspend fun updateExistingChapters(chapters: List<Volume>) {
         database.transaction {
             chapters.forEach { chapter ->
-                database.chaptersQueries.update(
+                database.volumesQueries.update(
                     mangaId = null,
                     url = null,
                     name = null,
@@ -227,11 +229,12 @@ class MangaRestorer(
                     read = chapter.read,
                     bookmark = chapter.bookmark,
                     lastPageRead = chapter.lastPageRead,
-                    chapterNumber = null,
+                    volumeNumber = null,
+                    volumeNumberEnd = null,
                     sourceOrder = null,
                     dateFetch = null,
                     dateUpload = null,
-                    chapterId = chapter.id,
+                    volumeId = chapter.id,
                     version = chapter.version,
                     isSyncing = 0,
                     memo = chapter.memo.let(MemoColumnAdapter::encode),
@@ -269,13 +272,14 @@ class MangaRestorer(
             version = manga.version,
             notes = manga.notes,
             memo = manga.memo,
+            edition = manga.edition,
         )
             .awaitAsOne()
     }
 
     private suspend fun restoreMangaDetails(
         manga: Manga,
-        chapters: List<BackupChapter>,
+        chapters: List<BackupVolume>,
         categories: List<Long>,
         backupCategories: List<BackupCategory>,
         history: List<BackupHistory>,
@@ -328,27 +332,27 @@ class MangaRestorer(
     private suspend fun restoreHistory(backupHistory: List<BackupHistory>) {
         val toUpdate = backupHistory.mapNotNull { history ->
             val dbHistory = database.historyQueries
-                .getHistoryByChapterUrl(history.url)
+                .getHistoryByVolumeUrl(history.url)
                 .awaitAsOneOrNull()
             val item = history.getHistoryImpl()
 
             if (dbHistory == null) {
-                val chapter = database.chaptersQueries
-                    .getChapterByUrl(history.url)
+                val chapter = database.volumesQueries
+                    .getVolumeByUrl(history.url)
                     .awaitAsOneOrNull()
                 return@mapNotNull if (chapter == null) {
-                    // Chapter doesn't exist; skip
+                    // Volume doesn't exist; skip
                     null
                 } else {
                     // New history entry
-                    item.copy(chapterId = chapter._id)
+                    item.copy(volumeId = chapter._id)
                 }
             }
 
             // Update history entry
             item.copy(
                 id = dbHistory._id,
-                chapterId = dbHistory.chapter_id,
+                volumeId = dbHistory.volume_id,
                 readAt = max(item.readAt?.time ?: 0L, dbHistory.last_read?.time ?: 0L)
                     .takeIf { it > 0L }
                     ?.let { Date(it) },
@@ -360,7 +364,7 @@ class MangaRestorer(
         database.transaction {
             toUpdate.forEach {
                 database.historyQueries.upsert(
-                    it.chapterId,
+                    it.volumeId,
                     it.readAt,
                     it.readDuration,
                 )

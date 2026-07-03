@@ -18,10 +18,10 @@ import tachiyomi.presentation.core.i18n.pluralStringResource
 import tachiyomi.presentation.core.i18n.stringResource
 
 @Composable
-fun ChapterHeader(
+fun VolumeHeader(
     enabled: Boolean,
     chapterCount: Int?,
-    missingChapterCount: Int,
+    missingVolumeCount: Int,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -45,12 +45,12 @@ fun ChapterHeader(
             color = MaterialTheme.colorScheme.onBackground,
         )
 
-        MissingChaptersWarning(missingChapterCount)
+        MissingVolumesWarning(missingVolumeCount)
     }
 }
 
 @Composable
-private fun MissingChaptersWarning(count: Int) {
+private fun MissingVolumesWarning(count: Int) {
     if (count == 0) {
         return
     }

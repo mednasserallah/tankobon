@@ -42,7 +42,7 @@ import tachiyomi.presentation.core.i18n.stringResource
 import tachiyomi.presentation.core.util.selectedBackground
 
 @Composable
-fun MangaChapterListItem(
+fun MangaVolumeListItem(
     title: String,
     date: String?,
     readProgress: String?,

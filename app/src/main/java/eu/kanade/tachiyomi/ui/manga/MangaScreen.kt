@@ -25,10 +25,10 @@ import eu.kanade.core.util.ifSourcesLoaded
 import eu.kanade.domain.manga.model.hasCustomCover
 import eu.kanade.presentation.category.components.ChangeCategoryDialog
 import eu.kanade.presentation.components.NavigatorAdaptiveSheet
-import eu.kanade.presentation.manga.ChapterSettingsDialog
 import eu.kanade.presentation.manga.DuplicateMangaDialog
 import eu.kanade.presentation.manga.EditCoverAction
 import eu.kanade.presentation.manga.MangaScreen
+import eu.kanade.presentation.manga.VolumeSettingsDialog
 import eu.kanade.presentation.manga.components.MangaCoverDialog
 import eu.kanade.presentation.manga.components.ScanlatorFilterDialog
 import eu.kanade.presentation.manga.components.SetIntervalDialog
@@ -43,7 +43,7 @@ import eu.kanade.tachiyomi.ui.manga.track.TrackInfoDialogHomeScreen
 import eu.kanade.tachiyomi.ui.reader.ReaderActivity
 import eu.kanade.tachiyomi.ui.setting.SettingsScreen
 import kotlinx.coroutines.launch
-import tachiyomi.domain.chapter.model.Chapter
+import tachiyomi.domain.chapter.model.Volume
 import tachiyomi.presentation.core.screens.LoadingScreen
 
 class MangaScreen(
@@ -140,7 +140,7 @@ class MangaScreen(
                 )
             }
 
-            MangaScreenModel.Dialog.SettingsSheet -> ChapterSettingsDialog(
+            MangaScreenModel.Dialog.SettingsSheet -> VolumeSettingsDialog(
                 onDismissRequest = onDismissRequest,
                 manga = successState.manga,
                 onUnreadFilterChanged = screenModel::setUnreadFilter,
@@ -210,11 +210,11 @@ class MangaScreen(
         }
     }
 
-    private fun continueReading(context: Context, unreadChapter: Chapter?) {
+    private fun continueReading(context: Context, unreadChapter: Volume?) {
         if (unreadChapter != null) openChapter(context, unreadChapter)
     }
 
-    private fun openChapter(context: Context, chapter: Chapter) {
+    private fun openChapter(context: Context, chapter: Volume) {
         context.startActivity(ReaderActivity.newIntent(context, chapter.mangaId, chapter.id))
     }
 

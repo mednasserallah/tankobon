@@ -68,7 +68,7 @@ data object UpdatesTab : Tab {
             onMultiMarkAsReadClicked = screenModel::markUpdatesRead,
             onUpdateSelected = screenModel::toggleSelection,
             onOpenChapter = {
-                val intent = ReaderActivity.newIntent(context, it.update.mangaId, it.update.chapterId)
+                val intent = ReaderActivity.newIntent(context, it.update.mangaId, it.update.volumeId)
                 context.startActivity(intent)
             },
             onCalendarClicked = { navigator.push(UpcomingScreen()) },

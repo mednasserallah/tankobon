@@ -40,7 +40,7 @@ import tachiyomi.presentation.core.i18n.stringResource
 import tachiyomi.presentation.core.theme.active
 
 @Composable
-fun ChapterSettingsDialog(
+fun VolumeSettingsDialog(
     onDismissRequest: () -> Unit,
     manga: Manga? = null,
     onUnreadFilterChanged: (TriState) -> Unit,

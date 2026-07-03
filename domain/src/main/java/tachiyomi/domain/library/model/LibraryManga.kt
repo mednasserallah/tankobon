@@ -9,7 +9,7 @@ data class LibraryManga(
     val readCount: Long,
     val bookmarkCount: Long,
     val latestUpload: Long,
-    val chapterFetchedAt: Long,
+    val volumeFetchedAt: Long,
     val lastRead: Long,
 ) {
     val id: Long = manga.id

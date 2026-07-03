@@ -11,9 +11,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.AbstractComposeView
-import eu.kanade.presentation.reader.ChapterTransition
+import eu.kanade.presentation.reader.VolumeTransition
 import eu.kanade.presentation.theme.TachiyomiTheme
-import eu.kanade.tachiyomi.ui.reader.model.ChapterTransition
+import eu.kanade.tachiyomi.ui.reader.model.VolumeTransition
 
 class ReaderTransitionView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
     AbstractComposeView(context, attrs) {
@@ -24,7 +24,7 @@ class ReaderTransitionView @JvmOverloads constructor(context: Context, attrs: At
         layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
     }
 
-    fun bind(transition: ChapterTransition) {
+    fun bind(transition: VolumeTransition) {
         data = Data(transition = transition)
     }
 
@@ -36,7 +36,7 @@ class ReaderTransitionView @JvmOverloads constructor(context: Context, attrs: At
                     LocalTextStyle provides MaterialTheme.typography.bodySmall,
                     LocalContentColor provides MaterialTheme.colorScheme.onBackground,
                 ) {
-                    ChapterTransition(
+                    VolumeTransition(
                         transition = it.transition,
                     )
                 }
@@ -45,6 +45,6 @@ class ReaderTransitionView @JvmOverloads constructor(context: Context, attrs: At
     }
 
     private data class Data(
-        val transition: ChapterTransition,
+        val transition: VolumeTransition,
     )
 }

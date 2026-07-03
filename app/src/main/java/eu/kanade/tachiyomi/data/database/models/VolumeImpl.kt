@@ -5,7 +5,7 @@ package eu.kanade.tachiyomi.data.database.models
 import kotlinx.serialization.json.JsonObject
 import mihon.core.common.extensions.EMPTY
 
-class ChapterImpl : Chapter {
+class VolumeImpl : Volume {
 
     override var id: Long? = null
 
@@ -27,7 +27,9 @@ class ChapterImpl : Chapter {
 
     override var date_upload: Long = 0
 
-    override var chapter_number: Float = 0f
+    override var volume_number: Int = -1
+
+    override var volume_number_end: Int? = null
 
     override var source_order: Int = 0
 
@@ -41,7 +43,7 @@ class ChapterImpl : Chapter {
         if (this === other) return true
         if (other == null || javaClass != other.javaClass) return false
 
-        val chapter = other as Chapter
+        val chapter = other as Volume
         if (url != chapter.url) return false
         return id == chapter.id
     }

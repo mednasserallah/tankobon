@@ -81,7 +81,7 @@ internal fun LazyListScope.updatesUiItems(
         key = {
             when (it) {
                 is UpdatesUiModel.Header -> "updatesHeader-${it.hashCode()}"
-                is UpdatesUiModel.Item -> "updates-${it.item.update.mangaId}-${it.item.update.chapterId}"
+                is UpdatesUiModel.Item -> "updates-${it.item.update.mangaId}-${it.item.update.volumeId}"
             }
         },
     ) { item ->
@@ -193,7 +193,7 @@ private fun UpdatesUiItem(
                     Spacer(modifier = Modifier.width(2.dp))
                 }
                 Text(
-                    text = update.chapterName,
+                    text = update.volumeName,
                     maxLines = 1,
                     style = MaterialTheme.typography.bodySmall,
                     color = LocalContentColor.current.copy(alpha = textAlpha),

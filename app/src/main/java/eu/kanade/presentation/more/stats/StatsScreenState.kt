@@ -11,7 +11,7 @@ sealed interface StatsScreenState {
     data class Success(
         val overview: StatsData.Overview,
         val titles: StatsData.Titles,
-        val chapters: StatsData.Chapters,
+        val chapters: StatsData.Volumes,
         val trackers: StatsData.Trackers,
     ) : StatsScreenState
 }

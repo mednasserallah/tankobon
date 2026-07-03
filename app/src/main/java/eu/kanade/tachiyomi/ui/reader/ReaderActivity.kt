@@ -56,7 +56,7 @@ import eu.kanade.presentation.reader.ReaderPageActionsDialog
 import eu.kanade.presentation.reader.ReaderPageIndicator
 import eu.kanade.presentation.reader.ReadingModeSelectDialog
 import eu.kanade.presentation.reader.appbars.ReaderAppBars
-import eu.kanade.presentation.reader.components.ChapterNavigatorType
+import eu.kanade.presentation.reader.components.VolumeNavigatorType
 import eu.kanade.presentation.reader.settings.ReaderSettingsDialog
 import eu.kanade.tachiyomi.R
 import eu.kanade.tachiyomi.data.coil.TachiyomiImageDecoder
@@ -68,9 +68,9 @@ import eu.kanade.tachiyomi.ui.main.MainActivity
 import eu.kanade.tachiyomi.ui.reader.ReaderViewModel.SetAsCoverResult.AddToLibraryFirst
 import eu.kanade.tachiyomi.ui.reader.ReaderViewModel.SetAsCoverResult.Error
 import eu.kanade.tachiyomi.ui.reader.ReaderViewModel.SetAsCoverResult.Success
-import eu.kanade.tachiyomi.ui.reader.model.ReaderChapter
 import eu.kanade.tachiyomi.ui.reader.model.ReaderPage
-import eu.kanade.tachiyomi.ui.reader.model.ViewerChapters
+import eu.kanade.tachiyomi.ui.reader.model.ReaderVolume
+import eu.kanade.tachiyomi.ui.reader.model.ViewerVolumes
 import eu.kanade.tachiyomi.ui.reader.setting.ReaderOrientation
 import eu.kanade.tachiyomi.ui.reader.setting.ReaderPreferences
 import eu.kanade.tachiyomi.ui.reader.setting.ReaderSettingsScreenModel
@@ -107,10 +107,10 @@ import kotlin.time.Duration.Companion.seconds
 class ReaderActivity : BaseActivity() {
 
     companion object {
-        fun newIntent(context: Context, mangaId: Long?, chapterId: Long?): Intent {
+        fun newIntent(context: Context, mangaId: Long?, volumeId: Long?): Intent {
             return Intent(context, ReaderActivity::class.java).apply {
                 putExtra("manga", mangaId)
-                putExtra("chapter", chapterId)
+                putExtra("chapter", volumeId)
                 addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             }
         }
@@ -220,7 +220,7 @@ class ReaderActivity : BaseActivity() {
         viewModel.eventFlow
             .onEach { event ->
                 when (event) {
-                    ReaderViewModel.Event.ReloadViewerChapters -> {
+                    ReaderViewModel.Event.ReloadViewerVolumes -> {
                         viewModel.state.value.viewerChapters?.let(::setChapters)
                     }
                     ReaderViewModel.Event.PageChanged -> {
@@ -471,17 +471,17 @@ class ReaderActivity : BaseActivity() {
             onOpenInBrowser = null,
             onShare = null,
 
-            chapterNavigatorType = if (isPagerType || !verticalNavigatorForLongStrip) {
+            volumeNavigatorType = if (isPagerType || !verticalNavigatorForLongStrip) {
                 if (state.viewer is R2LPagerViewer) {
-                    ChapterNavigatorType.HORIZONTAL_RTL
+                    VolumeNavigatorType.HORIZONTAL_RTL
                 } else {
-                    ChapterNavigatorType.HORIZONTAL_LTR
+                    VolumeNavigatorType.HORIZONTAL_LTR
                 }
             } else {
                 if (verticalNavigatorOnLeft) {
-                    ChapterNavigatorType.VERTICAL_LEFT
+                    VolumeNavigatorType.VERTICAL_LEFT
                 } else {
-                    ChapterNavigatorType.VERTICAL_RIGHT
+                    VolumeNavigatorType.VERTICAL_RIGHT
                 }
             },
             onNextChapter = ::loadNextChapter,
@@ -587,7 +587,7 @@ class ReaderActivity : BaseActivity() {
      * hides or disables the reader prev/next buttons if there's a prev or next chapter
      */
     @SuppressLint("RestrictedApi")
-    private fun setChapters(viewerChapters: ViewerChapters) {
+    private fun setChapters(viewerChapters: ViewerVolumes) {
         binding.readerContainer.removeView(loadingIndicator)
         viewModel.state.value.viewer?.setChapters(viewerChapters)
     }
@@ -669,7 +669,7 @@ class ReaderActivity : BaseActivity() {
      * Called from the viewer when the given [chapter] should be preloaded. It should be called when
      * the viewer is reaching the beginning or end of a chapter or the transition page is active.
      */
-    fun requestPreloadChapter(chapter: ReaderChapter) {
+    fun requestPreloadChapter(chapter: ReaderVolume) {
         lifecycleScope.launchIO { viewModel.preload(chapter) }
     }
 

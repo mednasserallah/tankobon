@@ -1,7 +1,7 @@
 package tachiyomi.domain.manga.interactor
 
-import tachiyomi.domain.chapter.interactor.GetChaptersByMangaId
-import tachiyomi.domain.chapter.model.Chapter
+import tachiyomi.domain.chapter.interactor.GetVolumesByMangaId
+import tachiyomi.domain.chapter.model.Volume
 import tachiyomi.domain.manga.model.Manga
 import tachiyomi.domain.manga.model.MangaUpdate
 import java.time.Instant
@@ -11,7 +11,7 @@ import java.time.temporal.ChronoUnit
 import kotlin.math.absoluteValue
 
 class FetchInterval(
-    private val getChaptersByMangaId: GetChaptersByMangaId,
+    private val getVolumesByMangaId: GetVolumesByMangaId,
 ) {
 
     suspend fun toMangaUpdate(
@@ -20,7 +20,7 @@ class FetchInterval(
         window: Pair<Long, Long>,
     ): MangaUpdate {
         val interval = manga.fetchInterval.takeIf { it < 0 } ?: calculateInterval(
-            chapters = getChaptersByMangaId.await(manga.id, applyScanlatorFilter = true),
+            chapters = getVolumesByMangaId.await(manga.id, applyScanlatorFilter = true),
             zone = dateTime.zone,
         )
         val currentWindow = if (window.first == 0L && window.second == 0L) {
@@ -40,7 +40,7 @@ class FetchInterval(
         return Pair(lowerBound.toEpochSecond() * 1000, upperBound.toEpochSecond() * 1000 - 1)
     }
 
-    internal fun calculateInterval(chapters: List<Chapter>, zone: ZoneId): Int {
+    internal fun calculateInterval(chapters: List<Volume>, zone: ZoneId): Int {
         val chapterWindow = if (chapters.size <= 8) 3 else 10
 
         val uploadDates = chapters.asSequence()

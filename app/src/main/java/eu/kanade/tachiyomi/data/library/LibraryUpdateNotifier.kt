@@ -14,7 +14,7 @@ import coil3.imageLoader
 import coil3.request.ImageRequest
 import coil3.request.transformations
 import coil3.transform.CircleCropTransformation
-import eu.kanade.presentation.util.formatChapterNumber
+import eu.kanade.presentation.util.formatVolumeNumber
 import eu.kanade.tachiyomi.R
 import eu.kanade.tachiyomi.core.security.SecurityPreferences
 import eu.kanade.tachiyomi.data.notification.NotificationHandler
@@ -31,7 +31,7 @@ import tachiyomi.core.common.Constants
 import tachiyomi.core.common.i18n.pluralStringResource
 import tachiyomi.core.common.i18n.stringResource
 import tachiyomi.core.common.util.lang.launchUI
-import tachiyomi.domain.chapter.model.Chapter
+import tachiyomi.domain.chapter.model.Volume
 import tachiyomi.domain.library.model.LibraryManga
 import tachiyomi.domain.manga.model.Manga
 import tachiyomi.domain.source.service.SourceManager
@@ -164,7 +164,7 @@ class LibraryUpdateNotifier(
      *
      * @param updates a list of manga with new updates.
      */
-    fun showUpdateNotifications(updates: List<Pair<Manga, Array<Chapter>>>) {
+    fun showUpdateNotifications(updates: List<Pair<Manga, Array<Volume>>>) {
         // Parent group notification
         context.notify(
             Notifications.ID_NEW_CHAPTERS,
@@ -220,7 +220,7 @@ class LibraryUpdateNotifier(
         }
     }
 
-    private suspend fun createNewChaptersNotification(manga: Manga, chapters: Array<Chapter>): Notification {
+    private suspend fun createNewChaptersNotification(manga: Manga, chapters: Array<Volume>): Notification {
         val icon = getMangaIcon(manga)
         return context.notificationBuilder(Notifications.CHANNEL_NEW_CHAPTERS) {
             setContentTitle(manga.title)
@@ -284,14 +284,14 @@ class LibraryUpdateNotifier(
         return drawable?.getBitmapOrNull()
     }
 
-    private fun getNewChaptersDescription(chapters: Array<Chapter>): String {
-        val displayableChapterNumbers = chapters
+    private fun getNewChaptersDescription(chapters: Array<Volume>): String {
+        val displayableVolumeNumbers = chapters
             .filter { it.isRecognizedNumber }
-            .sortedBy { it.chapterNumber }
-            .map { formatChapterNumber(it.chapterNumber) }
+            .sortedBy { it.volumeNumber }
+            .map { formatVolumeNumber(it.volumeNumber) }
             .toSet()
 
-        return when (displayableChapterNumbers.size) {
+        return when (displayableVolumeNumbers.size) {
             // No sensible chapter numbers to show (i.e. no chapters have parsed chapter number)
             0 -> {
                 // "1 new chapter" or "5 new chapters"
@@ -303,29 +303,29 @@ class LibraryUpdateNotifier(
             }
             // Only 1 chapter has a parsed chapter number
             1 -> {
-                val remaining = chapters.size - displayableChapterNumbers.size
+                val remaining = chapters.size - displayableVolumeNumbers.size
                 if (remaining == 0) {
-                    // "Chapter 2.5"
+                    // "Volume 2.5"
                     context.stringResource(
                         MR.strings.notification_chapters_single,
-                        displayableChapterNumbers.first(),
+                        displayableVolumeNumbers.first(),
                     )
                 } else {
-                    // "Chapter 2.5 and 10 more"
+                    // "Volume 2.5 and 10 more"
                     context.stringResource(
                         MR.strings.notification_chapters_single_and_more,
-                        displayableChapterNumbers.first(),
+                        displayableVolumeNumbers.first(),
                         remaining,
                     )
                 }
             }
             // Everything else (i.e. multiple parsed chapter numbers)
             else -> {
-                val shouldTruncate = displayableChapterNumbers.size > NOTIF_MAX_CHAPTERS
+                val shouldTruncate = displayableVolumeNumbers.size > NOTIF_MAX_CHAPTERS
                 if (shouldTruncate) {
-                    // "Chapters 1, 2.5, 3, 4, 5 and 10 more"
-                    val remaining = displayableChapterNumbers.size - NOTIF_MAX_CHAPTERS
-                    val joinedChapterNumbers = displayableChapterNumbers
+                    // "Volumes 1, 2.5, 3, 4, 5 and 10 more"
+                    val remaining = displayableVolumeNumbers.size - NOTIF_MAX_CHAPTERS
+                    val joinedChapterNumbers = displayableVolumeNumbers
                         .take(NOTIF_MAX_CHAPTERS)
                         .joinToString(", ")
                     context.pluralStringResource(
@@ -335,10 +335,10 @@ class LibraryUpdateNotifier(
                         remaining,
                     )
                 } else {
-                    // "Chapters 1, 2.5, 3"
+                    // "Volumes 1, 2.5, 3"
                     context.stringResource(
                         MR.strings.notification_chapters_multiple,
-                        displayableChapterNumbers.joinToString(", "),
+                        displayableVolumeNumbers.joinToString(", "),
                     )
                 }
             }

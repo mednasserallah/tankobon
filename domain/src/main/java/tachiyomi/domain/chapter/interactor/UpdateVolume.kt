@@ -2,14 +2,14 @@ package tachiyomi.domain.chapter.interactor
 
 import logcat.LogPriority
 import tachiyomi.core.common.util.system.logcat
-import tachiyomi.domain.chapter.model.ChapterUpdate
-import tachiyomi.domain.chapter.repository.ChapterRepository
+import tachiyomi.domain.chapter.model.VolumeUpdate
+import tachiyomi.domain.chapter.repository.VolumeRepository
 
-class UpdateChapter(
-    private val chapterRepository: ChapterRepository,
+class UpdateVolume(
+    private val chapterRepository: VolumeRepository,
 ) {
 
-    suspend fun await(chapterUpdate: ChapterUpdate) {
+    suspend fun await(chapterUpdate: VolumeUpdate) {
         try {
             chapterRepository.update(chapterUpdate)
         } catch (e: Exception) {
@@ -17,7 +17,7 @@ class UpdateChapter(
         }
     }
 
-    suspend fun awaitAll(chapterUpdates: List<ChapterUpdate>) {
+    suspend fun awaitAll(chapterUpdates: List<VolumeUpdate>) {
         try {
             chapterRepository.updateAll(chapterUpdates)
         } catch (e: Exception) {

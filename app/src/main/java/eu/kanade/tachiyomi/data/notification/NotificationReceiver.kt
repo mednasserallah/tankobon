@@ -19,10 +19,10 @@ import eu.kanade.tachiyomi.util.system.toast
 import kotlinx.coroutines.runBlocking
 import tachiyomi.core.common.Constants
 import tachiyomi.core.common.util.lang.launchIO
-import tachiyomi.domain.chapter.interactor.GetChapter
-import tachiyomi.domain.chapter.interactor.UpdateChapter
-import tachiyomi.domain.chapter.model.Chapter
-import tachiyomi.domain.chapter.model.toChapterUpdate
+import tachiyomi.domain.chapter.interactor.GetVolume
+import tachiyomi.domain.chapter.interactor.UpdateVolume
+import tachiyomi.domain.chapter.model.Volume
+import tachiyomi.domain.chapter.model.toVolumeUpdate
 import tachiyomi.domain.manga.interactor.GetManga
 import tachiyomi.domain.manga.model.Manga
 import tachiyomi.i18n.MR
@@ -39,8 +39,8 @@ import eu.kanade.tachiyomi.BuildConfig.APPLICATION_ID as ID
 class NotificationReceiver : BroadcastReceiver() {
 
     private val getManga: GetManga by injectLazy()
-    private val getChapter: GetChapter by injectLazy()
-    private val updateChapter: UpdateChapter by injectLazy()
+    private val getChapter: GetVolume by injectLazy()
+    private val updateChapter: UpdateVolume by injectLazy()
 
     override fun onReceive(context: Context, intent: Intent) {
         when (intent.action) {
@@ -123,11 +123,11 @@ class NotificationReceiver : BroadcastReceiver() {
      *
      * @param context context of application
      * @param mangaId id of manga
-     * @param chapterId id of chapter
+     * @param volumeId id of chapter
      */
-    private fun openChapter(context: Context, mangaId: Long, chapterId: Long) {
+    private fun openChapter(context: Context, mangaId: Long, volumeId: Long) {
         val manga = runBlocking { getManga.await(mangaId) }
-        val chapter = runBlocking { getChapter.await(chapterId) }
+        val chapter = runBlocking { getChapter.await(volumeId) }
         if (manga != null && chapter != null) {
             val intent = ReaderActivity.newIntent(context, manga.id, chapter.id).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -174,7 +174,7 @@ class NotificationReceiver : BroadcastReceiver() {
     private fun markAsRead(chapterUrls: Array<String>, mangaId: Long) {
         launchIO {
             val toUpdate = chapterUrls.mapNotNull { getChapter.await(it, mangaId) }
-                .map { it.copy(read = true).toChapterUpdate() }
+                .map { it.copy(read = true).toVolumeUpdate() }
             updateChapter.awaitAll(toUpdate)
         }
     }
@@ -291,7 +291,7 @@ class NotificationReceiver : BroadcastReceiver() {
          * @param manga manga of chapter
          * @param chapter chapter that needs to be opened
          */
-        internal fun openChapterPendingActivity(context: Context, manga: Manga, chapter: Chapter): PendingIntent {
+        internal fun openChapterPendingActivity(context: Context, manga: Manga, chapter: Volume): PendingIntent {
             val newIntent = ReaderActivity.newIntent(context, manga.id, chapter.id)
             return PendingIntent.getActivity(
                 context,
@@ -331,7 +331,7 @@ class NotificationReceiver : BroadcastReceiver() {
         internal fun markAsReadPendingBroadcast(
             context: Context,
             manga: Manga,
-            chapters: Array<Chapter>,
+            chapters: Array<Volume>,
             groupId: Int,
         ): PendingIntent {
             val newIntent = Intent(context, NotificationReceiver::class.java).apply {

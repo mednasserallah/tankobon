@@ -59,7 +59,7 @@ class StatsScreenModel(
                 localMangaCount = distinctLibraryManga.count { it.manga.isLocal() },
             )
 
-            val chaptersStatData = StatsData.Chapters(
+            val chaptersStatData = StatsData.Volumes(
                 totalChapterCount = distinctLibraryManga.sumOf { it.totalChapters }.toInt(),
                 readChapterCount = distinctLibraryManga.sumOf { it.readCount }.toInt(),
             )
