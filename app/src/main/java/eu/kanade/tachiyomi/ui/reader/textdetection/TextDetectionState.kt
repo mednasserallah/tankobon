@@ -18,10 +18,16 @@ sealed interface TextDetectionState {
     data class Success(val items: List<DetectedLineItem>) : TextDetectionState
 }
 
-/** A detected line plus its (optional) translation state. */
+/**
+ * A detected line plus its current (possibly user-edited) [text] and translation state.
+ *
+ * [text] starts as the raw OCR result ([line].text) and is what copy and translate act on, so a
+ * user correction flows through to both. [line] is retained for its bounding box and confidence.
+ */
 @Immutable
 data class DetectedLineItem(
     val line: DetectedTextLine,
+    val text: String = line.text,
     val translation: TranslationState = TranslationState.Idle,
 )
 

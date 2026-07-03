@@ -705,9 +705,22 @@ class ReaderViewModel @JvmOverloads constructor(
         }
     }
 
+    /** Replaces the (editable) text of the detected line at [index], clearing any stale translation. */
+    fun updateLineText(index: Int, newText: String) {
+        mutableState.update { state ->
+            val dialog = state.dialog as? Dialog.TextDetection ?: return@update state
+            val success = dialog.state as? TextDetectionState.Success ?: return@update state
+            if (index !in success.items.indices) return@update state
+            val updatedItems = success.items.toMutableList().apply {
+                this[index] = this[index].copy(text = newText, translation = TranslationState.Idle)
+            }
+            state.copy(dialog = Dialog.TextDetection(success.copy(items = updatedItems)))
+        }
+    }
+
     /** Translates the detected line at [index] from English to Arabic, downloading the model if needed. */
     fun translateLine(index: Int) {
-        val text = currentDetectionSuccess()?.items?.getOrNull(index)?.line?.text ?: return
+        val text = currentDetectionSuccess()?.items?.getOrNull(index)?.text ?: return
         val requireWifi = readerPreferences.translationWifiOnly.get()
 
         viewModelScope.launchIO {

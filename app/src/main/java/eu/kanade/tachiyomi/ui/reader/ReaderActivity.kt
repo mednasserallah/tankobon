@@ -336,6 +336,7 @@ class ReaderActivity : BaseActivity() {
                     onRetry = viewModel::openTextDetectionDialog,
                     onTranslateAll = viewModel::translateDetectedText,
                     onTranslateLine = viewModel::translateLine,
+                    onEditLine = viewModel::updateLineText,
                 )
             }
             null -> {}

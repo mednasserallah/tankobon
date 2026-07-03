@@ -1,6 +1,7 @@
 package eu.kanade.presentation.reader
 
 import android.content.ClipData
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,7 +14,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.ContentCopy
 import androidx.compose.material.icons.outlined.Translate
 import androidx.compose.material3.CircularProgressIndicator
@@ -21,17 +25,23 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.toClipEntry
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
@@ -60,6 +70,7 @@ fun TextDetectionDialog(
     onRetry: () -> Unit,
     onTranslateAll: () -> Unit,
     onTranslateLine: (Int) -> Unit,
+    onEditLine: (Int, String) -> Unit,
 ) {
     AdaptiveSheet(onDismissRequest = onDismissRequest) {
         Column(
@@ -115,7 +126,7 @@ fun TextDetectionDialog(
                         }
                     }
                 }
-                is TextDetectionState.Success -> DetectedLines(state.items, onTranslateLine)
+                is TextDetectionState.Success -> DetectedLines(state.items, onTranslateLine, onEditLine)
             }
         }
     }
@@ -138,10 +149,8 @@ private fun CenteredMessage(content: @Composable () -> Unit) {
 private fun DetectedLines(
     items: List<DetectedLineItem>,
     onTranslateLine: (Int) -> Unit,
+    onEditLine: (Int, String) -> Unit,
 ) {
-    val clipboard = LocalClipboard.current
-    val context = LocalContext.current
-    val scope = rememberCoroutineScope()
     val anyTranslated = items.any { it.translation != TranslationState.Idle }
 
     Column {
@@ -151,53 +160,11 @@ private fun DetectedLines(
                 .heightIn(max = 420.dp),
         ) {
             itemsIndexed(items) { index, item ->
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(
-                            start = MaterialTheme.padding.medium,
-                            end = MaterialTheme.padding.small,
-                            top = MaterialTheme.padding.small,
-                            bottom = MaterialTheme.padding.small,
-                        ),
-                ) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.padding.small),
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        Text(
-                            text = item.line.text,
-                            modifier = Modifier.weight(1f),
-                            style = MaterialTheme.typography.bodyLarge,
-                        )
-                        IconButton(
-                            onClick = { onTranslateLine(index) },
-                            enabled = item.translation !is TranslationState.Downloading &&
-                                item.translation !is TranslationState.Translating,
-                        ) {
-                            Icon(
-                                imageVector = Icons.Outlined.Translate,
-                                contentDescription = stringResource(MR.strings.action_translate),
-                            )
-                        }
-                        IconButton(
-                            onClick = {
-                                scope.launch {
-                                    val clip = ClipData.newPlainText(item.line.text, item.line.text).toClipEntry()
-                                    clipboard.setClipEntry(clip)
-                                }
-                                context.toast(MR.strings.copied_to_clipboard_plain)
-                            },
-                        ) {
-                            Icon(
-                                imageVector = Icons.Outlined.ContentCopy,
-                                contentDescription = stringResource(MR.strings.action_copy_to_clipboard),
-                            )
-                        }
-                    }
-                    TranslationRow(item.translation, onRetry = { onTranslateLine(index) })
-                }
+                DetectedLineRow(
+                    item = item,
+                    onTranslate = { onTranslateLine(index) },
+                    onEditCommit = { onEditLine(index, it) },
+                )
                 if (index < items.lastIndex) {
                     HorizontalDivider()
                 }
@@ -216,6 +183,106 @@ private fun DetectedLines(
                 ),
             )
         }
+    }
+}
+
+@Composable
+private fun DetectedLineRow(
+    item: DetectedLineItem,
+    onTranslate: () -> Unit,
+    onEditCommit: (String) -> Unit,
+) {
+    val clipboard = LocalClipboard.current
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    var editing by remember { mutableStateOf(false) }
+    // Re-seed the draft whenever the committed text changes (e.g. after an edit is applied).
+    var draft by remember(item.text) { mutableStateOf(item.text) }
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(
+                start = MaterialTheme.padding.medium,
+                end = MaterialTheme.padding.small,
+                top = MaterialTheme.padding.small,
+                bottom = MaterialTheme.padding.small,
+            ),
+    ) {
+        if (editing) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                OutlinedTextField(
+                    value = draft,
+                    onValueChange = { draft = it },
+                    modifier = Modifier.weight(1f),
+                    singleLine = true,
+                    textStyle = MaterialTheme.typography.bodyLarge,
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                    keyboardActions = KeyboardActions(
+                        onDone = {
+                            onEditCommit(draft)
+                            editing = false
+                        },
+                    ),
+                )
+                IconButton(
+                    onClick = {
+                        onEditCommit(draft)
+                        editing = false
+                    },
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.Check,
+                        contentDescription = stringResource(MR.strings.action_ok),
+                    )
+                }
+            }
+        } else {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(MaterialTheme.padding.small),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    text = item.text,
+                    modifier = Modifier
+                        .weight(1f)
+                        .clickable {
+                            draft = item.text
+                            editing = true
+                        },
+                    style = MaterialTheme.typography.bodyLarge,
+                )
+                IconButton(
+                    onClick = onTranslate,
+                    enabled = item.translation !is TranslationState.Downloading &&
+                        item.translation !is TranslationState.Translating,
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.Translate,
+                        contentDescription = stringResource(MR.strings.action_translate),
+                    )
+                }
+                IconButton(
+                    onClick = {
+                        scope.launch {
+                            val clip = ClipData.newPlainText(item.text, item.text).toClipEntry()
+                            clipboard.setClipEntry(clip)
+                        }
+                        context.toast(MR.strings.copied_to_clipboard_plain)
+                    },
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.ContentCopy,
+                        contentDescription = stringResource(MR.strings.action_copy_to_clipboard),
+                    )
+                }
+            }
+        }
+        TranslationRow(item.translation, onRetry = onTranslate)
     }
 }
 
