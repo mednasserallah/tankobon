@@ -36,7 +36,7 @@ object TextLineMerger {
         verticalGapRatio: Float = DEFAULT_VERTICAL_GAP_RATIO,
         horizontalOverlapRatio: Float = DEFAULT_HORIZONTAL_OVERLAP_RATIO,
     ): List<DetectedTextLine> {
-        if (lines.size <= 1) return lines
+        if (lines.isEmpty()) return lines
 
         val clusters = mutableListOf<MutableList<DetectedTextLine>>()
         for (line in lines.sortedBy { it.box.top }) {
@@ -70,9 +70,8 @@ object TextLineMerger {
     }
 
     private fun mergeCluster(cluster: List<DetectedTextLine>): DetectedTextLine {
-        if (cluster.size == 1) return cluster.first()
         val ordered = cluster.sortedBy { it.box.top }
-        val text = ordered.joinToString(" ") { it.text }
+        val text = collapseHyphenation(ordered.joinToString(" ") { it.text })
         val box = TextBoundingBox(
             left = ordered.minOf { it.box.left },
             top = ordered.minOf { it.box.top },
@@ -81,4 +80,47 @@ object TextLineMerger {
         )
         return DetectedTextLine(text = text, box = box)
     }
+
+    /**
+     * Resolves trailing-hyphen line breaks left over from merging wrapped lines. Two manga patterns
+     * need opposite treatment, distinguished purely heuristically (no dictionary):
+     *
+     *  - **Stutter/stammer** (`"PR- PREPARE"` → `"PREPARE"`): the fragment before the hyphen is a
+     *    short repeat of the start of the next word — the letterer drawing out a stammer. Drop it.
+     *  - **Word-wrap hyphenation** (`"ACCOM- PLISH"` → `"ACCOMPLISH"`): a long word split to fit the
+     *    bubble width — both halves are needed, joined with no space and no hyphen.
+     *
+     * Rule: for a `fragment-` immediately followed by whitespace and a `nextWord`, treat it as a
+     * stutter (drop the fragment) when `fragment.length <= [STUTTER_MAX_FRAGMENT]` AND `nextWord`
+     * starts with `fragment` (case-insensitive); otherwise splice the two halves together. Applied
+     * repeatedly so a repeated stutter (`"P- P- PREPARE"` → `"PREPARE"`) collapses fully.
+     *
+     * Known limitation: a genuinely-short real hyphenated fragment that happens to prefix the next
+     * word (without being a stutter) is misread as a stutter and dropped. This is rare and not worth
+     * a dictionary lookup for a best-effort feature. Sentence-casing runs after this, on the joined
+     * word.
+     */
+    fun collapseHyphenation(text: String): String {
+        var result = text
+        while (true) {
+            val match = HYPHEN_BREAK.find(result) ?: break
+            val fragment = match.groupValues[1]
+            val nextWord = match.groupValues[2]
+            val replacement = if (
+                fragment.length <= STUTTER_MAX_FRAGMENT && nextWord.startsWith(fragment, ignoreCase = true)
+            ) {
+                nextWord
+            } else {
+                fragment + nextWord
+            }
+            result = result.replaceRange(match.range, replacement)
+        }
+        return result
+    }
+
+    /** Max length of a pre-hyphen fragment for it to count as a drawn-out stutter rather than a word split. */
+    private const val STUTTER_MAX_FRAGMENT = 3
+
+    /** A word chunk ending in a hyphen, then whitespace (a line break), then the next word. */
+    private val HYPHEN_BREAK = Regex("""(\w+)-\s+(\w+)""")
 }
