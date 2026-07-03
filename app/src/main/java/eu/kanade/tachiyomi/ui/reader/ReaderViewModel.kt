@@ -654,11 +654,14 @@ class ReaderViewModel @JvmOverloads constructor(
 
         val isRtl = ReadingMode.fromPreference(getMangaReadingMode()) == ReadingMode.RIGHT_TO_LEFT
         val streamProvider = page.stream!!
+        // Read the visible zoom region on the main thread (touches the View) before dispatching to IO.
+        // Null when at default fit-to-screen zoom → whole page, unchanged behaviour.
+        val cropRegion = state.value.viewer?.getCurrentPageVisibleRegion()
         mutableState.update { it.copy(dialog = Dialog.TextDetection(TextDetectionState.Loading)) }
 
         viewModelScope.launchIO {
             val result = runCatching {
-                val bitmap = decodePageBitmap(streamProvider)
+                val bitmap = decodePageBitmap(streamProvider, region = cropRegion)
                     ?: return@runCatching TextDetectionState.Empty
                 val lines = try {
                     textRecognizer.recognize(bitmap)
