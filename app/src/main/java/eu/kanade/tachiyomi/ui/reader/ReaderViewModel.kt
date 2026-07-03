@@ -28,6 +28,7 @@ import eu.kanade.tachiyomi.ui.reader.setting.ReaderPreferences
 import eu.kanade.tachiyomi.ui.reader.setting.ReadingMode
 import eu.kanade.tachiyomi.ui.reader.textdetection.DetectedLineItem
 import eu.kanade.tachiyomi.ui.reader.textdetection.ReadingOrderSorter
+import eu.kanade.tachiyomi.ui.reader.textdetection.SentenceCase
 import eu.kanade.tachiyomi.ui.reader.textdetection.TextDetectionState
 import eu.kanade.tachiyomi.ui.reader.textdetection.TextLineMerger
 import eu.kanade.tachiyomi.ui.reader.textdetection.TextRecognizer
@@ -665,6 +666,7 @@ class ReaderViewModel @JvmOverloads constructor(
                     bitmap.recycle()
                 }
                 val merged = TextLineMerger.merge(lines)
+                    .map { it.copy(text = SentenceCase.normalize(it.text)) }
                 val sorted = ReadingOrderSorter.sort(merged, rtl = isRtl)
                 if (sorted.isEmpty()) {
                     TextDetectionState.Empty
