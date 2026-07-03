@@ -141,7 +141,6 @@ android {
                 "libarchive-jni",
                 "libconscrypt_jni",
                 "libimagedecoder",
-                "libquickjs",
                 "libsqlite3x",
             )
                 .map { "**/$it.so" }

@@ -14,7 +14,6 @@ import eu.kanade.tachiyomi.data.cache.VolumeCache
 import eu.kanade.tachiyomi.data.cache.VolumeCoverCache
 import eu.kanade.tachiyomi.data.saver.ImageSaver
 import eu.kanade.tachiyomi.data.track.TrackerManager
-import eu.kanade.tachiyomi.network.JavaScriptEngine
 import eu.kanade.tachiyomi.network.NetworkHelper
 import eu.kanade.tachiyomi.source.AndroidSourceManager
 import kotlinx.serialization.json.Json
@@ -111,7 +110,6 @@ class AppModule(val app: Application) : InjektModule {
         addSingletonFactory { VolumeCoverCache(app) }
 
         addSingletonFactory { NetworkHelper(app, get()) }
-        addSingletonFactory { JavaScriptEngine(app) }
 
         addSingletonFactory<SourceManager> { AndroidSourceManager(app, get()) }
 
