@@ -26,6 +26,7 @@ import tachiyomi.core.common.storage.extension
 import tachiyomi.core.common.storage.nameWithoutExtension
 import tachiyomi.core.common.util.lang.withIOContext
 import tachiyomi.core.common.util.system.ImageUtil
+import tachiyomi.core.common.util.system.VolumeCoverSelector
 import tachiyomi.core.common.util.system.logcat
 import tachiyomi.core.metadata.comicinfo.COMIC_INFO_FILE
 import tachiyomi.core.metadata.comicinfo.ComicInfo
@@ -341,6 +342,47 @@ actual class LocalSource(
             throw Exception(context.stringResource(MR.strings.local_invalid_format))
         } catch (e: Exception) {
             throw e
+        }
+    }
+
+    /**
+     * Reads the first (natural-sorted) image inside a single volume as raw bytes, for use as that
+     * volume's cover thumbnail. Only the chosen entry is decoded — entry names are listed first
+     * (cheap) and just that one entry's bytes are read. The whole image is read into memory (a
+     * single page) so the result is independent of the archive handle's lifetime.
+     *
+     * @param volumeUrl the volume's url (`mangaDirName/volumeName`), i.e. [SVolume.url].
+     * @return the cover image bytes, or null if the volume has no images or can't be read.
+     */
+    fun getVolumeCoverBytes(volumeUrl: String): ByteArray? {
+        return try {
+            when (val format = getFormat(SVolume.create().apply { url = volumeUrl })) {
+                is Format.Directory -> {
+                    val files = format.file.listFiles()?.filterNot { it.isDirectory }.orEmpty()
+                    VolumeCoverSelector.selectCover(files.mapNotNull { it.name })
+                        ?.let { name -> files.firstOrNull { it.name == name } }
+                        ?.openInputStream()
+                        ?.use { it.readBytes() }
+                }
+                is Format.Archive -> {
+                    format.file.archiveReader(context).use { reader ->
+                        reader.useEntries { entries ->
+                            val names = entries.filter { it.isFile }.map { it.name }.toList()
+                            VolumeCoverSelector.selectCover(names)
+                                ?.let { name -> reader.getInputStream(name)?.use { it.readBytes() } }
+                        }
+                    }
+                }
+                is Format.Epub -> {
+                    format.file.epubReader(context).use { epub ->
+                        epub.getImagesFromPages().firstOrNull()
+                            ?.let { entry -> epub.getInputStream(entry)?.use { it.readBytes() } }
+                    }
+                }
+            }
+        } catch (e: Throwable) {
+            logcat(LogPriority.ERROR, e) { "Error extracting volume cover for $volumeUrl" }
+            null
         }
     }
 
