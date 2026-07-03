@@ -44,6 +44,7 @@ class TextRecognizer {
                 DetectedTextLine(
                     text = content,
                     box = TextBoundingBox(box.left, box.top, box.right, box.bottom),
+                    confidence = (line.confidence as Float?)?.takeUnless { it.isNaN() },
                 )
             }
     }

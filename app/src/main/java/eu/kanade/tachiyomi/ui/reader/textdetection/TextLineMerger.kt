@@ -78,7 +78,9 @@ object TextLineMerger {
             right = ordered.maxOf { it.box.right },
             bottom = ordered.maxOf { it.box.bottom },
         )
-        return DetectedTextLine(text = text, box = box)
+        // Worst-case: a merged line is only as trustworthy as its least-confident part.
+        val confidence = ordered.mapNotNull { it.confidence }.minOrNull()
+        return DetectedTextLine(text = text, box = box, confidence = confidence)
     }
 
     /**

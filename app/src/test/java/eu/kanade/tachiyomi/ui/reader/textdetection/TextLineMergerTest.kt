@@ -11,6 +11,9 @@ class TextLineMergerTest {
     private fun line(text: String, left: Int, top: Int, right: Int, bottom: Int) =
         DetectedTextLine(text, TextBoundingBox(left, top, right, bottom))
 
+    private fun lineC(text: String, confidence: Float, left: Int, top: Int, right: Int, bottom: Int) =
+        DetectedTextLine(text, TextBoundingBox(left, top, right, bottom), confidence = confidence)
+
     private fun mergedTexts(lines: List<DetectedTextLine>) =
         TextLineMerger.merge(lines).map { it.text }
 
@@ -93,6 +96,25 @@ class TextLineMergerTest {
     fun `hyphenation keeps the rest of the line`() {
         TextLineMerger.collapseHyphenation("ACCOM- PLISH THE TASK") shouldBe "ACCOMPLISH THE TASK"
         TextLineMerger.collapseHyphenation("PR- PREPARE FOR IT") shouldBe "PREPARE FOR IT"
+    }
+
+    @Test
+    fun `merged confidence is the worst of the members`() {
+        val lines = listOf(
+            lineC("WHO IS", confidence = 0.9f, left = 100, top = 0, right = 260, bottom = 40),
+            lineC("THAT?!", confidence = 0.3f, left = 105, top = 48, right = 255, bottom = 88),
+        )
+        val merged = TextLineMerger.merge(lines).single()
+        merged.text shouldBe "WHO IS THAT?!"
+        merged.confidence shouldBe 0.3f
+    }
+
+    @Test
+    fun `low-confidence flag respects the threshold and null`() {
+        fun withConfidence(c: Float?) = DetectedTextLine("x", TextBoundingBox(0, 0, 1, 1), confidence = c)
+        withConfidence(0.3f).isLowConfidence() shouldBe true
+        withConfidence(0.9f).isLowConfidence() shouldBe false
+        withConfidence(null).isLowConfidence() shouldBe false
     }
 
     @Test
