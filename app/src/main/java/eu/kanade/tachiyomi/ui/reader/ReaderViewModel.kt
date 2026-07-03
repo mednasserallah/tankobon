@@ -26,6 +26,10 @@ import eu.kanade.tachiyomi.ui.reader.model.ViewerVolumes
 import eu.kanade.tachiyomi.ui.reader.setting.ReaderOrientation
 import eu.kanade.tachiyomi.ui.reader.setting.ReaderPreferences
 import eu.kanade.tachiyomi.ui.reader.setting.ReadingMode
+import eu.kanade.tachiyomi.ui.reader.textdetection.ReadingOrderSorter
+import eu.kanade.tachiyomi.ui.reader.textdetection.TextDetectionState
+import eu.kanade.tachiyomi.ui.reader.textdetection.TextRecognizer
+import eu.kanade.tachiyomi.ui.reader.textdetection.decodePageBitmap
 import eu.kanade.tachiyomi.ui.reader.viewer.Viewer
 import eu.kanade.tachiyomi.util.chapter.removeDuplicates
 import eu.kanade.tachiyomi.util.editCover
@@ -93,6 +97,8 @@ class ReaderViewModel @JvmOverloads constructor(
 
     private val eventChannel = Channel<Event>()
     val eventFlow = eventChannel.receiveAsFlow()
+
+    private val textRecognizer by lazy { TextRecognizer() }
 
     /**
      * The manga loaded in the reader. It can be null when instantiated for a short time.
@@ -205,6 +211,7 @@ class ReaderViewModel @JvmOverloads constructor(
         if (currentChapters != null) {
             currentChapters.unref()
         }
+        textRecognizer.close()
     }
 
     /**
@@ -626,6 +633,52 @@ class ReaderViewModel @JvmOverloads constructor(
         mutableState.update { it.copy(dialog = Dialog.Settings) }
     }
 
+    /**
+     * Runs on-device OCR on the currently displayed page and opens the text-detection sheet with
+     * the detected lines sorted into manga reading order. Detection runs off the main thread; an
+     * empty result (no text on the page) is a normal outcome shown as a calm empty state.
+     */
+    fun openTextDetectionDialog() {
+        val page = state.value.currentChapter?.pages?.getOrNull(state.value.currentPage - 1)
+        if (page?.status != Page.State.Ready || page.stream == null) {
+            mutableState.update { it.copy(dialog = Dialog.TextDetection(TextDetectionState.Empty)) }
+            return
+        }
+
+        val isRtl = ReadingMode.fromPreference(getMangaReadingMode()) == ReadingMode.RIGHT_TO_LEFT
+        val streamProvider = page.stream!!
+        mutableState.update { it.copy(dialog = Dialog.TextDetection(TextDetectionState.Loading)) }
+
+        viewModelScope.launchIO {
+            val result = runCatching {
+                val bitmap = decodePageBitmap(streamProvider)
+                    ?: return@runCatching TextDetectionState.Empty
+                val lines = try {
+                    textRecognizer.recognize(bitmap)
+                } finally {
+                    bitmap.recycle()
+                }
+                val sorted = ReadingOrderSorter.sort(lines, rtl = isRtl)
+                if (sorted.isEmpty()) TextDetectionState.Empty else TextDetectionState.Success(sorted)
+            }.getOrElse { e ->
+                logcat(LogPriority.ERROR, e) { "On-page text detection failed" }
+                TextDetectionState.Error
+            }
+            updateTextDetectionState(result)
+        }
+    }
+
+    /** Replaces the text-detection sheet state, but only while that sheet is still open. */
+    private fun updateTextDetectionState(newState: TextDetectionState) {
+        mutableState.update {
+            if (it.dialog is Dialog.TextDetection) {
+                it.copy(dialog = Dialog.TextDetection(newState))
+            } else {
+                it
+            }
+        }
+    }
+
     fun closeDialog() {
         mutableState.update { it.copy(dialog = null) }
     }
@@ -793,6 +846,7 @@ class ReaderViewModel @JvmOverloads constructor(
         data object ReadingModeSelect : Dialog
         data object OrientationModeSelect : Dialog
         data class PageActions(val page: ReaderPage) : Dialog
+        data class TextDetection(val state: TextDetectionState) : Dialog
     }
 
     sealed interface Event {

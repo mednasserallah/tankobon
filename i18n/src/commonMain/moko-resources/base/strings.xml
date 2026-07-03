@@ -783,6 +783,10 @@
 
     <!-- Reader activity -->
     <string name="custom_filter">Custom filter</string>
+    <string name="action_detect_text">Detect text</string>
+    <string name="text_detection_title">Detected text</string>
+    <string name="text_detection_empty">No text detected on this page.</string>
+    <string name="text_detection_error">Couldn\'t detect text. Please try again.</string>
     <string name="set_as_cover">Set as cover</string>
     <string name="cover_updated">Cover updated</string>
     <string name="share_page_info">%1$s: %2$s, page %3$d</string>

@@ -55,6 +55,7 @@ import eu.kanade.presentation.reader.ReaderContentOverlay
 import eu.kanade.presentation.reader.ReaderPageActionsDialog
 import eu.kanade.presentation.reader.ReaderPageIndicator
 import eu.kanade.presentation.reader.ReadingModeSelectDialog
+import eu.kanade.presentation.reader.TextDetectionDialog
 import eu.kanade.presentation.reader.appbars.ReaderAppBars
 import eu.kanade.presentation.reader.components.VolumeNavigatorType
 import eu.kanade.presentation.reader.settings.ReaderSettingsDialog
@@ -274,7 +275,7 @@ class ReaderActivity : BaseActivity() {
         }
 
         val onDismissRequest = viewModel::closeDialog
-        when (state.dialog) {
+        when (val dialog = state.dialog) {
             is ReaderViewModel.Dialog.Loading -> {
                 AlertDialog(
                     onDismissRequest = {},
@@ -326,6 +327,13 @@ class ReaderActivity : BaseActivity() {
                     onSetAsCover = viewModel::setAsCover,
                     onShare = viewModel::shareImage,
                     onSave = viewModel::saveImage,
+                )
+            }
+            is ReaderViewModel.Dialog.TextDetection -> {
+                TextDetectionDialog(
+                    state = dialog.state,
+                    onDismissRequest = onDismissRequest,
+                    onRetry = viewModel::openTextDetectionDialog,
                 )
             }
             null -> {}
@@ -509,6 +517,7 @@ class ReaderActivity : BaseActivity() {
                 menuToggleToast?.cancel()
                 menuToggleToast = toast(if (enabled) MR.strings.on else MR.strings.off)
             },
+            onClickDetectText = viewModel::openTextDetectionDialog,
             onClickSettings = viewModel::openSettingsDialog,
         )
     }
