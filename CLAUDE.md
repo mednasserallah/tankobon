@@ -9,7 +9,7 @@
 The fork's goals:
 
 1. **Remove the extension system entirely.** ✅ **DONE** (Task 2, on `feature/remove-extensions`). No remote sources, no extension repo/installer/updater, no online browsing/search, no download subsystem. `LocalSource` (id `0L`) is now the only source the app can hold. See the "Extension System Map" section below for exactly what was removed vs. deferred.
-2. **Local source rework — volumes, not chapters.** ⬅️ **NEXT / not started.** The local parser (`source-local/`) must treat each **volume** as the atomic reading unit and use an opinionated naming convention:
+2. **Local source rework — volumes, not chapters.** ✅ **DONE** (Task 3, on `feature/volume-based-migration`). The reading unit is now a **volume**: `Chapter`→`Volume` renamed throughout data/domain/UI, `chapter_number REAL`→`volume_number INTEGER`, `chapters` table→`volumes`, new `volumes.volume_number_end` + `mangas.edition` columns (migration v14), and a new `VolumeRecognition` parser for the naming convention below. Verified end-to-end on device. See "Chapter → Volume Migration Map" below. The parser (`source-local/.../LocalSource.kt` `getVolumeList`) treats each `.cbz`/`.zip`/`.cbr`/folder as one volume and uses this opinionated naming convention:
    ```
    Series Name/
      ├─ Series Name - Volume 01 (Year).cbz
@@ -19,7 +19,8 @@ The fork's goals:
    ```
    Edge cases to handle: single-volume/one-shots with no "Volume NN" (`Boy Meets Maria (2021).cbz`); series names containing parentheses (`BLAME! (Master Edition)`) must not be confused with the trailing `(Year)`; `cover.jpg`/`details.json` sidecars must never be parsed as volumes; empty series folders are skipped, not errored.
    Start point: `source-local/src/androidMain/kotlin/tachiyomi/source/local/LocalSource.kt`.
-   ⬅️ **IN PROGRESS** on `feature/volume-based-migration` (Task 3). See "Chapter → Volume Migration Map" below.
+
+This was the last major planned roadmap item. Remaining work is polish/backlog only (see "Deferred cleanup").
 
 ## Module map (top-level)
 
@@ -137,7 +138,16 @@ Investigation results below (KEEP = needed for local/shared; REMOVE = remote/ext
 
 ## Chapter → Volume Migration Map (Task 3 — volume-based rework)
 
-**STATUS: 🚧 IN PROGRESS on `feature/volume-based-migration`.** Phase 0 investigation results below. The goal: model the reading unit as a **volume** (one `.cbz`/`.zip`/`.cbr`/folder = one volume) instead of a chapter, and rewrite the local file parser for Tankobon's naming convention.
+**STATUS: ✅ DONE on `feature/volume-based-migration`** (not yet merged). The reading unit is now a **volume** (one `.cbz`/`.zip`/`.cbr`/folder = one volume). Delivered: `VolumeRecognition` parser + tests (Phase 1); full `Chapter→Volume` rename + schema migration v14 + new columns (Phase 2, Option A); whole-number progress/reader (Phase 3); volume terminology + edition badge + range display (Phase 4); on-device fixture verification (Phase 5).
+
+**Phase 5 verification (on emulator, real naming convention):** ✅ correct volume counts (Ao Haru Ride = 5, BLAME! = 2, one-shots = 1); ✅ numeric sort (Ao Haru 10, 9, 3, 2, 1 — not lexical); ✅ "Missing 5 volumes" gap indicator; ✅ editions extracted (BLAME!→"Master Edition", Gantz→"Omnibus Edition") and shown as a badge, year never leaking into the edition field; ✅ `cover.jpg`/`details.json` excluded (Ao Haru = 5 volumes, not 7); ✅ empty folders don't crash; ✅ one-shots (Boy Meets Maria, Goodbye Eri, Solanin) = 1 volume with a non-empty name; ✅ omnibus range (`Volume 01-02`) parses to start 1 / end 2, displayed as "1-2"; ✅ reader opens a volume and loads pages; ✅ **schema migration v13→v14 ran on a pre-existing library with no crash and preserved data** (`chapters`→`volumes`, data intact). Note: pre-existing entries scanned by the old build keep their old-parser numbers until re-scanned (library update skips entries with unread volumes by default) — fresh scans are correct.
+
+### Decisions recorded (documented convention)
+- **One-shot / single-volume** (no `Volume NN` segment): treated as **volume 1**; the volume's display name is the file's own title (year stripped), e.g. `Boy Meets Maria (2021).cbz` → volume 1 named "Boy Meets Maria". (`SyncVolumesWithSource` guards against `VolumeSanitizer` blanking the name when it equals the series title.)
+- **Volume-count badge** counts **volumes** (the library unread badge = number of volume rows). An omnibus `Volume 01-02` is one reading unit (one row) but represents volumes 1–2; the badge counts the row. *(The volumes-represented count is available via `volume_number_end` for a future "owned volumes" display if desired.)*
+- **`edition`** lives on the manga/series (one edition per folder), null when absent; shown as a subtitle badge on the manga detail header.
+
+Phase 0 investigation results (kept for reference) below. The goal: model the reading unit as a **volume** (one `.cbz`/`.zip`/`.cbr`/folder = one volume) instead of a chapter, and rewrite the local file parser for Tankobon's naming convention.
 
 ### Phase 0 — where "chapter" lives (investigated, verified)
 
