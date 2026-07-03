@@ -1,20 +1,14 @@
 package eu.kanade.domain.chapter.interactor
 
-import eu.kanade.domain.download.interactor.DeleteDownload
 import logcat.LogPriority
 import tachiyomi.core.common.util.lang.withNonCancellableContext
 import tachiyomi.core.common.util.system.logcat
 import tachiyomi.domain.chapter.model.Chapter
 import tachiyomi.domain.chapter.model.ChapterUpdate
 import tachiyomi.domain.chapter.repository.ChapterRepository
-import tachiyomi.domain.download.service.DownloadPreferences
 import tachiyomi.domain.manga.model.Manga
-import tachiyomi.domain.manga.repository.MangaRepository
 
 class SetReadStatus(
-    private val downloadPreferences: DownloadPreferences,
-    private val deleteDownload: DeleteDownload,
-    private val mangaRepository: MangaRepository,
     private val chapterRepository: ChapterRepository,
 ) {
 
@@ -44,17 +38,6 @@ class SetReadStatus(
         } catch (e: Exception) {
             logcat(LogPriority.ERROR, e)
             return@withNonCancellableContext Result.InternalError(e)
-        }
-
-        if (read && downloadPreferences.removeAfterMarkedAsRead.get()) {
-            chaptersToUpdate
-                .groupBy { it.mangaId }
-                .forEach { (mangaId, chapters) ->
-                    deleteDownload.awaitAll(
-                        manga = mangaRepository.getMangaById(mangaId),
-                        chapters = chapters.toTypedArray(),
-                    )
-                }
         }
 
         Result.Success

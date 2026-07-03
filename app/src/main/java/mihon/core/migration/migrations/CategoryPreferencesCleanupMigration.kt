@@ -4,7 +4,6 @@ import mihon.core.migration.Migration
 import mihon.core.migration.MigrationContext
 import tachiyomi.core.common.util.lang.withIOContext
 import tachiyomi.domain.category.interactor.GetCategories
-import tachiyomi.domain.download.service.DownloadPreferences
 import tachiyomi.domain.library.service.LibraryPreferences
 
 class CategoryPreferencesCleanupMigration : Migration {
@@ -12,7 +11,6 @@ class CategoryPreferencesCleanupMigration : Migration {
 
     override suspend fun invoke(migrationContext: MigrationContext): Boolean = withIOContext {
         val libraryPreferences = migrationContext.get<LibraryPreferences>() ?: return@withIOContext false
-        val downloadPreferences = migrationContext.get<DownloadPreferences>() ?: return@withIOContext false
 
         val getCategories = migrationContext.get<GetCategories>() ?: return@withIOContext false
         val allCategories = getCategories.await().map { it.id.toString() }.toSet()
@@ -25,9 +23,6 @@ class CategoryPreferencesCleanupMigration : Migration {
         val categoryPreferences = listOf(
             libraryPreferences.updateCategories,
             libraryPreferences.updateCategoriesExclude,
-            downloadPreferences.removeExcludeCategories,
-            downloadPreferences.downloadNewChapterCategories,
-            downloadPreferences.downloadNewChapterCategoriesExclude,
         )
         categoryPreferences.forEach { preference ->
             val ids = preference.get()

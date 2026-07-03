@@ -3,18 +3,13 @@ package eu.kanade.domain.track.interactor
 import eu.kanade.domain.track.model.toDbTrack
 import eu.kanade.domain.track.model.toDomainTrack
 import eu.kanade.tachiyomi.data.database.models.Track
-import eu.kanade.tachiyomi.data.track.EnhancedTracker
 import eu.kanade.tachiyomi.data.track.Tracker
 import eu.kanade.tachiyomi.data.track.TrackerManager
-import eu.kanade.tachiyomi.source.Source
 import eu.kanade.tachiyomi.util.lang.convertEpochMillisZone
-import logcat.LogPriority
 import tachiyomi.core.common.util.lang.withIOContext
 import tachiyomi.core.common.util.lang.withNonCancellableContext
-import tachiyomi.core.common.util.system.logcat
 import tachiyomi.domain.chapter.interactor.GetChaptersByMangaId
 import tachiyomi.domain.history.interactor.GetHistory
-import tachiyomi.domain.manga.model.Manga
 import tachiyomi.domain.track.interactor.InsertTrack
 import uy.kohesive.injekt.Injekt
 import uy.kohesive.injekt.api.get
@@ -74,34 +69,6 @@ class AddTracks(
             }
 
             syncChapterProgressWithTrack.await(mangaId, track, tracker)
-        }
-    }
-
-    suspend fun bindEnhancedTrackers(manga: Manga, source: Source) = withNonCancellableContext {
-        withIOContext {
-            trackerManager.loggedInTrackers()
-                .filterIsInstance<EnhancedTracker>()
-                .filter { it.accept(source) }
-                .forEach { service ->
-                    try {
-                        service.match(manga)?.let { track ->
-                            track.manga_id = manga.id
-                            (service as Tracker).bind(track)
-                            insertTrack.await(track.toDomainTrack(idRequired = false)!!)
-
-                            syncChapterProgressWithTrack.await(
-                                manga.id,
-                                track.toDomainTrack(idRequired = false)!!,
-                                service,
-                            )
-                        }
-                    } catch (e: Exception) {
-                        logcat(
-                            LogPriority.WARN,
-                            e,
-                        ) { "Could not match manga: ${manga.title} with service $service" }
-                    }
-                }
         }
     }
 }

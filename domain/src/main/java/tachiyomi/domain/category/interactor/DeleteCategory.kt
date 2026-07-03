@@ -5,13 +5,11 @@ import tachiyomi.core.common.util.lang.withNonCancellableContext
 import tachiyomi.core.common.util.system.logcat
 import tachiyomi.domain.category.model.CategoryUpdate
 import tachiyomi.domain.category.repository.CategoryRepository
-import tachiyomi.domain.download.service.DownloadPreferences
 import tachiyomi.domain.library.service.LibraryPreferences
 
 class DeleteCategory(
     private val categoryRepository: CategoryRepository,
     private val libraryPreferences: LibraryPreferences,
-    private val downloadPreferences: DownloadPreferences,
 ) {
 
     suspend fun await(categoryId: Long) = withNonCancellableContext {
@@ -38,9 +36,6 @@ class DeleteCategory(
         val categoryPreferences = listOf(
             libraryPreferences.updateCategories,
             libraryPreferences.updateCategoriesExclude,
-            downloadPreferences.removeExcludeCategories,
-            downloadPreferences.downloadNewChapterCategories,
-            downloadPreferences.downloadNewChapterCategoriesExclude,
         )
         val categoryIdString = categoryId.toString()
         categoryPreferences.forEach { preference ->

@@ -54,13 +54,6 @@ fun UpdatesFilterDialog(
 private fun ColumnScope.FilterSheet(
     screenModel: UpdatesSettingsScreenModel,
 ) {
-    val filterDownloaded by screenModel.updatesPreferences.filterDownloaded.collectAsState()
-    TriStateItem(
-        label = stringResource(MR.strings.label_downloaded),
-        state = filterDownloaded,
-        onClick = { screenModel.toggleFilter(UpdatesPreferences::filterDownloaded) },
-    )
-
     val filterUnread by screenModel.updatesPreferences.filterUnread.collectAsState()
     TriStateItem(
         label = stringResource(MR.strings.action_filter_unread),

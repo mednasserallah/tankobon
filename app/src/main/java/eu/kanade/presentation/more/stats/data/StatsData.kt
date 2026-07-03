@@ -17,7 +17,6 @@ sealed interface StatsData {
     data class Chapters(
         val totalChapterCount: Int,
         val readChapterCount: Int,
-        val downloadCount: Int,
     ) : StatsData
 
     data class Trackers(

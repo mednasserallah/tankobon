@@ -32,15 +32,6 @@ object Notifications {
     const val ID_LIBRARY_ERROR = -102
 
     /**
-     * Notification channel and ids used by the downloader.
-     */
-    private const val GROUP_DOWNLOADER = "group_downloader"
-    const val CHANNEL_DOWNLOADER_PROGRESS = "downloader_progress_channel"
-    const val ID_DOWNLOAD_CHAPTER_PROGRESS = -201
-    const val CHANNEL_DOWNLOADER_ERROR = "downloader_error_channel"
-    const val ID_DOWNLOAD_CHAPTER_ERROR = -202
-
-    /**
      * Notification channel and ids used by the library updater.
      */
     const val CHANNEL_NEW_CHAPTERS = "new_chapters_channel"
@@ -79,6 +70,8 @@ object Notifications {
     private val deprecatedChannels = listOf(
         "downloader_channel",
         "downloader_complete_channel",
+        "downloader_progress_channel",
+        "downloader_error_channel",
         "backup_restore_complete_channel",
         "library_channel",
         "library_progress_channel",
@@ -104,9 +97,6 @@ object Notifications {
             listOf(
                 buildNotificationChannelGroup(GROUP_BACKUP_RESTORE) {
                     setName(context.stringResource(MR.strings.label_backup))
-                },
-                buildNotificationChannelGroup(GROUP_DOWNLOADER) {
-                    setName(context.stringResource(MR.strings.download_notifier_downloader_title))
                 },
                 buildNotificationChannelGroup(GROUP_LIBRARY) {
                     setName(context.stringResource(MR.strings.label_library))
@@ -134,16 +124,6 @@ object Notifications {
                 },
                 buildNotificationChannel(CHANNEL_NEW_CHAPTERS, IMPORTANCE_DEFAULT) {
                     setName(context.stringResource(MR.strings.channel_new_chapters))
-                },
-                buildNotificationChannel(CHANNEL_DOWNLOADER_PROGRESS, IMPORTANCE_LOW) {
-                    setName(context.stringResource(MR.strings.channel_progress))
-                    setGroup(GROUP_DOWNLOADER)
-                    setShowBadge(false)
-                },
-                buildNotificationChannel(CHANNEL_DOWNLOADER_ERROR, IMPORTANCE_LOW) {
-                    setName(context.stringResource(MR.strings.channel_errors))
-                    setGroup(GROUP_DOWNLOADER)
-                    setShowBadge(false)
                 },
                 buildNotificationChannel(CHANNEL_BACKUP_RESTORE_PROGRESS, IMPORTANCE_LOW) {
                     setName(context.stringResource(MR.strings.channel_progress))
