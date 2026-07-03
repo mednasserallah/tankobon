@@ -6,10 +6,10 @@
 
 ## Roadmap (NOT YET DONE — future work)
 
-These are the fork's goals. **Neither is implemented yet** — the codebase is still essentially upstream Mihon plus a Phase A rebrand.
+The fork's goals:
 
-1. **Remove the extension system entirely.** No remote sources, no extension repo/installer/updater. The app should read local files only. Relevant upstream code lives under `app/.../extension/`, `mihon/domain/extension/`, `data/.../extension/`, `source-api`, and the browse/migration UI.
-2. **Local source rework — volumes, not chapters.** The local parser (`source-local/`) must treat each **volume** as the atomic reading unit and use an opinionated naming convention:
+1. **Remove the extension system entirely.** ✅ **DONE** (Task 2, on `feature/remove-extensions`). No remote sources, no extension repo/installer/updater, no online browsing/search, no download subsystem. `LocalSource` (id `0L`) is now the only source the app can hold. See the "Extension System Map" section below for exactly what was removed vs. deferred.
+2. **Local source rework — volumes, not chapters.** ⬅️ **NEXT / not started.** The local parser (`source-local/`) must treat each **volume** as the atomic reading unit and use an opinionated naming convention:
    ```
    Series Name/
      ├─ Series Name - Volume 01 (Year).cbz
@@ -24,14 +24,14 @@ These are the fork's goals. **Neither is implemented yet** — the codebase is s
 
 | Module | Responsibility |
 | --- | --- |
-| `app` | Main Android application: UI (Compose, Voyager nav), features, backup, tracking, downloads, reader. Package roots: `eu.kanade.tachiyomi.*`, `eu.kanade.presentation.*`, and `mihon.*`. |
+| `app` | Main Android application: UI (Compose, Voyager nav), library/updates/history/more, backup, tracking, reader. Package roots: `eu.kanade.tachiyomi.*`, `eu.kanade.presentation.*`, and `mihon.*`. (Extension, download-queue, browse-sources, migration, deeplink, and global-search subtrees have been removed.) |
 | `core/common` | Shared core utilities/constants (`tachiyomi.core.common`, `mihon.core.common`). |
 | `core/archive` | Archive (cbz/zip/epub) reading (`mihon.core.archive`). |
 | `core-metadata` | ComicInfo.xml metadata model (`tachiyomi.core.metadata`). |
 | `data` | Data layer: SQLDelight DB, repositories. |
 | `domain` | Domain models + interactors (`tachiyomi.domain.*`, `mihon.domain.*`). |
-| `source-api` | Source/extension API abstractions (`eu.kanade.tachiyomi.source.*`). To be gutted when extensions are removed. |
-| `source-local` | **Local file source** — the module for the volume rework. |
+| `source-api` | Source API abstractions (`eu.kanade.tachiyomi.source.*`). Now local-only: `Source`, `UnmeteredSource`, and the `model/**` classes remain; the online chain (`HttpSource`/`CatalogueSource`/`ConfigurableSource`/`ResolvableSource`/`ParsedHttpSource`/`SourceFactory`/`PreferenceScreen`) has been deleted. |
+| `source-local` | **Local file source** — the only source; the module for the volume rework. `LocalSource` implements `Source, UnmeteredSource`. |
 | `presentation-core` | Shared Compose presentation utilities. |
 | `presentation-widget` | Home-screen widgets. |
 | `i18n` | moko-resources localized strings. Source of truth: `i18n/src/commonMain/moko-resources/base/strings.xml`. `app_name` is `translatable="false"` (only defined in `base`). |
@@ -89,9 +89,11 @@ User-facing / documentation rename Mihon → Tankobon:
 - **App update checker** (`AppUpdateChecker.kt`, `RELEASE_URL`, `MIHON_GITHUB_RELEASE` env) still points at Mihon releases; CONTRIBUTING advises forks disable/repoint it.
 - **Release/website CI infra:** `release.yml` job guards `if: github.repository == 'mihonapp/mihon'` (keeps it inert on the fork), `secrets.MIHON_BOT_TOKEN`, and `.github/workflows/update_website.yml` (dispatches to `mihonapp/website`). Needs holistic fork setup (bot token, signing secrets, whether a website exists) — not a cosmetic pass.
 
-## Extension System Map (Phase 0 investigation for Task 2 — remove extensions, local-only)
+## Extension System Map (Task 2 — remove extensions, local-only)
 
-Goal of Task 2: make **Local source the only source the app can have**. Investigation results below (KEEP = needed for local/shared; REMOVE = remote/extension-only; DEFER = harmless dead code/schema, do not touch now).
+**STATUS: ✅ DONE on `feature/remove-extensions`** (not yet merged to `develop`). Removed in build-green commits: source-to-source migration, global search, extensions browsing UI, extension repo/store settings + backend, the whole extension backend + `AndroidSourceManager` rewrite (Local is the only runtime source), the Browse bottom-nav tab (local browsing now launches from a Library toolbar action), the online affordances on the local catalog, the entire download subsystem (backend + queue UI + per-screen actions + reader decoupling), the deeplink feature, enhanced trackers (Komga/Kavita/Suwayomi), and the online source-api interfaces. Orphaned deps (shizuku, flexibleAdapter) dropped. Verified: `assembleDebug` + `spotlessCheck` + `testDebugUnitTest` green; app launches on the emulator without crashing.
+
+Investigation results below (KEEP = needed for local/shared; REMOVE = remote/extension-only, now done; DEFER = harmless dead code/schema left in place).
 
 ### Source abstraction (`source-api`)
 - **`Source`** (`source-api/.../source/Source.kt`) — base interface; this fork moved the catalogue methods (`getPopularManga`/`getLatestUpdates`/`getSearchManga`/`getMangaUpdate`/`getPageList`) onto `Source` itself. **KEEP.**
@@ -132,14 +134,24 @@ Goal of Task 2: make **Local source the only source the app can have**. Investig
 ### Execution ordering note (build-green constraint)
 `ExtensionManager` is referenced by both backend and the extension UI, so the task's literal "installer first, UI second" order would break compilation mid-phase. Plan: remove **leaf UI consumers first** (migration → global search → extensions tab/settings/deeplink → browse-tab restructure → strip online bits from BrowseSourceScreen), **then** the extension backend + rewrite `AndroidSourceManager`, then data/deps. Each commit ends build-green. Task-phase labels are preserved in commit messages.
 
-## Deferred DB cleanup (Task 2 backlog — do NOT migrate now)
-- `extension_store` table (`data/src/main/sqldelight/tachiyomi/data/extension_store.sq`) — becomes unused once the extension-repo feature is removed. Leaving it empty is harmless. Drop in a future deliberate schema migration (bump version, add `.sqm`).
-- `sources` table (`.../data/sources.sq`) — stub/uninstalled-source name cache; never written once `StubSourceRepositoryImpl` writers go. Harmless empty. Same deferred-migration treatment.
-- `mangas.sq` network-fetch query blocks (`insertNetworkManga`, etc.) are logically dead with local-only but are schema-harmless; can be pruned as Kotlin/SQL cleanup later.
+## Deferred cleanup (Task 2 backlog — intentionally left as harmless dead code/schema)
+DB / schema (do NOT migrate now — bump version + add `.sqm` in a deliberate future pass):
+- `extension_store` table (`data/src/main/sqldelight/tachiyomi/data/extension_store.sq`) — unused now the extension-repo feature is gone. Empty = harmless.
+- `sources` table (`.../data/sources.sq`) — stub/uninstalled-source name cache; still written by `StubSourceRepositoryImpl` from backups but never needed for local-only.
+- `mangas.sq` network-fetch query blocks (`insertNetworkManga`, etc.) — logically dead, schema-harmless.
+- Chapter "downloaded" filter flags: `Manga.downloadedFilterRaw` / `CHAPTER_DOWNLOADED_MASK`, `LibraryPreferences.filterDownloaded`, `UpdatesPreferences.filterDownloaded`, `SetMangaChapterFlags.awaitSetDownloadedFilter` — inert now downloads are gone; kept to avoid a chapter-flag migration.
+
+Code / prefs (low-priority, non-build-gating):
+- Unused i18n strings for removed features (`ext_*`, `action_global_search*`, `extensionStores`, download/migration strings) — left in `base/strings.xml`; removing translatable strings touches 30+ locale files.
+- Inert `global` flag in `MangaScreen`/`MangaInfoHeader` title/author taps (now no-ops), and unused `SourcePreferences` browse prefs (`enabledLanguages`, `disabledSources`, `pinnedSources`, `lastUsedSource`, `showNsfwSource`, `globalSearchFilterState`).
+- A few unused injected fields left by the removals (e.g. `addTracks`/`trackerManager` in some screen models), and the now-unreferenced `ui/webview/WebViewScreen.kt` Voyager screen (generic WebView infra kept).
+- `SyncChapterProgressWithTrack` is now a no-op (only ever did work for the removed enhanced trackers).
+- `.github/AndroidManifest`/shortcuts still reference `SHORTCUT_EXTENSIONS`/search intents that no longer resolve (inert).
 
 ## Gotchas
 
-- `assembleDebug` compiles fine with unused imports (warnings), but **`spotlessCheck` (CI) fails on them** — always prune imports after deleting code.
+- After deleting code, run `./gradlew spotlessApply` — it auto-prunes unused imports and reformats. (`spotlessCheck` is the CI gate; ktlint's unused-import rule is inconsistent here, so don't rely on it to catch every orphaned import — prune them yourself / via `spotlessApply`.)
+- On this machine there is no JDK on PATH — every Gradle/`adb`-driving shell must `export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"` first. A running emulator is `emulator-5554`; `adb` lives at `~/Library/Android/sdk/platform-tools/adb`; debug app id is `app.mihon.dev`.
 - `app_name` is `translatable="false"`; only edit it in `base/strings.xml`, not per-locale files.
 - Don't confuse the `mihon.*` Kotlin package (internal namespace, Phase B) with the word "Mihon" as a display/brand string (Phase A).
 </content>
