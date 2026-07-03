@@ -9,13 +9,20 @@ import java.io.InputStream
  * at most [maxDimension] pixels. Manga pages can be very large (multi-MB, 2000px+ tall); bounding
  * the decode keeps memory in check while leaving enough resolution for recognition.
  *
- * [streamProvider] is invoked twice (a bounds pass then the real decode), which is why the reader's
- * re-invokable `ReaderPage.stream` factory is used rather than a one-shot stream. Returns null if
- * the image can't be decoded.
+ * The page's compressed bytes are read fully into memory first, then decoded from that byte array
+ * (a bounds pass, then the real decode). This deliberately avoids `BitmapFactory.decodeStream` on
+ * the archive stream: the local `ArchiveInputStream.read(b, off, len)` mis-handles a partial read
+ * (its wrapped `ByteBuffer` is `clear()`ed back to full capacity, so it can return more than `len`
+ * bytes), which corrupts Skia's incremental peek/rewind decode and crashes natively. Reading the
+ * whole entry uses the off=0/len=capacity path, where that quirk is harmless. Returns null if the
+ * image can't be decoded.
  */
 fun decodePageBitmap(streamProvider: () -> InputStream, maxDimension: Int = 2048): Bitmap? {
+    val bytes = streamProvider().use { it.readBytes() }
+    if (bytes.isEmpty()) return null
+
     val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
-    streamProvider().use { BitmapFactory.decodeStream(it, null, bounds) }
+    BitmapFactory.decodeByteArray(bytes, 0, bytes.size, bounds)
     if (bounds.outWidth <= 0 || bounds.outHeight <= 0) return null
 
     var sampleSize = 1
@@ -25,5 +32,5 @@ fun decodePageBitmap(streamProvider: () -> InputStream, maxDimension: Int = 2048
     }
 
     val options = BitmapFactory.Options().apply { inSampleSize = sampleSize }
-    return streamProvider().use { BitmapFactory.decodeStream(it, null, options) }
+    return BitmapFactory.decodeByteArray(bytes, 0, bytes.size, options)
 }

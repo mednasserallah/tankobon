@@ -281,6 +281,9 @@ Unit tests cover: single-column page, two side-by-side panels needing RTL orderi
 
 **English-only / Arabic-only for now**, architected to extend (source & target languages are parameters, not hardcoded constants in the OCR/translate call sites).
 
+### Discovered pre-existing bug (worked around, NOT fixed — flagged)
+`mihon.core.archive.ArchiveInputStream.read(b, off, len)` (`core/archive/`) is buggy for partial reads: it does `ByteBuffer.wrap(b, off, len)` (capacity = `b.size`) then the private `read()` calls `buffer.clear()`, which resets the limit to the **full capacity**, ignoring `off`/`len`. libarchive can then write past `len` and the method can return a length `> len`. The reader's normal decode path never hits this (it reads whole segments, off=0/len=capacity, where `clear()` is harmless), but `BitmapFactory.decodeStream`'s incremental peek/rewind reads do — Skia's `GetPrimitiveArrayRegion` copies the over-length result into a smaller native buffer → **native SIGSEGV**. `decodePageBitmap` avoids it by reading the whole entry into a `ByteArray` first (safe off=0 path) and decoding via `decodeByteArray`. A proper fix to `ArchiveInputStream` (respect `off`/`len`, e.g. `ByteBuffer.wrap(b, off, len)` without `clear()`, or slice) is a separate core-archive task — left unfixed here to keep this feature scoped and avoid a reader-wide change.
+
 ## Gotchas
 
 - After deleting code, run `./gradlew spotlessApply` — it auto-prunes unused imports and reformats. (`spotlessCheck` is the CI gate; ktlint's unused-import rule is inconsistent here, so don't rely on it to catch every orphaned import — prune them yourself / via `spotlessApply`.)
