@@ -95,6 +95,8 @@ User-facing / documentation rename Mihon → Tankobon:
 
 **STATUS: ✅ DONE on `feature/remove-extensions`** (not yet merged to `develop`). Removed in build-green commits: source-to-source migration, global search, extensions browsing UI, extension repo/store settings + backend, the whole extension backend + `AndroidSourceManager` rewrite (Local is the only runtime source), the Browse bottom-nav tab (local browsing now launches from a Library toolbar action), the online affordances on the local catalog, the entire download subsystem (backend + queue UI + per-screen actions + reader decoupling), the deeplink feature, enhanced trackers (Komga/Kavita/Suwayomi), and the online source-api interfaces. Orphaned deps (shizuku, flexibleAdapter) dropped. Verified: `assembleDebug` + `spotlessCheck` + `testDebugUnitTest` green; app launches on the emulator without crashing.
 
+**Task 5a follow-up:** residual leaf remnants this map left behind were physically removed later — the dead source-api online helpers (`JsoupExtensions`/`RxExtension`), the `WebViewScreen` Voyager cluster, `SourceManager.getStubSources()`, the extensions-only `JavaScriptEngine` + `quickJs` dep, the `AppInfo` extension-lib shim, the dead extension notification channel, the `extension_store` DB table, and the still-present `shizuku`/`flexibleAdapter` **catalog** entries (Task 2 dropped their usages but the catalog aliases lingered). The online-chain **base** interfaces were already fully gone. See "Legacy Extension Cleanup Backlog" below.
+
 Investigation results below (KEEP = needed for local/shared; REMOVE = remote/extension-only, now done; DEFER = harmless dead code/schema left in place).
 
 ### Source abstraction (`source-api`)
@@ -211,7 +213,9 @@ The cover is **the alphanumerically-first image in the archive/folder, using nat
 
 ## Legacy Extension Cleanup Backlog (Task 5a — remove Task-2 remnants)
 
-**STATUS: 🚧 IN PROGRESS on `feature/cleanup-legacy-extensions`** (off `develop`). Scope is narrow on purpose: physically remove what's left over from the extension-system / remote-source / download removal (Task 2) that "build-green" never proved was gone. **Structural only, not behavioral** — the app must behave identically before/after. Out of scope (separate future tasks): package/namespace rename, general docs rewrite, KDoc/code-quality pass, any further "chapter"→"volume" work.
+**STATUS: ✅ DONE on `feature/cleanup-legacy-extensions`** (off `develop`, not merged — left for review). Scope was narrow on purpose: physically remove what's left over from the extension-system / remote-source / download removal (Task 2) that "build-green" never proved was gone. **Structural only, not behavioral** — the app behaves identically before/after. Out of scope (separate future tasks): package/namespace rename, general docs rewrite, KDoc/code-quality pass, any further "chapter"→"volume" work.
+
+**Delivered (one commit per item):** 1a WebViewScreen cluster · 1b source-api Jsoup/Rx helpers · 1c `getStubSources()` · 1d `JavaScriptEngine` + `quickJs` dep + `libquickjs` symbol · 1e orphan `flexibleAdapter`/`shizuku` catalog entries · 1f 86 orphan i18n strings across base+68 locales (+ orphan `res/xml/searchable.xml`) · 1g dead `AppInfo` extension-lib shim · 1h dead extension notification channel/ids (+ orphan `channel_ext_updates` string) · 2a dropped `extension_store` table (migration `15.sqm`). **Re-deferred:** `sources` table (live-compiled — see Phase 2 note). **Verified:** `spotlessCheck` + `testDebugUnitTest` + `verifySqlDelightMigration` + `assembleDebug` green; on-device DB **upgrade v15→v16 preserved all library/volume/progress data** and dropped `extension_store`; **fresh install** created a clean v16 schema (8 tables, no `extension_store`); end-to-end flow (library → series → covers grid → open volume → reader at saved page → progress persisted) works.
 
 Phase 0 backlog (built from a dead-code sweep, dependency audit, schema audit, and an i18n orphan-string check; every "dead" claim verified by project-wide usage grep):
 
@@ -238,18 +242,17 @@ Phase 0 backlog (built from a dead-code sweep, dependency audit, schema audit, a
 Online-source base types (`CatalogueSource`/`HttpSource`/`ParsedHttpSource`/`ResolvableSource`/`SourceFactory`/`ConfigurableSource`), the whole `download/` subsystem (`Downloader`/`DownloadManager`/queue), the `extension/**` backend, extension/download WorkManager jobs, DI bindings, and `AndroidManifest.xml` — all fully deleted in Task 2 (only stale `build/` artifacts remain). `AppUpdateDownloadJob` is the APK self-updater (keep), not a chapter downloader.
 
 ## Deferred cleanup (Task 2 backlog — intentionally left as harmless dead code/schema)
+> Several of these were resolved in **Task 5a** (see "Legacy Extension Cleanup Backlog" above): `extension_store` table dropped; `ext_*`/`action_global_search*`/`extensionStores`/migration i18n strings removed; `ui/webview/WebViewScreen.kt` removed. The `mangas.sq` "network-fetch" note below was **wrong** — those queries are live (local browse + backup restore) and were kept. Remaining open items:
+
 DB / schema (do NOT migrate now — bump version + add `.sqm` in a deliberate future pass):
-- `extension_store` table (`data/src/main/sqldelight/tachiyomi/data/extension_store.sq`) — unused now the extension-repo feature is gone. Empty = harmless.
-- `sources` table (`.../data/sources.sq`) — stub/uninstalled-source name cache; still written by `StubSourceRepositoryImpl` from backups but never needed for local-only.
-- `mangas.sq` network-fetch query blocks (`insertNetworkManga`, etc.) — logically dead, schema-harmless.
+- `sources` table (`.../data/sources.sq`) — stub/uninstalled-source name cache; **re-deferred in Task 5a**: it is live-compiled via `StubSourceRepositoryImpl` (reachable from `AndroidSourceManager`), so a `DROP` needs a StubSource-chain refactor, not a schema-only migration.
 - Chapter "downloaded" filter flags: `Manga.downloadedFilterRaw` / `CHAPTER_DOWNLOADED_MASK`, `LibraryPreferences.filterDownloaded`, `UpdatesPreferences.filterDownloaded`, `SetMangaChapterFlags.awaitSetDownloadedFilter` — inert now downloads are gone; kept to avoid a chapter-flag migration.
 
 Code / prefs (low-priority, non-build-gating):
-- Unused i18n strings for removed features (`ext_*`, `action_global_search*`, `extensionStores`, download/migration strings) — left in `base/strings.xml`; removing translatable strings touches 30+ locale files.
 - Inert `global` flag in `MangaScreen`/`MangaInfoHeader` title/author taps (now no-ops), and unused `SourcePreferences` browse prefs (`enabledLanguages`, `disabledSources`, `pinnedSources`, `lastUsedSource`, `showNsfwSource`, `globalSearchFilterState`).
-- A few unused injected fields left by the removals (e.g. `addTracks`/`trackerManager` in some screen models), and the now-unreferenced `ui/webview/WebViewScreen.kt` Voyager screen (generic WebView infra kept).
+- A few unused injected fields left by the removals (e.g. `addTracks`/`trackerManager` in some screen models). (Generic WebView infra kept: `WebViewActivity` + `presentation/webview/WebViewScreenContent.kt`.)
 - `SyncChapterProgressWithTrack` is now a no-op (only ever did work for the removed enhanced trackers).
-- `.github/AndroidManifest`/shortcuts still reference `SHORTCUT_EXTENSIONS`/search intents that no longer resolve (inert).
+- `.github/AndroidManifest`/shortcuts still reference search intents that no longer resolve (inert). (`SHORTCUT_SOURCES` is kept — it launches the local-source browser.)
 
 ## Gotchas
 
