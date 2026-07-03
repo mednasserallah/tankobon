@@ -57,7 +57,12 @@ class SyncVolumesWithSource(
             .mapIndexed { i, sChapter ->
                 Volume.create()
                     .copyFromSVolume(sChapter)
-                    .copy(name = with(VolumeSanitizer) { sChapter.name.sanitize(manga.title) })
+                    // Sanitizing strips the series title from the volume name; for one-shots the
+                    // volume name equals the title, so fall back to the raw name to avoid a blank.
+                    .copy(
+                        name = with(VolumeSanitizer) { sChapter.name.sanitize(manga.title) }
+                            .ifBlank { sChapter.name },
+                    )
                     .copy(mangaId = manga.id, sourceOrder = i.toLong())
             }
 
