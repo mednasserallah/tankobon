@@ -152,10 +152,3 @@ fun Context.isPackageInstalled(packageName: String): Boolean {
 }
 
 val Context.hasMiuiPackageInstaller get() = isPackageInstalled("com.miui.packageinstaller")
-
-fun Context.launchRequestPackageInstallsPermission() {
-    Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES).apply {
-        data = "package:$packageName".toUri()
-        startActivity(this)
-    }
-}
