@@ -190,6 +190,23 @@ Input is a **series folder name** and a **volume file name** (basename, extensio
 - **Volume-count badge**: counts **volumes represented** (an omnibus `Volume 01-02` counts as 2), not files — better reflects what the user owns.
 - **Fallback** (filename matches nothing above): use the whole basename as the display title, volume number `1`, and log it (don't crash / don't silently drop).
 
+## Volume Cover Handling (Task 4 — per-volume cover thumbnails + covers view)
+
+**STATUS: 🚧 IN PROGRESS on `feature/volume-cover-thumbnails`** (off `develop`). Goal: each **individual volume** shows its own cover, extracted from the first image inside the volume archive/folder, in a new **grid/covers view** toggleable alongside the existing list view. The series-level `cover.jpg` behaviour is unchanged.
+
+### Two distinct "cover" concepts (do not conflate)
+- **Series-level cover** (pre-existing, untouched): the optional `cover.jpg` in a series folder → library-card thumbnail for the whole series. Found by `LocalCoverManager.find(mangaUrl)`, surfaced as a `content://` URI on `SManga.thumbnail_url`, rendered via the `MangaCover`/`Manga` Coil pipeline.
+- **Per-volume cover** (new, Task 4): a thumbnail extracted from *inside* each volume archive → shown in the new covers grid. Its own Coil pipeline (`VolumeCover` model + fetcher + keyer + cache).
+
+### Phase 0 investigation findings
+1. **Image library** — **Coil 3** (`coil3.*`, v3.5.0). The `ImageLoader` is built in `App.newImageLoader()` (`app/.../App.kt`) which registers per-type `Fetcher.Factory`/`Keyer` components. Series covers use `MangaCoverFetcher` (`MangaFactory`/`MangaCoverFactory`) + `MangaKeyer`/`MangaCoverKeyer` (`app/.../data/coil/`). Cover composable = `MangaCover` enum (`app/.../presentation/manga/components/MangaCover.kt`, wraps `AsyncImage`); the domain data object passed as `model` is `tachiyomi.domain.manga.model.MangaCover`.
+2. **First-image listing already exists and is reused** — `LocalSource.updateCover()` (`source-local/.../LocalSource.kt`) already extracts the natural-sort-first image per format (Directory/Archive/Epub). The reader loaders (`ArchivePageLoader`/`DirectoryPageLoader`, `app/.../ui/reader/loader/`) do the same listing to page a volume. Shared primitives: `ArchiveReader.useEntries { seq }` (lists entry *headers* cheaply, no full decompress) + `ArchiveReader.getInputStream(name)` (reads one entry, sequential scan from start — cheap for the first image) from `mihon.core.archive` (`core/archive/`); `ImageUtil.isImage(name){stream}` (`core/common/.../ImageUtil.kt`, extensions: avif, gif, heif, jpg, jxl, png, webp); `String.compareToCaseInsensitiveNaturalOrder` (`core/common/.../StringExtensions.kt`).
+3. **Caching** — series covers: library items cached by `CoverCache` (`app/.../data/cache/CoverCache.kt`, dir `covers/`, filename = `DiskUtil.hashKeyForDisk` = **MD5 of the thumbnail URL**); non-library items cached by Coil's own `DiskCache`. Per-volume covers get a **new** `VolumeCoverCache` (dir `volume_covers/`) storing **downscaled** JPEG thumbnails keyed by MD5 of `"$volumeUrl;$lastModified"` — self-invalidating: `lastModified` = the volume file's mtime (already stored on `Volume.dateUpload`, set from `volumeFile.lastModified()` in `getVolumeList`), so replacing a file yields a new key and a re-extract.
+4. **RAR/CBR** — **supported for reading.** libarchive backend (`ArchiveInputStream` uses `readSupportFormatAll`/`readSupportFilterAll`) + `Archive.SUPPORTED_ARCHIVE_TYPES = zip, cbz, rar, cbr, 7z, cb7, tar, cbt` (`source-local/.../io/Archive.kt`). (Writing is ZIP-only via `ZipWriter`, irrelevant here — extraction is read-only.) So the single extraction path covers cbz/zip **and cbr/rar/7z/tar** plus epub.
+
+### Detection rule (documented, section 3 of the task spec)
+The cover is **the alphanumerically-first image in the archive/folder, using natural sort** — no `[Cover]`-tag / `p000` / `cover.*`-name special-casing (scan-group conventions vary too much; natural-sort-first already resolves both real examples correctly). The only real logic is **natural sort** (`page2` before `page10`, `p000` < `p001` < `p010` < `p100`). Peek at entry *names* first, pick the target, then decode only that one entry. Zero images ⇒ no thumbnail (graceful, not a crash). Implemented as the pure, unit-tested `VolumeCoverSelector.selectCover(names)` in `core/common`.
+
 ## Deferred cleanup (Task 2 backlog — intentionally left as harmless dead code/schema)
 DB / schema (do NOT migrate now — bump version + add `.sqm` in a deliberate future pass):
 - `extension_store` table (`data/src/main/sqldelight/tachiyomi/data/extension_store.sq`) — unused now the extension-repo feature is gone. Empty = harmless.
