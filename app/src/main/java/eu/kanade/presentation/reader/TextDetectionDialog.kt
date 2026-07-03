@@ -172,6 +172,16 @@ private fun DetectedLines(
                             style = MaterialTheme.typography.bodyLarge,
                         )
                         IconButton(
+                            onClick = { onTranslateLine(index) },
+                            enabled = item.translation !is TranslationState.Downloading &&
+                                item.translation !is TranslationState.Translating,
+                        ) {
+                            Icon(
+                                imageVector = Icons.Outlined.Translate,
+                                contentDescription = stringResource(MR.strings.action_translate),
+                            )
+                        }
+                        IconButton(
                             onClick = {
                                 scope.launch {
                                     val clip = ClipData.newPlainText(item.line.text, item.line.text).toClipEntry()
