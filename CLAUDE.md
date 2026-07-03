@@ -19,6 +19,7 @@ The fork's goals:
    ```
    Edge cases to handle: single-volume/one-shots with no "Volume NN" (`Boy Meets Maria (2021).cbz`); series names containing parentheses (`BLAME! (Master Edition)`) must not be confused with the trailing `(Year)`; `cover.jpg`/`details.json` sidecars must never be parsed as volumes; empty series folders are skipped, not errored.
    Start point: `source-local/src/androidMain/kotlin/tachiyomi/source/local/LocalSource.kt`.
+   ⬅️ **IN PROGRESS** on `feature/volume-based-migration` (Task 3). See "Chapter → Volume Migration Map" below.
 
 ## Module map (top-level)
 
@@ -133,6 +134,45 @@ Investigation results below (KEEP = needed for local/shared; REMOVE = remote/ext
 
 ### Execution ordering note (build-green constraint)
 `ExtensionManager` is referenced by both backend and the extension UI, so the task's literal "installer first, UI second" order would break compilation mid-phase. Plan: remove **leaf UI consumers first** (migration → global search → extensions tab/settings/deeplink → browse-tab restructure → strip online bits from BrowseSourceScreen), **then** the extension backend + rewrite `AndroidSourceManager`, then data/deps. Each commit ends build-green. Task-phase labels are preserved in commit messages.
+
+## Chapter → Volume Migration Map (Task 3 — volume-based rework)
+
+**STATUS: 🚧 IN PROGRESS on `feature/volume-based-migration`.** Phase 0 investigation results below. The goal: model the reading unit as a **volume** (one `.cbz`/`.zip`/`.cbr`/folder = one volume) instead of a chapter, and rewrite the local file parser for Tankobon's naming convention.
+
+### Phase 0 — where "chapter" lives (investigated, verified)
+
+Scope: **197 files** reference "chapter" (case-insensitive) — `app` 131, `domain` 35, `data` 22, `source-api` 5, `source-local` 2, others. A full type-rename is **high-churn and high-risk** (SQLDelight-generated code + live external trackers + backup proto). See the Phase 2 decision below.
+
+1. **Data layer.** `Chapter` entity = `domain/.../tachiyomi/domain/chapter/model/Chapter.kt` (`chapterNumber: Double`, `read`, `bookmark`, `lastPageRead`, `sourceOrder`, `url`, `name`, …). Table = `data/.../tachiyomi/data/chapters.sq` (`chapter_number REAL NOT NULL`, FK `manga_id → mangas`). Mapped positionally by SQLDelight → `ChapterMapper`/`copyFromSChapter` (`eu/kanade/domain/chapter/model/ChapterMapper.kt`). `chapter_number` is `REAL/Double` to allow decimals like "10.5" — **volumes are whole numbers, so this is a semantic simplification, not just a rename.**
+2. **Local parser.** `source-local/.../LocalSource.kt` `getChapterList()` builds one `SChapter` per file, name = filename-without-extension, and `chapter_number = ChapterRecognition.parseChapterNumber(...)` (`domain/.../chapter/service/ChapterRecognition.kt` — generic Tachiyomi "Ch. 12"/"Vol.1 Ch.4.5" regex). Files are sorted by **name, natural order, descending** (`compareToCaseInsensitiveNaturalOrder`). Sidecars are currently NOT excluded beyond dot-files (json/cover would be filtered only by format check). **This is what Phase 1 replaces.** Note: `SyncChaptersWithSource` (`app/.../domain/chapter/interactor/`) *re-runs* `parseChapterNumber` but preserves an already-recognized (`≥0`) number — so a number set by the parser survives.
+3. **Progress tracking.** Per-`chapter` row: `read`/`bookmark`/`lastPageRead`. `ChapterGetNextUnread` + `getChapterSort` (`domain/.../chapter/service/ChapterSort.kt`: SOURCE / NUMBER / UPLOAD_DATE / ALPHABET). No chapter-*count*-specific logic that breaks under volumes; "next unread" is just first-unread in sorted order. Carries over conceptually to per-volume.
+4. **Reader UI.** `ReaderViewModel` builds prev/next **positionally** from `chapterList.sortedWith(getChapterSort(...))` — so correct numeric sort (Phase 1) makes "next volume" work with no structural change. Transition card = `presentation/reader/ChapterTransition.kt` (shows `chapter.name` + a "missing N chapters" gap via `MissingChapters.calculateChapterGap`, which does `floor(a)-floor(b)-1` — **already integer-based**, harmless for whole volumes; it now means "missing volumes"). Decimal-specific display: `presentation/util/ChapterNumberFormatter.kt` (`DecimalFormat("#.###")`).
+5. **Library / manga-detail UI.** Volume-list rows: `presentation/manga/MangaScreen.kt:696` → `display_mode_chapter` string with `formatChapterNumber(chapterNumber)` when `displayMode == CHAPTER_DISPLAY_NUMBER`, else raw `name`. Missing-count separators in `MangaScreenModel.chapterListItems`. Library unread badge = count of unread chapter rows (becomes volume count). All terminology + the `#.###` formatter are Phase 4.
+6. **Trackers / sync — ⚠️ SURPRISE: STILL LIVE, NOT dead.** All **6 generic trackers** (MAL, Anilist, Kitsu, Shikimori, Bangumi, MangaUpdates) survived the extension removal and **actively push "last chapter read" (a number) to external services** (`data/track/*Api.kt`, `TrackChapter`, `AddTracks`, `RefreshTracks`, `DelayedTrackingUpdateJob`). `manga_sync.last_chapter_read` is `REAL/Double`; `Track.lastChapterRead: Double`. Only `SyncChapterProgressWithTrack` (remote→local) is a dead no-op. **Implication:** retyping/renaming chapter-number would ripple into 6 external API serializers + the `manga_sync` schema + backup `BackupTracking` proto. This is the single biggest argument for Option B. Kept as-is; the number now semantically carries a *volume* count to services that expect a chapter count — an imperfect-but-acceptable mapping, flagged for a future deliberate decision (some services have distinct volume/chapter fields).
+7. **Backup / restore — proto format constrains us.** `BackupChapter.chapterNumber` = `@ProtoNumber(9)` **`Float`**; restore matches chapters **by `url`** (not by number), manga by url+source. So: renaming the DB column does NOT break restoring old Mihon/Tankobon backups (matching is url-based), **but** `BackupChapter.chapterNumber(9)` must stay `Float` at proto field 9 — do not retype it. New fields go under fresh ProtoNumbers (backup format is unversioned but uses default `ProtoBuf`, which tolerates unknown fields): `BackupChapter` next free = **14**; `BackupManga` next free = **113**.
+
+### Phase 2 decision — **Option B (semantic reuse), justified**
+
+Chosen: **keep the `Chapter` entity, `chapters` table, and `chapter_number` column name**; treat "chapter" as meaning **"volume"** internally for this fork; change **types/semantics + all UI-facing strings**. Rationale (per the task's own fallback criterion — "fall back to B only if the entity is deeply coupled via still-present tracker code / backup format"): Phase 0 found exactly that — **197 files, 6 live external-tracker API serializers keyed on the number, an unversioned backup proto that pins `chapterNumber` to `Float` field 9, and SQLDelight-generated positional mappers.** A full `Chapter→Volume` rename buys clarity at the cost of a large, risky, cross-cutting churn with real regression surface (backup compat, tracker sync). Option B delivers the user-visible outcome (a volume-based reader) with a contained, reviewable diff.
+
+**Concrete data-model changes (with a real migration — this is central, not incidental):**
+- `chapter_number` **stays `REAL`/`Double` at the storage + backup + tracker layers** (compat + avoids a lossy column rewrite) but is now **whole-number by construction** — the Phase 1 parser only ever emits integers. Display/logic treat it as `Int` (`chapterNumber.toInt()`), and a display helper renders volumes without decimals.
+- **NEW `chapters.volume_number_end INTEGER` (nullable)** — set only for omnibus range files (`Volume 01-02` → `chapter_number = 1.0`, `volume_number_end = 2`); `null` for single-volume files. Sorting + next/prev key off `chapter_number` (the start). Plumbed: `chapters.sq` + migration, `Chapter` model, SQLDelight mappers, `SChapter` + `copyFromSChapter`, `BackupChapter @ProtoNumber(14)`.
+- **NEW `mangas.edition TEXT` (nullable)** — the extracted edition tag (e.g. `"Omnibus Edition"`), a **series/folder-level** property (one edition per folder, matches the naming convention), `null` when absent. Plumbed: `mangas.sq` + migration, `Manga` model, `MangaMapper` (all `mapManga*` overloads), `SManga` + `toDomainManga`, `BackupManga @ProtoNumber(113)`.
+- **DB migration `13 → 14`** (`data/.../migrations/14.sqm`): `ALTER TABLE chapters ADD COLUMN volume_number_end INTEGER;` + `ALTER TABLE mangas ADD COLUMN edition TEXT;`. Purely additive → **no existing user data destroyed**; existing rows get `NULL` (correct: unknown range/edition until next rescan).
+
+### Naming-convention parser rules (Phase 1 spec — `VolumeRecognition`, in `domain/.../chapter/service/`)
+
+Input is a **series folder name** and a **volume file name** (basename, extension stripped). Rules:
+- **Year** = the **last** parenthetical group matching `^\d{4}$`. This disambiguates trailing `(2016)` from an edition like `(Master Edition)`. Parsed **per file** (never inherited across volumes).
+- **Edition** (folder-level) = any parenthetical group in the *series folder name* that is **not** a 4-digit year, captured verbatim (`Gantz (Omnibus Edition)` → title `Gantz`, edition `Omnibus Edition`). No hardcoded edition whitelist.
+- **Volume number** = `Volume\s+(\d+)(?:-(\d+))?` (case-insensitive), capturing an optional range end. `Volume 01-02` → start `1`, end `2`, display `Volume 01-02` (range shown verbatim, not collapsed). Sort by **start**.
+- **Single-volume / one-shot** (no "Volume NN" segment, e.g. `Boy Meets Maria (2021)`): treated as **Volume 1** (convention: assign volume number `1`, `volume_number_end = null`; display uses the file's own title text). *(Documented choice: number = 1 so it sorts and tracks like any single volume.)*
+- **Sidecars excluded**: `cover.*`, `details.json`, `ComicInfo.xml`, `.noxml`, dot-files, and any non-archive/non-directory/non-epub file are never volumes.
+- **Empty series folder** (no valid volume files): produces an empty volume list — skipped gracefully, no error/crash.
+- **Sort**: numeric by volume start (`1, 2, … 9, 10`), never lexical.
+- **Volume-count badge**: counts **volumes represented** (an omnibus `Volume 01-02` counts as 2), not files — better reflects what the user owns.
+- **Fallback** (filename matches nothing above): use the whole basename as the display title, volume number `1`, and log it (don't crash / don't silently drop).
 
 ## Deferred cleanup (Task 2 backlog — intentionally left as harmless dead code/schema)
 DB / schema (do NOT migrate now — bump version + add `.sqm` in a deliberate future pass):
