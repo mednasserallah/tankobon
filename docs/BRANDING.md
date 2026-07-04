@@ -79,12 +79,20 @@ master:
   project icon** shown in the IDE project switcher (a dark `#2e3943` circle with a light
   "み"). Not the app launcher.
 
-### Separate in-app brand marks (not the launcher)
+### In-app brand marks — ✅ also swapped to 本
 
-`app/src/main/res/drawable/ic_mihon.xml` (256dp, `viewport 148×141`) and
-`ic_mihon_splash.xml` drive in-app branding / the splash screen. These are tracked as a
-deferred rename in `CLAUDE.md` (Phase B) and are **out of scope** for the launcher-icon
-swap, but should eventually be replaced too for a full rebrand.
+`ic_mihon` (used by the **More** header via `LogoHeader.kt`, the **splash** via
+`ic_mihon_splash.xml`, and as the **notification** small icon) was replaced with the white
+brush **本** — now density PNGs (`drawable-*/ic_mihon.png`, anchored to 72dp, glyph ~88%),
+replacing the old "み" vector `ic_mihon.xml` (deleted). White works everywhere: the header
+re-tints it via `Icon(tint = onSurface)` so it follows light/dark; the splash shows it white on
+the accent-blue background; notifications use its alpha as a silhouette. The `.kt`/`.xml`
+*filenames* still say `ic_mihon` (an internal rename is a separate Phase B step) — only the
+artwork changed.
+
+> **Gotcha (learned the hard way):** the brush SVG converted to a VectorDrawable **crashes
+> Compose's `PathParser`** ("Unknown command for: R") on the converted arc commands. Raster PNGs
+> sidestep the parser entirely — hence `ic_mihon` is raster, not vector.
 
 ### Summary of what a full icon replacement must cover
 
