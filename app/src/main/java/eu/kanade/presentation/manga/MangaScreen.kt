@@ -41,6 +41,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalHapticFeedback
@@ -236,6 +237,8 @@ private fun MangaScreenSmallImpl(
     onInvertSelection: () -> Unit,
 ) {
     val chapterListState = rememberLazyListState()
+    // The volume grid spans the full screen width here (single-column layout).
+    val fullWidthDp = LocalConfiguration.current.screenWidthDp
 
     val (chapters, listItem, isAnySelected) = remember(state) {
         Triple(
@@ -410,7 +413,7 @@ private fun MangaScreenSmallImpl(
                         sharedVolumeCoverGridItems(
                             manga = state.manga,
                             items = chapters,
-                            columns = VOLUME_GRID_COLUMNS_COMPACT,
+                            columns = volumeGridColumns(fullWidthDp),
                             isAnyChapterSelected = chapters.fastAny { it.selected },
                             onChapterClicked = onChapterClicked,
                             onChapterSelected = onChapterSelected,
@@ -478,6 +481,8 @@ fun MangaScreenLargeImpl(
 ) {
     val layoutDirection = LocalLayoutDirection.current
     val density = LocalDensity.current
+    // The volumes live in the right panel, roughly half the screen width.
+    val panelWidthDp = LocalConfiguration.current.screenWidthDp / 2
 
     val (chapters, listItem, isAnySelected) = remember(state) {
         Triple(
@@ -646,7 +651,7 @@ fun MangaScreenLargeImpl(
                                 sharedVolumeCoverGridItems(
                                     manga = state.manga,
                                     items = chapters,
-                                    columns = VOLUME_GRID_COLUMNS_WIDE,
+                                    columns = volumeGridColumns(panelWidthDp),
                                     isAnyChapterSelected = chapters.fastAny { it.selected },
                                     onChapterClicked = onChapterClicked,
                                     onChapterSelected = onChapterSelected,
@@ -773,8 +778,17 @@ private fun LazyListScope.sharedChapterItems(
     }
 }
 
-private const val VOLUME_GRID_COLUMNS_COMPACT = 3
-private const val VOLUME_GRID_COLUMNS_WIDE = 4
+/**
+ * Target width for a single volume-cover cell. The column count is derived from the available
+ * width so covers stay a comfortable size on both phones and tablets (fewer, larger covers than
+ * the old fixed 3/4 columns), while never dropping below two per row.
+ */
+private const val VOLUME_GRID_TARGET_CELL_DP = 240
+
+/** Column count for a volume-cover grid given the width (dp) it will be laid out in. */
+private fun volumeGridColumns(availableWidthDp: Int): Int {
+    return (availableWidthDp / VOLUME_GRID_TARGET_CELL_DP).coerceAtLeast(2)
+}
 
 /**
  * Emits the volume list as a grid of per-volume cover thumbnails, chunked into rows so it can live
