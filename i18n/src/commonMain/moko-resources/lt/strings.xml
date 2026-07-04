@@ -16,7 +16,6 @@
     <string name="label_help">Pagalba</string>
     <string name="label_migration">Migruoti</string>
     <string name="label_backup">Atsarginė kopija ir atkūrimas</string>
-    <string name="label_sources">Šaltiniai</string>
     <string name="label_recent_manga">Istorija</string>
     <string name="label_recent_updates">Naujienos</string>
     <string name="label_library">Biblioteka</string>
@@ -596,7 +595,6 @@
     <string name="pref_appearance_summary">Tema, datos ir laiko formatas</string>
     <string name="pref_reader_summary">Skaitymo režimas, rodymas, navigacija</string>
     <string name="pref_tracking_summary">Vienpusis progreso sinchronizavimas, patobulintas sinchronizavimas</string>
-    <string name="pref_browse_summary">Šaltiniai, plėtiniai, visuotinė paieška</string>
     <string name="pref_library_summary">Kategorijos, visuotinis atnaujinimas</string>
     <string name="multi_lang">Kelių kalbų</string>
     <string name="pref_advanced_summary">Eksportuoti gedimų žurnalus, akumuliatoriaus optimizavimą</string>

@@ -59,7 +59,6 @@
     <string name="label_help">Pomoć</string>
     <string name="label_migration">Premjesti</string>
     <string name="label_backup">Sigurnosna kopija i obnavljanje</string>
-    <string name="label_sources">Izvori</string>
     <string name="label_recent_manga">Povijest</string>
     <string name="label_recent_updates">Aktualiziranja</string>
     <string name="label_library">Biblioteka</string>
@@ -575,7 +574,6 @@
     <string name="label_downloaded">Preuzeto</string>
     <string name="action_display_show_continue_reading_button">Gumb za nastavljanje čitanja</string>
     <string name="pref_appearance_summary">Tema, format datuma i vremena</string>
-    <string name="pref_browse_summary">Izvori, ekstenzije, globalno pretraživanje</string>
     <string name="pref_reader_summary">Modus čitanja, prikaz, navigacija</string>
     <string name="pref_downloads_summary">Automatsko preuzimanje, preuzimanje unaprijed</string>
     <string name="pref_security_summary">Zaključavanje aplikacije, siguran zaslon</string>
@@ -644,7 +642,6 @@
     <string name="pref_skip_dupe_chapters">Preskoči dupla poglavlja</string>
     <string name="track_error">%1$s greška: %2$s</string>
     <string name="information_required_plain">*obavezno</string>
-    <string name="pref_hide_in_library_items">Sakrij unose koji se već nalaze u biblioteci</string>
     <string name="action_copy_to_clipboard">Kopiraj u međuspremnik</string>
     <string name="action_update_category">Aktualiziraj katogoriju</string>
     <string name="split_tall_images">Rastavi visoke slike</string>

@@ -314,7 +314,6 @@
     <string name="updating_library">Se actualizează biblioteca</string>
     <string name="pref_category_reading">Citind</string>
     <string name="pref_skip_filtered_chapters">Săriți peste capitolele filtrate</string>
-    <string name="label_sources">Surse</string>
     <string name="action_select_inverse">Selectează invers</string>
     <string name="vertical_plus_viewer">Vertical continuu</string>
     <string name="pinned_sources">Fixate</string>
@@ -596,7 +595,6 @@
     <string name="pref_reader_summary">Modul de citire, afișare, navigare</string>
     <string name="pref_downloads_summary">Descărcare automată, descărcare anticipată</string>
     <string name="pref_tracking_summary">Sincronizare unică a progresului, sincronizare optimizată</string>
-    <string name="pref_browse_summary">Surse, extensii, căutare globală</string>
     <string name="pref_backup_summary">Copii de rezervă manuale și automate</string>
     <string name="pref_security_summary">Blocarea aplicației, securizarea ecranului</string>
     <string name="pref_advanced_summary">Golirea registrelor de eroare, optimizări ale bateriei</string>
@@ -694,7 +692,6 @@
     <string name="action_ok">Ok</string>
     <string name="pref_double_tap_zoom">Atingeți de două ori pentru a mări</string>
     <string name="track_activity_name">Autentificare serviciu de urmărire</string>
-    <string name="pref_hide_in_library_items">Ascundeți înregistrările care se află deja în bibliotecă</string>
     <string name="pref_relative_format">Marcaje de timp relative</string>
     <string name="exception_http">HTTP %d, verificați site-ul in modul WebView</string>
     <string name="pref_relative_format_summary">\"%1$s\" în loc de \"%2$s\"</string>

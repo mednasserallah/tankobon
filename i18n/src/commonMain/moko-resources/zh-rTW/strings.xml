@@ -328,7 +328,6 @@
     <string name="pref_skip_filtered_chapters">略過已篩選的章節</string>
     <string name="pref_show_reading_mode_summary">開始閱讀時，快顯闡明目前的模式</string>
     <string name="pref_show_reading_mode">閱讀模式提示</string>
-    <string name="label_sources">來源</string>
     <string name="pref_webtoon_side_padding">頁緣留白</string>
     <string name="add_tracking">新增閱讀歷程</string>
     <string name="channel_new_chapters">章節更新</string>
@@ -597,7 +596,6 @@
     <string name="crash_screen_title">哎呀！</string>
     <string name="crash_screen_description">「%s」發生了未預期的錯誤，我們建議你將崩潰日誌分享至我們位於 Discord 上的頻道</string>
     <string name="pref_library_summary">類別、全域更新、目錄滑動動作</string>
-    <string name="pref_browse_summary">來源、擴充套件、全域搜尋</string>
     <string name="invalid_location">無效的位置：%s</string>
     <string name="unknown_title">未知的標題</string>
     <string name="error_user_agent_string_invalid">無效的使用者代理字串</string>
@@ -640,7 +638,6 @@
     <string name="enhanced_services_not_installed">可供使用但來源尚未安裝：%s</string>
     <string name="track_error">%1$s 發生錯誤：%2$s</string>
     <string name="information_required_plain">*必填</string>
-    <string name="pref_hide_in_library_items">隱藏已在書櫃的作品</string>
     <string name="action_copy_to_clipboard">複製</string>
     <string name="action_update_category">更新類別</string>
     <string name="split_tall_images">分割過高的圖片</string>

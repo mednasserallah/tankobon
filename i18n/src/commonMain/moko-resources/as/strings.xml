@@ -78,7 +78,6 @@
     <string name="label_settings">ছেটিংছ</string>
     <string name="label_download_queue">ডাউনলোড ক্ৰম</string>
     <string name="label_recent_manga">ইতিহাস</string>
-    <string name="label_sources">উৎসসমূহ</string>
     <string name="label_backup">বেকআপ আৰু পুনৰুদ্ধাৰ</string>
     <string name="label_data_storage">তথ্য আৰু সংৰক্ষণ</string>
     <string name="label_stats">পৰিসংখ্যা</string>
@@ -223,7 +222,6 @@
     <string name="pref_reader_summary">পঢ়াৰ মোড, প্ৰদৰ্শন, নেভিগেশ্বন</string>
     <string name="pref_tracking_summary">একমুখী অগ্ৰগতি সমন্বয়, উন্নত সমন্বয়</string>
     <string name="pref_downloads_summary">স্বয়ংক্ৰিয় ডাউনলোড, আগতীয়া ডাউনলোড</string>
-    <string name="pref_browse_summary">উৎস, এক্সটেনশ্বন, বিশ্বব্যাপী সন্ধান</string>
     <string name="pref_advanced_summary">ক্ৰেশ লগ ডাম্প কৰক, বেটাৰী অনুকূলন</string>
     <string name="pref_backup_summary">হস্তচালিত আৰু স্বয়ংক্ৰিয় বেকআপ, সংৰক্ষণ স্থান</string>
     <string name="pref_security_summary">এপ লক, সুৰক্ষিত স্ক্ৰীন</string>
@@ -417,7 +415,6 @@
     <string name="enhanced_tracking_info">নিৰ্দিষ্ট উৎসৰ বাবে উন্নত বৈশিষ্ট্য প্ৰদান কৰে। পুথিভঁৰাললৈ যোগ কৰিলে প্ৰৱিষ্টিসমূহ স্বয়ংক্ৰিয়ভাৱে ট্ৰেক কৰা হয়।</string>
     <string name="action_track">ট্ৰেক</string>
     <string name="track_activity_name">ট্ৰেকাৰ লগইন</string>
-    <string name="pref_hide_in_library_items">পুথিভঁৰালত ইতিমধ্যে থকা প্ৰৱিষ্টি লুকুৱাওক</string>
     <string name="pref_storage_location_info">স্বয়ংক্ৰিয় বেকআপ, অধ্যায় ডাউনলোড, আৰু স্থানীয় উৎসৰ বাবে ব্যৱহৃত।</string>
     <string name="pref_storage_location">সংৰক্ষণ স্থান</string>
     <string name="pref_create_backup">বেকআপ সৃষ্টি কৰক</string>

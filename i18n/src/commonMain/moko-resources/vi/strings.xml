@@ -309,7 +309,6 @@
     <string name="action_select_inverse">Đảo ngược lựa chọn</string>
     <string name="action_sort_latest_chapter">Chương mới nhất</string>
     <string name="action_menu">Mục chính</string>
-    <string name="label_sources">Nguồn</string>
     <string name="label_more">Thêm</string>
     <string name="tracking_info">Đồng bộ một chiều để cập nhật tiến trình chương trong các dịch vụ theo dõi. Thiết lập theo dõi cho các truyện riêng lẻ từ nút theo dõi.</string>
     <string name="pref_category_reading_mode">Kiểu đọc</string>
@@ -597,7 +596,6 @@
     <string name="pref_security_summary">Khoá ứng dụng, bảo vệ màn hình</string>
     <string name="pref_advanced_summary">Tệp báo lỗi tạm, tối ưu hoá pin</string>
     <string name="pref_tracking_summary">Đồng bộ tiến trình đọc, đồng bộ nâng cao</string>
-    <string name="pref_browse_summary">Nguồn, tiện ích, tìm kiếm toàn bộ</string>
     <string name="action_display_show_continue_reading_button">Nút tiếp tục đọc</string>
     <string name="action_open_random_manga">Mở một truyện ngẫu nhiên</string>
     <string name="invalid_location">Vị trí không hợp lệ: %s</string>
@@ -635,7 +633,6 @@
     <string name="enhanced_services_not_installed">Có sẵn nhưng nguồn không được cài đặt: %s</string>
     <string name="day_short">Ngày %d</string>
     <string name="split_tall_images">Tách ra những hình ảnh dài</string>
-    <string name="pref_hide_in_library_items">Giấu những truyện đã có trong thư viện</string>
     <string name="minute_short">%d phút</string>
     <string name="download_notifier_cache_renewal">Đang kiểm tra những truyện đã tải xuống</string>
     <string name="crash_screen_description">%s đã có lỗi. Bạn nên chia sẻ tệp báo lỗi tạm ở trong kênh hỗ trợ của chúng tôi trên Discord.</string>

@@ -318,7 +318,6 @@
     <string name="action_unpin">Desafixar</string>
     <string name="action_pin">Afixar</string>
     <string name="action_select_inverse">Seleção inversa</string>
-    <string name="label_sources">Fontes</string>
     <string name="website">Sítio Web</string>
     <string name="restoring_backup_canceled">Restauro cancelado</string>
     <string name="restoring_backup_error">Restauro da cópia de segurança falhou</string>
@@ -605,7 +604,6 @@
     <string name="crash_screen_description">%s encontrou um erro inesperado. Sugerimos que você compartilhe os registros de falha em nosso canal de suporte no Discord.</string>
     <string name="pref_downloads_summary">Descarga automática, descarga a frente</string>
     <string name="pref_tracking_summary">Sincronização de progresso unidirecional, sincronização aprimorada</string>
-    <string name="pref_browse_summary">Fontes, extensões, pesquisa global</string>
     <string name="pref_backup_summary">Backups manuais e automáticos</string>
     <string name="information_no_manga_category">A categoria está vazia</string>
     <string name="track_remove_start_date_conf_text">Isto irá remover a sua data de início selecionada anteriormente no %s</string>
@@ -643,7 +641,6 @@
 \nToque para saber mais.</string>
     <string name="information_no_entries_found">Nenhum item encontrado nesta categoria</string>
     <string name="action_copy_to_clipboard">Copiar para a área de transferência</string>
-    <string name="pref_hide_in_library_items">Ocultar entradas existentes na biblioteca</string>
     <string name="action_update_category">Atualizar categoria</string>
     <string name="split_tall_images">Dividir Imagens altas</string>
     <string name="overlay_header">Sobreposição</string>

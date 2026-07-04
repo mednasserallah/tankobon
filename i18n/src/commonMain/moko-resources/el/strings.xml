@@ -337,7 +337,6 @@
     <string name="action_sort_latest_chapter">Νεότερο κεφάλαιο</string>
     <string name="action_menu">Μενού</string>
     <string name="label_downloaded_only">Ληφθέντα μόνο</string>
-    <string name="label_sources">Πηγές</string>
     <string name="action_oldest">Παλαιότερο</string>
     <string name="action_newest">Νεότερο</string>
     <string name="downloaded_only_summary">Φιλτράρει όλες τις καταχωρήσεις στη βιβλιοθήκη σας</string>
@@ -589,7 +588,6 @@
     <string name="missing_storage_permission">Δεν έχουν χορηγηθεί δικαιώματα αποθήκευσης</string>
     <string name="skipped_reason_not_always_update">Παραλείφθηκε επειδή η σειρά δεν απαιτεί ενημερώσεις</string>
     <string name="action_search_hint">Αναζήτηση…</string>
-    <string name="pref_browse_summary">Πηγές, επεκτάσεις, καθολική αναζήτηση</string>
     <string name="crash_screen_title">Ουπς!</string>
     <string name="pref_appearance_summary">Θέμα, μορφή ημερομηνίας και ώρας</string>
     <string name="pref_library_summary">Κατηγορίες, καθολική ενημέρωση, σύρσιμο κεφαλαίου</string>
@@ -644,7 +642,6 @@
     <string name="enhanced_services_not_installed">Διαθέσιμο αλλά η πηγή δεν έχει εγκατασταθεί: %s</string>
     <string name="track_error">%1$s σφάλμα: %2$s</string>
     <string name="information_required_plain">*απαιτούμενο</string>
-    <string name="pref_hide_in_library_items">Απόκρυψη καταχωρήσεων που βρίσκονται ήδη στη βιβλιοθήκη</string>
     <string name="action_copy_to_clipboard">Αντιγραφή στο πρόχειρο</string>
     <string name="action_update_category">Ενημέρωση κατηγορίας</string>
     <string name="split_tall_images">Διαχωρισμός ψηλών εικόνων</string>

@@ -313,7 +313,6 @@
     <string name="updating_library">Actualizando biblioteca</string>
     <string name="pref_skip_filtered_chapters">Saltar capítulos excluidos por filtros</string>
     <string name="pref_category_reading">Lectura</string>
-    <string name="label_sources">Fuentes</string>
     <string name="action_select_inverse">Invertir selección</string>
     <string name="vertical_plus_viewer">Tira vertical discontinua</string>
     <string name="pref_webtoon_side_padding">Espaciado lateral</string>
@@ -596,7 +595,6 @@
     <string name="pref_advanced_summary">Informes de fallos y ahorro de batería</string>
     <string name="pref_security_summary">Pantalla segura y desbloqueo biométrico</string>
     <string name="pref_backup_summary">Copias de seguridad manuales y automáticas, almacenamiento</string>
-    <string name="pref_browse_summary">Fuentes, extensiones y búsqueda global</string>
     <string name="crash_screen_title">¡Vaya!</string>
     <string name="crash_screen_restart_application">Reiniciar la aplicación</string>
     <string name="unknown_title">Título desconocido</string>
@@ -642,7 +640,6 @@
     <string name="enhanced_services_not_installed">Están disponibles, pero las fuentes todavía no se han instalado: %s</string>
     <string name="track_error">%1$s error: %2$s</string>
     <string name="information_required_plain">*necesaria</string>
-    <string name="pref_hide_in_library_items">Saltar elementos que ya estén en la biblioteca</string>
     <string name="action_copy_to_clipboard">Copiar al portapapeles</string>
     <string name="action_update_category">Actualizar categoría</string>
     <string name="split_tall_images">Dividir las imágenes altas</string>

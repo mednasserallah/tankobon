@@ -92,7 +92,6 @@
     <string name="label_help">راهنما</string>
     <string name="label_migration">تغییر منبع</string>
     <string name="label_backup">پشتیبان گیری و بازیابی</string>
-    <string name="label_sources">منابع</string>
     <string name="label_recent_manga">سابقه</string>
     <string name="label_recent_updates">به روز رسانی‌ها</string>
     <string name="label_library">کتابخانه</string>
@@ -525,7 +524,6 @@
     <string name="action_remove_everything">حذف همه‌چیز</string>
     <string name="internal_error">خطای داخلی: برای اطلاعات بیشتر گزارش خطا را بررسی کنید</string>
     <string name="pref_downloads_summary">دانلود خودکار، دانلود از قبل</string>
-    <string name="pref_browse_summary">منابع، برنامه های افزودنی، جستجوی سراسری</string>
     <string name="pref_backup_summary">پشتیبان گیری دستی و خودکار</string>
     <string name="pref_library_update_show_tab_badge">نمایش تعداد خوانده نشده در نماد به‌روزرسانی‌ها</string>
     <string name="label_stats">آمار</string>
@@ -595,7 +593,6 @@
     <string name="no_location_set">مکان ذخیره سازی تنظیم نشده است</string>
     <string name="split_tall_images">عکس های بلند را تقسیم کن</string>
     <string name="track_activity_name">ورود به ناضر</string>
-    <string name="pref_hide_in_library_items">اجرای داخل کتاب خانه را مخفی کن</string>
     <string name="pref_storage_location">محل زخیره سازی</string>
     <string name="onboarding_action_finish">شروع کنید</string>
     <string name="onboarding_action_skip">پرش</string>

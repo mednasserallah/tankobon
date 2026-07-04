@@ -269,7 +269,6 @@
     <string name="website">웹사이트</string>
     <string name="action_menu">메뉴</string>
     <string name="label_more">더 보기</string>
-    <string name="label_sources">소스</string>
     <string name="channel_complete">완료</string>
     <string name="confirm_set_chapter_settings">현재 설정을 기본값으로 설정하시겠습니까?</string>
     <string name="chapter_settings">회차 설정</string>
@@ -592,7 +591,6 @@
     <string name="pref_library_summary">카테고리, 전역 업데이트, 회차 스와이프</string>
     <string name="pref_reader_summary">읽기 모드, 디스플레이, 탐색</string>
     <string name="pref_tracking_summary">단방향 진행 동기화, 향상된 동기화</string>
-    <string name="pref_browse_summary">소스, 확장 기능, 전체 검색</string>
     <string name="pref_backup_summary">수동 및 자동 백업</string>
     <string name="pref_security_summary">앱 잠금, 화면 보안</string>
     <string name="pref_advanced_summary">오류 로그 덤프, 배터리 최적화</string>
@@ -645,7 +643,6 @@
     <string name="track_error">%1$s 오류: %2$s</string>
     <string name="information_required_plain">*필수</string>
     <string name="action_copy_to_clipboard">클립보드에 복사</string>
-    <string name="pref_hide_in_library_items">이미 서재에 있는 항목 숨기기</string>
     <string name="action_update_category">카테고리 업데이트</string>
     <string name="split_tall_images">긴 이미지 분할</string>
     <string name="overlay_header">오버레이</string>

@@ -288,7 +288,6 @@
     <string name="secure_screen">セキュア画面</string>
     <string name="notification_chapters_single">第%1$s章</string>
     <string name="action_newest">最新</string>
-    <string name="label_sources">ソース</string>
     <string name="local_source">ローカルソース</string>
     <string name="tabs_header">タブ</string>
     <string name="email">メールアドレス</string>
@@ -599,7 +598,6 @@
     <string name="pref_reader_summary">ビューアモード、表示、ナビゲーション</string>
     <string name="pref_downloads_summary">自動ダウンロード、事前ダウンロード</string>
     <string name="pref_tracking_summary">一方同期、高度な同期</string>
-    <string name="pref_browse_summary">ソース、拡張機能、グローバル検索</string>
     <string name="pref_backup_summary">手動・自動バックアップ、ストレージ領域</string>
     <string name="pref_security_summary">アプリロック、セキュア画面</string>
     <string name="pref_advanced_summary">クラッシュ ログのダンプ、バッテリーの最適化</string>
@@ -645,7 +643,6 @@
     <string name="track_error">%1$s エラー: %2$s</string>
     <string name="information_required_plain">*必須</string>
     <string name="action_copy_to_clipboard">クリップボードにコピー</string>
-    <string name="pref_hide_in_library_items">ライブラリにある項目を非表示</string>
     <string name="action_update_category">カテゴリを更新</string>
     <string name="split_tall_images">長い画像を分割</string>
     <string name="overlay_header">オーバーレイ</string>

@@ -314,7 +314,6 @@
     <string name="updating_library">Uppdaterar biblioteket</string>
     <string name="pref_category_reading">Läser</string>
     <string name="pref_skip_filtered_chapters">Hoppa över filtrerade kapitel</string>
-    <string name="label_sources">Källor</string>
     <string name="add_tracking">Lägg till spårning</string>
     <string name="in_library">I biblioteket</string>
     <string name="add_to_library">Lägg till i biblioteket</string>
@@ -600,7 +599,6 @@
     <string name="skipped_reason_not_always_update">Hoppat över för att serien inte behöver uppdateras</string>
     <string name="crash_screen_description">%s stötte på ett oväntat fel. Vi föreslår att du delar med dig av kraschloggen i vår supportkanal på Discord.</string>
     <string name="pref_appearance_summary">Tema, datum och tidsformat</string>
-    <string name="pref_browse_summary">Källor, tillägg, global sökning</string>
     <string name="crash_screen_restart_application">Starta om applikationen</string>
     <string name="crash_screen_title">Hoppsan!</string>
     <string name="pref_advanced_summary">Dumpa krasch logg, batterioptimering</string>
@@ -622,7 +620,6 @@
     <string name="split_tall_images">Dela höga bilder</string>
     <string name="action_update_category">Uppdatera kategori</string>
     <string name="action_copy_to_clipboard">Kopiera till urklipp</string>
-    <string name="pref_hide_in_library_items">Dölj artiklar som redan finns i biblioteket</string>
     <string name="download_notifier_cache_renewal">Kontrollerar nedladdningar</string>
     <string name="overlay_header">Överlägg</string>
     <string name="pref_page_rotate">Rotera breda sidor så att de passar</string>

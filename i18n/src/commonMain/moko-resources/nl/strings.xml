@@ -299,7 +299,6 @@
     <string name="action_newest">Nieuwste</string>
     <string name="action_menu">Menu</string>
     <string name="action_pin">Vastpinnen</string>
-    <string name="label_sources">Bronnen</string>
     <string name="action_select_inverse">Selectie omkeren</string>
     <string name="restoring_backup_canceled">Herstellen geannuleerd</string>
     <string name="restoring_backup_error">Herstellen mislukt</string>
@@ -571,7 +570,6 @@
     <string name="pref_library_summary">Categorieën, globaal bijwerken</string>
     <string name="pref_reader_summary">Leesmodus, weergave, navigatie</string>
     <string name="pref_downloads_summary">Automatische downloads, vooraf downloaden</string>
-    <string name="pref_browse_summary">Bronnen, extensies, globaal zoeken</string>
     <string name="pref_backup_summary">Handmatige &amp; automatische back-ups, opslagruimte</string>
     <string name="pref_security_summary">App-vergrendeling, schermbeveiliging</string>
     <string name="pref_reset_viewer_flags_success">Alle leesinstellingen teruggezet naar de standaardwaarden</string>
@@ -606,7 +604,6 @@
     <string name="pref_library_update_show_tab_badge">Toon aantal ongelezen op updates icon</string>
     <string name="source_filter_empty_screen">Geen geïnstalleerde bron gevonden</string>
     <string name="not_installed">Niet geïnstalleerd</string>
-    <string name="pref_hide_in_library_items">Verberg manga die al in de bibliotheek staat</string>
     <string name="update_already_running">Er is al een update bezig</string>
     <string name="action_copy_to_clipboard">Kopiëren naar klembord</string>
     <string name="updates_last_update_info_just_now">Net nu</string>

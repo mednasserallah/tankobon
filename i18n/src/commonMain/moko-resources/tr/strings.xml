@@ -314,7 +314,6 @@
     <string name="updating_library">Kitaplık güncelleniyor</string>
     <string name="pref_category_reading">Okuma</string>
     <string name="pref_skip_filtered_chapters">Filtrelenmiş bölümleri atla</string>
-    <string name="label_sources">Kaynaklar</string>
     <string name="action_select_inverse">Tersini seç</string>
     <string name="vertical_plus_viewer">Aralıklı uzun şerit</string>
     <string name="pref_webtoon_side_padding">Kenar boşluğu</string>
@@ -593,7 +592,6 @@
     <string name="pref_security_summary">Uygulama kilidi, güvenli ekran</string>
     <string name="pref_advanced_summary">Çökme günlükleri dökümü, pil iyileştirmeleri</string>
     <string name="pref_library_summary">Kategoriler, genel güncelleme, kaydırma kontrolleri</string>
-    <string name="pref_browse_summary">Kaynaklar, uzantılar, genel arama</string>
     <string name="pref_downloads_summary">Otomatik indirme, önceden indirme</string>
     <string name="pref_reader_summary">Okuma modu, görüntüleme, gezinme</string>
     <string name="pref_appearance_summary">Tema, tarih ve saat biçimi</string>
@@ -644,7 +642,6 @@
     <string name="pref_skip_dupe_chapters">Yinelenen bölümleri atla</string>
     <string name="track_error">%1$s hatası: %2$s</string>
     <string name="information_required_plain">*gerekli</string>
-    <string name="pref_hide_in_library_items">Zaten kitaplıkta bulunan girdileri gizle</string>
     <string name="action_copy_to_clipboard">Panoya kopyala</string>
     <string name="action_update_category">Kategoriyi güncelle</string>
     <string name="split_tall_images">Uzun görselleri böl</string>

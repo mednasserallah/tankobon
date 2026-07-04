@@ -309,7 +309,6 @@
     <string name="notification_chapters_single_and_more">Bab %1$s dan %2$d lainnya</string>
     <string name="notification_chapters_multiple">Bab %1$s</string>
     <string name="pref_disable_battery_optimization_summary">Membantu pembaruan pustaka dan pencadangan di latar belakang</string>
-    <string name="label_sources">Sumber</string>
     <string name="pref_category_reading">Membaca</string>
     <string name="information_webview_required">WebView diperlukan agar aplikasi dapat berfungsi</string>
     <string name="recent_manga_time">Bab %1$s - %2$s</string>
@@ -589,7 +588,6 @@
     <string name="missing_storage_permission">Izin penyimpanan tidak diberikan</string>
     <string name="skipped_reason_not_always_update">Dilewati karena seri ini tidak memerlukan pembaruan</string>
     <string name="action_search_hint">Cari…</string>
-    <string name="pref_browse_summary">Sumber, ekstensi, pencarian global</string>
     <string name="pref_reader_summary">Mode membaca, tampilan, navigasi</string>
     <string name="pref_tracking_summary">Sinkronisasi progres searah, sinkronisasi yang ditingkatkan</string>
     <string name="crash_screen_description">%s mengalami kesalahan tak terduga. Kami menyarankan Anda membagi log kerusakan di saluran dukungan kami di Discord.</string>
@@ -644,7 +642,6 @@
     <string name="pref_skip_dupe_chapters">Melewati bab terduplikasi</string>
     <string name="track_error">%1$s eror: %2$s</string>
     <string name="information_required_plain">*dibutuhkan</string>
-    <string name="pref_hide_in_library_items">Semua catatan tersembunyi sudah ada di perpustakaan</string>
     <string name="action_copy_to_clipboard">Salin ke papan klip</string>
     <string name="action_update_category">Perbarui kategori</string>
     <string name="split_tall_images">Potong gambar tinggi</string>

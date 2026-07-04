@@ -46,7 +46,6 @@
     <string name="label_help">Yordam</string>
     <string name="label_migration">Kõchish</string>
     <string name="label_backup">Saqlash</string>
-    <string name="label_sources">Manbalar</string>
     <string name="label_recent_manga">Tarix</string>
     <string name="label_recent_updates">Yangilanishlar</string>
     <string name="label_library">Kutubxona</string>
@@ -106,7 +105,6 @@
     <string name="action_open_in_web_view">WebView\'da ochish</string>
     <string name="action_webview_back">Orqaga</string>
     <string name="action_webview_forward">Oldinga</string>
-    <string name="pref_browse_summary">Manbaalar, kengaytmalar, global qidiruv</string>
     <string name="pref_backup_summary">Qo\'lbola va avtomatik zaxira nusxalar</string>
     <string name="pref_date_format">Sana formati</string>
     <string name="theme_tidalwave">Toshgan to\'lqin</string>

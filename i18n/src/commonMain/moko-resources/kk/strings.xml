@@ -4,7 +4,6 @@
     <string name="label_download_queue">Жүктеу кезегі</string>
     <string name="label_library">Кітапхана</string>
     <string name="label_recent_updates">Жаңартпа</string>
-    <string name="label_sources">Дереккөз</string>
     <string name="label_backup">Сақтық көшірме</string>
     <string name="label_help">Көмек</string>
     <string name="categories">Санат</string>
@@ -484,7 +483,6 @@
     <string name="download_notifier_split_page_not_found">%d бет табылмады, бөлінгенде</string>
     <string name="channel_complete">Аяқталды</string>
     <string name="pref_reader_summary">Оқу түрі, көрсету, навигация</string>
-    <string name="pref_browse_summary">Дереккөздер, кеңейтулер, ауқымды іздеу</string>
     <string name="pref_security_summary">Қолданбаны бұғаттау, экранды қорғау</string>
     <string name="manga_info_collapse">Азырақ</string>
     <string name="manga_added_library">Кітапханаға қосылды</string>
@@ -650,7 +648,6 @@
     <string name="information_required_plain">*қажетті</string>
     <string name="action_update_category">Санатты жаңарту</string>
     <string name="action_copy_to_clipboard">Айырбастау буферіне көшіріп алу</string>
-    <string name="pref_hide_in_library_items">Кітапханада бар туындыларды жасыру</string>
     <string name="split_tall_images">Ұзын суреттерді бөлу</string>
     <string name="overlay_header">Қабаттасу</string>
     <string name="pref_page_rotate">Кең беттерді сыйғызу үшін бұрыңыз</string>

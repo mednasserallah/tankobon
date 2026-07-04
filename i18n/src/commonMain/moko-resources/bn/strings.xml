@@ -278,7 +278,6 @@
     <string name="action_sort_date_added">তারিখে যোগকৃত</string>
     <string name="action_sort_latest_chapter">সর্বশেষ অধ্যায়</string>
     <string name="action_menu">তালিকা</string>
-    <string name="label_sources">সোর্স</string>
     <string name="label_more">আরও</string>
     <string name="pref_category_display">প্রদর্শন</string>
     <string name="parental_controls_info">এটি অ্যাপের মধ্যে প্রাপ্তবয়স্কদের (18+) বিষয়বস্তু সারফেস করা থেকে অনানুষ্ঠানিক বা সম্ভাব্য ভুলভাবে পতাকাঙ্কিত এক্সটেনশানগুলিকে বাধা দেয় না।</string>
@@ -645,7 +644,6 @@
     <string name="pref_always_decode_long_strip_with_ssiv_summary">পারফরম্যান্স অ্যাফেক্ট করবে। ফাঁকা ইমেজ সমস্যা থ্রেশহোল্ড কমিয়ে ঠিক না হলে কেবল এনেবল করবে</string>
     <string name="pref_downloads_summary">অটোমেটিক ডাউনলোড, আগাম ডাউনলোড</string>
     <string name="pref_tracking_summary">ওয়ান-ওয়ে প্রগ্রেস সিঙ্ক, এনহ্যান্সড সিঙ্ক</string>
-    <string name="pref_browse_summary">সোর্স, এক্সটেনশন, গ্লোবাল সার্চ</string>
     <string name="pref_advanced_summary">ক্র্যাশ লগ ডাম্প, ব্যাটারি অপ্টিমাইজেশন</string>
     <string name="theme_catppuccin">ক্যাটপুচিন</string>
     <string name="theme_monochrome">মনোক্রোম</string>
@@ -708,7 +706,6 @@
     <string name="pref_auto_update_manga_on_mark_read">পড়া হিসেবে চিহ্নিত হলে অগ্রগতি আপডেট হবে</string>
     <string name="enhanced_services_not_installed">উপলব্ধ কিন্তু সোর্স ইনস্টল করা নেই: %s</string>
     <string name="track_activity_name">ট্র্যাকার লগইন</string>
-    <string name="pref_hide_in_library_items">লাইব্রেরিতে থাকা আইটেম লুকানো হবে</string>
     <string name="pref_storage_location">স্টোরেজের ঠিকানা</string>
     <string name="pref_storage_location_info">অটোমেটিক ব্যাকআপ এর জন্য, চ্যাপ্টার ডাউনলোড ও লোকাল সোর্স এর জন্য ব্যবহার হয়।</string>
     <string name="action_create">তৈরি</string>

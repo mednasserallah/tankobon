@@ -28,7 +28,6 @@
     <string name="label_recent_updates">Updates</string>
     <string name="label_upcoming">Upcoming</string>
     <string name="label_recent_manga">History</string>
-    <string name="label_sources">Sources</string>
     <string name="label_backup">Backup and restore</string>
     <string name="label_data_storage">Data and storage</string>
     <string name="label_stats">Statistics</string>
@@ -216,7 +215,6 @@
     <string name="pref_text_detection_summary">Engine, DeepL key, offline language pack</string>
     <string name="pref_downloads_summary">Automatic download, download ahead</string>
     <string name="pref_tracking_summary">One-way progress sync, enhanced sync</string>
-    <string name="pref_browse_summary">Sources, extensions, global search</string>
     <string name="pref_backup_summary">Manual &amp; automatic backups, storage space</string>
     <string name="pref_security_summary">App lock, secure screen</string>
     <string name="pref_advanced_summary">Dump crash logs, battery optimizations</string>
@@ -499,7 +497,6 @@
     <string name="track_activity_name">Tracker login</string>
 
       <!-- Browse section -->
-    <string name="pref_hide_in_library_items">Hide entries already in library</string>
 
       <!-- Data and storage section -->
     <string name="pref_storage_location">Storage location</string>

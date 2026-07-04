@@ -20,7 +20,6 @@
     <string name="label_library">Pirtûkxane</string>
     <string name="label_upcoming">Yên tên</string>
     <string name="label_recent_manga">Dîrok</string>
-    <string name="label_sources">Çavkanî</string>
     <string name="label_backup">Yedekkirin û vegerandin</string>
     <string name="label_data_storage">Dane û Depo</string>
     <string name="label_stats">Amar</string>
@@ -177,7 +176,6 @@
     <string name="pref_reader_summary">Şêwaza xwendinê, dîmen, gerìn</string>
     <string name="pref_downloads_summary">Daxistina xwekar, peşwext daxistin</string>
     <string name="pref_tracking_summary">Hevdemkirina pêşveçûnê ya yekalî, hevdemkirina pêşketî</string>
-    <string name="pref_browse_summary">Çavkanî, pêvek, gera giştî</string>
     <string name="pref_security_summary">Kilîta sepanê, ekrana ewle</string>
     <string name="pref_advanced_summary">Derxistina rojaneyên têkçûnê, başkirina bikaranîna pîlê</string>
     <string name="pref_category_theme">Tema</string>

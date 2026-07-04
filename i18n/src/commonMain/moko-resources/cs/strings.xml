@@ -279,7 +279,6 @@
     <string name="paused">Pozastaveno</string>
     <string name="label_more">Více</string>
     <string name="action_menu">Menu</string>
-    <string name="label_sources">Zdroje</string>
     <string name="spen_previous_page">Předchozí stránka</string>
     <string name="spen_next_page">Následující stránka</string>
     <string name="hide_notification_content">Skrýt obsah oznámení</string>
@@ -594,7 +593,6 @@
     <string name="pref_appearance_summary">Téma, formát data a času</string>
     <string name="pref_library_summary">Kategorie, globální aktualizace, přejetí po kapitole</string>
     <string name="pref_downloads_summary">Automatické stahování, stahování dopředu</string>
-    <string name="pref_browse_summary">Zdroje, rozšíření, globální vyhledávání</string>
     <string name="pref_security_summary">Zámek aplikace, zabezpečená obrazovka</string>
     <string name="pref_advanced_summary">Výpis protokolů selhání, optimalizace baterie</string>
     <string name="crash_screen_description">%s narazil na neočekávanou chybu. Doporučujeme vám sdílet protokoly o selhání a poté je sdílet v našem kanálu podpory na Discordu.</string>
@@ -644,7 +642,6 @@
     <string name="pref_skip_dupe_chapters">Přeskakovat duplicitní kapitoly</string>
     <string name="track_error">%1$s chyba: %2$s</string>
     <string name="information_required_plain">*vyžadováno</string>
-    <string name="pref_hide_in_library_items">Skrýt položky, které jsou již v knihovně</string>
     <string name="action_copy_to_clipboard">Zkopírovat do schránky</string>
     <string name="action_update_category">Aktualizovat kategorii</string>
     <string name="split_tall_images">Rozdělit vysoké obrázky</string>

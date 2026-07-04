@@ -311,7 +311,6 @@
     <string name="updating_library">S’està actualitzant la biblioteca</string>
     <string name="pref_category_reading">Lectura</string>
     <string name="pref_skip_filtered_chapters">Omet els capítols filtrats</string>
-    <string name="label_sources">Fonts</string>
     <string name="action_select_inverse">Inverteix la selecció</string>
     <string name="pinned_sources">Fixades</string>
     <string name="action_pin">Fixa</string>
@@ -594,7 +593,6 @@
     <string name="updates_last_update_info_just_now">Ara mateix</string>
     <string name="download_ahead">Baixa per avançat</string>
     <string name="pref_tracking_summary">Sincronització en un sentit o millorada</string>
-    <string name="pref_browse_summary">Fonts, extensions i cerca global</string>
     <string name="pref_security_summary">Blocatge de l’aplicació i mode discret</string>
     <string name="pref_advanced_summary">Bolcatge de registres d’errors i optimitzacions de la bateria</string>
     <string name="crash_screen_restart_application">Reinicia l’aplicació</string>
@@ -640,7 +638,6 @@
     <string name="hour_short">%dh</string>
     <string name="minute_short">%dm</string>
     <string name="seconds_short">%ds</string>
-    <string name="pref_hide_in_library_items">Amaga els elements que ja són a la biblioteca</string>
     <string name="action_copy_to_clipboard">Copia al porta-retalls</string>
     <string name="action_update_category">Actualitza la categoria</string>
     <string name="split_tall_images">Divideix les imatges altes</string>

@@ -314,7 +314,6 @@
     <string name="updating_library">Atualizando a biblioteca</string>
     <string name="pref_category_reading">Leitura</string>
     <string name="pref_skip_filtered_chapters">Pular os capítulos filtrados</string>
-    <string name="label_sources">Fontes</string>
     <string name="action_select_inverse">Inverter a seleção</string>
     <string name="vertical_plus_viewer">Tira longa com lacunas</string>
     <string name="pref_webtoon_side_padding">Margem lateral</string>
@@ -594,7 +593,6 @@
     <string name="pref_reader_summary">Modo de leitura, exibição, navegação</string>
     <string name="pref_downloads_summary">Download automático, download a frente</string>
     <string name="pref_tracking_summary">Sincronização de progresso unidirecional, sincronização aprimorada</string>
-    <string name="pref_browse_summary">Fontes, extensões, pesquisa global</string>
     <string name="pref_backup_summary">Backups manuais e automáticos, espaço de armazenamento</string>
     <string name="pref_security_summary">Bloqueio do aplicativo, tela segura</string>
     <string name="pref_advanced_summary">Exportar registros de travamento, otimizações de bateria</string>
@@ -644,7 +642,6 @@
     <string name="pref_skip_dupe_chapters">Pular capítulos duplicados</string>
     <string name="track_error">Erro em %1$s: %2$s</string>
     <string name="information_required_plain">*obrigatório</string>
-    <string name="pref_hide_in_library_items">Ocultar títulos que já estão na biblioteca</string>
     <string name="action_copy_to_clipboard">Copiar para a área de transferência</string>
     <string name="action_update_category">Atualizar categoria</string>
     <string name="split_tall_images">Dividir imagens compridas</string>

@@ -69,7 +69,6 @@
     <string name="label_library">Liburutegia</string>
     <string name="label_recent_updates">Eguneraketak</string>
     <string name="label_recent_manga">Historiala</string>
-    <string name="label_sources">Iturriak</string>
     <string name="error_saving_cover">Errorea azala gordetzean</string>
     <string name="error_sharing_cover">Errorea azala partekatzean</string>
     <string name="portrait">Bertikala</string>
