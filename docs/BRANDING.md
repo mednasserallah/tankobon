@@ -100,101 +100,101 @@ There are **no** legacy density PNGs to regenerate (adaptive-icon-only, `minSdk 
 
 ## Logo concepts & image-generation prompts
 
-Four distinct directions for a **Tankobon-original** mark. "Tankobon" (単行本) is the
-Japanese term for a single **bound, collected volume** of manga — so every concept leans
-on the physical *volume* as the subject, which also matches the app's volume-based model.
+The direction here follows **Mihon's own mark**: Mihon's icon is a single **hiragana "み"**
+(the first kana of みほん / *Mihon*) — a Japanese-character logomark, not a picture of a book.
+Tankobon should do the same: a **single bold Japanese character** for 単行本 (*tankōbon*). This
+keeps the visual lineage of the fork, reads unmistakably as *manga* (not a Western novel), and
+scales to a launcher icon far better than any illustrated object.
 
-Each concept below has a ready-to-paste prompt for ChatGPT's image tool (you run it — I
-can't generate images). After generating, separate the result into adaptive-icon
-foreground/background layers (e.g. via VectorMagic to vectorize, then split), then follow
-[Asset swap procedure](#asset-swap-procedure).
+> **On the "no lettering" rule:** the earlier guidance to avoid embedded text was about *words
+> and taglines*. A **single glyph that IS the logo** — exactly as Mihon uses "み" — is the
+> intended exception. Still: no words, no Latin letters, no tagline.
 
-**Shared guidance baked into every prompt (why):**
-- **1024 × 1024, 1:1** — high-res source downscales cleanly to 48dp; the reverse never works.
-- **Flat, high-contrast, minimal** — launcher icons render as small as **48dp**. Big flat
-  shapes survive shrinking; gradients-as-the-only-cue, thin linework, and fine detail vanish.
-- **No text or lettering** — embedded text doesn't scale and can't be localized.
-- **Centered subject with ~20% margin** — Android masks the icon to a circle/squircle/etc.
-  per device; keeping the subject in the central safe zone prevents clipping.
-- **Clean flat or transparent background** — you'll split foreground from background afterward.
-- Optional palette continuity with today's icon: deep navy `#031019` / accent blue `#0058A0`
-  on off-white `#FAFAFA`. Prompts mention it as a suggestion — swap freely.
+> **⚠️ Reliability note — read before generating.** AI image tools frequently **distort or
+> invent** kanji/kana strokes. For a single-character mark the **most reliable route is not image
+> generation at all**: set the exact Unicode character below in a **bold Japanese typeface**
+> (a heavy Gothic/ゴシック like *Noto Sans JP Black*, or a brush/mincho face for a calligraphic
+> look), export at high resolution, then vectorize/clean in VectorMagic. Use the image prompts
+> below only for a *stylized/brush* starting point — and **verify the character is exactly right
+> and undistorted** before committing (compare against the character shown here).
 
-### Concept A — "Volume Stack"
+**Shared guidance (same rationale as before):** 1024×1024 1:1; flat, high-contrast, bold strokes
+(thin strokes vanish at 48dp); the glyph **centered with ~20% margin** so an icon mask
+(circle/squircle) never clips it; a single flat or transparent background to split into
+foreground/background layers afterward. Palette continuity with today's icon: deep navy `#031019`
+/ accent blue `#0058A0` / off-white `#FAFAFA` — either a dark glyph on a light field, or (like the
+IDE icon) a light glyph on a navy/blue circle.
 
-A small, tidy **stack of three book volumes** seen straight-on (a short shelf run or a neat
-pile). It reads immediately as *a collection of volumes* — the heart of a volume-based
-library. Distinct blocks with clear separation give a strong, recognizable silhouette.
+### Concept A — 「本」 (*hon*, "book") — recommended
 
-- **Small-size hold-up:** **Excellent.** Three solid blocks, high contrast, no fine detail.
-  Cap at three books and avoid drawing spine text or thin page lines — those disappear at 48dp.
+The kanji **本** means "book / volume" and is the **final character of 単行本**. It's the most
+meaningful choice — it literally names what the app is for — and one of the cleanest, best-balanced
+kanji: a few thick strokes with a distinctive wide horizontal base. It parallels Mihon's
+single-glyph mark, but carries *meaning*, not just sound.
 
-> **Prompt:** A minimalist flat vector app icon of a small neat stack of three bound
-> manga book volumes viewed straight on, slightly offset like a tidy pile. Bold simple
-> rounded-rectangle shapes, high contrast, no gradients, no text or lettering, no fine
-> detail. Deep navy and a single accent blue on a flat off-white background. The stack is
-> centered with generous empty margin around all edges so nothing is clipped. Clean, iconic,
-> modern, geometric. Square 1:1 composition, 1024×1024, high resolution.
+- **Small-size hold-up:** **Excellent.** Few, thick strokes; the base bar and central vertical stay
+  legible at 48dp. Use a heavy weight so nothing thins out.
 
-### Concept B — "Bound Volume"
+> **Prompt:** A minimalist flat app icon whose only element is the single Japanese kanji
+> character 本 (meaning "book"), centered as a bold logomark in a clean brush-inspired style.
+> Render the character accurately and undistorted with thick, high-contrast strokes. No other
+> text, no Latin letters, no fine detail, no gradients. An off-white character on a solid
+> deep-navy rounded-square field with a subtle accent-blue edge. The character is centered with
+> generous margin so it is never clipped by a circular or squircle mask. Flat, iconic, modern,
+> a manga-app feel. Square 1:1, 1024×1024, high resolution.
 
-A **single closed tankobon** shown at a subtle 3/4 angle (or pure side profile) that reveals
-the rounded **bound spine** and the page block. This is the literal object the app is named
-for — one iconic, confident shape rather than a scene.
+### Concept B — 「た」 (hiragana *ta*) — closest Mihon parallel
 
-- **Small-size hold-up:** **Very good**, if reduced to 2–3 flat planes (cover face, spine,
-  page-edge). Keep the page block as one solid shape — no individual page striations.
+The first hiragana of **たんこうぼん**. This is the nearest structural echo of Mihon's soft, rounded
+「み」 — a single friendly, approachable hiragana glyph, phonetically tied to the name.
 
-> **Prompt:** A minimalist flat vector app icon of a single closed manga volume (a
-> Japanese tankobon) shown at a gentle three-quarter angle, revealing the rounded bound
-> spine and a solid page-edge block. Two or three bold flat color planes only — cover,
-> spine, pages — high contrast, no gradients, no text or lettering, no fine line detail.
-> Deep navy cover with an accent-blue spine on a flat off-white background. The book is
-> centered with generous margin so it is never clipped by a circular or rounded mask.
-> Clean, iconic, geometric. Square 1:1 composition, 1024×1024, high resolution.
+- **Small-size hold-up:** **Very good.** One flowing stroke group; keep it bold and keep the small
+  internal loop/gap open so it doesn't fill in when shrunk.
 
-### Concept C — "Bookmark Ribbon"
+> **Prompt:** A minimalist flat app icon whose only element is the single Japanese hiragana
+> character た, centered as a bold logomark in a clean brush-inspired style. Render the character
+> accurately and undistorted, thick high-contrast strokes, keeping its open counter clear. No other
+> text, no Latin letters, no fine detail, no gradients. A deep-navy character on a flat off-white
+> background (or inverted: off-white on navy). Centered with generous margin so it is not clipped by
+> an icon mask. Flat, iconic, friendly, modern. Square 1:1, 1024×1024, high resolution.
 
-A **single volume with a bookmark ribbon** tab dropping from the top edge. It fuses the two
-things the app is about — *collecting* volumes and *reading* them — and the ribbon gives a
-natural spot for a bold accent color and an asymmetric, memorable focal point.
+### Concept C — 「タ」 (katakana *ta*) — modern / angular
 
-- **Small-size hold-up:** **Good.** The book + ribbon are two bold shapes. Make the ribbon
-  wide and short (not a thin string) so it stays legible at 48dp; a forked/notched ribbon
-  end is fine if kept chunky.
+Katakana **タ** — the same sound as た, but angular and geometric. Katakana carries a punchy,
+stylized, contemporary feel (think manga titling and sound effects), and its straight strokes are
+extremely clean at tiny sizes.
 
-> **Prompt:** A minimalist flat vector app icon of a single bound manga volume shown
-> straight on as a rounded rectangle, with a bold chunky bookmark ribbon hanging from its
-> top edge. Two simple flat shapes only — book and ribbon — high contrast, no gradients, no
-> text or lettering, no fine detail. Deep navy book with a bright accent-blue ribbon on a
-> flat off-white background. Composition centered with generous margin on all sides so it is
-> not clipped by an icon mask. Clean, modern, iconic, geometric. Square 1:1, 1024×1024, high
-> resolution.
+- **Small-size hold-up:** **Excellent.** Just two or three angled strokes — about as legible as a
+  glyph gets when shrunk.
 
-### Concept D — "Covers Grid"
+> **Prompt:** A minimalist flat app icon whose only element is the single Japanese katakana
+> character タ, centered as a bold geometric logomark. Render the character accurately and
+> undistorted, thick high-contrast straight strokes, sharp clean corners. No other text, no Latin
+> letters, no fine detail, no gradients. A bright accent-blue character on a flat off-white
+> background, or off-white on deep navy. Centered with generous margin so it is not clipped by a
+> circular or squircle mask. Flat, modern, punchy, iconic. Square 1:1, 1024×1024, high resolution.
 
-An abstract **2×2 grid of rounded squares** — echoing Tankobon's signature **per-volume
-covers grid view**. It's the most "app-native" and modern of the four, and instantly
-distinct from Mihon's glyph mark. One tile can carry the accent color to create a focal point.
+### Concept D — 「単」 (kanji *tan*) — distinctive but busier
 
-- **Small-size hold-up:** **Excellent.** Evenly weighted geometry with generous gutters
-  reads cleanly at any size — just keep the gaps between tiles thick so they don't merge when
-  shrunk.
+The **first kanji of 単行本**. More formal and distinctive, but it has more strokes (a boxed top with
+internal bars over a vertical), so it's the busiest option.
 
-> **Prompt:** A minimalist flat vector app icon of an abstract 2 by 2 grid of four rounded
-> squares with thick even gaps between them, evoking a grid of manga volume covers. Bold flat
-> shapes, high contrast, no gradients, no text or lettering, no fine detail. Three tiles in
-> deep navy and one tile in a bright accent blue, on a flat off-white background. The grid is
-> centered with generous margin around all edges so it is not clipped by a circular or
-> squircle icon mask. Clean, modern, geometric, app-like. Square 1:1, 1024×1024, high
-> resolution.
+- **Small-size hold-up:** **Moderate.** The stacked internal horizontals can merge below ~48dp. Use
+  a very heavy weight, and prefer this only if the icon is usually seen larger.
 
-### Picking / blending
+> **Prompt:** A minimalist flat app icon whose only element is the single Japanese kanji character
+> 単, centered as a bold logomark in a clean heavy style. Render the character accurately and
+> undistorted with thick, high-contrast strokes and clear spacing between the internal horizontal
+> strokes so they don't merge. No other text, no Latin letters, no gradients. An off-white character
+> on a solid deep-navy rounded-square field. Centered with generous margin so it is not clipped by
+> an icon mask. Flat, iconic, modern. Square 1:1, 1024×1024, high resolution.
 
-Run whichever resonates. **A** and **D** are the safest bets for small-size legibility;
-**B** is the most literal to the name; **C** is the most distinctive focal mark. Elements
-combine well — e.g. a **Bound Volume (B)** with a **Bookmark Ribbon (C)**, or a **Volume
-Stack (A)** rendered as grid tiles (**D**). Ask if you'd like a blended prompt.
+### Picking
+
+**本 (A)** is the strongest recommendation — it *means* "book/volume," is part of the name, and is
+clean at any size. **た (B)** is the truest parallel to Mihon's kana mark; **タ (C)** if you want a
+sharper, more modern feel; **単 (D)** only if you accept more detail. Whichever you choose, prefer
+the **font-typeset → VectorMagic** route over raw image generation for a crisp, correct glyph.
 
 ---
 
