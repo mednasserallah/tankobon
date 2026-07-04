@@ -10,6 +10,25 @@ The format is a modified version of [Keep a Changelog](https://keepachangelog.co
 - `Fixed` - for any bug fixes.
 - `Other` - for technical stuff.
 
+## [v0.2.0] - 2026-07-04
+### Added
+- **Choose your translation engine.** A new **Settings → Translation** screen lets you pick between
+  the on-device **Google ML Kit** engine (free, offline, the default) and **DeepL** (online, often
+  better on manga dialogue). Enter your own DeepL API key — masked, with a reveal toggle and a
+  **Validate** button — stored **encrypted on-device** and never logged or backed up. Free (`:fx`)
+  and Pro keys are routed to the correct DeepL endpoint automatically, and if DeepL ever fails
+  (no/invalid key, quota, or no network) the app falls back to ML Kit so you're never left without
+  a translation.
+
+### Improved
+- **Roomier manga screen on tablets.** In portrait the cover and details now stack on top with the
+  volumes underneath (like phones), instead of splitting into two cramped columns; the two-panel
+  layout is kept for landscape.
+- **Larger volume covers** in the grid, sized to the available width, with the current **page**
+  shown next to the volume label for volumes you're partway through.
+- **Better defaults for a volume library:** new entries now sort by volume number ascending and
+  display the volume number.
+
 ## [v0.1.1] - 2026-07-04
 ### Fixed
 - Fix the reader crashing when you close it, and on-page text detection always failing with
