@@ -3,6 +3,7 @@ package eu.kanade.tachiyomi.ui.reader.setting
 import android.os.Build
 import androidx.compose.ui.graphics.BlendMode
 import dev.icerock.moko.resources.StringResource
+import eu.kanade.tachiyomi.ui.reader.textdetection.translation.TranslationEngine
 import tachiyomi.core.common.preference.Preference
 import tachiyomi.core.common.preference.PreferenceStore
 import tachiyomi.core.common.preference.getEnum
@@ -42,6 +43,11 @@ class ReaderPreferences(
 
     // On-page text detection & translation
     val translationWifiOnly: Preference<Boolean> = preferenceStore.getBoolean("pref_translation_wifi_only", true)
+
+    val translationEngine: Preference<TranslationEngine> = preferenceStore.getEnum(
+        "pref_translation_engine",
+        TranslationEngine.MLKIT,
+    )
 
     val fullscreen: Preference<Boolean> = preferenceStore.getBoolean("fullscreen", true)
 

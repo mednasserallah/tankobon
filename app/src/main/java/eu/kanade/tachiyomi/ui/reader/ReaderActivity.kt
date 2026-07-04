@@ -242,6 +242,9 @@ class ReaderActivity : BaseActivity() {
                     is ReaderViewModel.Event.SetCoverResult -> {
                         onSetAsCoverResult(event.result)
                     }
+                    is ReaderViewModel.Event.TranslationFallback -> {
+                        toast(event.reason)
+                    }
                 }
             }
             .launchIn(lifecycleScope)

@@ -1,6 +1,7 @@
 package eu.kanade.tachiyomi.ui.reader.textdetection
 
 import androidx.compose.runtime.Immutable
+import eu.kanade.tachiyomi.ui.reader.textdetection.translation.TranslationEngine
 
 /**
  * UI state for the on-page text-detection sheet.
@@ -42,6 +43,8 @@ sealed interface TranslationState {
     data object Translating : TranslationState
     data object Error : TranslationState
 
+    /** [engine] is the one that actually produced [text] (may differ from the selected engine after a
+     *  DeepL→ML Kit fallback) so the correct attribution can be shown. */
     @Immutable
-    data class Done(val text: String) : TranslationState
+    data class Done(val text: String, val engine: TranslationEngine) : TranslationState
 }

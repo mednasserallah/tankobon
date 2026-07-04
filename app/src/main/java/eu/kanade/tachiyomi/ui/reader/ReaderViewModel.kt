@@ -7,6 +7,7 @@ import androidx.compose.runtime.Immutable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dev.icerock.moko.resources.StringResource
 import eu.kanade.domain.chapter.model.toDbVolume
 import eu.kanade.domain.manga.interactor.SetMangaViewerFlags
 import eu.kanade.domain.manga.model.readerOrientation
@@ -17,6 +18,7 @@ import eu.kanade.domain.track.service.TrackPreferences
 import eu.kanade.tachiyomi.data.saver.Image
 import eu.kanade.tachiyomi.data.saver.ImageSaver
 import eu.kanade.tachiyomi.data.saver.Location
+import eu.kanade.tachiyomi.network.NetworkHelper
 import eu.kanade.tachiyomi.source.model.Page
 import eu.kanade.tachiyomi.ui.reader.loader.VolumeLoader
 import eu.kanade.tachiyomi.ui.reader.model.InsertPage
@@ -32,10 +34,15 @@ import eu.kanade.tachiyomi.ui.reader.textdetection.SentenceCase
 import eu.kanade.tachiyomi.ui.reader.textdetection.TextDetectionState
 import eu.kanade.tachiyomi.ui.reader.textdetection.TextLineMerger
 import eu.kanade.tachiyomi.ui.reader.textdetection.TextRecognizer
-import eu.kanade.tachiyomi.ui.reader.textdetection.TextTranslator
 import eu.kanade.tachiyomi.ui.reader.textdetection.TranslationState
 import eu.kanade.tachiyomi.ui.reader.textdetection.decodePageBitmap
 import eu.kanade.tachiyomi.ui.reader.textdetection.isNumberOnlyLine
+import eu.kanade.tachiyomi.ui.reader.textdetection.translation.DeepLKeyStore
+import eu.kanade.tachiyomi.ui.reader.textdetection.translation.DeepLTranslator
+import eu.kanade.tachiyomi.ui.reader.textdetection.translation.MlKitTranslator
+import eu.kanade.tachiyomi.ui.reader.textdetection.translation.TranslationEngine
+import eu.kanade.tachiyomi.ui.reader.textdetection.translation.TranslationResult
+import eu.kanade.tachiyomi.ui.reader.textdetection.translation.Translator
 import eu.kanade.tachiyomi.ui.reader.viewer.Viewer
 import eu.kanade.tachiyomi.util.chapter.removeDuplicates
 import eu.kanade.tachiyomi.util.editCover
@@ -56,6 +63,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.runBlocking
+import kotlinx.serialization.json.Json
 import logcat.LogPriority
 import tachiyomi.core.common.preference.toggle
 import tachiyomi.core.common.util.lang.launchIO
@@ -73,6 +81,7 @@ import tachiyomi.domain.library.service.LibraryPreferences
 import tachiyomi.domain.manga.interactor.GetManga
 import tachiyomi.domain.manga.model.Manga
 import tachiyomi.domain.source.service.SourceManager
+import tachiyomi.i18n.MR
 import tachiyomi.source.local.isLocal
 import uy.kohesive.injekt.Injekt
 import uy.kohesive.injekt.api.get
@@ -96,6 +105,9 @@ class ReaderViewModel @JvmOverloads constructor(
     private val setMangaViewerFlags: SetMangaViewerFlags = Injekt.get(),
     private val getIncognitoState: GetIncognitoState = Injekt.get(),
     private val libraryPreferences: LibraryPreferences = Injekt.get(),
+    private val deepLKeyStore: DeepLKeyStore = Injekt.get(),
+    private val networkHelper: NetworkHelper = Injekt.get(),
+    private val json: Json = Injekt.get(),
 ) : ViewModel() {
 
     private val mutableState = MutableStateFlow(State())
@@ -106,8 +118,17 @@ class ReaderViewModel @JvmOverloads constructor(
 
     private val textRecognizerDelegate = lazy { TextRecognizer() }
     private val textRecognizer by textRecognizerDelegate
-    private val textTranslatorDelegate = lazy { TextTranslator() }
-    private val textTranslator by textTranslatorDelegate
+
+    // On-device ML Kit engine; a single instance holds a native client, so it's created lazily and
+    // reused. DeepL is created per-request (cheap — it just wraps the key + shared OkHttp client).
+    private val mlKitTranslatorDelegate = lazy {
+        MlKitTranslator(requireWifi = { readerPreferences.translationWifiOnly.get() })
+    }
+    private val mlKitTranslator by mlKitTranslatorDelegate
+
+    // One "DeepL failed, fell back to on-device" notice per open sheet, so "Translate all" doesn't
+    // spam a toast per line. Re-armed each time the detection sheet is opened.
+    private var fallbackNoticeShown = false
 
     /**
      * The manga loaded in the reader. It can be null when instantiated for a short time.
@@ -227,8 +248,8 @@ class ReaderViewModel @JvmOverloads constructor(
         if (textRecognizerDelegate.isInitialized()) {
             runCatching { textRecognizer.close() }
         }
-        if (textTranslatorDelegate.isInitialized()) {
-            runCatching { textTranslator.close() }
+        if (mlKitTranslatorDelegate.isInitialized()) {
+            runCatching { mlKitTranslator.close() }
         }
     }
 
@@ -657,6 +678,7 @@ class ReaderViewModel @JvmOverloads constructor(
      * empty result (no text on the page) is a normal outcome shown as a calm empty state.
      */
     fun openTextDetectionDialog() {
+        fallbackNoticeShown = false
         val page = state.value.currentChapter?.pages?.getOrNull(state.value.currentPage - 1)
         if (page?.status != Page.State.Ready || page.stream == null) {
             mutableState.update { it.copy(dialog = Dialog.TextDetection(TextDetectionState.Empty)) }
@@ -730,25 +752,65 @@ class ReaderViewModel @JvmOverloads constructor(
         }
     }
 
-    /** Translates the detected line at [index] from English to Arabic, downloading the model if needed. */
+    /**
+     * Translates the detected line at [index] from English to Arabic using the user's selected engine
+     * ([ReaderPreferences.translationEngine]). If DeepL is selected but fails (missing/invalid key,
+     * quota, network), it falls back to on-device ML Kit so the user isn't stranded, and posts a
+     * one-time notice explaining why.
+     */
     fun translateLine(index: Int) {
         val text = currentDetectionSuccess()?.items?.getOrNull(index)?.text ?: return
-        val requireWifi = readerPreferences.translationWifiOnly.get()
-
         viewModelScope.launchIO {
-            val result = runCatching {
-                if (textTranslator.isModelMissing()) {
-                    updateLineTranslation(index, TranslationState.Downloading)
-                    textTranslator.ensureModelDownloaded(requireWifi)
-                }
-                updateLineTranslation(index, TranslationState.Translating)
-                TranslationState.Done(textTranslator.translate(text))
-            }.getOrElse { e ->
-                logcat(LogPriority.ERROR, e) { "Translation failed" }
-                TranslationState.Error
-            }
-            updateLineTranslation(index, result)
+            updateLineTranslation(index, translate(text, index))
         }
+    }
+
+    private suspend fun translate(text: String, index: Int): TranslationState {
+        val engine = readerPreferences.translationEngine.get()
+        val primary = when (engine) {
+            TranslationEngine.MLKIT -> mlKitTranslator
+            TranslationEngine.DEEPL -> DeepLTranslator(
+                apiKey = deepLKeyStore.getApiKey(),
+                client = networkHelper.client,
+                json = json,
+            )
+        }
+
+        val result = runTranslation(primary, text, index)
+        if (result is TranslationResult.Success) return TranslationState.Done(result.text, engine)
+
+        // DeepL failed for some reason — don't strand the user; fall back to the always-available
+        // on-device engine and tell them (once per sheet) what went wrong.
+        if (engine == TranslationEngine.DEEPL) {
+            logcat(LogPriority.WARN) { "DeepL translation failed ($result); falling back to ML Kit" }
+            if (!fallbackNoticeShown) {
+                fallbackNoticeShown = true
+                eventChannel.trySend(Event.TranslationFallback(deepLFailureMessage(result)))
+            }
+            val fallback = runTranslation(mlKitTranslator, text, index)
+            if (fallback is TranslationResult.Success) {
+                return TranslationState.Done(fallback.text, TranslationEngine.MLKIT)
+            }
+        }
+        return TranslationState.Error
+    }
+
+    private suspend fun runTranslation(translator: Translator, text: String, index: Int): TranslationResult =
+        runCatching {
+            translator.prepare(onDownloading = { updateLineTranslation(index, TranslationState.Downloading) })
+            updateLineTranslation(index, TranslationState.Translating)
+            translator.translate(text)
+        }.getOrElse { e ->
+            logcat(LogPriority.ERROR, e) { "Translation failed" }
+            TranslationResult.NetworkError
+        }
+
+    private fun deepLFailureMessage(result: TranslationResult): StringResource = when (result) {
+        TranslationResult.MissingApiKey -> MR.strings.translation_deepl_missing_key
+        TranslationResult.InvalidApiKey -> MR.strings.translation_deepl_invalid_key
+        TranslationResult.QuotaExceeded -> MR.strings.translation_deepl_quota
+        TranslationResult.RateLimited -> MR.strings.translation_deepl_rate_limited
+        else -> MR.strings.translation_deepl_network_error
     }
 
     private fun currentDetectionSuccess(): TextDetectionState.Success? {
@@ -948,5 +1010,8 @@ class ReaderViewModel @JvmOverloads constructor(
         data class SavedImage(val result: SaveImageResult) : Event
         data class ShareImage(val uri: Uri, val page: ReaderPage) : Event
         data class CopyImage(val uri: Uri) : Event
+
+        /** DeepL translation failed and the app fell back to on-device ML Kit; [reason] explains why. */
+        data class TranslationFallback(val reason: StringResource) : Event
     }
 }
