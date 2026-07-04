@@ -56,6 +56,7 @@ import eu.kanade.tachiyomi.util.storage.DiskUtil
 import eu.kanade.tachiyomi.util.storage.cacheImageDir
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -143,6 +144,9 @@ class ReaderViewModel @JvmOverloads constructor(
     // One "DeepL failed, fell back to on-device" notice per open sheet, so "Translate all" doesn't
     // spam a toast per line. Re-armed each time the detection sheet is opened.
     private var fallbackNoticeShown = false
+
+    // Collects the character list for the notebook sheet while it's open; cancelled on close.
+    private var characterListJob: Job? = null
 
     /**
      * The manga loaded in the reader. It can be null when instantiated for a short time.
@@ -761,6 +765,8 @@ class ReaderViewModel @JvmOverloads constructor(
             eventChannel.trySend(Event.CharacterMessage(MR.strings.character_page_unavailable))
             return
         }
+        characterListJob?.cancel()
+        characterListJob = null
         val streamProvider = page.stream!!
         mutableState.update { it.copy(dialog = Dialog.Loading) }
 
@@ -871,6 +877,39 @@ class ReaderViewModel @JvmOverloads constructor(
         }
     }
 
+    /** Opens the notebook sheet listing the characters saved for the current series. */
+    fun openCharacterList() {
+        val manga = manga ?: return
+        mutableState.update { it.copy(dialog = Dialog.CharacterList(emptyList())) }
+        characterListJob?.cancel()
+        characterListJob = viewModelScope.launchIO {
+            getCharactersByMangaId.subscribe(manga.id).collect { characters ->
+                mutableState.update {
+                    if (it.dialog is Dialog.CharacterList) {
+                        it.copy(dialog = Dialog.CharacterList(characters))
+                    } else {
+                        it
+                    }
+                }
+            }
+        }
+    }
+
+    /** Updates a saved character's name/note (portrait unchanged). */
+    fun updateCharacterDetails(character: Character, name: String, note: String?) {
+        viewModelScope.launchNonCancellable {
+            upsertCharacter.await(character.copy(name = name, note = note))
+        }
+    }
+
+    /** Deletes a saved character and its portrait file from disk. */
+    fun removeCharacter(character: Character) {
+        viewModelScope.launchNonCancellable {
+            characterPortraitCache.deletePortrait(character.id)
+            deleteCharacter.await(character.id)
+        }
+    }
+
     /** Translates every detected line that hasn't been translated yet. */
     fun translateDetectedText() {
         val success = currentDetectionSuccess() ?: return
@@ -974,6 +1013,8 @@ class ReaderViewModel @JvmOverloads constructor(
     }
 
     fun closeDialog() {
+        characterListJob?.cancel()
+        characterListJob = null
         mutableState.update { it.copy(dialog = null) }
     }
 
@@ -1143,6 +1184,7 @@ class ReaderViewModel @JvmOverloads constructor(
         data class TextDetection(val state: TextDetectionState) : Dialog
         data class CharacterCrop(val target: CharacterCropTarget) : Dialog
         data class CharacterSave(val target: CharacterSaveTarget) : Dialog
+        data class CharacterList(val characters: List<Character>) : Dialog
     }
 
     sealed interface Event {
