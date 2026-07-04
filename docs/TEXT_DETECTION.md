@@ -23,6 +23,22 @@ Copy and translate always act on the **current** text, so an edit flows through 
 - Per Google's ML Kit / Cloud Translation terms, a **"powered by Google Translate"** notice is
   shown next to the results (and on the About screen).
 
+## Translation engine (ML Kit or DeepL)
+
+Under **Settings → Reader → Detect text** you can choose the translation engine:
+
+- **On-device (Google ML Kit)** — the default. Free, offline, no account (as above).
+- **DeepL (online)** — often better on manga dialogue, but needs **your own DeepL API key** and a
+  network connection. Get a free key from DeepL's API Free plan, paste it into the key field
+  (masked, with a reveal toggle), and tap **Validate** to confirm it works. Free keys (ending
+  `:fx`) and Pro keys are routed to the correct DeepL endpoint automatically.
+
+The key is stored **encrypted on-device** (Android Jetpack Security) and never logged or backed up.
+If DeepL is selected but fails (no/invalid key, quota reached, or no network), the app **falls back
+to on-device ML Kit** for that translation and shows a brief notice, so you're never left with
+nothing. Attribution always credits whichever engine actually produced each line, and "powered by
+DeepL" is shown on the About screen alongside Google's.
+
 ## How it works
 
 The detection pipeline runs off the main thread:
