@@ -191,7 +191,6 @@
     <string name="onboarding_permission_notifications_description">ലൈബ്രറി അപ്‌ഡേറ്റുകൾക്കും മറ്റും അറിയിപ്പ് നേടുക.</string>
     <string name="onboarding_permission_ignore_battery_opts">പശ്ചാത്തല ബാറ്ററി ഉപയോഗം</string>
     <string name="onboarding_permission_ignore_battery_opts_description">ദീർഘകാല ലൈബ്രറി അപ്‌ഡേറ്റുകൾ, ഡൗൺലോഡ്, ബാക്കപ്പ് പുനഃസ്ഥാപിക്കൽ എന്നിവയ്ക്കുള്ള തടസ്സങ്ങൾ ഒഴിവാക്കുക.</string>
-    <string name="label_support_us">ഞങ്ങളെ സഹായിക്കു</string>
     <string name="label_auto">യാന്ത്രികമായ</string>
     <string name="action_display_unread_badge">വായിച്ചിട്ടിലാത്ത അദ്ധ്യായം</string>
     <string name="action_move_to_bottom_all_for_series">പരമ്പര അടിത്തട്ടിലേക്ക് നീക്കുക</string>
