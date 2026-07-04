@@ -143,6 +143,59 @@ single-glyph mark, but carries *meaning*, not just sound.
 > generous margin so it is never clipped by a circular or squircle mask. Flat, iconic, modern,
 > a manga-app feel. Square 1:1, 1024×1024, high resolution.
 
+#### ✅ Selected: 本 in **manga style**
+
+**Chosen mark.** Rendered in a manga art style rather than a flat/geometric one. The best fit for
+an app icon is **sumi-e brush title lettering** — the expressive ink look of a kanji on a manga
+cover — because it's unmistakably manga yet keeps one dominant, legible shape. Two flashier
+variants (SFX, screentone) are listed after it; they read as "more manga" but add small-size risk.
+
+> **For a brush/manga look, image generation is the right tool** (a clean Gothic font won't give
+> expressive strokes). Still **verify the character is exactly 本 and undistorted** before
+> committing — regenerate if the AI mangles a stroke. A calligraphic **brush font** (e.g. a bold
+> *fude*/gyosho typeface) typed and vectorized is a reliable alternative.
+
+**Primary — sumi-e brush (recommended):**
+
+> **Prompt:** A minimalist app icon whose only element is the single Japanese kanji character 本
+> (meaning "book"), rendered as bold **sumi-e brush calligraphy** — confident, expressive black ink
+> strokes with slightly rough dry-brush edges and natural tapering, the way a kanji appears on a
+> manga cover title. Render the character accurately and undistorted, thick and high-contrast so it
+> stays legible at small sizes. No other text, no Latin letters, no gradients, no busy background.
+> Black brush character centered on a flat cream / off-white background; generous margin so it is
+> never clipped by a circular or squircle icon mask. Bold, expressive, manga cover feel. Square
+> 1:1, 1024×1024, high resolution.
+
+- Palette options: classic **black ink on off-white**; or, to match the current app icon, an
+  **off-white brush stroke on a deep-navy field** (dramatic, works well as a dark icon) or a
+  **navy brush on off-white** with an accent-blue seal-style dot.
+- **Small-size:** **Very good** if the brush stays chunky — avoid wispy dry-brush wisps thinning to
+  nothing; the strokes must still read as 本 at 48dp.
+
+**Variant — manga SFX / action lettering:**
+
+> **Prompt:** A minimalist app icon of the single Japanese kanji character 本 styled like a bold
+> manga **sound-effect (onomatopoeia)**: thick ink strokes with a clean bold outline, a slight
+> dynamic tilt, and a few subtle speed lines behind it for energy. Render 本 accurately and
+> undistorted, very high contrast. No other text, no Latin letters, no gradients. Black-and-white
+> or navy-on-off-white, character centered with generous margin so it is not clipped by an icon
+> mask. Punchy, energetic, manga action feel. Square 1:1, 1024×1024, high resolution.
+
+- **Small-size:** **Moderate** — keep speed lines minimal/thick or drop them; fine motion lines
+  disappear and can clutter at 48dp.
+
+**Variant — screentone / ink panel:**
+
+> **Prompt:** A minimalist app icon of the single Japanese kanji character 本 in bold black ink,
+> with a subtle **manga halftone screentone** fill or a small ink-panel/speech-bubble motif behind
+> it as an accent. Render 本 accurately and undistorted, thick high-contrast strokes dominant over
+> the texture. No other text, no Latin letters, no gradients. Off-white background, character
+> centered with generous margin so it is not clipped by an icon mask. Distinctly manga, clean, iconic.
+> Square 1:1, 1024×1024, high resolution.
+
+- **Small-size:** **Lower** — halftone dots can muddy when shrunk; keep the tone coarse and the
+  glyph clearly on top. Best if the icon is usually seen larger.
+
 ### Concept B — 「た」 (hiragana *ta*) — closest Mihon parallel
 
 The first hiragana of **たんこうぼん**. This is the nearest structural echo of Mihon's soft, rounded
