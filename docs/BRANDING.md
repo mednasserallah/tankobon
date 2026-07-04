@@ -95,4 +95,104 @@ swap, but should eventually be replaced too for a full rebrand.
 7. *(separately, deferred)* `ic_mihon.xml` / `ic_mihon_splash.xml` in-app marks
 
 There are **no** legacy density PNGs to regenerate (adaptive-icon-only, `minSdk 26`).
+
+---
+
+## Logo concepts & image-generation prompts
+
+Four distinct directions for a **Tankobon-original** mark. "Tankobon" (単行本) is the
+Japanese term for a single **bound, collected volume** of manga — so every concept leans
+on the physical *volume* as the subject, which also matches the app's volume-based model.
+
+Each concept below has a ready-to-paste prompt for ChatGPT's image tool (you run it — I
+can't generate images). After generating, separate the result into adaptive-icon
+foreground/background layers (e.g. via VectorMagic to vectorize, then split), then follow
+[Asset swap procedure](#asset-swap-procedure).
+
+**Shared guidance baked into every prompt (why):**
+- **1024 × 1024, 1:1** — high-res source downscales cleanly to 48dp; the reverse never works.
+- **Flat, high-contrast, minimal** — launcher icons render as small as **48dp**. Big flat
+  shapes survive shrinking; gradients-as-the-only-cue, thin linework, and fine detail vanish.
+- **No text or lettering** — embedded text doesn't scale and can't be localized.
+- **Centered subject with ~20% margin** — Android masks the icon to a circle/squircle/etc.
+  per device; keeping the subject in the central safe zone prevents clipping.
+- **Clean flat or transparent background** — you'll split foreground from background afterward.
+- Optional palette continuity with today's icon: deep navy `#031019` / accent blue `#0058A0`
+  on off-white `#FAFAFA`. Prompts mention it as a suggestion — swap freely.
+
+### Concept A — "Volume Stack"
+
+A small, tidy **stack of three book volumes** seen straight-on (a short shelf run or a neat
+pile). It reads immediately as *a collection of volumes* — the heart of a volume-based
+library. Distinct blocks with clear separation give a strong, recognizable silhouette.
+
+- **Small-size hold-up:** **Excellent.** Three solid blocks, high contrast, no fine detail.
+  Cap at three books and avoid drawing spine text or thin page lines — those disappear at 48dp.
+
+> **Prompt:** A minimalist flat vector app icon of a small neat stack of three bound
+> manga book volumes viewed straight on, slightly offset like a tidy pile. Bold simple
+> rounded-rectangle shapes, high contrast, no gradients, no text or lettering, no fine
+> detail. Deep navy and a single accent blue on a flat off-white background. The stack is
+> centered with generous empty margin around all edges so nothing is clipped. Clean, iconic,
+> modern, geometric. Square 1:1 composition, 1024×1024, high resolution.
+
+### Concept B — "Bound Volume"
+
+A **single closed tankobon** shown at a subtle 3/4 angle (or pure side profile) that reveals
+the rounded **bound spine** and the page block. This is the literal object the app is named
+for — one iconic, confident shape rather than a scene.
+
+- **Small-size hold-up:** **Very good**, if reduced to 2–3 flat planes (cover face, spine,
+  page-edge). Keep the page block as one solid shape — no individual page striations.
+
+> **Prompt:** A minimalist flat vector app icon of a single closed manga volume (a
+> Japanese tankobon) shown at a gentle three-quarter angle, revealing the rounded bound
+> spine and a solid page-edge block. Two or three bold flat color planes only — cover,
+> spine, pages — high contrast, no gradients, no text or lettering, no fine line detail.
+> Deep navy cover with an accent-blue spine on a flat off-white background. The book is
+> centered with generous margin so it is never clipped by a circular or rounded mask.
+> Clean, iconic, geometric. Square 1:1 composition, 1024×1024, high resolution.
+
+### Concept C — "Bookmark Ribbon"
+
+A **single volume with a bookmark ribbon** tab dropping from the top edge. It fuses the two
+things the app is about — *collecting* volumes and *reading* them — and the ribbon gives a
+natural spot for a bold accent color and an asymmetric, memorable focal point.
+
+- **Small-size hold-up:** **Good.** The book + ribbon are two bold shapes. Make the ribbon
+  wide and short (not a thin string) so it stays legible at 48dp; a forked/notched ribbon
+  end is fine if kept chunky.
+
+> **Prompt:** A minimalist flat vector app icon of a single bound manga volume shown
+> straight on as a rounded rectangle, with a bold chunky bookmark ribbon hanging from its
+> top edge. Two simple flat shapes only — book and ribbon — high contrast, no gradients, no
+> text or lettering, no fine detail. Deep navy book with a bright accent-blue ribbon on a
+> flat off-white background. Composition centered with generous margin on all sides so it is
+> not clipped by an icon mask. Clean, modern, iconic, geometric. Square 1:1, 1024×1024, high
+> resolution.
+
+### Concept D — "Covers Grid"
+
+An abstract **2×2 grid of rounded squares** — echoing Tankobon's signature **per-volume
+covers grid view**. It's the most "app-native" and modern of the four, and instantly
+distinct from Mihon's glyph mark. One tile can carry the accent color to create a focal point.
+
+- **Small-size hold-up:** **Excellent.** Evenly weighted geometry with generous gutters
+  reads cleanly at any size — just keep the gaps between tiles thick so they don't merge when
+  shrunk.
+
+> **Prompt:** A minimalist flat vector app icon of an abstract 2 by 2 grid of four rounded
+> squares with thick even gaps between them, evoking a grid of manga volume covers. Bold flat
+> shapes, high contrast, no gradients, no text or lettering, no fine detail. Three tiles in
+> deep navy and one tile in a bright accent blue, on a flat off-white background. The grid is
+> centered with generous margin around all edges so it is not clipped by a circular or
+> squircle icon mask. Clean, modern, geometric, app-like. Square 1:1, 1024×1024, high
+> resolution.
+
+### Picking / blending
+
+Run whichever resonates. **A** and **D** are the safest bets for small-size legibility;
+**B** is the most literal to the name; **C** is the most distinctive focal mark. Elements
+combine well — e.g. a **Bound Volume (B)** with a **Bookmark Ribbon (C)**, or a **Volume
+Stack (A)** rendered as grid tiles (**D**). Ask if you'd like a blended prompt.
 </content>
