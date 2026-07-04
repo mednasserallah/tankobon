@@ -25,7 +25,7 @@ Copy and translate always act on the **current** text, so an edit flows through 
 
 ## Translation engine (ML Kit or DeepL)
 
-Under **Settings → Reader → Detect text** you can choose the translation engine:
+Under **Settings → Text detection &amp; translation** you can choose the translation engine:
 
 - **On-device (Google ML Kit)** — the default. Free, offline, no account (as above).
 - **DeepL (online)** — often better on manga dialogue, but needs **your own DeepL API key** and a
