@@ -6,6 +6,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -22,7 +23,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import eu.kanade.presentation.util.formatVolumeNumber
@@ -119,35 +119,37 @@ fun MangaVolumeCoverGridItem(
             }
         }
 
-        Text(
-            text = label,
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 4.dp)
-                .alpha(if (volume.read) READ_ALPHA else 1f),
-            style = MaterialTheme.typography.bodySmall,
-            color = if (volume.read) {
-                MaterialTheme.colorScheme.onSurface.copy(alpha = READ_ALPHA)
-            } else {
-                Color.Unspecified
-            },
-            textAlign = TextAlign.Center,
-            maxLines = 2,
-            overflow = TextOverflow.Ellipsis,
-        )
-
-        if (readProgress != null) {
+                .padding(top = 4.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
             Text(
-                text = readProgress,
+                text = label,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 2.dp),
+                    .weight(1f)
+                    .alpha(if (volume.read) READ_ALPHA else 1f),
                 style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.primary,
-                textAlign = TextAlign.Center,
-                maxLines = 1,
+                color = if (volume.read) {
+                    MaterialTheme.colorScheme.onSurface.copy(alpha = READ_ALPHA)
+                } else {
+                    Color.Unspecified
+                },
+                maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
             )
+
+            if (readProgress != null) {
+                Text(
+                    text = readProgress,
+                    modifier = Modifier.padding(start = 4.dp),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.primary,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+            }
         }
     }
 }
