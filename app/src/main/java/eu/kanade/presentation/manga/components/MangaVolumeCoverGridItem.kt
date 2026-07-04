@@ -52,6 +52,10 @@ fun MangaVolumeCoverGridItem(
     } else {
         volume.name
     }
+    // Show how far into a volume the user is, so partially-read volumes are obvious in the grid.
+    val readProgress = volume.lastPageRead
+        .takeIf { !volume.read && it > 0L }
+        ?.let { stringResource(MR.strings.chapter_progress, it + 1) }
 
     val shape = MaterialTheme.shapes.small
 
@@ -131,6 +135,20 @@ fun MangaVolumeCoverGridItem(
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
         )
+
+        if (readProgress != null) {
+            Text(
+                text = readProgress,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 2.dp),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.primary,
+                textAlign = TextAlign.Center,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+            )
+        }
     }
 }
 
