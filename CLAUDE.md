@@ -303,6 +303,15 @@ The OCR pipeline in `openTextDetectionDialog` is now: `recognize → TextLineMer
 ### Discovered pre-existing bug (worked around, NOT fixed — flagged)
 `mihon.core.archive.ArchiveInputStream.read(b, off, len)` (`core/archive/`) is buggy for partial reads: it does `ByteBuffer.wrap(b, off, len)` (capacity = `b.size`) then the private `read()` calls `buffer.clear()`, which resets the limit to the **full capacity**, ignoring `off`/`len`. libarchive can then write past `len` and the method can return a length `> len`. The reader's normal decode path never hits this (it reads whole segments, off=0/len=capacity, where `clear()` is harmless), but `BitmapFactory.decodeStream`'s incremental peek/rewind reads do — Skia's `GetPrimitiveArrayRegion` copies the over-length result into a smaller native buffer → **native SIGSEGV**. `decodePageBitmap` avoids it by reading the whole entry into a `ByteArray` first (safe off=0 path) and decoding via `decodeByteArray`. A proper fix to `ArchiveInputStream` (respect `off`/`len`, e.g. `ByteBuffer.wrap(b, off, len)` without `clear()`, or slice) is a separate core-archive task — left unfixed here to keep this feature scoped and avoid a reader-wide change.
 
+## Releases
+
+**v0.1.0 — first release (shipped 2026-07-04).** Tagged `v0.1.0` on `master`; signed release APKs published as a GitHub Release on `mednasserallah/tankobon`. Bundles the whole fork to date: rebrand, extension/online-source removal (local-only), volume-based reading + naming/edition/range parser, per-volume covers + grid view, legacy cleanup, and on-device English OCR + English→Arabic translation. `versionCode = 1`, `versionName = "0.1.0"`.
+
+- **applicationId:** `app.tankobon` (renamed from `app.mihon` during release prep — safe because there was no prior Tankobon install to break an update path). Debug variant is `app.tankobon.dev`.
+- **Release signing (permanent):** RSA-2048 self-signed key, alias `tankobon`, cert SHA-256 `D7:44:D8:8B:08:0A:A7:A2:85:F5:34:1F:EC:3D:E8:7C:92:75:B9:98:33:6C:2F:80:EC:04:E4:DE:67:27:43:7F`. Files live at project root: `tankobon-release.keystore` + `keystore.properties` (both **git-ignored** — never committed). **Passwords are NOT stored in-repo**; they were shown once and must be kept in a password manager. `app/build.gradle.kts` already reads `keystore.properties` into the release signing config, so `./gradlew assembleRelease` signs automatically when those two files are present. Losing the keystore/password means no future build can update over a v0.1.0 install.
+- **Build outputs:** ABI-split APKs under `app/build/outputs/apk/release/` (`app-universal-release.apk` + per-ABI). There is no single `app-release.apk`.
+- Still deferred (Phase B): the `mihon.*` Kotlin namespace, gradle catalog `mihonx`, branding drawables, tracker `User-Agent` strings, and the Mihon-pointed update checker / donation URLs.
+
 ## Gotchas
 
 - After deleting code, run `./gradlew spotlessApply` — it auto-prunes unused imports and reformats. (`spotlessCheck` is the CI gate; ktlint's unused-import rule is inconsistent here, so don't rely on it to catch every orphaned import — prune them yourself / via `spotlessApply`.)

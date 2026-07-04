@@ -10,12 +10,45 @@ The format is a modified version of [Keep a Changelog](https://keepachangelog.co
 - `Fixed` - for any bug fixes.
 - `Other` - for technical stuff.
 
-## [Unreleased]
-### Added
-- Support resumable image downloads if supported by source ([@xMohnad](https://github.com/xMohnad)) ([#3167](https://github.com/mihonapp/mihon/pull/3167))
+## [v0.1.0] - 2026-07-04
+First Tankobon release. Tankobon is an unofficial, **local-file-only** fork of
+[Mihon](https://github.com/mihonapp/mihon) reimagined around **volumes** — read the manga you
+already own on your device, organized by volume instead of chapter, with no online sources or
+extensions.
 
-### Fixed
-- Fix Shikimori tracking not working ([@MajorTanya](https://github.com/MajorTanya)) ([#3497](https://github.com/mihonapp/mihon/pull/3497))
+### Added
+- **Volume-based local library.** Each `.cbz` / `.zip` / `.cbr` / folder is treated as one
+  *volume* (not a chapter), so your library matches how physical manga is actually organized.
+- **Opinionated file-name parser.** Reads `Series Name - Volume 01 (2016).cbz` into a numbered,
+  dated volume; treats one-shots with no volume number as a single volume named after the book;
+  detects **editions** from the folder name (e.g. `BLAME! (Master Edition)`) and shows them as a
+  badge without mistaking a `(2016)` year for an edition; recognizes **omnibus ranges**
+  (`Volume 01-02` → "Volume 1-2"); sorts numerically (1, 2, … 9, 10) and flags gaps
+  ("Missing N volumes"); ignores `cover.jpg` / `details.json` sidecars and empty folders.
+- **Per-volume covers and a grid view.** Every volume shows its own cover, extracted from the
+  first page inside the archive, in a new grid view toggleable alongside the list. Thumbnails are
+  downscaled and cached so even multi-gigabyte archives open quickly.
+- **On-page text detection and translation, fully offline.** Tap a reader button to detect the
+  English text on the current page, listed in correct manga reading order (right-to-left aware).
+  Each line can be copied, edited to fix an OCR slip, or translated to **Arabic** — all on-device
+  and free, no account needed after a one-time language download. Powered by Google ML Kit;
+  translation powered by Google Translate.
+
+### Changed
+- Rebranded from Mihon to **Tankobon**, including the app identity (`app.tankobon`), so it installs
+  alongside other manga readers without conflict.
+
+### Removed
+- **The entire extension and online-source system** — no extensions, no remote sources, no
+  download queue, no online browsing. Tankobon is deliberately local-only.
+
+### Other
+- Built on Mihon / Tachiyomi (Apache-2.0). Some internal namespaces still use the upstream name;
+  these are cosmetic and do not affect behaviour.
+
+---
+
+_Entries below this line are inherited Mihon release history, kept for provenance._
 
 ## [v0.20.0] - 2026-06-27
 ### Added
