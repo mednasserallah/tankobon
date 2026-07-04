@@ -9,6 +9,7 @@ import com.eygraber.sqldelight.androidx.driver.AndroidxSqliteDatabaseType
 import com.eygraber.sqldelight.androidx.driver.AndroidxSqliteDriver
 import com.eygraber.sqldelight.androidx.driver.FileProvider
 import eu.kanade.domain.track.store.DelayedTrackingStore
+import eu.kanade.tachiyomi.data.cache.CharacterPortraitCache
 import eu.kanade.tachiyomi.data.cache.CoverCache
 import eu.kanade.tachiyomi.data.cache.VolumeCache
 import eu.kanade.tachiyomi.data.cache.VolumeCoverCache
@@ -109,6 +110,7 @@ class AppModule(val app: Application) : InjektModule {
         addSingletonFactory { VolumeCache(app, get()) }
         addSingletonFactory { CoverCache(app) }
         addSingletonFactory { VolumeCoverCache(app) }
+        addSingletonFactory { CharacterPortraitCache(app) }
 
         addSingletonFactory { NetworkHelper(app, get()) }
 

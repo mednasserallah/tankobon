@@ -1,0 +1,16 @@
+-- Task 9 (Character Notebook): per-series, reader-curated character notes.
+-- A character has a name, an optional note, an optional portrait image path
+-- (a square crop stored on disk), and a creation timestamp. Scoped to a series
+-- via manga_id with ON DELETE CASCADE so characters vanish with their series.
+CREATE TABLE characters(
+    _id INTEGER NOT NULL PRIMARY KEY,
+    manga_id INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    note TEXT,
+    portrait_path TEXT,
+    created_at INTEGER NOT NULL,
+    FOREIGN KEY(manga_id) REFERENCES mangas (_id)
+    ON DELETE CASCADE
+);
+
+CREATE INDEX characters_manga_id_index ON characters(manga_id);
