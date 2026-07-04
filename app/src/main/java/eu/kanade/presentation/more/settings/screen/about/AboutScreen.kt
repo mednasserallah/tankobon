@@ -160,6 +160,13 @@ object AboutScreen : Screen() {
                 }
 
                 item {
+                    // Attribution for the optional DeepL online translation engine.
+                    TextPreferenceWidget(
+                        title = stringResource(MR.strings.translation_powered_by_deepl),
+                    )
+                }
+
+                item {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()

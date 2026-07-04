@@ -245,6 +245,7 @@ dependencies {
     implementation(libs.androidx.annotation)
     implementation(libs.androidx.appCompat)
     implementation(libs.androidx.biometric)
+    implementation(libs.androidx.security.crypto) // EncryptedSharedPreferences for the DeepL API key
     implementation(libs.androidx.constraintLayout)
     implementation(libs.androidx.core)
     implementation(libs.androidx.coreSplashScreen)

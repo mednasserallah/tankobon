@@ -19,6 +19,7 @@ import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.Security
 import androidx.compose.material.icons.outlined.Storage
 import androidx.compose.material.icons.outlined.Sync
+import androidx.compose.material.icons.outlined.Translate
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TopAppBarDefaults
@@ -188,6 +189,12 @@ object SettingsMainScreen : Screen() {
             subtitleRes = MR.strings.pref_reader_summary,
             icon = Icons.AutoMirrored.Outlined.ChromeReaderMode,
             screen = SettingsReaderScreen,
+        ),
+        Item(
+            titleRes = MR.strings.pref_category_text_detection,
+            subtitleRes = MR.strings.pref_text_detection_summary,
+            icon = Icons.Outlined.Translate,
+            screen = SettingsTextDetectionScreen,
         ),
         Item(
             titleRes = MR.strings.pref_category_tracking,

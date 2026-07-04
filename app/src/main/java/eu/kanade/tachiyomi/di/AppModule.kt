@@ -16,6 +16,7 @@ import eu.kanade.tachiyomi.data.saver.ImageSaver
 import eu.kanade.tachiyomi.data.track.TrackerManager
 import eu.kanade.tachiyomi.network.NetworkHelper
 import eu.kanade.tachiyomi.source.AndroidSourceManager
+import eu.kanade.tachiyomi.ui.reader.textdetection.translation.DeepLKeyStore
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.protobuf.ProtoBuf
 import nl.adaptivity.xmlutil.XmlDeclMode
@@ -110,6 +111,8 @@ class AppModule(val app: Application) : InjektModule {
         addSingletonFactory { VolumeCoverCache(app) }
 
         addSingletonFactory { NetworkHelper(app, get()) }
+
+        addSingletonFactory { DeepLKeyStore(app) }
 
         addSingletonFactory<SourceManager> { AndroidSourceManager(app, get()) }
 
