@@ -10,6 +10,12 @@ The format is a modified version of [Keep a Changelog](https://keepachangelog.co
 - `Fixed` - for any bug fixes.
 - `Other` - for technical stuff.
 
+## [v0.1.1] - 2026-07-04
+### Fixed
+- Fix the reader crashing when you close it, and on-page text detection always failing with
+  "Couldn't detect text", on release builds. Google ML Kit's text recognizer wasn't being kept by
+  code shrinking (R8), so it failed to initialize. Both are resolved.
+
 ## [v0.1.0] - 2026-07-04
 First Tankobon release. Tankobon is an unofficial, **local-file-only** fork of
 [Mihon](https://github.com/mihonapp/mihon) reimagined around **volumes** — read the manga you

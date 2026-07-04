@@ -1,73 +1,67 @@
 <div align="center">
 
+<!--
+  TODO (branding): replace with the final Tankobon logo.
+  Final artwork does not exist yet — generate a mark from one of the concepts in
+  docs/BRANDING.md, vectorize/clean it, then add it at docs/assets/logo.png and it
+  will render here. In the meantime a Mihon-derived logo lives at .github/assets/logo.png.
+-->
+<img src="docs/assets/logo.png" alt="Tankobon" width="120" />
+
 # Tankobon
 
 ### A local-first, volume-based manga reader for Android
 
-Tankobon is an **unofficial fork** of [Mihon](https://github.com/mihonapp/mihon) (itself the successor to Tachiyomi) focused on reading manga you already own as local files, organized by **volume** rather than chapter.
-
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-0877d2)](/LICENSE)
+[![Latest release](https://img.shields.io/github/v/release/mednasserallah/tankobon)](https://github.com/mednasserallah/tankobon/releases/latest)
 
 </div>
 
-## About this fork
+Tankobon is an **unofficial fork** of [Mihon](https://github.com/mihonapp/mihon) (successor to
+Tachiyomi) that reads manga you already own as local files, organized by **volume** instead of
+chapter. No remote sources, no extensions — just your on-device library.
 
-Tankobon deliberately narrows Mihon's scope. Instead of a general-purpose reader with remote sources and installable extensions, Tankobon aims to be a focused reader for a personal, on-device manga library.
+## Features
 
-> **Work in progress.** This fork is under active development and is **not** feature-complete. Expect breaking changes. Some Mihon features are still present but are being removed or reworked (see the roadmap below).
+- **Local files only** — reads `.cbz` / `.zip` / `.cbr` / `.7z` / folders / EPUB from your device.
+- **Volume-based** — one archive or folder is one bound volume, the way physical manga is shelved.
+- **Smart file-name parsing** — understands volume numbers, publication years, editions, and
+  omnibus ranges from a simple naming convention.
+- **Per-volume covers** — a grid view with each volume's own cover, extracted from the archive.
+- **On-device text detection & translation** — detect English text on a page and translate it to
+  Arabic, fully offline and free.
 
-## Roadmap
+## Fork attribution
 
-The direction of this fork differs from upstream Mihon:
+Tankobon is built on the **Mihon** and **Tachiyomi** projects and is licensed under **Apache-2.0**.
+It is an independent, unofficial fork and is **not** affiliated with or endorsed by the Mihon
+project. The application hosts zero content and has no affiliation with any content providers.
 
-- **Local files only.** The extension system (remote sources, extension repos, installer/updater) is being **removed** entirely. Tankobon reads content stored on your device.
-- **Volume-based organization.** The local parser is being reworked so that each **volume** is the atomic reading unit, using an opinionated file-naming convention:
+## Documentation
 
-  ```
-  Series Name/
-    ├─ Series Name - Volume 01 (Year).cbz
-    ├─ Series Name - Volume 02 (Year).cbz
-    ├─ cover.jpg        (optional, ignored)
-    └─ details.json     (optional, ignored)
-  ```
-
-  Single-volume/one-shot titles (e.g. `Boy Meets Maria (2021).cbz`) and series names that themselves contain parentheses (e.g. `BLAME! (Master Edition)`) are handled as special cases.
-
-Neither of these is complete yet.
-
-## Features (current)
-
-Inherited from Mihon and still available while the rework is in progress:
-
-* Local reading of content from `.cbz`/archive files.
-* A configurable reader with multiple viewers, reading directions and other settings.
-* Categories to organize your library.
-* Light and dark themes.
-* Create and restore local backups.
+| Guide | What's inside |
+| --- | --- |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Module map, what the fork removed vs. added, roadmap status |
+| [docs/LOCAL_LIBRARY_FORMAT.md](docs/LOCAL_LIBRARY_FORMAT.md) | The file-naming convention: volumes, editions, omnibus ranges, sidecars — with examples |
+| [docs/COVERS.md](docs/COVERS.md) | Series vs. per-volume covers and how thumbnails are chosen/cached |
+| [docs/TEXT_DETECTION.md](docs/TEXT_DETECTION.md) | On-device OCR + English→Arabic translation, and its known limits |
+| [docs/BUILDING.md](docs/BUILDING.md) | Dev environment and how to build from source |
+| [docs/RELEASING.md](docs/RELEASING.md) | The release process (signing, tagging, publishing) |
+| [docs/BRANDING.md](docs/BRANDING.md) | App-icon assets and how to swap in a new logo |
 
 ## Building
 
-Standard Android/Gradle project. To build a debug APK:
-
-```
-./gradlew assembleDebug
-```
-
-Requires a JDK matching `.github/.java-version` and Android SDK. Android Studio is recommended. See [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
+Standard Android/Gradle project — see **[docs/BUILDING.md](docs/BUILDING.md)** to build from source.
 
 ## Contributing
 
-[Code of conduct](./CODE_OF_CONDUCT.md) · [Contributing guide](./CONTRIBUTING.md)
-
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-## Disclaimer
-
-The developer(s) of this application do not have any affiliation with any content providers, and this application hosts zero content. Tankobon is an independent, unofficial fork and is **not** affiliated with or endorsed by the Mihon project.
+Pull requests are welcome; for major changes, open an issue first. See
+[CONTRIBUTING.md](CONTRIBUTING.md) and the [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## License
 
-Tankobon builds on the work of the Mihon and Tachiyomi projects and remains licensed under the Apache License, Version 2.0.
+Tankobon builds on the work of the Mihon and Tachiyomi projects and remains licensed under the
+Apache License, Version 2.0.
 
 <pre>
 Copyright © 2015 Javier Tomás
@@ -86,5 +80,3 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 </pre>
-</content>
-</invoke>
