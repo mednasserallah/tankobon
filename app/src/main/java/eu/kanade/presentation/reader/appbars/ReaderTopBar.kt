@@ -3,6 +3,7 @@ package eu.kanade.presentation.reader.appbars
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Bookmark
 import androidx.compose.material.icons.outlined.BookmarkBorder
+import androidx.compose.material.icons.outlined.Face
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,6 +19,8 @@ fun ReaderTopBar(
     navigateUp: () -> Unit,
     bookmarked: Boolean,
     onToggleBookmarked: () -> Unit,
+    onAddCharacter: (() -> Unit)?,
+    onOpenCharacterNotebook: (() -> Unit)?,
     onOpenInWebView: (() -> Unit)?,
     onOpenInBrowser: (() -> Unit)?,
     onShare: (() -> Unit)?,
@@ -49,6 +52,23 @@ fun ReaderTopBar(
                             onClick = onToggleBookmarked,
                         ),
                     )
+                    onAddCharacter?.let {
+                        add(
+                            AppBar.Action(
+                                title = stringResource(MR.strings.action_add_character),
+                                icon = Icons.Outlined.Face,
+                                onClick = it,
+                            ),
+                        )
+                    }
+                    onOpenCharacterNotebook?.let {
+                        add(
+                            AppBar.OverflowAction(
+                                title = stringResource(MR.strings.action_character_notebook),
+                                onClick = it,
+                            ),
+                        )
+                    }
                     onOpenInWebView?.let {
                         add(
                             AppBar.OverflowAction(

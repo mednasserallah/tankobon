@@ -824,6 +824,21 @@
     <string name="translation_deepl_quota">DeepL quota exceeded — translated on-device instead</string>
     <string name="translation_deepl_rate_limited">DeepL rate-limited — translated on-device instead</string>
     <string name="translation_deepl_network_error">DeepL unreachable — translated on-device instead</string>
+    <!-- Character notebook -->
+    <string name="action_add_character">Add character</string>
+    <string name="action_character_notebook">Character notebook</string>
+    <string name="character_crop_hint">Drag to move • drag a corner to resize</string>
+    <string name="character_save_title">Save character</string>
+    <string name="character_edit_title">Edit character</string>
+    <string name="character_name_hint">Name</string>
+    <string name="character_note_hint">Note (optional)</string>
+    <string name="character_name_required">Enter a name</string>
+    <string name="character_notebook_title">Characters</string>
+    <string name="character_notebook_empty">No characters saved for this series yet. Use \"Add character\" while reading to capture one.</string>
+    <string name="character_search_hint">Search by name</string>
+    <string name="action_recrop_portrait">Re-crop from current page</string>
+    <string name="character_deleted">Character deleted</string>
+    <string name="character_page_unavailable">Open a page first, then add a character.</string>
     <string name="set_as_cover">Set as cover</string>
     <string name="cover_updated">Cover updated</string>
     <string name="share_page_info">%1$s: %2$s, page %3$d</string>

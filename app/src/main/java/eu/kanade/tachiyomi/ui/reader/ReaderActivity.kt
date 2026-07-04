@@ -69,6 +69,8 @@ import eu.kanade.tachiyomi.ui.main.MainActivity
 import eu.kanade.tachiyomi.ui.reader.ReaderViewModel.SetAsCoverResult.AddToLibraryFirst
 import eu.kanade.tachiyomi.ui.reader.ReaderViewModel.SetAsCoverResult.Error
 import eu.kanade.tachiyomi.ui.reader.ReaderViewModel.SetAsCoverResult.Success
+import eu.kanade.tachiyomi.ui.reader.character.CharacterCropDialog
+import eu.kanade.tachiyomi.ui.reader.character.CharacterSaveDialog
 import eu.kanade.tachiyomi.ui.reader.model.ReaderPage
 import eu.kanade.tachiyomi.ui.reader.model.ReaderVolume
 import eu.kanade.tachiyomi.ui.reader.model.ViewerVolumes
@@ -245,6 +247,9 @@ class ReaderActivity : BaseActivity() {
                     is ReaderViewModel.Event.TranslationFallback -> {
                         toast(event.reason)
                     }
+                    is ReaderViewModel.Event.CharacterMessage -> {
+                        toast(event.message)
+                    }
                 }
             }
             .launchIn(lifecycleScope)
@@ -340,6 +345,20 @@ class ReaderActivity : BaseActivity() {
                     onTranslateAll = viewModel::translateDetectedText,
                     onTranslateLine = viewModel::translateLine,
                     onEditLine = viewModel::updateLineText,
+                )
+            }
+            is ReaderViewModel.Dialog.CharacterCrop -> {
+                CharacterCropDialog(
+                    target = dialog.target,
+                    onDismissRequest = onDismissRequest,
+                    onConfirm = viewModel::confirmCharacterCrop,
+                )
+            }
+            is ReaderViewModel.Dialog.CharacterSave -> {
+                CharacterSaveDialog(
+                    target = dialog.target,
+                    onDismissRequest = onDismissRequest,
+                    onSave = viewModel::saveCharacter,
                 )
             }
             null -> {}
@@ -481,6 +500,8 @@ class ReaderActivity : BaseActivity() {
             onClickTopAppBar = ::openMangaScreen,
             bookmarked = state.bookmarked,
             onToggleBookmarked = viewModel::toggleChapterBookmark,
+            onAddCharacter = { viewModel.openCharacterCrop() },
+            onOpenCharacterNotebook = null,
             onOpenInWebView = null,
             onOpenInBrowser = null,
             onShare = null,
