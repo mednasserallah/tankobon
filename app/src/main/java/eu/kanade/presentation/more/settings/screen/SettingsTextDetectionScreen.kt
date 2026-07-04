@@ -38,25 +38,37 @@ object SettingsTextDetectionScreen : SearchableSettings {
                     .associateWith { stringResource(it.titleRes) },
                 title = stringResource(MR.strings.pref_translation_engine),
             ),
-            Preference.PreferenceItem.CustomPreference(
-                title = stringResource(MR.strings.pref_deepl_api_key),
-            ) {
-                DeepLApiKeyPreference(selectedEngine = selectedEngine)
-            },
-            Preference.PreferenceItem.SwitchPreference(
-                preference = readerPreferences.translationWifiOnly,
-                title = stringResource(MR.strings.pref_translation_wifi_only),
-                subtitle = stringResource(MR.strings.pref_translation_wifi_only_summary),
+            // DeepL (online) — the user's own key, better quality.
+            Preference.PreferenceGroup(
+                title = stringResource(MR.strings.translation_engine_deepl),
+                preferenceItems = listOf(
+                    Preference.PreferenceItem.CustomPreference(
+                        title = stringResource(MR.strings.pref_deepl_api_key),
+                    ) {
+                        DeepLApiKeyPreference(selectedEngine = selectedEngine)
+                    },
+                ),
             ),
-            Preference.PreferenceItem.TextPreference(
-                title = stringResource(MR.strings.pref_delete_translation_model),
-                subtitle = stringResource(MR.strings.pref_delete_translation_model_summary),
-                onClick = {
-                    scope.launch {
-                        runCatching { deleteArabicTranslationModel() }
-                        context.toast(MR.strings.translation_model_deleted)
-                    }
-                },
+            // On-device (Google ML Kit) — the offline language pack these settings manage.
+            Preference.PreferenceGroup(
+                title = stringResource(MR.strings.translation_engine_mlkit),
+                preferenceItems = listOf(
+                    Preference.PreferenceItem.SwitchPreference(
+                        preference = readerPreferences.translationWifiOnly,
+                        title = stringResource(MR.strings.pref_translation_wifi_only),
+                        subtitle = stringResource(MR.strings.pref_translation_wifi_only_summary),
+                    ),
+                    Preference.PreferenceItem.TextPreference(
+                        title = stringResource(MR.strings.pref_delete_translation_model),
+                        subtitle = stringResource(MR.strings.pref_delete_translation_model_summary),
+                        onClick = {
+                            scope.launch {
+                                runCatching { deleteArabicTranslationModel() }
+                                context.toast(MR.strings.translation_model_deleted)
+                            }
+                        },
+                    ),
+                ),
             ),
         )
     }

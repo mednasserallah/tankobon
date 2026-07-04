@@ -90,10 +90,6 @@ fun DeepLApiKeyPreference(selectedEngine: TranslationEngine) {
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.padding.small),
     ) {
         Text(
-            text = stringResource(MR.strings.pref_deepl_api_key),
-            style = MaterialTheme.typography.titleMedium,
-        )
-        Text(
             text = stringResource(MR.strings.pref_deepl_api_key_summary),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -106,7 +102,7 @@ fun DeepLApiKeyPreference(selectedEngine: TranslationEngine) {
                 draft = it
                 status = KeyStatus.Idle
             },
-            label = { Text(stringResource(MR.strings.pref_deepl_api_key)) },
+            label = { Text(stringResource(MR.strings.pref_api_key)) },
             singleLine = true,
             visualTransformation = if (hidden) PasswordVisualTransformation() else VisualTransformation.None,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, imeAction = ImeAction.Done),
