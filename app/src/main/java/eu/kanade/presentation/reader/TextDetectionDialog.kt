@@ -151,7 +151,11 @@ private fun DetectedLines(
     onTranslateLine: (Int) -> Unit,
     onEditLine: (Int, String) -> Unit,
 ) {
-    val anyTranslated = items.any { it.translation != TranslationState.Idle }
+    // Attribution must credit the engine that actually produced each translation. After a DeepL→ML Kit
+    // fallback the two can be mixed, so show every engine present among the finished lines.
+    val attributions = items
+        .mapNotNull { (it.translation as? TranslationState.Done)?.engine }
+        .distinct()
 
     Column {
         LazyColumn(
@@ -171,9 +175,9 @@ private fun DetectedLines(
             }
         }
 
-        if (anyTranslated) {
+        attributions.forEach { engine ->
             Text(
-                text = stringResource(MR.strings.translation_powered_by_google),
+                text = stringResource(engine.attributionRes),
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(

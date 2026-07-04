@@ -11,7 +11,7 @@ import eu.kanade.presentation.more.settings.Preference
 import eu.kanade.tachiyomi.ui.reader.setting.ReaderOrientation
 import eu.kanade.tachiyomi.ui.reader.setting.ReaderPreferences
 import eu.kanade.tachiyomi.ui.reader.setting.ReadingMode
-import eu.kanade.tachiyomi.ui.reader.textdetection.deleteArabicTranslationModel
+import eu.kanade.tachiyomi.ui.reader.textdetection.translation.deleteArabicTranslationModel
 import eu.kanade.tachiyomi.util.system.hasDisplayCutout
 import eu.kanade.tachiyomi.util.system.toast
 import kotlinx.coroutines.launch
