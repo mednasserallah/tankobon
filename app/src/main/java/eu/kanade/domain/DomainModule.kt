@@ -21,6 +21,7 @@ import mihon.domain.source.interactor.UpdateMangaFromRemote
 import mihon.domain.upcoming.interactor.GetUpcomingManga
 import tachiyomi.data.category.CategoryRepositoryImpl
 import tachiyomi.data.chapter.VolumeRepositoryImpl
+import tachiyomi.data.character.CharacterRepositoryImpl
 import tachiyomi.data.history.HistoryRepositoryImpl
 import tachiyomi.data.manga.MangaRepositoryImpl
 import tachiyomi.data.release.ReleaseServiceImpl
@@ -47,6 +48,10 @@ import tachiyomi.domain.chapter.interactor.SetMangaDefaultChapterFlags
 import tachiyomi.domain.chapter.interactor.ShouldUpdateDbVolume
 import tachiyomi.domain.chapter.interactor.UpdateVolume
 import tachiyomi.domain.chapter.repository.VolumeRepository
+import tachiyomi.domain.character.interactor.DeleteCharacter
+import tachiyomi.domain.character.interactor.GetCharactersByMangaId
+import tachiyomi.domain.character.interactor.UpsertCharacter
+import tachiyomi.domain.character.repository.CharacterRepository
 import tachiyomi.domain.history.interactor.GetHistory
 import tachiyomi.domain.history.interactor.GetNextVolumes
 import tachiyomi.domain.history.interactor.GetTotalReadDuration
@@ -97,6 +102,11 @@ class DomainModule : InjektModule {
         addFactory { ReorderCategory(get()) }
         addFactory { UpdateCategory(get()) }
         addFactory { DeleteCategory(get(), get()) }
+
+        addSingletonFactory<CharacterRepository> { CharacterRepositoryImpl(get()) }
+        addFactory { GetCharactersByMangaId(get()) }
+        addFactory { UpsertCharacter(get()) }
+        addFactory { DeleteCharacter(get()) }
 
         addSingletonFactory<MangaRepository> { MangaRepositoryImpl(get()) }
         addFactory { GetDuplicateLibraryManga(get()) }
