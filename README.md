@@ -1,11 +1,5 @@
 <div align="center">
 
-<!--
-  TODO (branding): replace with the final Tankobon logo.
-  Final artwork does not exist yet — generate a mark from one of the concepts in
-  docs/BRANDING.md, vectorize/clean it, then add it at docs/assets/logo.png and it
-  will render here. In the meantime a Mihon-derived logo lives at .github/assets/logo.png.
--->
 <img src="docs/assets/logo.png" alt="Tankobon" width="120" />
 
 # Tankobon

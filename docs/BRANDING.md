@@ -4,9 +4,11 @@ This document covers Tankobon's app-icon assets: what exists today, logo concept
 directions for a future Tankobon-original mark, ready-to-paste image-generation
 prompts, and the exact procedure for swapping in final artwork once it exists.
 
-> **Status:** the current icon is still the **Mihon-derived** mark (a stylized
-> hiragana "み"). No Tankobon-original artwork exists yet. Generating and swapping it
-> in is a deliberate, user-driven step — see [Asset swap procedure](#asset-swap-procedure).
+> **Status:** ✅ **Done.** The app icon is the Tankobon-original **本** (*hon*, "book") mark in a
+> sumi-e brush style — black brush glyph on a cream (`#FDF9F4`) field. It replaced the Mihon-derived
+> "み" across the adaptive icon (foreground/background/monochrome), the debug variant, the repo/README
+> logo, and the IDE project icon. The inventory below is kept for reference; the "current icon
+> assets" section describes the *original* layout the swap followed.
 
 ---
 
