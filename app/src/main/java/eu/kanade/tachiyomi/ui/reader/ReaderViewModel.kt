@@ -104,8 +104,10 @@ class ReaderViewModel @JvmOverloads constructor(
     private val eventChannel = Channel<Event>()
     val eventFlow = eventChannel.receiveAsFlow()
 
-    private val textRecognizer by lazy { TextRecognizer() }
-    private val textTranslator by lazy { TextTranslator() }
+    private val textRecognizerDelegate = lazy { TextRecognizer() }
+    private val textRecognizer by textRecognizerDelegate
+    private val textTranslatorDelegate = lazy { TextTranslator() }
+    private val textTranslator by textTranslatorDelegate
 
     /**
      * The manga loaded in the reader. It can be null when instantiated for a short time.
@@ -218,8 +220,16 @@ class ReaderViewModel @JvmOverloads constructor(
         if (currentChapters != null) {
             currentChapters.unref()
         }
-        textRecognizer.close()
-        textTranslator.close()
+        // Only close the ML Kit clients if they were actually created, and never let a failure
+        // here crash activity teardown. Touching the lazy delegates unconditionally would
+        // otherwise force-construct a recognizer/translator just to close it — which itself can
+        // throw (e.g. if ML Kit init fails), taking down the whole ReaderActivity on exit.
+        if (textRecognizerDelegate.isInitialized()) {
+            runCatching { textRecognizer.close() }
+        }
+        if (textTranslatorDelegate.isInitialized()) {
+            runCatching { textTranslator.close() }
+        }
     }
 
     /**

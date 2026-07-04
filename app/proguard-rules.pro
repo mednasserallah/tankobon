@@ -80,3 +80,15 @@
 # Firebase
 -keep class com.google.firebase.installations.** { *; }
 -keep interface com.google.firebase.installations.** { *; }
+
+# Google ML Kit — on-device text recognition (Latin bundle) + translation.
+# ML Kit registers its internal model/component implementations via reflection
+# (Firebase-style ComponentRegistrar discovery). Under R8 (full mode) these classes get
+# stripped/renamed, so TextRecognition.getClient(...) / Translation.getClient(...) build a
+# broken client whose internal delegate is null → NullPointerException in the recognizer/
+# translator constructor (crash on release builds only; debug is unminified). Keep the ML Kit
+# API and its internal vision/translate classes so the clients initialize correctly.
+-keep class com.google.mlkit.** { *; }
+-keep interface com.google.mlkit.** { *; }
+-keep class com.google.android.gms.internal.mlkit_** { *; }
+-dontwarn com.google.mlkit.**
