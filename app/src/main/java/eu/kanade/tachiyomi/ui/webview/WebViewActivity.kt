@@ -11,23 +11,19 @@ import androidx.core.net.toUri
 import eu.kanade.presentation.webview.WebViewScreenContent
 import eu.kanade.tachiyomi.R
 import eu.kanade.tachiyomi.network.NetworkHelper
-import eu.kanade.tachiyomi.source.online.HttpSource
 import eu.kanade.tachiyomi.ui.base.activity.BaseActivity
 import eu.kanade.tachiyomi.util.system.WebViewUtil
 import eu.kanade.tachiyomi.util.system.openInBrowser
 import eu.kanade.tachiyomi.util.system.toShareIntent
 import eu.kanade.tachiyomi.util.system.toast
 import eu.kanade.tachiyomi.util.view.setComposeContent
-import logcat.LogPriority
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import tachiyomi.core.common.util.system.logcat
-import tachiyomi.domain.source.service.SourceManager
 import tachiyomi.i18n.MR
 import uy.kohesive.injekt.injectLazy
 
 class WebViewActivity : BaseActivity() {
 
-    private val sourceManager: SourceManager by injectLazy()
     private val network: NetworkHelper by injectLazy()
 
     private var assistUrl: String? = null
@@ -58,21 +54,12 @@ class WebViewActivity : BaseActivity() {
         val url = intent.extras?.getString(URL_KEY) ?: return
         assistUrl = url
 
-        var headers = emptyMap<String, String>()
-        (sourceManager.get(intent.extras!!.getLong(SOURCE_KEY)) as? HttpSource)?.let { source ->
-            try {
-                headers = source.headers.toMultimap().mapValues { it.value.getOrNull(0) ?: "" }
-            } catch (e: Exception) {
-                logcat(LogPriority.ERROR, e) { "Failed to build headers" }
-            }
-        }
-
         setComposeContent {
             WebViewScreenContent(
                 onNavigateUp = { finish() },
                 initialTitle = intent.extras?.getString(TITLE_KEY),
                 url = url,
-                headers = headers,
+                headers = emptyMap(),
                 onUrlChange = { assistUrl = it },
                 onShare = this::shareWebpage,
                 onOpenInBrowser = this::openInBrowser,

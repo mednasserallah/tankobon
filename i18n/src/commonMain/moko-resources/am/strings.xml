@@ -7,17 +7,6 @@
 \n
 \nበዚህ የምስክር ወረቀት በመተማመን እነዚህን አደጋዎች ይቀበላሉ ፡፡</string>
     <string name="untrusted_extension">የማይታመን ቅጥያ</string>
-    <string name="ext_uninstall">ማራገፍ</string>
-    <string name="ext_untrusted">የማይታመን</string>
-    <string name="ext_trust">አደራ</string>
-    <string name="ext_installed">ተጭኗል</string>
-    <string name="ext_installing">በመጫን ላይ</string>
-    <string name="ext_downloading">በማውረድ ላይ</string>
-    <string name="ext_pending">በመጠባበቅ ላይ</string>
-    <string name="ext_install">ጫን</string>
-    <string name="ext_obsolete">ጊዜ ያለፈበት</string>
-    <string name="ext_update">አዘምን</string>
-    <string name="ext_updates_pending">ዝመናዎች በመጠባበቅ ላይ ናቸው</string>
     <string name="all">ሁሉም</string>
     <string name="default_category_summary">ሁል ጊዜም ይጠይቁ</string>
     <string name="default_category">ነባሪ ምድብ</string>
@@ -119,7 +108,6 @@
     <string name="action_mark_as_read">እንደተነበበ ምልክት ያድርጉ</string>
     <string name="action_select_inverse">ተገላቢጦሽ ምረጥ</string>
     <string name="action_select_all">ሁሉንም ምረጥ</string>
-    <string name="action_global_search">ዓለም አቀፍ ፍለጋ</string>
     <string name="action_search_settings">የፍለጋ ቅንብሮች</string>
     <string name="action_search">ፈልግ</string>
     <string name="action_sort_date_added">ቀን ታክሏል</string>
@@ -132,7 +120,6 @@
     <string name="action_filter">ማጣሪያ</string>
     <string name="action_menu">ምናሌ</string>
     <string name="action_settings">ማስተካከያዎች</string>
-    <string name="label_extensions">ኢክስቴንሽኖች</string>
     <string name="history">ታሪክ</string>
     <string name="track">መከታተል</string>
     <string name="chapters">ምዕራፎች</string>
@@ -144,7 +131,6 @@
     <string name="information_no_recent">የቅርብ ጊዜ ዝመናዎች የሉም</string>
     <string name="information_no_downloads">ምንም የሚወርድ የለም</string>
     <string name="label_help">እገዛ</string>
-    <string name="label_extension_info">የኤክስቴንሽን መረጃ</string>
     <string name="label_migration">ፍልሰት</string>
     <string name="label_backup">ምትኬ</string>
     <string name="label_sources">ምንጮች</string>
@@ -216,8 +202,6 @@
     <string name="pref_page_transitions">የገጽ ሽግግሮች</string>
     <string name="pref_cutout_short">በመቁረጥ አካባቢ ውስጥ ይዘትን አሳይ</string>
     <string name="pref_fullscreen">ሙሉ ማያ</string>
-    <string name="ext_nsfw_warning">18+ ይዘትን ይያዝ</string>
-    <string name="ext_nsfw_short">18+</string>
     <string name="action_sort_alpha">በፊደል ደርድር</string>
     <string name="information_webview_required">ለታቺዮሚ የድር እይታ ያስፈልጋል</string>
     <string name="information_cloudflare_bypass_failure">ክላዉድ ፍሌር ን ማለፍ አልተሳካም</string>
@@ -227,7 +211,6 @@
     <string name="tapping_inverted_horizontal">አግድም</string>
     <string name="tapping_inverted_none">የለም</string>
     <string name="pref_read_with_tapping_inverted">ተገልብጦ መታ ማድረግ</string>
-    <string name="channel_ext_updates">የቅጥያ ዝመናዎች</string>
     <string name="channel_new_chapters">የምዕራፍ ዝመናዎች</string>
     <string name="channel_errors">ስህተቶች</string>
     <string name="channel_complete">ተጠናቀቀ</string>

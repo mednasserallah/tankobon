@@ -18,16 +18,12 @@ internal fun LibraryComfortableGrid(
     onClick: (LibraryManga) -> Unit,
     onLongClick: (LibraryManga) -> Unit,
     onClickContinueReading: ((LibraryManga) -> Unit)?,
-    searchQuery: String?,
-    onGlobalSearchClicked: () -> Unit,
 ) {
     LazyLibraryGrid(
         modifier = Modifier.fillMaxSize(),
         columns = columns,
         contentPadding = contentPadding,
     ) {
-        globalSearchItem(searchQuery, onGlobalSearchClicked)
-
         items(
             items = items,
             contentType = { "library_comfortable_grid_item" },
@@ -44,7 +40,6 @@ internal fun LibraryComfortableGrid(
                     lastModified = manga.coverLastModified,
                 ),
                 coverBadgeStart = {
-                    DownloadsBadge(count = libraryItem.badges.downloadCount)
                     UnreadBadge(count = libraryItem.badges.unreadCount)
                 },
                 coverBadgeEnd = {

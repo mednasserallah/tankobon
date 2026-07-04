@@ -71,7 +71,6 @@
     <string name="action_sort_alpha">Betűrendben</string>
     <string name="action_sort_total">Fejezetek száma</string>
     <string name="action_sort_last_read">Legutóbb olvasott</string>
-    <string name="action_global_search">Globális keresés</string>
     <string name="action_mark_as_read">Olvasottnak jelölés</string>
     <string name="action_mark_as_unread">Olvasatlannak jelölés</string>
     <string name="action_mark_previous_as_read">Előző olvasottnak jelölése</string>
@@ -114,16 +113,6 @@
     <string name="webtoon_viewer">Hosszú szalag</string>
     <string name="scale_type_fit_screen">Képernyőhöz igazítás</string>
     <string name="label_migration">Áttelepítés</string>
-    <string name="label_extensions">Bővítmények</string>
-    <string name="ext_untrusted">Nem megbízható</string>
-    <string name="ext_uninstall">Eltávolítás</string>
-    <string name="label_extension_info">Bővítmény információ</string>
-    <string name="ext_update">Frissítés</string>
-    <string name="ext_install">Telepítés</string>
-    <string name="ext_pending">Függőben</string>
-    <string name="ext_downloading">Letöltés</string>
-    <string name="ext_installing">Telepítés</string>
-    <string name="ext_installed">Telepítve</string>
     <string name="action_open_in_web_view">Megnyitás WebView-ben</string>
     <string name="label_help">Segítség</string>
     <string name="label_downloaded_only">Csak letöltött</string>
@@ -150,7 +139,6 @@
     <string name="information_empty_library">A könyvtárad üres</string>
     <string name="information_no_recent">Nincs új frissítés</string>
     <string name="information_no_downloads">Nincs letöltés folyamatban</string>
-    <string name="channel_ext_updates">Bővítményfrissítések</string>
     <string name="channel_new_chapters">Fejezetfrissítések</string>
     <string name="channel_common">Gyakori</string>
     <string name="download_notifier_download_paused">Letöltés szüneteltetve</string>
@@ -182,8 +170,6 @@
     <string name="action_search_settings">Keresési beállítások</string>
     <string name="action_sort_date_added">Hozzáadás dátuma</string>
     <string name="untrusted_extension">Nem megbízható bővítmény</string>
-    <string name="ext_obsolete">Elavult</string>
-    <string name="ext_updates_pending">Függőben lévő frissítések</string>
     <string name="pref_library_update_refresh_metadata_summary">Új borító és részletek keresése a könyvtár frissítésekor</string>
     <string name="pref_library_update_refresh_metadata">Metaadatokat frissítse automatikusan</string>
     <string name="pref_category_library_update">Minden frissítése</string>
@@ -192,8 +178,6 @@
     <string name="pref_show_nsfw_source">Megjelenítés a forrás- és kiterjesztéseklistában</string>
     <string name="pref_show_reading_mode_summary">Rövid ideig mutassa a jelenlegi módot az olvasó megnyitásakor</string>
     <string name="pref_show_reading_mode">Olvasó mód mutatása</string>
-    <string name="ext_nsfw_warning">Tartalmazhat felnőtt (18+) tartalmat</string>
-    <string name="ext_nsfw_short">18+</string>
     <string name="obsolete_extension_message">Ez a bővítmény nem elérhető többé. Előfordulhat, hogy nem működik megfelelően, és problémákat okozhat az alkalmazásban. Az eltávolítása javasolt.</string>
     <string name="add_to_library">Könyvtárhoz adás</string>
     <string name="unknown_status">Ismeretlen állapot</string>
@@ -242,7 +226,6 @@
     <string name="nav_zone_next">Következő</string>
     <string name="right_and_left_nav">Jobb és bal</string>
     <string name="copy">Másolás</string>
-    <string name="migrate">Áttelepítés</string>
     <string name="display_mode_chapter">%1$s. fejezet</string>
     <string name="information_webview_required">A Mihon működéséhez WebView szükséges</string>
     <string name="notification_chapters_multiple">%1$s fejezet</string>
@@ -273,7 +256,6 @@
     <string name="untrusted_extension_message">Egy rosszindulatú bővítmény hozzáférhet a tárolt bejelentkezési adatokhoz, vagy tetszőleges kódot futtathat.
 \n
 \nHa megbízik ebben a bővítményben, elfogadja ezeket a kockázatokat.</string>
-    <string name="ext_trust">Bizalom</string>
     <string name="exclude">Tiltott: %s</string>
     <string name="include">Kedvelt: %s</string>
     <string name="none">Semmi</string>
@@ -305,7 +287,6 @@
     <string name="pref_dual_page_split">Szétvágása a széles oldalaknak</string>
     <string name="pref_show_navigation_mode_summary">Pillanatnyilag megjelníti, amikor az olvasó meg van nyitva</string>
     <string name="pref_show_navigation_mode">Érintési zónák átfedésének mutatása</string>
-    <string name="ext_app_info">Alkalmazás információ</string>
     <string name="categorized_display_settings">Kategóriakénti beállítások rendezéshez</string>
     <string name="theme_tako">Polip</string>
     <string name="theme_strawberrydaiquiri">Eper koktél</string>
@@ -393,16 +374,10 @@
     <string name="off">Ki</string>
     <string name="on">Be</string>
     <string name="pref_double_tap_anim_speed">Dupla koppintás animációjának sebessége</string>
-    <string name="ext_installer_pref">Telepítő</string>
-    <string name="ext_install_service_notif">Bővítmény telepítése…</string>
     <string name="action_sort_count">Összes elem</string>
-    <string name="ext_update_all">Az összes frissítése</string>
     <string name="action_display_language_badge">Nyelv</string>
-    <string name="ext_installer_shizuku_unavailable_dialog">Telepítsd és indítsd el a Shizukut, hogy kiegészítő telepítőként használd.</string>
     <string name="enhanced_services">Továbbfejlesztett szolgáltatások</string>
     <string name="label_warning">Figyelmeztetés</string>
-    <string name="ext_installer_shizuku_stopped">A Shizuku nem fut</string>
-    <string name="ext_installer_legacy">Régi</string>
     <string name="tracking_info">Egyirányú szinkronizálás, hogy a fejezetben való előrehaladás frissítve legyen a követési szolgáltatásokban. Állíts be követést egyéni elemekre, a követés gomb lenyomásával.</string>
     <string name="update_72hour">3 naponta</string>
     <string name="connected_to_wifi">Csak Wi-Fi-n keresztül</string>
@@ -418,10 +393,8 @@
     <string name="set_chapter_settings_as_default">Beállítás alapértelmezettként</string>
     <string name="pref_tablet_ui_mode">Tablet mód</string>
     <string name="action_move_to_top_all_for_series">Lista elejére</string>
-    <string name="action_global_search_query">Globális keresés erre: \"%1$s\"</string>
     <string name="no_more_results">Nincs több találat</string>
     <string name="no_results_found">Nincs találat</string>
-    <string name="action_global_search_hint">Globális keresés…</string>
     <string name="sort_by_upload_date">Feltöltési dátum szerint</string>
     <string name="dialog_with_checkbox_remove_description">Ez eltávolítja a fejezet olvasási dátumát. Biztos benne?</string>
     <string name="pref_update_only_completely_read">Olvasatlan fejezet(ek)et tartalmazó elemek kihagyása</string>
@@ -439,7 +412,6 @@
     <string name="local_invalid_format">Helytelen fejezet formátum</string>
     <string name="label_network">Hálózat</string>
     <string name="download_queue_error">Nem lehetett a fejezeteket letölteni. Próbálja újra a letöltések menüpontban</string>
-    <string name="migration_selection_prompt">Válaszon ki egy forrást, ahonnan importálni szeretne</string>
     <string name="download_insufficient_space">Nem lehetett letölteni kevés tárhely miatt</string>
     <string name="creating_backup">Biztonsági mentés létrehozása</string>
     <string name="creating_backup_error">Biztonsági mentés sikertelen</string>
@@ -463,9 +435,6 @@
     <string name="snack_categories_deleted">Kategóriák törölve</string>
     <string name="file_select_cover">Válasszon képet a fedlapnak</string>
     <string name="update_check_no_new_updates">Nem található új frissítés</string>
-    <string name="ext_info_version">Verzió</string>
-    <string name="ext_info_language">Nyelv</string>
-    <string name="ext_info_age_rating">Korhatár</string>
     <string name="pref_reset_viewer_flags_success">Minden olvasói beállítás visszaállítva</string>
     <string name="login_title">Jelentkezz be %1$s-ba/be</string>
     <string name="track_type">Típus</string>
@@ -528,7 +497,6 @@
     <string name="download_notifier_downloader_title">Letöltő</string>
     <string name="update_check_notification_download_in_progress">Letöltés…</string>
     <string name="source_filter_empty_screen">Nincs telepített forrás</string>
-    <string name="migration_help_guide">Forrás imortálási útmutató</string>
     <string name="picture_saved">Kép elmentve</string>
     <string name="decode_image_error">A képet nem lehetett betölteni</string>
     <string name="pref_category_for_this_series">Ennek a sorozatnak</string>
@@ -568,7 +536,6 @@
     <string name="transition_pages_error">%1$s oldalt nem lehetett betölteni</string>
     <string name="transition_pages_loading">Oldalak betöltése…</string>
     <string name="action_track">Nyilvántart</string>
-    <string name="extension_api_error">Nem sikerült a kiterjesztési lista megnyitása</string>
     <string name="disabled_nav">Kikapcsolva</string>
     <string name="enhanced_tracking_info">Szolgáltatások, amelyek fejlett funkciókat kínálnak. Az elemek automatikusan könyvtárhoz lesznek adva és frissítve lesznek.</string>
     <string name="pref_create_backup">Biztonsági mentés készítése</string>
@@ -747,8 +714,6 @@
     <string name="onboarding_guides_new_user">Új a(z) %s az ön számára? Javasoljuk, hogy olvassa el a Kezdő útmutatót.</string>
     <string name="onboarding_guides_returning_user">Újratelepíti a(z) %s?</string>
     <string name="pref_library_update_smart_update">Intelligens frissítés</string>
-    <string name="ext_permission_install_apps_warning">A bővítmények telepítéséhez engedélyek szükségesek. Az engedélyezéshez koppintson ide.</string>
-    <string name="ext_revoke_trust">Megbízható ismeretlen kiterjesztések visszavonása</string>
     <string name="action_open_repo">Nyílt forráskódú tároló</string>
     <string name="no_location_set">Nincs tárolási hely beállítva</string>
     <string name="action_create">Létrehoz</string>
@@ -816,8 +781,6 @@
     <string name="pref_flash_style_black">Fekete</string>
     <string name="export">Exportálás</string>
     <string name="manga_interval_expected_update_null">Ez a manga vagy befejeződött, vagy nincs megjósolt megjelenési dátum.</string>
-    <string name="ext_remove">Eltávolítás</string>
-    <string name="ext_confirm_remove">Bővítmény eltávolítása?</string>
     <string name="pref_download_new_unread_chapters_only">Duplikált fejezetek letöltésének kihagyása</string>
     <string name="file_picker_uri_permission_unsupported">Nem sikerült megszerezni a mappához való állandó hozzáférést. Az alkalmazás váratlanul viselkedhet.</string>
     <string name="theme_monochrome">Monokróm</string>

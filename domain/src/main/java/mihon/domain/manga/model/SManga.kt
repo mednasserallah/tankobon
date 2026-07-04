@@ -16,6 +16,7 @@ fun SManga.toDomainManga(sourceId: Long): Manga {
         updateStrategy = update_strategy,
         initialized = initialized,
         memo = memo,
+        edition = edition,
         source = sourceId,
     )
 }

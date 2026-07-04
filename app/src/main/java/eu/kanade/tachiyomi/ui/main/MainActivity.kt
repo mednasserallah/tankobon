@@ -1,7 +1,6 @@
 package eu.kanade.tachiyomi.ui.main
 
 import android.animation.ValueAnimator
-import android.app.SearchManager
 import android.app.assist.AssistContent
 import android.content.Context
 import android.content.Intent
@@ -71,22 +70,15 @@ import eu.kanade.domain.base.BasePreferences
 import eu.kanade.domain.source.interactor.GetIncognitoState
 import eu.kanade.presentation.components.AdaptiveSheet
 import eu.kanade.presentation.components.AppStateBanners
-import eu.kanade.presentation.components.DownloadedOnlyBannerBackgroundColor
 import eu.kanade.presentation.components.IncognitoModeBannerBackgroundColor
-import eu.kanade.presentation.components.IndexingBannerBackgroundColor
-import eu.kanade.presentation.more.settings.screen.browse.ExtensionStoresScreen
 import eu.kanade.presentation.more.settings.screen.data.RestoreBackupScreen
 import eu.kanade.presentation.util.AssistContentScreen
 import eu.kanade.presentation.util.DefaultNavigatorScreenTransition
-import eu.kanade.tachiyomi.data.cache.ChapterCache
-import eu.kanade.tachiyomi.data.download.DownloadCache
+import eu.kanade.tachiyomi.data.cache.VolumeCache
 import eu.kanade.tachiyomi.data.notification.NotificationReceiver
 import eu.kanade.tachiyomi.data.updater.AppUpdateChecker
-import eu.kanade.tachiyomi.extension.api.ExtensionApi
 import eu.kanade.tachiyomi.ui.base.activity.BaseActivity
 import eu.kanade.tachiyomi.ui.browse.source.browse.BrowseSourceScreen
-import eu.kanade.tachiyomi.ui.browse.source.globalsearch.GlobalSearchScreen
-import eu.kanade.tachiyomi.ui.deeplink.DeepLinkScreen
 import eu.kanade.tachiyomi.ui.home.HomeScreen
 import eu.kanade.tachiyomi.ui.manga.MangaScreen
 import eu.kanade.tachiyomi.ui.more.NewUpdateScreen
@@ -118,6 +110,7 @@ import tachiyomi.presentation.core.components.material.Scaffold
 import tachiyomi.presentation.core.components.material.padding
 import tachiyomi.presentation.core.i18n.stringResource
 import tachiyomi.presentation.core.util.collectAsState
+import tachiyomi.source.local.LocalSource
 import uy.kohesive.injekt.injectLazy
 import kotlin.time.Clock
 import kotlin.time.Duration.Companion.days
@@ -129,8 +122,7 @@ class MainActivity : BaseActivity() {
     private val libraryPreferences: LibraryPreferences by injectLazy()
     private val preferences: BasePreferences by injectLazy()
 
-    private val downloadCache: DownloadCache by injectLazy()
-    private val chapterCache: ChapterCache by injectLazy()
+    private val chapterCache: VolumeCache by injectLazy()
 
     private val getIncognitoState: GetIncognitoState by injectLazy()
 
@@ -163,13 +155,9 @@ class MainActivity : BaseActivity() {
             val context = LocalContext.current
 
             var incognito by remember { mutableStateOf(getIncognitoState.await(null)) }
-            val downloadOnly by preferences.downloadedOnly.collectAsState()
-            val indexing by downloadCache.isInitializing.collectAsState()
 
             val isSystemInDarkTheme = isSystemInDarkTheme()
             val statusBarBackgroundColor = when {
-                indexing -> IndexingBannerBackgroundColor
-                downloadOnly -> DownloadedOnlyBannerBackgroundColor
                 incognito -> IncognitoModeBannerBackgroundColor
                 else -> MaterialTheme.colorScheme.surface
             }
@@ -208,9 +196,7 @@ class MainActivity : BaseActivity() {
                 Scaffold(
                     topBar = {
                         AppStateBanners(
-                            downloadedOnlyMode = downloadOnly,
                             incognitoMode = incognito,
-                            indexing = indexing,
                             modifier = Modifier.windowInsetsPadding(scaffoldInsets),
                         )
                     },
@@ -324,15 +310,6 @@ class MainActivity : BaseActivity() {
                 } catch (e: Exception) {
                     logcat(LogPriority.ERROR, e)
                 }
-            }
-        }
-
-        // Extensions updates
-        LaunchedEffect(Unit) {
-            try {
-                ExtensionApi().checkForUpdates(context)
-            } catch (e: Exception) {
-                logcat(LogPriority.ERROR, e)
             }
         }
     }
@@ -531,36 +508,14 @@ class MainActivity : BaseActivity() {
             }
             Constants.SHORTCUT_UPDATES -> HomeScreen.Tab.Updates
             Constants.SHORTCUT_HISTORY -> HomeScreen.Tab.History
-            Constants.SHORTCUT_SOURCES -> HomeScreen.Tab.Browse(false)
-            Constants.SHORTCUT_EXTENSIONS -> HomeScreen.Tab.Browse(true)
-            Constants.SHORTCUT_DOWNLOADS -> {
+            Constants.SHORTCUT_SOURCES -> {
                 navigator.popUntilRoot()
-                HomeScreen.Tab.More(toDownloads = true)
+                navigator.push(BrowseSourceScreen(LocalSource.ID, null))
+                null
             }
             Intent.ACTION_APPLICATION_PREFERENCES -> {
                 navigator.popUntilRoot()
                 navigator.push(SettingsScreen())
-                null
-            }
-            Intent.ACTION_SEARCH, Intent.ACTION_SEND, "com.google.android.gms.actions.SEARCH_ACTION" -> {
-                // If the intent match the "standard" Android search intent
-                // or the Google-specific search intent (triggered by saying or typing "search *query* on *Tachiyomi*" in Google Search/Google Assistant)
-
-                // Get the search query provided in extras, and if not null, perform a global search with it.
-                val query = intent.getStringExtra(SearchManager.QUERY) ?: intent.getStringExtra(Intent.EXTRA_TEXT)
-                if (!query.isNullOrEmpty()) {
-                    navigator.popUntilRoot()
-                    navigator.push(DeepLinkScreen(query))
-                }
-                null
-            }
-            INTENT_SEARCH -> {
-                val query = intent.getStringExtra(INTENT_SEARCH_QUERY)
-                if (!query.isNullOrEmpty()) {
-                    val filter = intent.getStringExtra(INTENT_SEARCH_FILTER)
-                    navigator.popUntilRoot()
-                    navigator.push(GlobalSearchScreen(query, filter))
-                }
                 null
             }
             Intent.ACTION_VIEW -> {
@@ -568,13 +523,6 @@ class MainActivity : BaseActivity() {
                 if (intent.data.toString().endsWith(".tachibk")) {
                     navigator.popUntilRoot()
                     navigator.push(RestoreBackupScreen(intent.data.toString()))
-                }
-                // Deep link to add extension store
-                else if (intent.isAddExtensionStoreIntent()) {
-                    intent.data?.getQueryParameter("url")?.let { repoUrl ->
-                        navigator.popUntilRoot()
-                        navigator.push(ExtensionStoresScreen(repoUrl))
-                    }
                 }
                 null
             }
@@ -587,17 +535,6 @@ class MainActivity : BaseActivity() {
 
         ready = true
         return true
-    }
-
-    private fun Intent.isAddExtensionStoreIntent(): Boolean {
-        return (scheme == "tachiyomi" && data?.host == "add-repo") ||
-            (scheme == "mihon" && data?.host == "extension-store")
-    }
-
-    companion object {
-        const val INTENT_SEARCH = "eu.kanade.tachiyomi.SEARCH"
-        const val INTENT_SEARCH_QUERY = "query"
-        const val INTENT_SEARCH_FILTER = "filter"
     }
 }
 

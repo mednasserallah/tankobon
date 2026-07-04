@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="channel_ext_updates">עדכונים לתוסף</string>
     <string name="channel_new_chapters">עדכונים לפרק</string>
     <string name="channel_common">נפוץ</string>
     <string name="download_notifier_download_paused">ההורדות מושהות</string>
@@ -29,8 +28,6 @@
     <string name="notification_new_chapters">נמצאו פרקים חדשים</string>
     <string name="download_queue_error">לא ניתן להוריד פרקים. אפשר לנסות שוב בדף ההורדות</string>
     <string name="copy">העתק</string>
-    <string name="migrate">העברה</string>
-    <string name="migration_selection_prompt">בחר מקור שברצונך להעביר ממנו</string>
     <string name="migration_dialog_what_to_include">בחר נתונים כדי לכלול</string>
     <string name="updating_library">מעדכן ספרייה</string>
     <string name="transition_pages_error">טעינת העמודים נכשלה: %1$s</string>
@@ -83,7 +80,6 @@
     <string name="unknown">לא ידוע</string>
     <string name="ongoing">נמשך</string>
     <string name="latest">המאוחר ביותר</string>
-    <string name="action_global_search_hint">חיפוש גלובלי…</string>
     <string name="other_source">אחר</string>
     <string name="local_source">מאנגה מקומית</string>
     <string name="no_results_found">לא נמצאו תוצאות</string>
@@ -105,15 +101,6 @@
 \nתוסף זדוני יכול לקרוא את אישורי ההתחברות המאוחסנים ב-Mihon או להריץ קוד שרירותי.
 \n
 \nעל ידי אמון באישור זה אתה מקבל סיכונים אלה.</string>
-    <string name="ext_uninstall">הסר התקנה</string>
-    <string name="ext_untrusted">לא מאומת</string>
-    <string name="ext_installed">הותקן</string>
-    <string name="ext_installing">מתקין</string>
-    <string name="ext_downloading">מוריד</string>
-    <string name="ext_pending">ממתין</string>
-    <string name="ext_install">התקן</string>
-    <string name="ext_update">עדכון</string>
-    <string name="ext_updates_pending">עדכונים ממתינים</string>
     <string name="all">הכל</string>
     <string name="default_category_summary">שאל תמיד</string>
     <string name="default_category">קטגוריית ברירת המחדל</string>
@@ -279,7 +266,6 @@
     <string name="action_mark_as_unread">סמן כלא נקרא</string>
     <string name="action_mark_as_read">סמן כנקרא</string>
     <string name="action_select_all">סמן הכל</string>
-    <string name="action_global_search">חיפוש כללי</string>
     <string name="action_search">חיפוש</string>
     <string name="action_sort_latest_chapter">הפרק האחרון</string>
     <string name="action_sort_last_read">נקרא לאחרונה</string>
@@ -291,8 +277,6 @@
     <string name="action_menu">תפריט</string>
     <string name="action_settings">הגדרות</string>
     <string name="label_help">עזרה</string>
-    <string name="label_extension_info">פרטי הרחבה</string>
-    <string name="label_extensions">הרחבות</string>
     <string name="label_migration">העברה</string>
     <string name="label_backup">גיבוי ושחזור</string>
     <string name="label_sources">מקורות</string>
@@ -365,18 +349,10 @@
     <string name="action_show_manga">הראה פריט</string>
     <string name="pref_update_only_completely_read">עם פרק(ים) שלא נקרא(ו)</string>
     <string name="action_move_to_top_all_for_series">העבר סדרה לראש</string>
-    <string name="ext_obsolete">מיושן</string>
     <string name="pref_update_only_started">זה עוד לא התחיל</string>
-    <string name="ext_update_all">עדכן הכל</string>
-    <string name="ext_trust">האמן</string>
-    <string name="ext_nsfw_warning">עלול להכיל תוכן שלא מתאים למקום העבודה (18+)</string>
-    <string name="ext_install_service_notif">מתקין הרחבה…</string>
     <string name="include">כלול: %s</string>
     <string name="pref_show_navigation_mode_summary">הראה לזמן קצר כשפותחים את מצב הקריאה</string>
     <string name="pref_show_reading_mode">הראה מצב קריאה</string>
-    <string name="ext_app_info">פרטי האפליקצייה</string>
-    <string name="extension_api_error">נכשל בקבלת רשימת ההרחבות</string>
-    <string name="ext_nsfw_short">18+</string>
     <string name="none">אין</string>
     <string name="update_72hour">כל 3 ימים</string>
     <string name="connected_to_wifi">רק ב Wi-Fi</string>
@@ -432,7 +408,6 @@
     <string name="pref_auto_clear_chapter_cache">נקה את זיכרון המטמון של הפרקים כשהאפליקציה עולה</string>
     <string name="clear_database_source_item_count">יש %1$d פריטים שנמצאים במסד הנתונים אבל לא בספרייה</string>
     <string name="tabs_header">לשוניות</string>
-    <string name="action_global_search_query">חפש את \"%1$s\" גלובלית</string>
     <string name="unknown_status">מצב לא ידוע</string>
     <string name="licensed">מורשה, בעל רישיון</string>
     <string name="publishing_finished">הפרסום הסתיים</string>
@@ -501,7 +476,6 @@
     <string name="page_list_empty_error">לא נמצאו עמודים</string>
     <string name="loader_not_implemented_error">מקור לא נמצא</string>
     <string name="clear_history_completed">ההיסטוריה נמחקה</string>
-    <string name="ext_installer_pref">מתקין</string>
     <string name="channel_progress">התקדמות</string>
     <string name="channel_complete">הושלם</string>
     <string name="spen_previous_page">הדף הקודם</string>
@@ -532,11 +506,8 @@
     <string name="action_close">סגור</string>
     <string name="channel_errors">שגיאות</string>
     <string name="pref_reset_viewer_flags">אפס את הגדרות מצב הקריאה של כל סדרה בנפרד</string>
-    <string name="ext_installer_shizuku_stopped">Shizuku לא פועל</string>
-    <string name="ext_installer_shizuku_unavailable_dialog">התקן והפעל את Shizuku כדי להשתמש בShizuku כמתקין ההרחבות.</string>
     <string name="pref_show_navigation_mode">הראה את פרישת מיקומי הלחיצה</string>
     <string name="clear_history_confirmation">אתה בטוח? כל ההיסטוריה תמחק.</string>
-    <string name="migration_help_guide">מדריך נדידת מקורות</string>
     <string name="download_insufficient_space">לא ניתן להוריד פרקים כי אין מספיק מקום אחסון</string>
     <string name="download_queue_size_warning">אזהרה: הורדות גדולות עלולות לגרום להאטה במקורות ו/או לחסימת %s. לחץ כדי ללמוד עוד.</string>
     <string name="local_invalid_format">פורמט פרק לא תקין</string>
@@ -544,15 +515,11 @@
     <string name="delete_category_confirmation">האם תרצה למחוק את הקטגוריה %s?</string>
     <string name="pref_dual_page_split">פצל עמודים רחבים</string>
     <string name="kindlish_nav">כמו ספר אלקטרוני</string>
-    <string name="ext_info_version">גרסה</string>
     <string name="filter_mode_overlay">כיסוי</string>
-    <string name="ext_info_age_rating">הגבלת גיל</string>
-    <string name="ext_info_language">שפה</string>
     <string name="pref_color_filter_mode">פילטר צבע משתלב</string>
     <string name="filter_mode_multiply">להכפיל</string>
     <string name="delete_category">מחק קטגוריה</string>
     <string name="disabled_nav">הגבלה</string>
-    <string name="ext_installer_legacy">מורשת</string>
     <string name="pref_app_language">שפת אפליקציה</string>
     <string name="pref_dual_page_invert">הפוך מיקום של עמודים מפוצלים</string>
     <string name="tracking_guide">מדריך מעקב</string>
@@ -736,7 +703,6 @@
     <string name="action_notes">הערות</string>
     <string name="theme_nord">נורד</string>
     <string name="pref_mark_duplicate_read_chapter_read_existing">לאחר קריאת פרק</string>
-    <string name="ext_remove">הסר</string>
     <string name="selected">נבחר</string>
     <string name="not_selected">לא נבחר</string>
     <string name="action_menu_overflow_description">אפשרויות נוספות</string>

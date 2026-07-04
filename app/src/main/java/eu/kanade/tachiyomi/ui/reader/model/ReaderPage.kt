@@ -10,5 +10,5 @@ open class ReaderPage(
     var stream: (() -> InputStream)? = null,
 ) : Page(index, url, imageUrl, null) {
 
-    open lateinit var chapter: ReaderChapter
+    open lateinit var chapter: ReaderVolume
 }

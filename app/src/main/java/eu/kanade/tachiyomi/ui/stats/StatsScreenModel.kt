@@ -7,7 +7,6 @@ import cafe.adriel.voyager.core.model.screenModelScope
 import eu.kanade.core.util.fastCountNot
 import eu.kanade.presentation.more.stats.StatsScreenState
 import eu.kanade.presentation.more.stats.data.StatsData
-import eu.kanade.tachiyomi.data.download.DownloadManager
 import eu.kanade.tachiyomi.data.track.TrackerManager
 import eu.kanade.tachiyomi.source.model.SManga
 import kotlinx.coroutines.flow.update
@@ -26,7 +25,6 @@ import uy.kohesive.injekt.Injekt
 import uy.kohesive.injekt.api.get
 
 class StatsScreenModel(
-    private val downloadManager: DownloadManager = Injekt.get(),
     private val getLibraryManga: GetLibraryManga = Injekt.get(),
     private val getTotalReadDuration: GetTotalReadDuration = Injekt.get(),
     private val getTracks: GetTracks = Injekt.get(),
@@ -61,10 +59,9 @@ class StatsScreenModel(
                 localMangaCount = distinctLibraryManga.count { it.manga.isLocal() },
             )
 
-            val chaptersStatData = StatsData.Chapters(
+            val chaptersStatData = StatsData.Volumes(
                 totalChapterCount = distinctLibraryManga.sumOf { it.totalChapters }.toInt(),
                 readChapterCount = distinctLibraryManga.sumOf { it.readCount }.toInt(),
-                downloadCount = downloadManager.getDownloadCount(),
             )
 
             val trackersStatData = StatsData.Trackers(

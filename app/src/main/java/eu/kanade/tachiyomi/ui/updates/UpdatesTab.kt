@@ -16,11 +16,9 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.TabOptions
 import eu.kanade.presentation.updates.UpdateScreen
-import eu.kanade.presentation.updates.UpdatesDeleteConfirmationDialog
 import eu.kanade.presentation.updates.UpdatesFilterDialog
 import eu.kanade.presentation.util.Tab
 import eu.kanade.tachiyomi.R
-import eu.kanade.tachiyomi.ui.download.DownloadQueueScreen
 import eu.kanade.tachiyomi.ui.home.HomeScreen
 import eu.kanade.tachiyomi.ui.main.MainActivity
 import eu.kanade.tachiyomi.ui.manga.MangaScreen
@@ -47,7 +45,7 @@ data object UpdatesTab : Tab {
         }
 
     override suspend fun onReselect(navigator: Navigator) {
-        navigator.push(DownloadQueueScreen)
+        // No-op: the download queue has been removed.
     }
 
     @Composable
@@ -66,13 +64,11 @@ data object UpdatesTab : Tab {
             onSelectAll = screenModel::toggleAllSelection,
             onInvertSelection = screenModel::invertSelection,
             onUpdateLibrary = screenModel::updateLibrary,
-            onDownloadChapter = screenModel::downloadChapters,
             onMultiBookmarkClicked = screenModel::bookmarkUpdates,
             onMultiMarkAsReadClicked = screenModel::markUpdatesRead,
-            onMultiDeleteClicked = screenModel::showConfirmDeleteChapters,
             onUpdateSelected = screenModel::toggleSelection,
             onOpenChapter = {
-                val intent = ReaderActivity.newIntent(context, it.update.mangaId, it.update.chapterId)
+                val intent = ReaderActivity.newIntent(context, it.update.mangaId, it.update.volumeId)
                 context.startActivity(intent)
             },
             onCalendarClicked = { navigator.push(UpcomingScreen()) },
@@ -81,13 +77,7 @@ data object UpdatesTab : Tab {
         )
 
         val onDismissDialog = { screenModel.setDialog(null) }
-        when (val dialog = state.dialog) {
-            is UpdatesScreenModel.Dialog.DeleteConfirmation -> {
-                UpdatesDeleteConfirmationDialog(
-                    onDismissRequest = onDismissDialog,
-                    onConfirm = { screenModel.deleteChapters(dialog.toDelete) },
-                )
-            }
+        when (state.dialog) {
             is UpdatesScreenModel.Dialog.FilterSheet -> {
                 UpdatesFilterDialog(
                     onDismissRequest = onDismissDialog,

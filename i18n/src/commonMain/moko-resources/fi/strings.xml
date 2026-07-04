@@ -18,7 +18,6 @@
     <string name="chapters">Luvut</string>
     <string name="label_recent_updates">Päivitykset</string>
     <string name="action_sort_total">Lukuja yhteensä</string>
-    <string name="action_global_search">Globaali haku</string>
     <string name="action_mark_as_unread">Merkitse lukemattomaksi</string>
     <string name="action_mark_previous_as_read">Merkitse aiemmat luetuiksi</string>
     <string name="action_bookmark">Kirjanmerkitse luku</string>
@@ -41,7 +40,6 @@
     <string name="transition_pages_loading">Ladataan sivuja…</string>
     <string name="transition_pages_error">Sivujen lataus epäonnistui: %1$s</string>
     <string name="migration_dialog_what_to_include">Valitse sisällytettävä tieto</string>
-    <string name="migrate">Vaihda</string>
     <string name="copy">Kopioi</string>
     <string name="download_queue_error">Lukujen lataaminen epäonnistui. Voit yrittää uudelleen lataukset-osiossa</string>
     <string name="notification_new_chapters">Uusia lukuja löydetty</string>
@@ -69,8 +67,6 @@
     <string name="channel_common">Tavallinen</string>
     <string name="label_backup">Varmuuskopiointi ja palautus</string>
     <string name="label_migration">Siirrä</string>
-    <string name="label_extensions">Laajennukset</string>
-    <string name="label_extension_info">Laajennuksen tiedot</string>
     <string name="action_filter">Suodatus</string>
     <string name="action_filter_bookmarked">Kirjanmerkityt</string>
     <string name="action_filter_unread">Lukemattomat</string>
@@ -131,15 +127,6 @@
     <string name="pref_auto_update_manga_sync">Päivitä luvun edistyminen lukemisen jälkeen</string>
     <string name="default_category">Oletus kategoria</string>
     <string name="default_category_summary">Kysy aina</string>
-    <string name="ext_update">Päivitä</string>
-    <string name="ext_install">Asenna</string>
-    <string name="ext_pending">Odotetaan</string>
-    <string name="ext_downloading">Ladataan</string>
-    <string name="ext_installing">Asennetaan</string>
-    <string name="ext_installed">Asennettu</string>
-    <string name="ext_trust">Luota</string>
-    <string name="ext_untrusted">Luottamaton</string>
-    <string name="ext_uninstall">Poista asennus</string>
     <string name="untrusted_extension">Luottamattomat laajennokset</string>
     <string name="untrusted_extension_message">Haitallinen laajennus voi lukea tallennetut kirjautumistiedot Mihonista tai suorittaa luvatonta koodia.
 \n
@@ -227,7 +214,6 @@
     <string name="unknown_error">Tuntematon virhe</string>
     <string name="updating_category">Päivitetään kategoriaa</string>
     <string name="no_more_results">Ei enempää tuloksia</string>
-    <string name="action_global_search_hint">Globaali haku…</string>
     <string name="delete_downloads_for_manga">Poista ladatut luvut?</string>
     <string name="copied_to_clipboard">Kopioitu leikepöydälle
 \n%1$s</string>
@@ -280,12 +266,10 @@
     <string name="filter_mode_darken">Polttava / Tummentava</string>
     <string name="label_help">Apu</string>
     <string name="no_results_found">Ei tuloksia</string>
-    <string name="migration_selection_prompt">Valitse lähde josta vaihdetaan</string>
     <string name="action_webview_back">Takaisin</string>
     <string name="action_webview_forward">Eteenpäin</string>
     <string name="action_webview_refresh">Päivitä</string>
     <string name="pref_category_library">Kirjasto</string>
-    <string name="ext_obsolete">Vanhentunut</string>
     <string name="obsolete_extension_message">Tämä laajennos ei ole enää saatavilla. Se ei välttämättä toimi oikein ja voi aiheuttaa ongelmia Mihonin kanssa. Laajennoksen poistoa suositellaan.</string>
     <string name="pref_date_format">Päivämäärän muoto</string>
     <string name="pref_category_library_update">Globaali päivitys</string>
@@ -308,7 +292,6 @@
     <string name="information_cloudflare_bypass_failure">Cloudflaren ohittaminen epäonnistui</string>
     <string name="channel_new_chapters">Lukujen päivitykset</string>
     <string name="pref_category_display">Näyttö</string>
-    <string name="ext_updates_pending">Päivitettävät</string>
     <string name="information_webview_outdated">Päivitä WebView-sovellus yhteensopivuuden parantamiseksi</string>
     <string name="notification_chapters_single">Luku %1$s</string>
     <string name="notification_chapters_single_and_more">Luku %1$s ja %2$d lisää</string>
@@ -328,7 +311,6 @@
     <string name="action_oldest">Vanhin</string>
     <string name="action_move_to_top">Siirrä alkuun</string>
     <string name="action_move_to_bottom">Siirrä loppuun</string>
-    <string name="channel_ext_updates">Laajennuspäivitykset</string>
     <string name="restoring_backup_canceled">Palautus peruttu</string>
     <string name="restoring_backup_error">Varmuuskopion palautus epäonnistui</string>
     <string name="creating_backup_error">Varmuuskopiointi epäonnistui</string>
@@ -395,7 +377,6 @@
     <string name="unknown_author">Tuntematon tekijä</string>
     <string name="whats_new">Mitä uutta</string>
     <string name="download_insufficient_space">Lukuja ei voitu ladata vähäisen tallennustilan vuoksi</string>
-    <string name="action_global_search_query">Etsi \"%1$s\" globaalisesti</string>
     <string name="pref_category_reading_mode">Lukutila</string>
     <string name="pref_category_theme">Teema</string>
     <string name="action_sort_date_added">Lisäyspäivämäärä</string>
@@ -406,8 +387,6 @@
     <string name="backup_restore_missing_trackers">Seurantapalvelimet joihin et ole kirjautunut sisään:</string>
     <string name="pref_remove_bookmarked_chapters">Poista kirjanmerkityt luvut</string>
     <string name="pref_category_delete_chapters">Poista luvut</string>
-    <string name="ext_nsfw_warning">Tämän laajennoksen lähteet voivat sisältää NSFW (18+) -sisältöä</string>
-    <string name="ext_nsfw_short">18+</string>
     <string name="parental_controls_info">Tämä ei estä epävirallisia tai mahdollisesti väärin merkittyjä laajennuksia näyttämästä NSFW 18+ sisältöä sovelluksessa.</string>
     <string name="no_chapters_error">Lukuja ei löytynyt</string>
     <string name="chapter_settings_updated">Päivitetyt luvun oletusasetukset</string>
@@ -426,7 +405,6 @@
     <string name="clear_history_completed">Historia poistettu</string>
     <string name="spen_next_page">Seuraava sivu</string>
     <string name="spen_previous_page">Edellinen sivu</string>
-    <string name="migration_help_guide">Lähteen siirto-opas</string>
     <string name="pref_category_nsfw_content">NSFW (18+) lähteet</string>
     <string name="pref_show_nsfw_source">Näytä lähde- ja lisäosaluettelossa</string>
     <string name="file_picker_error">Tiedostonvalitsinsovellusta ei löytynyt</string>
@@ -517,17 +495,9 @@
     <string name="update_72hour">Joka 3. Päivä</string>
     <string name="connected_to_wifi">Ainoastaan WiFillä</string>
     <string name="pref_inverted_colors">Käänteisväri</string>
-    <string name="ext_app_info">Sovelluksen tiedot</string>
-    <string name="ext_installer_legacy">Perinteinen</string>
     <string name="rotation_reverse_portrait">Käänteinen kuva</string>
     <string name="categorized_display_settings">Kategoria kohtaiset asetukset lajittelulle ja näytölle</string>
-    <string name="ext_installer_shizuku_stopped">Shizuku on pysähtynyt</string>
     <string name="disabled_nav">Poistettu käytöstä</string>
-    <string name="ext_installer_shizuku_unavailable_dialog">Asenna ja aja Shizuku käyttääksesi Shizukua laajennusten asentamiseen.</string>
-    <string name="ext_update_all">Päivitä kaikki</string>
-    <string name="extension_api_error">Laajennusluettelon halu epäonnistui</string>
-    <string name="ext_install_service_notif">Asennetaan laajennusta…</string>
-    <string name="ext_installer_pref">Asentaja</string>
     <string name="action_remove_everything">Poista kaikki</string>
     <string name="action_sort_last_manga_update">Viimeisin manga päivitys</string>
     <string name="action_sort_unread_count">Lukemattomien määrä</string>
@@ -542,11 +512,9 @@
     <string name="save_chapter_as_cbz">Tallenna CBZ-arkistona</string>
     <string name="pref_landscape_zoom">Zoomaa vaakasuuntaisiin kuviin</string>
     <string name="pref_highest">Korkein</string>
-    <string name="ext_info_language">Kieli</string>
     <string name="action_search_hint">Haku…</string>
     <string name="theme_lavender">Laventeli</string>
     <string name="pref_app_language">Sovelluksen kieli</string>
-    <string name="ext_info_version">Versio</string>
     <string name="action_close">Sulje</string>
     <string name="theme_tidalwave">Vuorovesiaalto</string>
     <string name="pref_high">Korkea</string>
@@ -593,7 +561,6 @@
     <string name="manga_cover">Kansikuva</string>
     <string name="error_sharing_cover">Virhe jakaessa kansikuvaa</string>
     <string name="learn_more">Napauta saadaksesi lisätietoja</string>
-    <string name="ext_info_age_rating">Ikäluokitus</string>
     <string name="tracking_guide">Seurantaopas</string>
     <string name="pref_reset_viewer_flags_success">Kaikki lukijan asetukset poistettu</string>
     <string name="pref_verbose_logging">Yksityiskohtainen kirjaaminen</string>
@@ -643,7 +610,6 @@
     <string name="theme_nord">Pohjoismainen</string>
     <string name="pref_relative_format">Suhteelliset aikaleimat</string>
     <string name="pref_relative_format_summary">Käytä muotoa \"%1$s\", kuin muotoa \"%2$s\"</string>
-    <string name="ext_permission_install_apps_warning">Laajennosten asentamiseen tarvitaan lupia. Napauta tästä myöntääksesi luvat.</string>
     <string name="pref_page_rotate_invert">Peilaa käännetyt leveät sivut</string>
     <string name="pref_double_tap_zoom">Tuplanapauta lähentääksesi</string>
     <string name="pref_flash_page_summ">Vähentää haamujälkiä e-paperi näytöillä</string>

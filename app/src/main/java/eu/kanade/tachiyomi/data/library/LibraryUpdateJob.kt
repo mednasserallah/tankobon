@@ -18,7 +18,6 @@ import androidx.work.WorkInfo
 import androidx.work.WorkQuery
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
-import eu.kanade.tachiyomi.data.download.DownloadManager
 import eu.kanade.tachiyomi.data.notification.Notifications
 import eu.kanade.tachiyomi.source.model.SManga
 import eu.kanade.tachiyomi.source.model.UpdateStrategy
@@ -36,15 +35,14 @@ import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
 import logcat.LogPriority
-import mihon.domain.chapter.interactor.FilterChaptersForDownload
 import mihon.domain.source.interactor.UpdateMangaFromRemote
 import tachiyomi.core.common.i18n.stringResource
 import tachiyomi.core.common.preference.getAndSet
 import tachiyomi.core.common.util.lang.withIOContext
 import tachiyomi.core.common.util.system.logcat
 import tachiyomi.domain.category.model.Category
-import tachiyomi.domain.chapter.model.Chapter
-import tachiyomi.domain.chapter.model.NoChaptersException
+import tachiyomi.domain.chapter.model.NoVolumesException
+import tachiyomi.domain.chapter.model.Volume
 import tachiyomi.domain.library.model.LibraryManga
 import tachiyomi.domain.library.service.LibraryPreferences
 import tachiyomi.domain.library.service.LibraryPreferences.Companion.DEVICE_CHARGING
@@ -68,7 +66,6 @@ import java.time.Instant
 import java.time.ZonedDateTime
 import java.util.concurrent.CopyOnWriteArrayList
 import java.util.concurrent.TimeUnit
-import kotlin.concurrent.atomics.AtomicBoolean
 import kotlin.concurrent.atomics.AtomicInt
 import kotlin.concurrent.atomics.ExperimentalAtomicApi
 import kotlin.concurrent.atomics.incrementAndFetch
@@ -79,11 +76,9 @@ class LibraryUpdateJob(private val context: Context, workerParams: WorkerParamet
 
     private val sourceManager: SourceManager = Injekt.get()
     private val libraryPreferences: LibraryPreferences = Injekt.get()
-    private val downloadManager: DownloadManager = Injekt.get()
     private val getLibraryManga: GetLibraryManga = Injekt.get()
     private val getManga: GetManga = Injekt.get()
     private val fetchInterval: FetchInterval = Injekt.get()
-    private val filterChaptersForDownload: FilterChaptersForDownload = Injekt.get()
     private val updateMangaFromRemote: UpdateMangaFromRemote = Injekt.get()
 
     private val notifier = LibraryUpdateNotifier(context)
@@ -231,9 +226,8 @@ class LibraryUpdateJob(private val context: Context, workerParams: WorkerParamet
         val semaphore = Semaphore(5)
         val progressCount = AtomicInt(0)
         val currentlyUpdatingManga = CopyOnWriteArrayList<Manga>()
-        val newUpdates = CopyOnWriteArrayList<Pair<Manga, Array<Chapter>>>()
+        val newUpdates = CopyOnWriteArrayList<Pair<Manga, Array<Volume>>>()
         val failedUpdates = CopyOnWriteArrayList<Pair<Manga, String?>>()
-        val hasDownloads = AtomicBoolean(false)
         val fetchWindow = fetchInterval.getWindow(ZonedDateTime.now())
 
         coroutineScope {
@@ -260,13 +254,6 @@ class LibraryUpdateJob(private val context: Context, workerParams: WorkerParamet
                                             .sortedByDescending { it.sourceOrder }
 
                                         if (newChapters.isNotEmpty()) {
-                                            val chaptersToDownload = filterChaptersForDownload.await(manga, newChapters)
-
-                                            if (chaptersToDownload.isNotEmpty()) {
-                                                downloadChapters(manga, chaptersToDownload)
-                                                hasDownloads.store(true)
-                                            }
-
                                             libraryPreferences.newUpdatesCount.getAndSet { it + newChapters.size }
 
                                             // Convert to the manga that contains new chapters
@@ -274,7 +261,7 @@ class LibraryUpdateJob(private val context: Context, workerParams: WorkerParamet
                                         }
                                     } catch (e: Throwable) {
                                         val errorMessage = when (e) {
-                                            is NoChaptersException -> context.stringResource(
+                                            is NoVolumesException -> context.stringResource(
                                                 MR.strings.no_chapters_error,
                                             )
                                             // failedUpdates will already have the source, don't need to copy it into the message
@@ -297,9 +284,6 @@ class LibraryUpdateJob(private val context: Context, workerParams: WorkerParamet
 
         if (newUpdates.isNotEmpty()) {
             notifier.showUpdateNotifications(newUpdates)
-            if (hasDownloads.load()) {
-                downloadManager.startDownloads()
-            }
         }
 
         if (failedUpdates.isNotEmpty()) {
@@ -311,19 +295,13 @@ class LibraryUpdateJob(private val context: Context, workerParams: WorkerParamet
         }
     }
 
-    private fun downloadChapters(manga: Manga, chapters: List<Chapter>) {
-        // We don't want to start downloading while the library is updating, because websites
-        // may don't like it and they could ban the user.
-        downloadManager.downloadChapters(manga, chapters, false)
-    }
-
     /**
      * Updates the chapters for the given manga and adds them to the database.
      *
      * @param manga the manga to update.
      * @return a pair of the inserted and removed chapters.
      */
-    private suspend fun updateManga(manga: Manga, fetchWindow: Pair<Long, Long>): List<Chapter> {
+    private suspend fun updateManga(manga: Manga, fetchWindow: Pair<Long, Long>): List<Volume> {
         val source = sourceManager.getOrStub(manga.source)
 
         val update = updateMangaFromRemote(

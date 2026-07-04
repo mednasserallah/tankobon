@@ -51,7 +51,7 @@ import tachiyomi.i18n.MR
 import tachiyomi.presentation.core.i18n.stringResource
 import kotlin.math.roundToInt
 
-enum class ChapterNavigatorType {
+enum class VolumeNavigatorType {
     HORIZONTAL_LTR,
     HORIZONTAL_RTL,
     VERTICAL_LEFT,
@@ -62,8 +62,8 @@ enum class ChapterNavigatorType {
 }
 
 @Composable
-fun ChapterNavigator(
-    type: ChapterNavigatorType,
+fun VolumeNavigator(
+    type: VolumeNavigatorType,
     onNextChapter: () -> Unit,
     enabledNext: Boolean,
     onPreviousChapter: () -> Unit,
@@ -103,8 +103,8 @@ fun ChapterNavigator(
     )
 
     if (type.isHorizontal()) {
-        ChapterNavigator(
-            isRtl = type == ChapterNavigatorType.HORIZONTAL_RTL,
+        VolumeNavigator(
+            isRtl = type == VolumeNavigatorType.HORIZONTAL_RTL,
             state = state,
             onNextChapter = onNextChapter,
             enabledNext = enabledNext,
@@ -118,7 +118,7 @@ fun ChapterNavigator(
             buttonColor = buttonColor,
         )
     } else {
-        VerticalChapterNavigator(
+        VerticalVolumeNavigator(
             state = state,
             onNextChapter = onNextChapter,
             enabledNext = enabledNext,
@@ -135,7 +135,7 @@ fun ChapterNavigator(
 }
 
 @Composable
-fun ChapterNavigator(
+fun VolumeNavigator(
     isRtl: Boolean,
     state: SliderState,
     onNextChapter: () -> Unit,
@@ -220,7 +220,7 @@ fun ChapterNavigator(
 }
 
 @Composable
-fun VerticalChapterNavigator(
+fun VerticalVolumeNavigator(
     state: SliderState,
     onNextChapter: () -> Unit,
     enabledNext: Boolean,
@@ -292,11 +292,11 @@ fun VerticalChapterNavigator(
 
 @Preview
 @Composable
-private fun ChapterNavigatorPreview() {
+private fun VolumeNavigatorPreview() {
     var currentPage by remember { mutableIntStateOf(1) }
     TachiyomiPreviewTheme {
-        ChapterNavigator(
-            type = ChapterNavigatorType.VERTICAL_RIGHT,
+        VolumeNavigator(
+            type = VolumeNavigatorType.VERTICAL_RIGHT,
             onNextChapter = {},
             enabledNext = true,
             onPreviousChapter = {},

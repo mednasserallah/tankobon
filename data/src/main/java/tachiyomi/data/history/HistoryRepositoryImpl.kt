@@ -70,7 +70,7 @@ class HistoryRepositoryImpl(
     override suspend fun upsertHistory(historyUpdate: HistoryUpdate) {
         try {
             database.historyQueries.upsert(
-                historyUpdate.chapterId,
+                historyUpdate.volumeId,
                 historyUpdate.readAt,
                 historyUpdate.sessionReadDuration,
             )

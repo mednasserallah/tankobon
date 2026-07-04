@@ -8,18 +8,12 @@ import cafe.adriel.voyager.core.model.StateScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
 import eu.kanade.core.preference.PreferenceMutableState
 import eu.kanade.core.preference.asState
-import eu.kanade.core.util.fastFilterNot
-import eu.kanade.domain.base.BasePreferences
 import eu.kanade.domain.chapter.interactor.SetReadStatus
 import eu.kanade.domain.manga.interactor.UpdateManga
 import eu.kanade.presentation.library.components.LibraryToolbarTitle
-import eu.kanade.presentation.manga.DownloadAction
 import eu.kanade.tachiyomi.data.cache.CoverCache
-import eu.kanade.tachiyomi.data.download.DownloadCache
-import eu.kanade.tachiyomi.data.download.DownloadManager
 import eu.kanade.tachiyomi.data.track.TrackerManager
 import eu.kanade.tachiyomi.source.model.SManga
-import eu.kanade.tachiyomi.source.online.HttpSource
 import eu.kanade.tachiyomi.util.chapter.getNextUnread
 import eu.kanade.tachiyomi.util.removeCovers
 import kotlinx.coroutines.flow.Flow
@@ -44,10 +38,8 @@ import tachiyomi.core.common.util.lang.launchNonCancellable
 import tachiyomi.domain.category.interactor.GetCategories
 import tachiyomi.domain.category.interactor.SetMangaCategories
 import tachiyomi.domain.category.model.Category
-import tachiyomi.domain.chapter.interactor.GetBookmarkedChaptersByMangaId
-import tachiyomi.domain.chapter.interactor.GetChaptersByMangaId
-import tachiyomi.domain.chapter.model.Chapter
-import tachiyomi.domain.history.interactor.GetNextChapters
+import tachiyomi.domain.chapter.interactor.GetVolumesByMangaId
+import tachiyomi.domain.chapter.model.Volume
 import tachiyomi.domain.library.model.LibraryDisplayMode
 import tachiyomi.domain.library.model.LibraryManga
 import tachiyomi.domain.library.model.LibrarySort
@@ -70,18 +62,13 @@ class LibraryScreenModel(
     private val getLibraryManga: GetLibraryManga = Injekt.get(),
     private val getCategories: GetCategories = Injekt.get(),
     private val getTracksPerManga: GetTracksPerManga = Injekt.get(),
-    private val getNextChapters: GetNextChapters = Injekt.get(),
-    private val getChaptersByMangaId: GetChaptersByMangaId = Injekt.get(),
-    private val getBookmarkedChaptersByMangaId: GetBookmarkedChaptersByMangaId = Injekt.get(),
+    private val getVolumesByMangaId: GetVolumesByMangaId = Injekt.get(),
     private val setReadStatus: SetReadStatus = Injekt.get(),
     private val updateManga: UpdateManga = Injekt.get(),
     private val setMangaCategories: SetMangaCategories = Injekt.get(),
-    private val preferences: BasePreferences = Injekt.get(),
     private val libraryPreferences: LibraryPreferences = Injekt.get(),
     private val coverCache: CoverCache = Injekt.get(),
     private val sourceManager: SourceManager = Injekt.get(),
-    private val downloadManager: DownloadManager = Injekt.get(),
-    private val downloadCache: DownloadCache = Injekt.get(),
     private val trackerManager: TrackerManager = Injekt.get(),
 ) : StateScreenModel<LibraryScreenModel.State>(State()) {
 
@@ -160,7 +147,6 @@ class LibraryScreenModel(
             getTrackingFiltersFlow(),
         ) { prefs, trackFilters ->
             listOf(
-                prefs.filterDownloaded,
                 prefs.filterUnread,
                 prefs.filterStarted,
                 prefs.filterBookmarked,
@@ -184,9 +170,7 @@ class LibraryScreenModel(
         trackingFilter: Map<Long, TriState>,
         preferences: ItemPreferences,
     ): List<LibraryItem> {
-        val downloadedOnly = preferences.globalFilterDownloaded
         val skipOutsideReleasePeriod = preferences.skipOutsideReleasePeriod
-        val filterDownloaded = if (downloadedOnly) TriState.ENABLED_IS else preferences.filterDownloaded
         val filterUnread = preferences.filterUnread
         val filterStarted = preferences.filterStarted
         val filterBookmarked = preferences.filterBookmarked
@@ -198,10 +182,6 @@ class LibraryScreenModel(
         val excludedTracks = trackingFilter.mapNotNull { if (it.value == TriState.ENABLED_NOT) it.key else null }
         val includedTracks = trackingFilter.mapNotNull { if (it.value == TriState.ENABLED_IS) it.key else null }
         val trackFiltersIsIgnored = includedTracks.isEmpty() && excludedTracks.isEmpty()
-
-        val filterFnDownloaded: (LibraryItem) -> Boolean = {
-            applyFilter(filterDownloaded) { it.isLocal || it.downloadCount > 0 }
-        }
 
         val filterFnUnread: (LibraryItem) -> Boolean = {
             applyFilter(filterUnread) { it.libraryManga.unreadCount > 0 }
@@ -239,8 +219,7 @@ class LibraryScreenModel(
         }
 
         return fastFilter {
-            filterFnDownloaded(it) &&
-                filterFnUnread(it) &&
+            filterFnUnread(it) &&
                 filterFnStarted(it) &&
                 filterFnBookmarked(it) &&
                 filterFnCompleted(it) &&
@@ -313,7 +292,7 @@ class LibraryScreenModel(
                     manga1.libraryManga.latestUpload.compareTo(manga2.libraryManga.latestUpload)
                 }
                 LibrarySort.Type.ChapterFetchDate -> {
-                    manga1.libraryManga.chapterFetchedAt.compareTo(manga2.libraryManga.chapterFetchedAt)
+                    manga1.libraryManga.volumeFetchedAt.compareTo(manga2.libraryManga.volumeFetchedAt)
                 }
                 LibrarySort.Type.DateAdded -> {
                     manga1.libraryManga.manga.dateAdded.compareTo(manga2.libraryManga.manga.dateAdded)
@@ -346,14 +325,11 @@ class LibraryScreenModel(
 
     private fun getLibraryItemPreferencesFlow(): Flow<ItemPreferences> {
         return combine(
-            libraryPreferences.downloadBadge.changes(),
             libraryPreferences.unreadBadge.changes(),
             libraryPreferences.localBadge.changes(),
             libraryPreferences.languageBadge.changes(),
             libraryPreferences.autoUpdateMangaRestrictions.changes(),
 
-            preferences.downloadedOnly.changes(),
-            libraryPreferences.filterDownloaded.changes(),
             libraryPreferences.filterUnread.changes(),
             libraryPreferences.filterStarted.changes(),
             libraryPreferences.filterBookmarked.changes(),
@@ -361,18 +337,15 @@ class LibraryScreenModel(
             libraryPreferences.filterIntervalCustom.changes(),
         ) {
             ItemPreferences(
-                downloadBadge = it[0] as Boolean,
-                unreadBadge = it[1] as Boolean,
-                localBadge = it[2] as Boolean,
-                languageBadge = it[3] as Boolean,
-                skipOutsideReleasePeriod = LibraryPreferences.MANGA_OUTSIDE_RELEASE_PERIOD in (it[4] as Set<*>),
-                globalFilterDownloaded = it[5] as Boolean,
-                filterDownloaded = it[6] as TriState,
-                filterUnread = it[7] as TriState,
-                filterStarted = it[8] as TriState,
-                filterBookmarked = it[9] as TriState,
-                filterCompleted = it[10] as TriState,
-                filterIntervalCustom = it[11] as TriState,
+                unreadBadge = it[0] as Boolean,
+                localBadge = it[1] as Boolean,
+                languageBadge = it[2] as Boolean,
+                skipOutsideReleasePeriod = LibraryPreferences.MANGA_OUTSIDE_RELEASE_PERIOD in (it[3] as Set<*>),
+                filterUnread = it[4] as TriState,
+                filterStarted = it[5] as TriState,
+                filterBookmarked = it[6] as TriState,
+                filterCompleted = it[7] as TriState,
+                filterIntervalCustom = it[8] as TriState,
             )
         }
     }
@@ -381,20 +354,13 @@ class LibraryScreenModel(
         return combine(
             getLibraryManga.subscribe(),
             getLibraryItemPreferencesFlow(),
-            downloadCache.changes,
-        ) { libraryManga, preferences, _ ->
+        ) { libraryManga, preferences ->
             libraryManga.map { manga ->
                 LibraryItem(
                     libraryManga = manga,
-                    downloadCount = downloadManager.getDownloadCount(manga.manga),
                     unreadCount = manga.unreadCount,
                     isLocal = manga.manga.isLocal(),
                     badges = LibraryItem.Badges(
-                        downloadCount = if (preferences.downloadBadge) {
-                            downloadManager.getDownloadCount(manga.manga)
-                        } else {
-                            0
-                        },
                         unreadCount = if (preferences.unreadBadge) {
                             manga.unreadCount
                         } else {
@@ -446,8 +412,8 @@ class LibraryScreenModel(
             .reduce { set1, set2 -> set1.intersect(set2) }
     }
 
-    suspend fun getNextUnreadChapter(manga: Manga): Chapter? {
-        return getChaptersByMangaId.await(manga.id, applyScanlatorFilter = true).getNextUnread(manga, downloadManager)
+    suspend fun getNextUnreadChapter(manga: Manga): Volume? {
+        return getVolumesByMangaId.await(manga.id, applyScanlatorFilter = true).getNextUnread(manga)
     }
 
     /**
@@ -460,63 +426,6 @@ class LibraryScreenModel(
         val mangaCategories = mangas.map { getCategories.await(it.id).toSet() }
         val common = mangaCategories.reduce { set1, set2 -> set1.intersect(set2) }
         return mangaCategories.flatten().distinct().subtract(common)
-    }
-
-    /**
-     * Queues the amount specified of unread chapters from the list of selected manga
-     */
-    fun performDownloadAction(action: DownloadAction) {
-        when (action) {
-            DownloadAction.NEXT_1_CHAPTER -> downloadNextChapters(1)
-            DownloadAction.NEXT_5_CHAPTERS -> downloadNextChapters(5)
-            DownloadAction.NEXT_10_CHAPTERS -> downloadNextChapters(10)
-            DownloadAction.NEXT_25_CHAPTERS -> downloadNextChapters(25)
-            DownloadAction.UNREAD_CHAPTERS -> downloadNextChapters(null)
-            DownloadAction.BOOKMARKED_CHAPTERS -> downloadBookmarkedChapters()
-        }
-        clearSelection()
-    }
-
-    private fun downloadNextChapters(amount: Int?) {
-        val mangas = state.value.selectedManga
-        screenModelScope.launchNonCancellable {
-            mangas.forEach { manga ->
-                val chapters = getNextChapters.await(manga.id)
-                    .fastFilterNot { chapter ->
-                        downloadManager.getQueuedDownloadOrNull(chapter.id) != null ||
-                            downloadManager.isChapterDownloaded(
-                                chapter.name,
-                                chapter.scanlator,
-                                chapter.url,
-                                manga.title,
-                                manga.source,
-                            )
-                    }
-                    .let { if (amount != null) it.take(amount) else it }
-
-                downloadManager.downloadChapters(manga, chapters)
-            }
-        }
-    }
-
-    private fun downloadBookmarkedChapters() {
-        val mangas = state.value.selectedManga
-        screenModelScope.launchNonCancellable {
-            mangas.forEach { manga ->
-                val chapters = getBookmarkedChaptersByMangaId.await(manga.id)
-                    .fastFilterNot { chapter ->
-                        downloadManager.getQueuedDownloadOrNull(chapter.id) != null ||
-                            downloadManager.isChapterDownloaded(
-                                chapter.name,
-                                chapter.scanlator,
-                                chapter.url,
-                                manga.title,
-                                manga.source,
-                            )
-                    }
-                downloadManager.downloadChapters(manga, chapters)
-            }
-        }
     }
 
     /**
@@ -536,33 +445,20 @@ class LibraryScreenModel(
     }
 
     /**
-     * Remove the selected manga.
+     * Remove the selected manga from the library.
      *
      * @param mangas the list of manga to delete.
-     * @param deleteFromLibrary whether to delete manga from library.
-     * @param deleteChapters whether to delete downloaded chapters.
      */
-    fun removeMangas(mangas: List<Manga>, deleteFromLibrary: Boolean, deleteChapters: Boolean) {
+    fun removeMangas(mangas: List<Manga>) {
         screenModelScope.launchNonCancellable {
-            if (deleteFromLibrary) {
-                val toDelete = mangas.map {
-                    it.removeCovers(coverCache)
-                    MangaUpdate(
-                        favorite = false,
-                        id = it.id,
-                    )
-                }
-                updateManga.awaitAll(toDelete)
+            val toDelete = mangas.map {
+                it.removeCovers(coverCache)
+                MangaUpdate(
+                    favorite = false,
+                    id = it.id,
+                )
             }
-
-            if (deleteChapters) {
-                mangas.forEach { manga ->
-                    val source = sourceManager.get(manga.source) as? HttpSource
-                    if (source != null) {
-                        downloadManager.deleteManga(manga, source)
-                    }
-                }
-            }
+            updateManga.awaitAll(toDelete)
         }
     }
 
@@ -732,14 +628,11 @@ class LibraryScreenModel(
 
     @Immutable
     private data class ItemPreferences(
-        val downloadBadge: Boolean,
         val unreadBadge: Boolean,
         val localBadge: Boolean,
         val languageBadge: Boolean,
         val skipOutsideReleasePeriod: Boolean,
 
-        val globalFilterDownloaded: Boolean,
-        val filterDownloaded: TriState,
         val filterUnread: TriState,
         val filterStarted: TriState,
         val filterBookmarked: TriState,

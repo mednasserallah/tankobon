@@ -2,6 +2,7 @@ package eu.kanade.tachiyomi.ui.reader.viewer
 
 import android.content.Context
 import android.graphics.PointF
+import android.graphics.Rect
 import android.graphics.RectF
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.BitmapDrawable
@@ -199,6 +200,35 @@ open class ReaderPageImageView @JvmOverloads constructor(
             }
         }
         return false
+    }
+
+    /**
+     * Returns the region of the source image currently visible on screen, in original-image pixel
+     * coordinates, but only when zoomed in past fit-to-screen. Returns null at (near) default zoom
+     * — where the whole page is visible — and for non-zoomable / not-yet-ready images. Used to scope
+     * on-page text detection to what the user is actually looking at.
+     */
+    fun getVisibleImageRegion(): Rect? {
+        val view = pageView as? SubsamplingScaleImageView ?: return null
+        if (!view.isReady) return null
+        val sourceWidth = view.sWidth
+        val sourceHeight = view.sHeight
+        if (sourceWidth <= 0 || sourceHeight <= 0) return null
+
+        val topLeft = view.viewToSourceCoord(0f, 0f) ?: return null
+        val bottomRight = view.viewToSourceCoord(view.width.toFloat(), view.height.toFloat()) ?: return null
+
+        val left = topLeft.x.coerceIn(0f, sourceWidth.toFloat())
+        val top = topLeft.y.coerceIn(0f, sourceHeight.toFloat())
+        val right = bottomRight.x.coerceIn(0f, sourceWidth.toFloat())
+        val bottom = bottomRight.y.coerceIn(0f, sourceHeight.toFloat())
+        if (right - left < 1f || bottom - top < 1f) return null
+
+        // Only scope OCR when meaningfully zoomed in; at ~fit-to-screen the whole page is visible.
+        val coversWholeImage = right - left >= sourceWidth * 0.95f && bottom - top >= sourceHeight * 0.95f
+        if (coversWholeImage) return null
+
+        return Rect(left.toInt(), top.toInt(), right.toInt(), bottom.toInt())
     }
 
     /**

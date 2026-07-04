@@ -7,7 +7,6 @@ data class RestoreOptions(
     val libraryEntries: Boolean = true,
     val categories: Boolean = true,
     val appSettings: Boolean = true,
-    val extensionStores: Boolean = true,
     val sourceSettings: Boolean = true,
 ) {
 
@@ -15,11 +14,10 @@ data class RestoreOptions(
         libraryEntries,
         categories,
         appSettings,
-        extensionStores,
         sourceSettings,
     )
 
-    fun canRestore() = libraryEntries || categories || appSettings || extensionStores || sourceSettings
+    fun canRestore() = libraryEntries || categories || appSettings || sourceSettings
 
     companion object {
         val options = listOf(
@@ -39,11 +37,6 @@ data class RestoreOptions(
                 setter = { options, enabled -> options.copy(appSettings = enabled) },
             ),
             Entry(
-                label = MR.strings.extensionStores,
-                getter = RestoreOptions::extensionStores,
-                setter = { options, enabled -> options.copy(extensionStores = enabled) },
-            ),
-            Entry(
                 label = MR.strings.source_settings,
                 getter = RestoreOptions::sourceSettings,
                 setter = { options, enabled -> options.copy(sourceSettings = enabled) },
@@ -54,8 +47,7 @@ data class RestoreOptions(
             libraryEntries = array[0],
             categories = array[1],
             appSettings = array[2],
-            extensionStores = array[3],
-            sourceSettings = array[4],
+            sourceSettings = array[3],
         )
     }
 

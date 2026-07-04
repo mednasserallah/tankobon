@@ -8,17 +8,6 @@
 \n
 \nVjerujući ovom certifikatu, prihvaćaš te rizike.</string>
     <string name="untrusted_extension">Nepovjerljivo proširenje</string>
-    <string name="ext_uninstall">Deinstaliraj</string>
-    <string name="ext_untrusted">Nepovjerljivo</string>
-    <string name="ext_trust">Vjeruj</string>
-    <string name="ext_installed">Instalirano</string>
-    <string name="ext_installing">Instaliranje</string>
-    <string name="ext_downloading">Preuzimanje</string>
-    <string name="ext_pending">Na čekanju</string>
-    <string name="ext_install">Instaliraj</string>
-    <string name="ext_obsolete">Zastarjelo</string>
-    <string name="ext_update">Aktualiziraj</string>
-    <string name="ext_updates_pending">Aktualiziranja na čekanju</string>
     <string name="all">Sve</string>
     <string name="default_category_summary">Uvijek pitaj</string>
     <string name="default_category">Standardna kategorija</string>
@@ -68,8 +57,6 @@
     <string name="information_no_recent">Nema nedavnih aktualiziranja</string>
     <string name="information_no_downloads">Nema preuzimanja</string>
     <string name="label_help">Pomoć</string>
-    <string name="label_extension_info">Podaci proširenja</string>
-    <string name="label_extensions">Proširenja</string>
     <string name="label_migration">Premjesti</string>
     <string name="label_backup">Sigurnosna kopija i obnavljanje</string>
     <string name="label_sources">Izvori</string>
@@ -127,7 +114,6 @@
     <string name="action_mark_as_read">Označi kao pročitano</string>
     <string name="action_select_inverse">Odaberi inverzno</string>
     <string name="action_select_all">Odaberi sve</string>
-    <string name="action_global_search">Globalna pretraga</string>
     <string name="action_search">Traži</string>
     <string name="action_sort_latest_chapter">Najnovije poglavlje</string>
     <string name="action_sort_last_read">Zadnje čitano</string>
@@ -234,8 +220,6 @@
     <string name="notification_new_chapters">Pronađena su nova poglavlja</string>
     <string name="download_queue_error">Neuspjelo preuzimanje poglavlja. Pokušaj ponovo u odjeljku preuzimanja</string>
     <string name="copy">Kopiraj</string>
-    <string name="migrate">Premjesti</string>
-    <string name="migration_selection_prompt">Odaberi izvor iz kojeg se migrira</string>
     <string name="migration_dialog_what_to_include">Odaberi podatke koje želiš uključiti</string>
     <string name="recent_manga_time">Pogl. %1$s – %2$s</string>
     <string name="updating_library">Aktualiziranje biblioteke</string>
@@ -304,7 +288,6 @@
     <string name="local_source_help_guide">Vodič za lokalni izvor</string>
     <string name="browse">Pregledaj</string>
     <string name="latest">Najnoviji</string>
-    <string name="action_global_search_hint">Globalna pretraga …</string>
     <string name="pinned_sources">Označeni</string>
     <string name="last_used_source">Zadnji korišteni</string>
     <string name="other_source">Drugi</string>
@@ -353,7 +336,6 @@
     <string name="backup_in_progress">Spremanje sigurnosne kopije je već u tijeku</string>
     <string name="information_cloudflare_bypass_failure">Neuspjelo zaobilaženje Cloudflare-a</string>
     <string name="information_webview_required">Za funkcioniranje aplikacije je potreban WebView</string>
-    <string name="channel_ext_updates">Aktualiziranja proširenja</string>
     <string name="channel_new_chapters">Aktualiziranja poglavlja</string>
     <string name="channel_common">Opće</string>
     <string name="download_notifier_download_paused">Preuzimanje zaustavljeno</string>
@@ -395,7 +377,6 @@
     <string name="unknown_author">Nepoznat autor</string>
     <string name="whats_new">Što je novo</string>
     <string name="download_insufficient_space">Neuspjelo preuzimanje poglavlja zbog nedovoljne memorije</string>
-    <string name="action_global_search_query">Traži „%1$s” globalno</string>
     <string name="pref_category_reading_mode">Modus čitanja</string>
     <string name="pref_category_theme">Tema</string>
     <string name="action_sort_date_added">Datum dodavanja</string>
@@ -405,8 +386,6 @@
     <string name="channel_errors">Greške</string>
     <string name="pref_remove_bookmarked_chapters">Dozvoli brisanje zabilježenih poglavlja</string>
     <string name="pref_category_delete_chapters">Izbriši poglavlja</string>
-    <string name="ext_nsfw_warning">Izvori ovog proširenja mogu sadržavati neprikladan sadržaj (18+)</string>
-    <string name="ext_nsfw_short">18+</string>
     <string name="backup_restore_missing_trackers">Usluge praćenja bez prijave:</string>
     <string name="parental_controls_info">To ne sprečava neslužbene ili potencijalno krivo označena proširenja prikazati neprikladan sadržaj (18+) unutar aplikacije.</string>
     <string name="no_chapters_error">Nema poglavlja</string>
@@ -426,7 +405,6 @@
     <string name="clear_history_completed">Povijest je izbrisana</string>
     <string name="spen_next_page">Sljedeća stranica</string>
     <string name="spen_previous_page">Prethodna stranica</string>
-    <string name="migration_help_guide">Vodič za migraciju izvora</string>
     <string name="pref_category_nsfw_content">Izvori neprikladnog sadržaja (18+)</string>
     <string name="file_picker_error">Nije pronađena nijedna aplikacija za biranje datoteka</string>
     <string name="myanimelist_relogin">Ponovo se prijavi na MAL</string>
@@ -517,12 +495,7 @@
     <string name="action_sort_count">Ukupan broj unosa</string>
     <string name="action_display_language_badge">Jezik</string>
     <string name="label_warning">Upozorenje</string>
-    <string name="ext_installer_shizuku_stopped">Shizuku ne radi</string>
-    <string name="ext_installer_shizuku_unavailable_dialog">Instaliraj i pokreni Shizuku za korištenje Shizukua kao instalacijskog programa za proširenja.</string>
     <string name="update_72hour">Svaka 3 dana</string>
-    <string name="ext_update_all">Aktualiziraj sve</string>
-    <string name="ext_install_service_notif">Instaliranje proširenja …</string>
-    <string name="ext_app_info">Podaci aplikacije</string>
     <string name="connected_to_wifi">Samo putem Wi-Fi veze</string>
     <string name="download_queue_size_warning">Upozorenje: velika skupna preuzimanja mogu dovesti do usporavanja izvora i/ili blokiranja %s. Za daljnje informacije dodirni.</string>
     <string name="theme_tealturquoise">Plavozelena i tirkiz</string>
@@ -543,9 +516,6 @@
     <string name="enhanced_tracking_info">Pruža poboljšane značajke za određene izvore. Unosi se automatski prate kada se dodaju u biblioteku.</string>
     <string name="action_track">Prati</string>
     <string name="privacy_policy">Politika privatnosti</string>
-    <string name="extension_api_error">Neuspjelo preuzimanje dostupnih proširenja</string>
-    <string name="ext_installer_pref">Instalacijski program</string>
-    <string name="ext_installer_legacy">Stari način</string>
     <string name="pref_highest">Najviša</string>
     <string name="pref_remove_exclude_categories">Isključene kategorije</string>
     <string name="pref_high">Visoka</string>
@@ -589,10 +559,7 @@
     <string name="action_close">Zatvori</string>
     <string name="action_remove_everything">Ukloni sve</string>
     <string name="theme_lavender">Lavanda</string>
-    <string name="ext_info_language">Jezik</string>
-    <string name="ext_info_version">Verzija</string>
     <string name="popular">Popularni</string>
-    <string name="ext_info_age_rating">Dobna granica</string>
     <string name="download_ahead">Preuzmi unaprijed</string>
     <string name="multi_lang">Višejezičnost</string>
     <string name="missing_storage_permission">Dozvole za spremište nisu odobrena</string>
@@ -762,13 +729,11 @@
 \n
 \nOdabrana mapa: %2$s</string>
     <string name="theme_nord">Nord</string>
-    <string name="ext_permission_install_apps_warning">Za instaliranje proširenja su potrebne dozvole. Dodirni ovdje za odobrenje.</string>
     <string name="invalid_backup_file_error">Potpuna greška:</string>
     <string name="onboarding_storage_help_info">Aktualiziraš sa starije verzije i ne znaš što odabrati? Potraži informacije u vodiču spremišta.</string>
     <string name="onboarding_storage_help_action">Vodič spremišta</string>
     <string name="manga_interval_custom_amount">Prilagođena učestalost aktualiziranja:</string>
     <string name="pref_library_update_smart_update">Pametno aktualiziranje</string>
-    <string name="ext_revoke_trust">Opozovi pouzdana nepoznata proširenja</string>
     <string name="action_open_repo">Otvori repozitorij izvora</string>
     <string name="private_settings">Uključi osjetljive postavke (kao što su tokeni za prijavu za usluge praćenja)</string>
     <string name="manga_interval_expected_update">Predviđa se da će nova poglavlja biti izdana za oko %1$s, provjera se svakih %2$s.</string>
@@ -807,8 +772,6 @@
     <string name="confirm_tracker_update">Aktualizirati praćenja na poglavlje %d?</string>
     <string name="trackers_updated_summary">Praćenja aktualizirana na poglavlje %d</string>
     <string name="pref_security">Sigurnost</string>
-    <string name="ext_remove">Ukloni</string>
-    <string name="ext_confirm_remove">Ukloniti proširenje?</string>
     <string name="remove_private_extension_message">Stvarno želiš ukloniti proširenje „%s”?</string>
     <string name="pref_hardware_bitmap_threshold_summary">Ako čitač učita praznu sliku, postupno smanji prag.\nOdabrano: %s</string>
     <string name="pref_hardware_bitmap_threshold">Prilagođeni hardverski prag bitmapa</string>
@@ -846,44 +809,6 @@
     <string name="action_toggle_private_on">Prati privatno</string>
     <string name="action_toggle_private_off">Prati javno</string>
     <string name="notes_placeholder">Sviđa mi se dio, gdje …</string>
-    <string name="migrationConfigScreen.selectedHeader">Odabrano</string>
-    <string name="migrationConfigScreen.availableHeader">Dostupno</string>
-    <string name="migrationConfigScreen.selectAllLabel">Odaberi sve</string>
-    <string name="migrationConfigScreen.selectNoneLabel">Odaberi ništa</string>
-    <string name="migrationListScreenTitle">Premještanje</string>
-    <string name="migrationListScreenTitleWithProgress">Premještanje (%1$d/%2$d)</string>
-    <string name="migrationListScreen.copyActionLabel">Kopiraj</string>
-    <string name="migrationListScreen.migrateDialog.copyLabel">Kopiraj</string>
-    <string name="migrationListScreen.migrateDialog.migrateLabel">Premjesti</string>
-    <string name="migrationListScreen.migrateActionLabel">Premjesti</string>
-    <string name="migrationListScreen.searchManuallyActionLabel">Traži ručno</string>
-    <string name="migrationListScreen.skipActionLabel">Nemoj premjestiti</string>
-    <string name="migrationListScreen.migrateNowActionLabel">Premjesti sada</string>
-    <string name="migrationListScreen.copyNowActionLabel">Kopiraj sada</string>
-    <string name="migrationListScreen.exitDialogTitle">Zaustaviti premještanje?</string>
-    <string name="migrationListScreen.exitDialog.stopLabel">Zaustavi</string>
-    <string name="migrationListScreen.migrateDialog.cancelLabel">Prekini</string>
-    <string name="migrationListScreen.progressDialog.cancelLabel">Prekini</string>
-    <string name="migrationListScreen.exitDialog.cancelLabel">Prekini</string>
-    <string name="migrationListScreen.noMatchFoundText">Nije pronađena nijedna alternativa</string>
-    <string name="migrationConfigScreen.selectEnabledLabel">Odaberi aktivirane izvore</string>
-    <string name="migrationConfigScreen.selectPinnedLabel">Odaberi prikvačene izvore</string>
-    <string name="migrationConfigScreen.continueButtonText">Nastavi</string>
-    <string name="migrationConfigScreen.dataToMigrateHeader">Podaci za premještanje</string>
-    <string name="migrationConfigScreen.removeDownloadsTitle">Izbriši preuzimanja trenutačnog unosa nakon premještanja</string>
-    <string name="migrationConfigScreen.additionalSearchQueryLabel">Dodatne ključne riječi (opcionalno)</string>
-    <string name="migrationConfigScreen.additionalSearchQuerySupportingText">Pomaže smanjiti broj rezultata pretrage dodavanjem dodatnih ključnih riječi</string>
-    <string name="migrationConfigScreen.hideUnmatchedTitle">Sakrij unose bez podudaranja</string>
-    <string name="migrationConfigScreen.hideWithoutUpdatesTitle">Sakrij unose bez novijih poglavlja</string>
-    <string name="migrationConfigScreen.hideWithoutUpdatesSubtitle">Prikaži unos samo ako podudaranje ima dodatna poglavlja</string>
-    <string name="migrationConfigScreen.enhancedOptionsWarning">Ove su opcije spore i opasne te mogu dovesti do ograničenja od strane izvora</string>
-    <string name="migrationConfigScreen.deepSearchModeTitle">Napredni način pretraživanja</string>
-    <string name="migrationConfigScreen.deepSearchModeSubtitle">Rastavlja naslov na ključne riječi za širu pretragu</string>
-    <string name="migrationConfigScreen.prioritizeByChaptersTitle">Podudaranje na temelju broja poglavlja</string>
-    <string name="migrationConfigScreen.prioritizeByChaptersSubtitle">Ako je aktivirano, bira se najudaljeniji rezultat. U suprotnom se bira prvi rezultat prema prioritetu izvora.</string>
-    <string name="migrationListScreen.latestChapterLabel">Najnovije: %1$s</string>
-    <string name="migrationListScreen.unknownLatestChapter">Nepoznato</string>
-    <string name="migrationListScreen.matchWithoutChapterToast">Nije pronađeno nijedno poglavlje. Ovaj se unos ne može koristiti za premještanje</string>
     <string name="pref_display_images_description">Iscrtaj slike u opisima manga</string>
     <string name="pref_disallow_non_ascii_filenames">Zabrani imena datoteka koji nisu u ASCII formatu</string>
     <string name="pref_disallow_non_ascii_filenames_details">Osigurava kompatibilnost s određenim medijima za spremanje podataka koji ne podržavaju Unicode. Kada je ova opcija aktivirana, morat ćeš ručno preimenovati izvor i mape s mangama zamjenjivanjem znakova koji nisu ASCII s njihovim UTF-8 heksadecimalnim vrijednostima (u malim slovima). Datoteke poglavlja se ne moraju preimenovati.</string>

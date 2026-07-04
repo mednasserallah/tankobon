@@ -21,7 +21,6 @@
     <string name="action_sort_total">कुल अध्याय</string>
     <string name="action_sort_last_read">आखिर में पढ़ा हुआ</string>
     <string name="action_search">खोज</string>
-    <string name="action_global_search">वैश्विक खोज</string>
     <string name="action_select_all">सभी का चयन करे</string>
     <string name="action_mark_as_read">पढ़ा हुआ चिह्न करे</string>
     <string name="action_mark_as_unread">अपठित चिह्न करे</string>
@@ -164,7 +163,6 @@
     <string name="no_more_results">कोई और परिणाम नहीं है</string>
     <string name="local_source">स्थानीय स्रोत</string>
     <string name="other_source">अन्य</string>
-    <string name="action_global_search_hint">वैश्विक खोज …</string>
     <string name="latest">नवीनतम</string>
     <string name="browse">ब्राउज</string>
     <string name="ongoing">चल रही है</string>
@@ -230,17 +228,6 @@
     <string name="download_notifier_download_paused">डाउनलोड रोक दिया है</string>
     <string name="channel_common">सामान्य</string>
     <string name="label_migration">प्रवास</string>
-    <string name="label_extensions">विस्तार</string>
-    <string name="label_extension_info">विस्तार की जानकारी</string>
-    <string name="ext_update">अद्यतन</string>
-    <string name="ext_install">स्थापित करें</string>
-    <string name="ext_pending">अपूर्ण</string>
-    <string name="ext_downloading">डाउनलोड कर रहा है</string>
-    <string name="ext_installing">स्थापना</string>
-    <string name="ext_installed">स्थापित</string>
-    <string name="ext_trust">भरोसा</string>
-    <string name="ext_untrusted">अविश्वस्त</string>
-    <string name="ext_uninstall">स्थापना रद्द करें</string>
     <string name="untrusted_extension">अविश्वस्त एक्सटेंशन</string>
     <string name="untrusted_extension_message">यह एक्सटेंशन एक अविश्वस्त प्रमाणपत्र के साथ हस्ताक्षरित हुआ था और सक्रिय नहीं हुआ था।
 \n
@@ -256,7 +243,6 @@
     <string name="copied_to_clipboard">क्लिपबोर्ड पर नकल:
 \n%1$s</string>
     <string name="migration_dialog_what_to_include">शामिल करने के लिए डेटा का चयन करें</string>
-    <string name="migrate">प्रवास</string>
     <string name="copy">नकल</string>
     <string name="pager_viewer">पृष्ठांकित</string>
     <string name="source_not_installed">स्रोत स्थापित नहीं है : %1$s</string>
@@ -282,12 +268,10 @@
     <string name="filter_mode_darken">जल/गहरा</string>
     <string name="label_help">मदद</string>
     <string name="no_results_found">कोई परिणाम नहीं मिला</string>
-    <string name="migration_selection_prompt">से माइग्रेट करने के लिए एक स्रोत का चयन करें</string>
     <string name="action_webview_back">पिछली तरफ</string>
     <string name="action_webview_forward">आगे की ओर</string>
     <string name="action_webview_refresh">रीफ़्रेश करें</string>
     <string name="pref_category_library">पुस्तकालय</string>
-    <string name="ext_obsolete">अप्रचलित</string>
     <string name="obsolete_extension_message">यह एक्सटेंशन अब उपलब्ध नहीं है। यह अब शायद ठीक से काम न करे और मसला खड़ा करे। इसे अनइंस्टॉल करने की सलाह दी गई है।</string>
     <string name="pref_date_format">दिनांक स्वरूप</string>
     <string name="pref_category_library_update">वैश्विक अपडेट</string>
@@ -309,7 +293,6 @@
     <string name="lock_always">हमेशा</string>
     <string name="lock_never">कभी नहीँ</string>
     <string name="secure_screen">स्क्रीन सुरक्षित करें</string>
-    <string name="ext_updates_pending">अपडेट लंबित हैं</string>
     <string name="pref_cutout_short">कटआउट क्षेत्र में सामग्री दिखाएं</string>
     <string name="information_cloudflare_bypass_failure">Cloudflare को बायपास करने में विफल</string>
     <string name="information_webview_outdated">बेहतर संगतता के लिए कृपया WebView ऐप को अपडेट करें</string>
@@ -330,7 +313,6 @@
     <string name="action_oldest">सबसे पुराना</string>
     <string name="action_move_to_top">शीर्ष पर ले जाएँ</string>
     <string name="action_move_to_bottom">नीचे की ओर ले जाएं</string>
-    <string name="channel_ext_updates">एक्सटेंशन अपडेट</string>
     <string name="updating_library">अद्यतन पुस्तकालय</string>
     <string name="pref_category_reading">पठन</string>
     <string name="pref_skip_filtered_chapters">फ़िल्टर किए गए अध्यायों को छोड़ें</string>
@@ -397,7 +379,6 @@
     <string name="requires_app_restart">प्रभावी होने के लिए एप्लिकेशन पुनरारंभ की आवश्यकता होती है</string>
     <string name="whats_new">नया क्या है</string>
     <string name="download_insufficient_space">कम संग्रहण स्थान के कारण अध्याय डाउनलोड नहीं कर सके</string>
-    <string name="action_global_search_query">विश्व स्तर पर \"%1$s\" के लिए खोजें</string>
     <string name="pref_category_reading_mode">पढ़न मोड</string>
     <string name="pref_category_theme">थीम</string>
     <string name="action_sort_date_added">तारीख को जोड़ा गया</string>
@@ -408,8 +389,6 @@
     <string name="backup_restore_missing_trackers">ट्रैकर्स में लॉग इन नहीं किया गया:</string>
     <string name="pref_remove_bookmarked_chapters">बुकमार्क किए गए अध्यायों को हटाने की अनुमति दें</string>
     <string name="pref_category_delete_chapters">अध्यायों को हटाएं</string>
-    <string name="ext_nsfw_warning">इसमें NSFW (18+) सामग्री हो सकती है</string>
-    <string name="ext_nsfw_short">18+</string>
     <string name="parental_controls_info">यह अनौपचारिक या संभावित रूप से फ़्लैग किए गए एक्सटेंशन को ऐप के भीतर NSFW (18+) सामग्री के सामने आने से नहीं रोकता है।</string>
     <string name="chapter_settings_updated">अपडेट किए गए डिफ़ॉल्ट अध्याय सेटिंग्स</string>
     <string name="no_chapters_error">कोई अध्याय नहीं मिला</string>
@@ -428,7 +407,6 @@
     <string name="clear_history_completed">इतिहास हटाया गया</string>
     <string name="spen_next_page">अगला पृष्ठ</string>
     <string name="spen_previous_page">पिछला पृष्ठ</string>
-    <string name="migration_help_guide">स्रोत माइग्रेशन गाइड</string>
     <string name="pref_show_nsfw_source">स्रोतों और एक्सटेंशन सूचियों में दिखाएं</string>
     <string name="pref_category_nsfw_content">NSFW (18+) स्रोत</string>
     <string name="file_picker_error">कोई फ़ाइल पिकर ऐप नहीं मिला</string>
@@ -479,9 +457,6 @@
     <string name="source_unsupported">स्रोत समर्थित नहीं है</string>
     <string name="pref_remove_exclude_categories">बहिष्कृत श्रेणियां</string>
     <string name="action_track">ट्रैक</string>
-    <string name="ext_install_service_notif">एक्सटेंशन इंस्टॉल किया जा रहा है…</string>
-    <string name="ext_installer_pref">इंस्टालर</string>
-    <string name="ext_installer_legacy">विरासत</string>
     <string name="pref_hide_threshold">स्क्रॉल पर मेनू छिपाने की संवेदनशीलता</string>
     <string name="pref_highest">उच्चतम</string>
     <string name="pref_low">कम</string>
@@ -499,8 +474,6 @@
     <string name="theme_midnightdusk">मिडनाइट डस्क</string>
     <string name="relative_time_today">आज</string>
     <string name="include">शामिल करें: %s</string>
-    <string name="ext_app_info">ऐप की जानकारी</string>
-    <string name="ext_installer_shizuku_stopped">शिज़ुकु नहीं चल रहा है</string>
     <string name="pref_inverted_colors">उल्टी</string>
     <string name="pref_grayscale">काला और सफेद</string>
     <string name="pref_create_folder_per_manga_summary">आइटम के शीर्षक अनुसार फोल्डर बनाता है</string>
@@ -519,7 +492,6 @@
     <string name="confirm_lock_change">परिवर्तन की पुष्टि करने के लिए प्रमाणित करें</string>
     <string name="action_sort_chapter_fetch_date">अध्याय लाई की तिथि</string>
     <string name="pref_library_update_categories_details">बहिष्कृत श्रेणियों की पुस्तकें अपडेट नहीं की जाएंगी, भले ही वे भी शामिल श्रेणियों में हों।</string>
-    <string name="ext_installer_shizuku_unavailable_dialog">शिज़ुकु को एक्सटेंशन इंस्टॉलर के रूप में उपयोग करने के लिए शिज़ुकु को इंस्टॉल और प्रारंभ करें।</string>
     <string name="help_translate">अनुवाद में मदद करें</string>
     <string name="date">दिनांक</string>
     <string name="manga_cover">कवर पृष्ठ</string>
@@ -537,7 +509,6 @@
     <string name="getting_started_guide">प्रारंभिक मार्गदर्शन</string>
     <string name="pref_show_navigation_mode_summary">रीडर खोले जाने पर थोड़ी देर दिखाएं</string>
     <string name="categorized_display_settings">सॉर्ट और डिस्प्ले के लिए प्रति-श्रेणी सेटिंग्स</string>
-    <string name="ext_update_all">सभी अद्यतन करें</string>
     <string name="label_warning">चेतावनी</string>
     <string name="action_display_language_badge">भाषा</string>
     <string name="backup_info">आपको अन्य स्थानों पर भी बैकअप की प्रतियाँ रखनी चाहिए।</string>
@@ -553,7 +524,6 @@
     <string name="save_chapter_as_cbz">CBZ आर्कैव के रूप में सहेजें</string>
     <string name="privacy_policy">गोपनीयता नीति</string>
     <string name="library_errors_help">लाइब्रेरी अपडेट त्रुटियों को ठीक करने के तरीके पर सहायता के लिए, %1$s देखें</string>
-    <string name="extension_api_error">एक्सटेंशन सूची प्राप्त करने में विफल</string>
     <string name="cancelled">रद्द किया गया</string>
     <string name="on_hiatus">अंतराल पर है</string>
     <string name="publishing_finished">प्रकाशन समाप्त</string>
@@ -582,9 +552,6 @@
     <string name="pref_clear_webview_data">WebView डाटा साफ करें</string>
     <string name="download_notifier_split_page_path_not_found">चित्र %d का फ़ाइल पथ नहीं खोजा जा सका</string>
     <string name="empty_backup_error">बैकअप करने के लिए कोई पुस्तकालय प्रविष्टि नहीं</string>
-    <string name="ext_info_version">संस्करण</string>
-    <string name="ext_info_language">भाषा</string>
-    <string name="ext_info_age_rating">आयु रेटिंग</string>
     <string name="reading_list">पठन सूची</string>
     <string name="wish_list">विश-लिस्ट</string>
     <string name="theme_lavender">लैवेंडर</string>
@@ -687,9 +654,7 @@
     <string name="pref_mark_duplicate_read_chapter_read">डुप्लिकेट पढ़े गए अध्याय को पढ़ा हुआ मार्क करें</string>
     <string name="action_notes">टिप्पणियाँ</string>
     <string name="action_edit_notes">टिप्पणियाँ संपादित करें</string>
-    <string name="ext_remove">हटाएँ</string>
     <string name="remove_private_extension_message">क्या आप वाकई \"%s\" एक्सटेंशन को हटाना चाहते हैं?</string>
-    <string name="ext_confirm_remove">एक्सटेंशन हटाएँ?</string>
     <string name="action_display_unread_badge">अवांचित अध्याय</string>
     <string name="onboarding_action_next">अगला</string>
     <string name="onboarding_action_finish">शुरू करें</string>
@@ -697,7 +662,6 @@
     <string name="onboarding_storage_action_select">एक फ़ोल्डर चुनें</string>
     <string name="possible_duplicates_summary">आपकी पुस्तकालय में एक समान नाम वाली प्रविष्टियाँ हैं।\n\nस्थानांतरित करने के लिए एक प्रविष्टि चुनें या फिर भी जोड़ें।</string>
     <string name="onboarding_storage_info">%1$s अध्याय डाउनलोड, बैकअप और अन्य चीज़ों को संग्रहित करने के लिए एक फ़ोल्डर चुनें।\n\nएक समर्पित फ़ोल्डर उपयुक्त रहेगा।\n\nचयनित फ़ोल्डर: %2$s</string>
-    <string name="ext_permission_install_apps_warning">एक्सटेंशन स्थापित करने के लिए अनुमतियाँ आवश्यक हैं। अनुमति देने के लिए यहाँ टैप करें।</string>
     <string name="onboarding_permission_install_apps">अनुप्रयोग संस्थापित करने की अनुमति</string>
     <string name="onboarding_permission_install_apps_description">स्रोत विस्तार संस्थापित करने हेतु।</string>
     <string name="onboarding_permission_notifications">अधिसूचना अनुमति</string>
@@ -724,7 +688,6 @@
     <string name="firebase_summary">क्रैश लॉग्स और एनालिटिक्स भेजने से हम समस्याएँ पहचानकर ठीक कर पाएँगे, प्रदर्शन सुधार पाएँगे, और भविष्य के अपडेट आपकी ज़रूरतों के अनुसार बना पाएँगे</string>
     <string name="pref_library_update_smart_update">स्मार्ट अपडेट</string>
     <string name="pref_hide_missing_chapter_indicators">गुम हुए अध्याय के संकेत छुपाएँ</string>
-    <string name="ext_revoke_trust">विश्वसनीय अज्ञात एक्सटेंशन्स रद्द करें</string>
     <string name="action_open_repo">ओपन सोर्स रिपॉ</string>
     <string name="pref_page_rotate_invert">घुमाए गए चौड़े पृष्ठों की ओरिएंटेशन उलटें</string>
     <string name="pref_double_tap_zoom">दुबारा टैप करके ज़ूम करें</string>
@@ -844,44 +807,6 @@
     <string name="exception_offline">इंटरनेट कनेक्शन नहीं है</string>
     <string name="exception_unknown_host">%s तक पहुँच नहीं पाया</string>
     <string name="notes_placeholder">उस भाग का आनंद लिया जहाँ…</string>
-    <string name="migrationConfigScreen.selectedHeader">चयनित</string>
-    <string name="migrationConfigScreen.availableHeader">उपलब्ध</string>
-    <string name="migrationConfigScreen.selectAllLabel">सभी चुनें</string>
-    <string name="migrationConfigScreen.selectNoneLabel">कोई नहीं चुनें</string>
-    <string name="migrationConfigScreen.selectEnabledLabel">सक्षम स्रोत चुनें</string>
-    <string name="migrationConfigScreen.selectPinnedLabel">पिन किए गए स्रोत चुनें</string>
-    <string name="migrationConfigScreen.continueButtonText">जारी रखें</string>
-    <string name="migrationConfigScreen.dataToMigrateHeader">स्थानांतरित करने के लिए डेटा</string>
-    <string name="migrationConfigScreen.removeDownloadsTitle">स्थानांतरण के बाद वर्तमान प्रविष्टि के डाउनलोड हटाएं</string>
-    <string name="migrationConfigScreen.additionalSearchQueryLabel">अतिरिक्त कीवर्ड (वैकल्पिक)</string>
-    <string name="migrationConfigScreen.additionalSearchQuerySupportingText">अतिरिक्त कीवर्ड जोड़कर खोज परिणामों को सीमित करने में मदद करता है</string>
-    <string name="migrationConfigScreen.hideUnmatchedTitle">मेल न खाने वाली प्रविष्टियाँ छुपाएं</string>
-    <string name="migrationConfigScreen.hideWithoutUpdatesTitle">नए अध्याय नहीं वाले प्रविष्टियाँ छुपाएं</string>
-    <string name="migrationConfigScreen.hideWithoutUpdatesSubtitle">केवल तब प्रविष्टि दिखाएं जब मैच में अतिरिक्त अध्याय हों</string>
-    <string name="migrationConfigScreen.enhancedOptionsWarning">ये विकल्प धीमे और जोखिम भरे हैं और स्रोतों से प्रतिबंधों का कारण बन सकते हैं</string>
-    <string name="migrationConfigScreen.deepSearchModeTitle">उन्नत खोज मोड</string>
-    <string name="migrationConfigScreen.deepSearchModeSubtitle">विस्तृत खोज के लिए शीर्षक को कीवर्ड में विभाजित करता है</string>
-    <string name="migrationConfigScreen.prioritizeByChaptersTitle">अध्याय संख्या के आधार पर मिलान करें</string>
-    <string name="migrationConfigScreen.prioritizeByChaptersSubtitle">यदि सक्षम है, तो सबसे आगे वाले मिलान को चुनता है। अन्यथा, स्रोत प्राथमिकता के अनुसार पहला मिलान चुनता है।</string>
-    <string name="migrationListScreenTitle">स्थानांतरण</string>
-    <string name="migrationListScreenTitleWithProgress">स्थानांतरण (%1$d/%2$d)</string>
-    <string name="migrationListScreen.copyActionLabel">कॉपी</string>
-    <string name="migrationListScreen.migrateActionLabel">स्थानांतरित</string>
-    <string name="migrationListScreen.noMatchFoundText">कोई विकल्प नहीं मिला</string>
-    <string name="migrationListScreen.latestChapterLabel">नवीनतम: %1$s</string>
-    <string name="migrationListScreen.unknownLatestChapter">अज्ञात</string>
-    <string name="migrationListScreen.searchManuallyActionLabel">मैन्युअल रूप से खोजें</string>
-    <string name="migrationListScreen.skipActionLabel">स्थानांतरित न करें</string>
-    <string name="migrationListScreen.migrateNowActionLabel">अभी स्थानांतरित करें</string>
-    <string name="migrationListScreen.copyNowActionLabel">अभी कॉपी करें</string>
-    <string name="migrationListScreen.exitDialogTitle">स्थानांतरण रोकें?</string>
-    <string name="migrationListScreen.exitDialog.stopLabel">रोकें</string>
-    <string name="migrationListScreen.exitDialog.cancelLabel">रद्द करें</string>
-    <string name="migrationListScreen.migrateDialog.copyLabel">कॉपी</string>
-    <string name="migrationListScreen.migrateDialog.migrateLabel">स्थानांतरण</string>
-    <string name="migrationListScreen.migrateDialog.cancelLabel">रद्द</string>
-    <string name="migrationListScreen.progressDialog.cancelLabel">रद्द</string>
-    <string name="migrationListScreen.matchWithoutChapterToast">कोई अध्याय नहीं मिला, इस प्रविष्टि का उपयोग स्थानांतरण के लिए नहीं किया जा सकता</string>
     <string name="pref_disallow_non_ascii_filenames">ग़ैर-ASCII फ़ाइल नामों की अनुमति न दें</string>
     <string name="pref_disallow_non_ascii_filenames_details">यह उन स्टोरेज मीडिया के साथ संगतता सुनिश्चित करता है जो यूनिकोड का समर्थन नहीं करते, और सक्षम होने पर स्रोत व मंगा फ़ोल्डरों के गैर-ASCII अक्षरों को उनके छोटे अक्षरों वाले UTF-8 हेक्साडेसिमल रूप में मैन्युअली बदलना आवश्यक होता है, जबकि चैप्टर फ़ाइलों के नाम बदलने की आवश्यकता नहीं होती।</string>
     <string name="action_webview_close_tab">टैब बंद करें</string>

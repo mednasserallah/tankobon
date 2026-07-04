@@ -3,9 +3,9 @@ package eu.kanade.tachiyomi.data.backup.create.creators
 import app.cash.sqldelight.async.coroutines.awaitAsList
 import app.cash.sqldelight.async.coroutines.awaitAsOne
 import eu.kanade.tachiyomi.data.backup.create.BackupOptions
-import eu.kanade.tachiyomi.data.backup.models.BackupChapter
 import eu.kanade.tachiyomi.data.backup.models.BackupHistory
 import eu.kanade.tachiyomi.data.backup.models.BackupManga
+import eu.kanade.tachiyomi.data.backup.models.BackupVolume
 import eu.kanade.tachiyomi.data.backup.models.backupChapterMapper
 import eu.kanade.tachiyomi.data.backup.models.backupTrackMapper
 import eu.kanade.tachiyomi.ui.reader.setting.ReadingMode
@@ -39,14 +39,14 @@ class MangaBackupCreator(
 
         if (options.chapters) {
             // Backup all the chapters
-            database.chaptersQueries
-                .getChaptersByMangaId(
+            database.volumesQueries
+                .getVolumesByMangaId(
                     mangaId = manga.id,
                     applyScanlatorFilter = 0, // false
                     mapper = backupChapterMapper,
                 )
                 .awaitAsList()
-                .takeUnless(List<BackupChapter>::isEmpty)
+                .takeUnless(List<BackupVolume>::isEmpty)
                 ?.let { mangaObject.chapters = it }
         }
 
@@ -71,8 +71,8 @@ class MangaBackupCreator(
             val historyByMangaId = getHistory.await(manga.id)
             if (historyByMangaId.isNotEmpty()) {
                 val history = historyByMangaId.map { history ->
-                    val chapter = database.chaptersQueries
-                        .getChapterById(history.chapterId)
+                    val chapter = database.volumesQueries
+                        .getVolumeById(history.volumeId)
                         .awaitAsOne()
                     BackupHistory(chapter.url, history.readAt?.time ?: 0L, history.readDuration)
                 }
@@ -109,4 +109,5 @@ private fun Manga.toBackupManga() =
         notes = this.notes,
         initialized = this.initialized,
         memo = MemoColumnAdapter.encode(this.memo),
+        edition = this.edition,
     )

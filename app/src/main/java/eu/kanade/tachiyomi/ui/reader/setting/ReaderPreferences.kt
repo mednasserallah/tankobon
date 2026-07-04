@@ -40,6 +40,9 @@ class ReaderPreferences(
 
     val showReadingMode: Preference<Boolean> = preferenceStore.getBoolean("pref_show_reading_mode", true)
 
+    // On-page text detection & translation
+    val translationWifiOnly: Preference<Boolean> = preferenceStore.getBoolean("pref_translation_wifi_only", true)
+
     val fullscreen: Preference<Boolean> = preferenceStore.getBoolean("fullscreen", true)
 
     val drawUnderCutout: Preference<Boolean> = preferenceStore.getBoolean("cutout_short", true)

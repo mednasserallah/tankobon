@@ -29,16 +29,16 @@ import tachiyomi.core.common.util.system.logcat
 import tachiyomi.domain.category.interactor.GetCategories
 import tachiyomi.domain.category.interactor.SetMangaCategories
 import tachiyomi.domain.category.model.Category
-import tachiyomi.domain.chapter.model.Chapter
+import tachiyomi.domain.chapter.model.Volume
 import tachiyomi.domain.history.interactor.GetHistory
-import tachiyomi.domain.history.interactor.GetNextChapters
+import tachiyomi.domain.history.interactor.GetNextVolumes
 import tachiyomi.domain.history.interactor.RemoveHistory
 import tachiyomi.domain.history.model.HistoryWithRelations
 import tachiyomi.domain.library.service.LibraryPreferences
 import tachiyomi.domain.manga.interactor.GetDuplicateLibraryManga
 import tachiyomi.domain.manga.interactor.GetManga
 import tachiyomi.domain.manga.model.Manga
-import tachiyomi.domain.manga.model.MangaWithChapterCount
+import tachiyomi.domain.manga.model.MangaWithVolumeCount
 import tachiyomi.domain.source.service.SourceManager
 import uy.kohesive.injekt.Injekt
 import uy.kohesive.injekt.api.get
@@ -49,7 +49,7 @@ class HistoryScreenModel(
     private val getDuplicateLibraryManga: GetDuplicateLibraryManga = Injekt.get(),
     private val getHistory: GetHistory = Injekt.get(),
     private val getManga: GetManga = Injekt.get(),
-    private val getNextChapters: GetNextChapters = Injekt.get(),
+    private val getNextChapters: GetNextVolumes = Injekt.get(),
     private val libraryPreferences: LibraryPreferences = Injekt.get(),
     private val removeHistory: RemoveHistory = Injekt.get(),
     private val setMangaCategories: SetMangaCategories = Injekt.get(),
@@ -92,19 +92,19 @@ class HistoryScreenModel(
             }
     }
 
-    suspend fun getNextChapter(): Chapter? {
+    suspend fun getNextChapter(): Volume? {
         return withIOContext { getNextChapters.await(onlyUnread = false).firstOrNull() }
     }
 
-    fun getNextChapterForManga(mangaId: Long, chapterId: Long) {
+    fun getNextChapterForManga(mangaId: Long, volumeId: Long) {
         screenModelScope.launchIO {
-            sendNextChapterEvent(getNextChapters.await(mangaId, chapterId, onlyUnread = false))
+            sendNextChapterEvent(getNextChapters.await(mangaId, volumeId, onlyUnread = false))
         }
     }
 
-    private suspend fun sendNextChapterEvent(chapters: List<Chapter>) {
+    private suspend fun sendNextChapterEvent(chapters: List<Volume>) {
         val chapter = chapters.firstOrNull()
-        _events.send(Event.OpenChapter(chapter))
+        _events.send(Event.OpenVolume(chapter))
     }
 
     fun removeFromHistory(history: HistoryWithRelations) {
@@ -208,15 +208,6 @@ class HistoryScreenModel(
                 // Choose a category
                 else -> showChangeCategoryDialog(manga)
             }
-
-            // Sync with tracking services if applicable
-            addTracks.bindEnhancedTrackers(manga, sourceManager.getOrStub(manga.source))
-        }
-    }
-
-    fun showMigrateDialog(target: Manga, current: Manga) {
-        mutableState.update { currentState ->
-            currentState.copy(dialog = Dialog.Migrate(target = target, current = current))
         }
     }
 
@@ -245,16 +236,15 @@ class HistoryScreenModel(
     sealed interface Dialog {
         data object DeleteAll : Dialog
         data class Delete(val history: HistoryWithRelations) : Dialog
-        data class DuplicateManga(val manga: Manga, val duplicates: List<MangaWithChapterCount>) : Dialog
+        data class DuplicateManga(val manga: Manga, val duplicates: List<MangaWithVolumeCount>) : Dialog
         data class ChangeCategory(
             val manga: Manga,
             val initialSelection: List<CheckboxState<Category>>,
         ) : Dialog
-        data class Migrate(val target: Manga, val current: Manga) : Dialog
     }
 
     sealed interface Event {
-        data class OpenChapter(val chapter: Chapter?) : Event
+        data class OpenVolume(val chapter: Volume?) : Event
         data object InternalError : Event
         data object HistoryCleared : Event
     }

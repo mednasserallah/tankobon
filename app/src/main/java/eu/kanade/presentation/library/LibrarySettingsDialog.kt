@@ -77,20 +77,8 @@ fun LibrarySettingsDialog(
 private fun ColumnScope.FilterPage(
     screenModel: LibrarySettingsScreenModel,
 ) {
-    val filterDownloaded by screenModel.libraryPreferences.filterDownloaded.collectAsState()
-    val downloadedOnly by screenModel.preferences.downloadedOnly.collectAsState()
     val autoUpdateMangaRestrictions by screenModel.libraryPreferences.autoUpdateMangaRestrictions.collectAsState()
 
-    TriStateItem(
-        label = stringResource(MR.strings.label_downloaded),
-        state = if (downloadedOnly) {
-            TriState.ENABLED_IS
-        } else {
-            filterDownloaded
-        },
-        enabled = !downloadedOnly,
-        onClick = { screenModel.toggleFilter(LibraryPreferences::filterDownloaded) },
-    )
     val filterUnread by screenModel.libraryPreferences.filterUnread.collectAsState()
     TriStateItem(
         label = stringResource(MR.strings.action_filter_unread),
@@ -265,10 +253,6 @@ private fun ColumnScope.DisplayPage(
     }
 
     HeadingItem(MR.strings.overlay_header)
-    CheckboxItem(
-        label = stringResource(MR.strings.action_display_download_badge),
-        pref = screenModel.libraryPreferences.downloadBadge,
-    )
     CheckboxItem(
         label = stringResource(MR.strings.action_display_unread_badge),
         pref = screenModel.libraryPreferences.unreadBadge,

@@ -64,7 +64,7 @@ import eu.kanade.presentation.more.settings.widget.TextPreferenceWidget
 import eu.kanade.tachiyomi.source.Source
 import eu.kanade.tachiyomi.source.model.SManga
 import tachiyomi.domain.manga.model.Manga
-import tachiyomi.domain.manga.model.MangaWithChapterCount
+import tachiyomi.domain.manga.model.MangaWithVolumeCount
 import tachiyomi.domain.source.model.StubSource
 import tachiyomi.domain.source.service.SourceManager
 import tachiyomi.i18n.MR
@@ -79,11 +79,10 @@ import uy.kohesive.injekt.api.get
 
 @Composable
 fun DuplicateMangaDialog(
-    duplicates: List<MangaWithChapterCount>,
+    duplicates: List<MangaWithVolumeCount>,
     onDismissRequest: () -> Unit,
     onConfirm: () -> Unit,
     onOpenManga: (manga: Manga) -> Unit,
-    onMigrate: (manga: Manga) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val sourceManager = remember { Injekt.get<SourceManager>() }
@@ -128,7 +127,6 @@ fun DuplicateMangaDialog(
                     DuplicateMangaListItem(
                         duplicate = it,
                         getSource = { sourceManager.getOrStub(it.manga.source) },
-                        onMigrate = { onMigrate(it.manga) },
                         onDismissRequest = onDismissRequest,
                         onOpenManga = { onOpenManga(it.manga) },
                     )
@@ -170,11 +168,10 @@ fun DuplicateMangaDialog(
 
 @Composable
 private fun DuplicateMangaListItem(
-    duplicate: MangaWithChapterCount,
+    duplicate: MangaWithVolumeCount,
     getSource: () -> Source,
     onDismissRequest: () -> Unit,
     onOpenManga: () -> Unit,
-    onMigrate: () -> Unit,
 ) {
     val source = getSource()
     val manga = duplicate.manga
@@ -184,10 +181,9 @@ private fun DuplicateMangaListItem(
             .clip(MaterialTheme.shapes.medium)
             .background(MaterialTheme.colorScheme.surface)
             .combinedClickable(
-                onLongClick = { onOpenManga() },
                 onClick = {
                     onDismissRequest()
-                    onMigrate()
+                    onOpenManga()
                 },
             )
             .padding(MaterialTheme.padding.small),
@@ -315,7 +311,7 @@ private fun MangaDetailRow(
 }
 
 @Composable
-private fun getMaximumMangaCardHeight(duplicates: List<MangaWithChapterCount>): Dp {
+private fun getMaximumMangaCardHeight(duplicates: List<MangaWithVolumeCount>): Dp {
     val density = LocalDensity.current
     val typography = MaterialTheme.typography
     val textMeasurer = rememberTextMeasurer()

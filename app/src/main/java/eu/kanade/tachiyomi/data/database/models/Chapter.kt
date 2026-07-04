@@ -2,11 +2,11 @@
 
 package eu.kanade.tachiyomi.data.database.models
 
-import eu.kanade.tachiyomi.source.model.SChapter
+import eu.kanade.tachiyomi.source.model.SVolume
 import java.io.Serializable
-import tachiyomi.domain.chapter.model.Chapter as DomainChapter
+import tachiyomi.domain.chapter.model.Volume as DomainVolume
 
-interface Chapter : SChapter, Serializable {
+interface Volume : SVolume, Serializable {
 
     var id: Long?
 
@@ -27,12 +27,12 @@ interface Chapter : SChapter, Serializable {
     var version: Long
 }
 
-val Chapter.isRecognizedNumber: Boolean
-    get() = chapter_number >= 0f
+val Volume.isRecognizedNumber: Boolean
+    get() = volume_number >= 0
 
-fun Chapter.toDomainChapter(): DomainChapter? {
+fun Volume.toDomainVolume(): DomainVolume? {
     if (id == null || manga_id == null) return null
-    return DomainChapter(
+    return DomainVolume(
         id = id!!,
         mangaId = manga_id!!,
         read = read,
@@ -43,7 +43,8 @@ fun Chapter.toDomainChapter(): DomainChapter? {
         url = url,
         name = name,
         dateUpload = date_upload,
-        chapterNumber = chapter_number.toDouble(),
+        volumeNumber = volume_number.toLong(),
+        volumeNumberEnd = volume_number_end?.toLong(),
         scanlator = scanlator,
         lastModifiedAt = last_modified,
         version = version,

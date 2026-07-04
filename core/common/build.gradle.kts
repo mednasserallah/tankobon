@@ -47,9 +47,6 @@ dependencies {
     // Sort
     implementation(libs.natural.comparator)
 
-    // JavaScript engine
-    implementation(libs.quickJs)
-
     testImplementation(libs.bundles.test)
     testRuntimeOnly(libs.junit.platform.launcher)
 }

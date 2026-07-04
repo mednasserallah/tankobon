@@ -36,6 +36,8 @@ data class Manga(
     val version: Long,
     val notes: String,
     val memo: JsonObject,
+    /** Series edition tag parsed from a parenthetical in the folder name (e.g. "Omnibus Edition"); null when absent. */
+    val edition: String?,
 ) : Serializable {
 
     val expectedNextUpdate: Instant?
@@ -132,6 +134,7 @@ data class Manga(
             version = 0L,
             notes = "",
             memo = JsonObject.EMPTY,
+            edition = null,
         )
     }
 }

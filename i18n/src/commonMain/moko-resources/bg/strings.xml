@@ -221,26 +221,13 @@
     <string name="delete_downloads_for_manga">Да се изтрият ли изтеглените глави?</string>
     <string name="chapter_paused">На пауза</string>
     <string name="download_notifier_download_paused">Изтеглянето спряно</string>
-    <string name="action_global_search">Глобално търсене</string>
     <string name="other_source">Други</string>
-    <string name="action_global_search_hint">Глобално търсене…</string>
     <string name="latest">Последни</string>
     <string name="browse">Търсене</string>
     <string name="channel_common">Общи</string>
     <string name="action_display_download_badge">Изтеглени глави</string>
     <string name="information_empty_category">Нямате категории. Натиснете плюса, за да създадете такава и да организирате библиотеката си.</string>
     <string name="label_migration">Мигриране</string>
-    <string name="label_extensions">Разширения</string>
-    <string name="label_extension_info">Информация</string>
-    <string name="ext_update">Обнови</string>
-    <string name="ext_install">Инсталирай</string>
-    <string name="ext_pending">На изчакване</string>
-    <string name="ext_downloading">Изтегля се</string>
-    <string name="ext_installing">Инсталира се</string>
-    <string name="ext_installed">Инсталирани</string>
-    <string name="ext_trust">Потвърдени</string>
-    <string name="ext_untrusted">Непотвърдени</string>
-    <string name="ext_uninstall">Деинсталирай</string>
     <string name="untrusted_extension">Непотвърдено разширение</string>
     <string name="untrusted_extension_message">Следното разширение имаше непотвърден сертификат и не беше активирано.
 \n
@@ -256,7 +243,6 @@
     <string name="copied_to_clipboard">Копирано към клипборда:
 \n%1$s</string>
     <string name="migration_dialog_what_to_include">Изберете кои данни ще мигрирате</string>
-    <string name="migrate">Мигрирай</string>
     <string name="copy">Копирай</string>
     <string name="pager_viewer">Страница</string>
     <string name="source_not_installed">Източникът не е инсталиран: %1$s</string>
@@ -282,12 +268,10 @@
     <string name="filter_mode_darken">Затъмнен</string>
     <string name="label_help">Помощ</string>
     <string name="no_results_found">Не бяха намерени резултати</string>
-    <string name="migration_selection_prompt">Изберете източник, от който да мигрирате</string>
     <string name="action_webview_back">Назад</string>
     <string name="action_webview_forward">Напред</string>
     <string name="action_webview_refresh">Обнови</string>
     <string name="pref_category_library">Библиотека</string>
-    <string name="ext_obsolete">Остарял</string>
     <string name="obsolete_extension_message">Това разширение вече не е достъпно.</string>
     <string name="pref_date_format">Формат на датата</string>
     <string name="pref_category_library_update">Глобалния обновявания</string>
@@ -296,7 +280,6 @@
     <string name="logout_success">Излязохте успешно</string>
     <string name="paused">На пауза</string>
     <string name="secure_screen">Сигурност</string>
-    <string name="channel_ext_updates">Ъпдейти на разширенията</string>
     <string name="channel_new_chapters">Нови глави</string>
     <string name="information_webview_outdated">Моля, обновете WebView за по-добра съвместимост</string>
     <string name="information_webview_required">WebView е необходим за Mihon</string>
@@ -335,7 +318,6 @@
     <string name="vertical_plus_viewer">Безкраен вертикален изглед</string>
     <string name="pref_skip_filtered_chapters">Пропускай филтрирани глави</string>
     <string name="pref_cutout_short">Показвай съдържанието в изрязаната част</string>
-    <string name="ext_updates_pending">Налични ъпдейти</string>
     <string name="pref_category_display">Показване</string>
     <string name="hide_notification_content">Скривай съдържанието на уведомленията</string>
     <string name="secure_screen_summary">Скрий съдържанието на приложението и блокирай снимките на екрана</string>
@@ -399,14 +381,11 @@
     <string name="unknown_status">Неизвестен статус</string>
     <string name="unknown_author">Неизвестен автор</string>
     <string name="no_pinned_sources">Нямате отметнати източници</string>
-    <string name="action_global_search_query">Търси „%1$s“ глобално</string>
     <string name="whats_new">Какво е новото</string>
     <string name="backup_restore_missing_trackers">Не сте влезли като потребител в:</string>
     <string name="pref_remove_bookmarked_chapters">Позволи изтриване на отметнати глави</string>
     <string name="pref_category_delete_chapters">Изтрий глави</string>
     <string name="pref_category_reading_mode">Режим на четене</string>
-    <string name="ext_nsfw_warning">Може да съдържа неприлично (18+) съдържание</string>
-    <string name="ext_nsfw_short">18+</string>
     <string name="parental_controls_info">Тази настройка няма да спре неофициални или потенциално неправилно маркирани разширения да позволяват достъп до съдържание за възрастни (18+) в апликацията.</string>
     <string name="pref_category_theme">Тема</string>
     <string name="action_sort_date_added">Добавено на</string>
@@ -434,9 +413,6 @@
     <string name="local_filter_order_by">Нареди по</string>
     <string name="chapter_settings">Настройки за главите</string>
     <string name="action_start_downloading_now">Започни изтеглянето сега</string>
-    <string name="ext_install_service_notif">Инсталиране на разширение…</string>
-    <string name="ext_installer_legacy">Стара версия</string>
-    <string name="ext_installer_pref">Инсталатор</string>
     <string name="pref_dump_crash_logs">Разтовари записите от сривовете</string>
     <string name="off">Не</string>
     <string name="rotation_landscape">Пейзаж</string>
@@ -482,8 +458,6 @@
     <string name="none">Никоя</string>
     <string name="include">Включва: %s</string>
     <string name="exclude">Изключва: %s</string>
-    <string name="ext_installer_shizuku_stopped">Shizuku не работи</string>
-    <string name="ext_installer_shizuku_unavailable_dialog">Инсталирайте и стартирайте Shizuku, за да използвате Shizuku като инсталатор на разширения.</string>
     <string name="pref_show_navigation_mode">Покажи оформлението на навигацията</string>
     <string name="pref_dual_page_split">Разделяне на широки страници</string>
     <string name="pref_dual_page_invert_summary">Ако позицията на разделението на широката страница не съвпада с посоката на четене</string>
@@ -516,7 +490,6 @@
     <string name="pref_clear_history">Изчисти историята</string>
     <string name="clear_history_completed">Историята изтрита</string>
     <string name="clear_history_confirmation">Напълно ли сте сигурен? Всичката ви история ще бъде загубена.</string>
-    <string name="migration_help_guide">Наръчник за мигриране между източници</string>
     <string name="notification_size_warning">Предупреждение: големите актуализации вредят на източниците и могат да доведат до по-бавни актуализации, както и до повишено използване на батерията. Натиснете тук, за да научите повече.</string>
     <string name="file_picker_error">Не бе намерено приложение за подбор на файлове</string>
     <string name="getting_started_guide">Първи стъпки</string>
@@ -526,7 +499,6 @@
     <string name="action_display_language_badge">Език</string>
     <string name="pref_show_nsfw_source">Показвай в списъка с източници и разширения</string>
     <string name="relative_time_today">Днес</string>
-    <string name="ext_app_info">Информация</string>
     <string name="pref_show_navigation_mode_summary">Покажи зони за натискане, когато четецът се отвори</string>
     <string name="pref_dual_page_invert">Обърни позициите на разделените широки страници</string>
     <string name="pref_inverted_colors">Инвертирани цветове</string>
@@ -549,8 +521,6 @@
     <string name="pref_auto_clear_chapter_cache">Изчистване на кеша на главата при затваряне на приложението</string>
     <string name="privacy_policy">Политика за поверителност</string>
     <string name="pref_update_only_completely_read">С непрочетени глави</string>
-    <string name="ext_update_all">Обнови всички</string>
-    <string name="extension_api_error">Неуспешно получаване на списък с разширения</string>
     <string name="update_72hour">На всеки 3 дена</string>
     <string name="connected_to_wifi">Само през Wi-Fi</string>
     <string name="download_queue_size_warning">Предупреждение: големите масови изтегляния могат да доведат до забавяне на източниците и/или блокиране на %s. Натиснете тук, за да научите повече.</string>
@@ -562,7 +532,6 @@
     <string name="update_already_running">Обновява се</string>
     <string name="not_installed">Не е инсталиран</string>
     <string name="rotation_reverse_portrait">Обърнат портрет</string>
-    <string name="ext_info_language">Език</string>
     <string name="crash_screen_title">Случи се неочаквана грешка</string>
     <string name="auto_download_while_reading">Автоматично изтегляне при четене</string>
     <string name="description_placeholder">Няма описание</string>
@@ -607,14 +576,12 @@
     <string name="theme_lavender">Лавандула</string>
     <string name="pref_app_language">Език на приложението</string>
     <string name="delete_category">Изтрий категория</string>
-    <string name="ext_info_age_rating">Възрастово ограничение</string>
     <string name="wish_list">Списък с желания</string>
     <string name="save_chapter_as_cbz">Запази като CBZ архив</string>
     <string name="webview_data_deleted">Данните на WebView изчистени</string>
     <string name="pref_reset_viewer_flags_error">Настройките на четеца не можаха да бъдат нулирани</string>
     <string name="source_filter_empty_screen">Не беше намерен инсталиран източник</string>
     <string name="action_remove_everything">Премахни всичко</string>
-    <string name="ext_info_version">Версия</string>
     <string name="on_hiatus">В хиатус</string>
     <string name="custom_cover">Корица по избор</string>
     <string name="action_search_hint">Търсене…</string>
@@ -700,8 +667,6 @@
     <string name="source_settings">Настройки на източници</string>
     <string name="manga_interval_expected_update">Нови глави предвидени да бъдат качени след около %1$s, проверяване около всеки %2$s.</string>
     <string name="upcoming_calendar_prev">Предишен месец</string>
-    <string name="ext_remove">Премахни</string>
-    <string name="ext_confirm_remove">Премахни разширение?</string>
     <string name="action_menu_overflow_description">Още настройки</string>
     <string name="delete_downloaded">Изтрий</string>
     <string name="label_data_storage">Данни и съхранение</string>

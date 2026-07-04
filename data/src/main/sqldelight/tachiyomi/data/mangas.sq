@@ -30,7 +30,8 @@ CREATE TABLE mangas(
     version INTEGER NOT NULL DEFAULT 0,
     is_syncing INTEGER NOT NULL DEFAULT 0,
     notes TEXT NOT NULL DEFAULT "",
-    memo BLOB AS JsonObject NOT NULL DEFAULT '{}'
+    memo BLOB AS JsonObject NOT NULL DEFAULT '{}',
+    edition TEXT
 );
 
 CREATE INDEX library_favorite_index ON mangas(favorite) WHERE favorite = 1;
@@ -86,8 +87,8 @@ getReadMangaNotInLibrary:
 SELECT *
 FROM mangas
 WHERE favorite = 0 AND _id IN (
-    SELECT DISTINCT chapters.manga_id
-    FROM chapters
+    SELECT DISTINCT volumes.manga_id
+    FROM volumes
     WHERE read = 1 OR last_page_read != 0
 );
 
@@ -138,12 +139,12 @@ duplicates AS (
     AND _id != :id
     AND (lower(title) LIKE '%' || lower(:title) || '%' OR D.manga_id IS NOT NULL)
 ),
-chapter_counts AS (
+volume_counts AS (
     SELECT
         M._id AS manga_id,
-        count(*) AS chapter_count
+        count(*) AS volume_count
     FROM duplicates M
-    JOIN chapters C
+    JOIN volumes C
     ON M._id = C.manga_id
     LEFT JOIN excluded_scanlators ES
     ON C.manga_id = ES.manga_id
@@ -153,9 +154,9 @@ chapter_counts AS (
 )
 SELECT
     M.*,
-    coalesce(CC.chapter_count, 0) AS chapter_count
+    coalesce(CC.volume_count, 0) AS volume_count
 FROM duplicates M
-LEFT JOIN chapter_counts CC
+LEFT JOIN volume_counts CC
 ON M._id = CC.manga_id;
 
 getUpcomingManga:
@@ -189,15 +190,15 @@ AND (
     :keepReadManga = 0
     OR _id NOT IN (
         SELECT DISTINCT manga_id
-        FROM chapters
+        FROM volumes
         WHERE read = 1
         OR last_page_read != 0
     )
 );
 
 insertReturningId:
-INSERT INTO mangas(source, url, artist, author, description, genre, title, status, thumbnail_url, favorite, last_update, next_update, initialized, viewer, chapter_flags, cover_last_modified, date_added, update_strategy, calculate_interval, last_modified_at, version, notes, memo)
-VALUES (:source, :url, :artist, :author, :description, :genre, :title, :status, :thumbnailUrl, :favorite, :lastUpdate, :nextUpdate, :initialized, :viewerFlags, :chapterFlags, :coverLastModified, :dateAdded, :updateStrategy, :calculateInterval, 0, :version, :notes, :memo)
+INSERT INTO mangas(source, url, artist, author, description, genre, title, status, thumbnail_url, favorite, last_update, next_update, initialized, viewer, chapter_flags, cover_last_modified, date_added, update_strategy, calculate_interval, last_modified_at, version, notes, memo, edition)
+VALUES (:source, :url, :artist, :author, :description, :genre, :title, :status, :thumbnailUrl, :favorite, :lastUpdate, :nextUpdate, :initialized, :viewerFlags, :chapterFlags, :coverLastModified, :dateAdded, :updateStrategy, :calculateInterval, 0, :version, :notes, :memo, :edition)
 RETURNING _id;
 
 update:
@@ -224,7 +225,8 @@ UPDATE mangas SET
     version = coalesce(:version, version),
     is_syncing = coalesce(:isSyncing, is_syncing),
     notes = coalesce(:notes, notes),
-    memo = coalesce(:memo, memo)
+    memo = coalesce(:memo, memo),
+    edition = coalesce(:edition, edition)
 WHERE _id = :mangaId;
 
 insertNetworkManga {
@@ -232,12 +234,12 @@ insertNetworkManga {
     INSERT INTO mangas(
         source, url, artist, author, description, genre, title, status, thumbnail_url, favorite,
         last_update, next_update, initialized, viewer, chapter_flags, cover_last_modified, date_added,
-        update_strategy, calculate_interval, last_modified_at, version, memo
+        update_strategy, calculate_interval, last_modified_at, version, memo, edition
     )
     SELECT
         :source, :url, :artist, :author, :description, :genre, :title, :status, :thumbnailUrl, :favorite,
         :lastUpdate, :nextUpdate, :initialized, :viewerFlags, :chapterFlags, :coverLastModified, :dateAdded,
-        :updateStrategy, :calculateInterval, 0, :version, :memo
+        :updateStrategy, :calculateInterval, 0, :version, :memo, :edition
     WHERE NOT EXISTS(SELECT 0 FROM mangas WHERE source = :source AND url = :url);
 
     -- Update the relevant details if applicable and not favorite
@@ -252,7 +254,8 @@ insertNetworkManga {
         status = CASE WHEN :updateDetails THEN :status ELSE status END,
         update_strategy = CASE WHEN :updateDetails THEN :updateStrategy ELSE update_strategy END,
         initialized = :updateDetails,
-        memo = :memo
+        memo = :memo,
+        edition = CASE WHEN :updateDetails THEN :edition ELSE edition END
     WHERE source = :source
     AND url = :url
     AND favorite = 0;

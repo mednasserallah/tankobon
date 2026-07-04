@@ -25,11 +25,9 @@ import androidx.core.net.toUri
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import eu.kanade.domain.base.BasePreferences
-import eu.kanade.domain.extension.interactor.TrustExtension
 import eu.kanade.presentation.more.settings.Preference
 import eu.kanade.presentation.more.settings.screen.advanced.ClearDatabaseScreen
 import eu.kanade.presentation.more.settings.screen.debug.DebugInfoScreen
-import eu.kanade.tachiyomi.data.download.DownloadCache
 import eu.kanade.tachiyomi.data.library.MetadataUpdateJob
 import eu.kanade.tachiyomi.network.NetworkHelper
 import eu.kanade.tachiyomi.network.NetworkPreferences
@@ -49,7 +47,6 @@ import eu.kanade.tachiyomi.ui.more.OnboardingScreen
 import eu.kanade.tachiyomi.util.CrashLogUtil
 import eu.kanade.tachiyomi.util.system.GLUtil
 import eu.kanade.tachiyomi.util.system.isReleaseBuildType
-import eu.kanade.tachiyomi.util.system.isShizukuInstalled
 import eu.kanade.tachiyomi.util.system.powerManager
 import eu.kanade.tachiyomi.util.system.setDefaultSettings
 import eu.kanade.tachiyomi.util.system.toast
@@ -126,7 +123,6 @@ object SettingsAdvancedScreen : SearchableSettings {
             getNetworkGroup(networkPreferences = networkPreferences),
             getLibraryGroup(libraryPreferences = libraryPreferences),
             getReaderGroup(basePreferences = basePreferences),
-            getExtensionsGroup(basePreferences = basePreferences),
         )
     }
 
@@ -171,20 +167,11 @@ object SettingsAdvancedScreen : SearchableSettings {
 
     @Composable
     private fun getDataGroup(): Preference.PreferenceGroup {
-        val context = LocalContext.current
         val navigator = LocalNavigator.currentOrThrow
 
         return Preference.PreferenceGroup(
             title = stringResource(MR.strings.label_data),
             preferenceItems = listOf(
-                Preference.PreferenceItem.TextPreference(
-                    title = stringResource(MR.strings.pref_invalidate_download_cache),
-                    subtitle = stringResource(MR.strings.pref_invalidate_download_cache_summary),
-                    onClick = {
-                        Injekt.get<DownloadCache>().invalidateCache()
-                        context.toast(MR.strings.download_cache_invalidated)
-                    },
-                ),
                 Preference.PreferenceItem.TextPreference(
                     title = stringResource(MR.strings.pref_clear_database),
                     subtitle = stringResource(MR.strings.pref_clear_database_summary),
@@ -375,77 +362,6 @@ object SettingsAdvancedScreen : SearchableSettings {
                     subtitle = basePreferences.displayProfile.get(),
                     onClick = {
                         chooseColorProfile.launch(arrayOf("*/*"))
-                    },
-                ),
-            ),
-        )
-    }
-
-    @Composable
-    private fun getExtensionsGroup(
-        basePreferences: BasePreferences,
-    ): Preference.PreferenceGroup {
-        val context = LocalContext.current
-        val uriHandler = LocalUriHandler.current
-        val extensionInstallerPref = basePreferences.extensionInstaller
-        var shizukuMissing by rememberSaveable { mutableStateOf(false) }
-        val trustExtension = remember { Injekt.get<TrustExtension>() }
-
-        if (shizukuMissing) {
-            val dismiss = { shizukuMissing = false }
-            AlertDialog(
-                onDismissRequest = dismiss,
-                title = { Text(text = stringResource(MR.strings.ext_installer_shizuku)) },
-                text = { Text(text = stringResource(MR.strings.ext_installer_shizuku_unavailable_dialog)) },
-                dismissButton = {
-                    TextButton(onClick = dismiss) {
-                        Text(text = stringResource(MR.strings.action_cancel))
-                    }
-                },
-                confirmButton = {
-                    TextButton(
-                        onClick = {
-                            dismiss()
-                            uriHandler.openUri("https://shizuku.rikka.app/download")
-                        },
-                    ) {
-                        Text(text = stringResource(MR.strings.action_ok))
-                    }
-                },
-            )
-        }
-        return Preference.PreferenceGroup(
-            title = stringResource(MR.strings.label_extensions),
-            preferenceItems = listOf(
-                Preference.PreferenceItem.ListPreference(
-                    preference = extensionInstallerPref,
-                    entries = extensionInstallerPref.entries
-                        .filter {
-                            // TODO: allow private option in stable versions once URL handling is more fleshed out
-                            if (isReleaseBuildType) {
-                                it != BasePreferences.ExtensionInstaller.PRIVATE
-                            } else {
-                                true
-                            }
-                        }
-                        .associateWith { stringResource(it.titleRes) },
-                    title = stringResource(MR.strings.ext_installer_pref),
-                    onValueChanged = {
-                        if (it == BasePreferences.ExtensionInstaller.SHIZUKU &&
-                            !context.isShizukuInstalled
-                        ) {
-                            shizukuMissing = true
-                            false
-                        } else {
-                            true
-                        }
-                    },
-                ),
-                Preference.PreferenceItem.TextPreference(
-                    title = stringResource(MR.strings.ext_revoke_trust),
-                    onClick = {
-                        trustExtension.revokeAll()
-                        context.toast(MR.strings.requires_app_restart)
                     },
                 ),
             ),

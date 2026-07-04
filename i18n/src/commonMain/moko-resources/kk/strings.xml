@@ -6,8 +6,6 @@
     <string name="label_recent_updates">Жаңартпа</string>
     <string name="label_sources">Дереккөз</string>
     <string name="label_backup">Сақтық көшірме</string>
-    <string name="label_extensions">Кеңейтпе</string>
-    <string name="label_extension_info">Кеңейтпе туралы</string>
     <string name="label_help">Көмек</string>
     <string name="categories">Санат</string>
     <string name="manga">Кітапханадағы топтама</string>
@@ -97,7 +95,6 @@
     <string name="action_sort_date_added">Қосылған күні</string>
     <string name="action_search">Іздеу</string>
     <string name="action_search_settings">Баптау іздеу</string>
-    <string name="action_global_search">Ауқымды іздеу</string>
     <string name="action_select_all">Түгелін таңдау</string>
     <string name="action_download">Жүктеп алу</string>
     <string name="action_bookmark">Тарауды бетбелгілеу</string>
@@ -181,26 +178,16 @@
     <string name="default_category_summary">Әрқашан сұраңыз</string>
     <string name="default_category">Әдепкі санат</string>
     <string name="categorized_display_settings">Сұрыптау және көрсету үшін әр санат баптауы</string>
-    <string name="ext_uninstall">Жою</string>
-    <string name="ext_update">Жаңарту</string>
-    <string name="ext_pending">Күтілуде</string>
     <string name="obsolete_extension_message">Бұл кеңейту енді қолжетімсіз. Ол дұрыс жұмыс істемеуі немесе қолданбада ақаулық тудыруы мүмкін. Оны жойып тастауға кеңес береміз.</string>
-    <string name="ext_installer_pref">Орнатушы</string>
-    <string name="ext_installer_legacy">Әдепкі қалпы</string>
-    <string name="ext_installer_shizuku_stopped">Shizuku қосылмаған</string>
     <string name="pref_dual_page_invert_summary">Қос бетті бөлу оқу бағытына сәйкес келмесе</string>
     <string name="pref_show_reading_mode">Оқу режимін көрсету</string>
     <string name="on">Қосулы</string>
-    <string name="ext_downloading">Жүктелуде</string>
     <string name="off">Өшірулі</string>
     <string name="pref_custom_brightness">Өзгермелі жарықтық</string>
     <string name="pref_grayscale">Сұр реңктері</string>
     <string name="pref_inverted_colors">Төңкерілген</string>
     <string name="pref_custom_color_filter">Өзгермелі түс фильтрі</string>
     <string name="network_not_metered">Тек шексіз желіде</string>
-    <string name="ext_info_version">Нұсқа</string>
-    <string name="ext_info_language">Тіл</string>
-    <string name="ext_info_age_rating">Жас рейтингі</string>
     <string name="action_display_comfortable_grid">Ыңғайлы кесте</string>
     <string name="action_display_cover_only_grid">Атаусыз кесте</string>
     <string name="pref_library_update_refresh_metadata">Метадеректерді автоматты түрде жаңарту</string>
@@ -209,11 +196,6 @@
     <string name="none">Ешқайсы</string>
     <string name="exclude">Шығару: %s</string>
     <string name="include">Қосу: %s</string>
-    <string name="ext_installing">Орнатылуда</string>
-    <string name="ext_installed">Орнатылды</string>
-    <string name="ext_trust">Сенім</string>
-    <string name="ext_untrusted">Сенімсіз</string>
-    <string name="ext_installer_shizuku_unavailable_dialog">Shizuku-ны кеңейту орнатушысы ретінде пайдалану үшін Shizuku-ны орнатып іске қосыңыз.</string>
     <string name="pref_show_navigation_mode">Түрту аймақтарының қабаттасуын көрсету</string>
     <string name="pref_show_navigation_mode_summary">Оқыма ашылғаннан кейін қысқаша көрсету</string>
     <string name="pref_dual_page_split">Қең беттерді бөлу</string>
@@ -225,24 +207,15 @@
     <string name="action_display_grid">Ықшам кесте</string>
     <string name="pref_show_reading_mode_summary">Оқыма ашылғаннан кейін оқу түрін қысқаша көрсету</string>
     <string name="pref_crop_borders">Кесу жиектері</string>
-    <string name="extension_api_error">Кеңейтулер тізімін алу сәтсіз өтті</string>
     <string name="pref_cutout_short">Мазмұнды кесу аймағында көрсету</string>
     <string name="pref_update_only_started">Бұл басталған жоқ</string>
     <string name="pref_library_update_refresh_metadata_summary">Кітапхананы жаңарту кезінде жаңа мұқаба мен мәліметтерді тексеру</string>
-    <string name="ext_updates_pending">Жаңартулар күтілуде</string>
-    <string name="ext_update_all">Барлығын жаңарту</string>
-    <string name="ext_obsolete">Ескірген</string>
-    <string name="ext_install">Орнату</string>
-    <string name="ext_app_info">Қолданба туралы</string>
     <string name="untrusted_extension">Сенімсіз кеңейту</string>
     <string name="untrusted_extension_message">Бұл кеңейту сенімсіз сертификатпен қол қойылған және іске қосылмаған.
 \n
 \nЗиянды кеңейту Mihon-де сақталған кез келген кіру тіркелгі деректерін оқуы немесе еркін кодты орындауы мүмкін.
 \n
 \nОсы сертификатқа сену арқылы сіз осы қауіп-қатерді қабылдайсыз.</string>
-    <string name="ext_nsfw_short">18+</string>
-    <string name="ext_nsfw_warning">Бұл кеңейту дереккөзінде NSFW (18+) мазмұны болуы мүмкін</string>
-    <string name="ext_install_service_notif">Кеңейту орнатылуда…</string>
     <string name="pref_fullscreen">Толық экранды</string>
     <string name="pref_page_transitions">Беттің ауысуын анимациялау</string>
     <string name="pref_double_tap_anim_speed">Қосарлы түрту анимация жылдамдығы</string>
@@ -471,8 +444,6 @@
     <string name="about_dont_kill_my_app">Кейбір өндірушілерде аялық қызметтерді өшіретін қолданбаларға қосымша шектеулер бар. Бұл сайтта оны қалай түзетуге болатыны туралы толығырақ ақпарат бар.</string>
     <string name="pref_verbose_logging">Тіркеуді жан-жақты жүргізу</string>
     <string name="website">Сайт</string>
-    <string name="action_global_search_hint">Ауқымды іздеу…</string>
-    <string name="action_global_search_query">\"%1$s\" ауқымды іздеу</string>
     <string name="browse">Іздеу</string>
     <string name="pref_reset_user_agent_string">User agent-ті әдепкіге қайтару</string>
     <string name="cache_deleted">Кеш тазаланды. %1$d файл жойылды</string>
@@ -580,7 +551,6 @@
     <string name="download_notifier_split_page_path_not_found">Бет файлының жолы %d табылмады</string>
     <string name="channel_new_chapters">Тарау жаңартулары</string>
     <string name="channel_app_updates">Қолданба жаңартулары</string>
-    <string name="channel_ext_updates">Кеңейту жаңартулары</string>
     <string name="spen_previous_page">Алдыңғы бет</string>
     <string name="spen_next_page">Келесі бет</string>
     <string name="appwidget_updates_description">Жақында кітапханада жаңартылған жазбаларды қарау</string>
@@ -601,8 +571,6 @@
     <string name="transition_finished">Аяқталған:</string>
     <string name="transition_previous">Алдыңғы:</string>
     <string name="clear_history_completed">Тарих жойылды</string>
-    <string name="migrate">Көшу</string>
-    <string name="migration_selection_prompt">Қай жерден көшетін деректі таңдаңыз</string>
     <string name="copy">Көшіру</string>
     <string name="empty_screen">Қателік пайда болды</string>
     <string name="download_notifier_downloader_title">Жүктеуіш</string>
@@ -616,7 +584,6 @@
     <string name="sort_by_source">Дереккөз бойынша</string>
     <string name="confirm_delete_chapters">Таңдалған тараулардың жойылуын қалайсыз ба?</string>
     <string name="plan_to_read">Жоспарланған</string>
-    <string name="migration_help_guide">Дереккөздерді тасымалдау нұсқаулары</string>
     <string name="download_notifier_text_only_wifi">Wi-Fi байланысы жоқ</string>
     <string name="download_notifier_download_paused">Жүктеулер тоқтатылды</string>
     <string name="appwidget_unavailable_locked">Биометриялық бұғаттау қосылып тұрғанда виджет қолжетімді емес</string>

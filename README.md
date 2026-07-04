@@ -1,42 +1,59 @@
 <div align="center">
 
-<a href="https://mihon.app">
-    <img src="./.github/assets/logo.png" alt="Mihon logo" title="Mihon logo" width="80"/>
-</a>
+# Tankobon
 
-# Mihon [App](#)
+### A local-first, volume-based manga reader for Android
 
-### Full-featured reader
-Discover and read manga, webtoons, comics, and more – easier than ever on your Android device.
+Tankobon is an **unofficial fork** of [Mihon](https://github.com/mihonapp/mihon) (itself the successor to Tachiyomi) focused on reading manga you already own as local files, organized by **volume** rather than chapter.
 
-[![Discord server](https://img.shields.io/discord/1195734228319617024.svg?label=&labelColor=6A7EC2&color=7389D8&logo=discord&logoColor=FFFFFF)](https://discord.gg/mihon)
-[![GitHub downloads](https://img.shields.io/github/downloads/mihonapp/mihon/total?label=downloads&labelColor=27303D&color=0D1117&logo=github&logoColor=FFFFFF&style=flat)](https://mihon.app/download)
-
-[![CI](https://img.shields.io/github/actions/workflow/status/mihonapp/mihon/build.yml?labelColor=27303D)](https://github.com/mihonapp/mihon/actions/workflows/build_push.yml)
-[![License: Apache-2.0](https://img.shields.io/github/license/mihonapp/mihon?labelColor=27303D&color=0877d2)](/LICENSE)
-[![Translation status](https://img.shields.io/weblate/progress/mihon?labelColor=27303D&color=946300)](https://hosted.weblate.org/engage/mihon/)
-
-## Download
-
-[![Mihon Stable](https://img.shields.io/github/release/mihonapp/mihon.svg?maxAge=3600&label=Stable&labelColor=06599d&color=043b69)](https://mihon.app/download)
-[![Mihon Beta](https://img.shields.io/github/v/release/mihonapp/mihon-preview.svg?maxAge=3600&label=Beta&labelColor=2c2c47&color=1c1c39)](https://mihon.app/download)
-
-*Requires Android 8.0 or higher.*
-
-## Features
-
-<div align="left">
-
-* Local reading of content.
-* A configurable reader with multiple viewers, reading directions and other settings.
-* Tracker support: [MyAnimeList](https://myanimelist.net/), [AniList](https://anilist.co/), [Kitsu](https://kitsu.app/), [MangaUpdates](https://mangaupdates.com), [Shikimori](https://shikimori.one), and [Bangumi](https://bgm.tv/) support.
-* Categories to organize your library.
-* Light and dark themes.
-* Schedule updating your library for new chapters.
-* Create backups locally to read offline or to your desired cloud service.
-* Plus much more...
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-0877d2)](/LICENSE)
 
 </div>
+
+## About this fork
+
+Tankobon deliberately narrows Mihon's scope. Instead of a general-purpose reader with remote sources and installable extensions, Tankobon aims to be a focused reader for a personal, on-device manga library.
+
+> **Work in progress.** This fork is under active development and is **not** feature-complete. Expect breaking changes. Some Mihon features are still present but are being removed or reworked (see the roadmap below).
+
+## Roadmap
+
+The direction of this fork differs from upstream Mihon:
+
+- **Local files only.** The extension system (remote sources, extension repos, installer/updater) is being **removed** entirely. Tankobon reads content stored on your device.
+- **Volume-based organization.** The local parser is being reworked so that each **volume** is the atomic reading unit, using an opinionated file-naming convention:
+
+  ```
+  Series Name/
+    ├─ Series Name - Volume 01 (Year).cbz
+    ├─ Series Name - Volume 02 (Year).cbz
+    ├─ cover.jpg        (optional, ignored)
+    └─ details.json     (optional, ignored)
+  ```
+
+  Single-volume/one-shot titles (e.g. `Boy Meets Maria (2021).cbz`) and series names that themselves contain parentheses (e.g. `BLAME! (Master Edition)`) are handled as special cases.
+
+Neither of these is complete yet.
+
+## Features (current)
+
+Inherited from Mihon and still available while the rework is in progress:
+
+* Local reading of content from `.cbz`/archive files.
+* A configurable reader with multiple viewers, reading directions and other settings.
+* Categories to organize your library.
+* Light and dark themes.
+* Create and restore local backups.
+
+## Building
+
+Standard Android/Gradle project. To build a debug APK:
+
+```
+./gradlew assembleDebug
+```
+
+Requires a JDK matching `.github/.java-version` and Android SDK. Android Studio is recommended. See [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
 
 ## Contributing
 
@@ -44,31 +61,18 @@ Discover and read manga, webtoons, comics, and more – easier than ever on your
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-Before reporting a new issue, take a look at the [FAQ](https://mihon.app/docs/faq/general), the [changelog](https://mihon.app/changelogs/) and the already opened [issues](https://github.com/mihonapp/mihon/issues); if you got any questions, join our [Discord server](https://discord.gg/mihon).
+## Disclaimer
 
+The developer(s) of this application do not have any affiliation with any content providers, and this application hosts zero content. Tankobon is an independent, unofficial fork and is **not** affiliated with or endorsed by the Mihon project.
 
-### Repositories
+## License
 
-[![mihonapp/website - GitHub](https://github-readme-stats.vercel.app/api/pin/?username=mihonapp&repo=website&bg_color=161B22&text_color=c9d1d9&title_color=0877d2&icon_color=0877d2&border_radius=8&hide_border=true&description_lines_count=2)](https://github.com/mihonapp/website/)
-[![mihonapp/bitmap.kt - GitHub](https://github-readme-stats.vercel.app/api/pin/?username=mihonapp&repo=bitmap.kt&bg_color=161B22&text_color=c9d1d9&title_color=0877d2&icon_color=0877d2&border_radius=8&hide_border=true&description_lines_count=2)](https://github.com/mihonapp/bitmap.kt/)
-
-### Credits
-
-Thank you to all the people who have contributed!
-
-<a href="https://github.com/mihonapp/mihon/graphs/contributors">
-    <img src="https://contrib.rocks/image?repo=mihonapp/mihon" alt="Mihon app contributors" title="Mihon app contributors" width="800"/>
-</a>
-
-### Disclaimer
-
-The developer(s) of this application does not have any affiliation with the content providers available, and this application hosts zero content.
-
-### License
+Tankobon builds on the work of the Mihon and Tachiyomi projects and remains licensed under the Apache License, Version 2.0.
 
 <pre>
 Copyright © 2015 Javier Tomás
 Copyright © 2024 Mihon Open Source Project
+Copyright © 2026 Tankobon Contributors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -82,5 +86,5 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 </pre>
-
-</div>
+</content>
+</invoke>

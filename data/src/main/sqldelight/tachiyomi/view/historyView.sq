@@ -2,46 +2,46 @@ CREATE VIEW historyView AS
 SELECT
     history._id AS id,
     mangas._id AS mangaId,
-    chapters._id AS chapterId,
+    volumes._id AS volumeId,
     mangas.title,
     mangas.thumbnail_url AS thumbnailUrl,
     mangas.source,
     mangas.favorite,
     mangas.cover_last_modified,
-    chapters.chapter_number AS chapterNumber,
+    volumes.volume_number AS volumeNumber,
     history.last_read AS readAt,
     history.time_read AS readDuration,
     max_last_read.last_read AS maxReadAt,
-    max_last_read.chapter_id AS maxReadAtChapterId
+    max_last_read.volume_id AS maxReadAtVolumeId
 FROM mangas
-JOIN chapters
-ON mangas._id = chapters.manga_id
+JOIN volumes
+ON mangas._id = volumes.manga_id
 JOIN history
-ON chapters._id = history.chapter_id
+ON volumes._id = history.volume_id
 JOIN (
-    SELECT chapters.manga_id,chapters._id AS chapter_id, MAX(history.last_read) AS last_read
-    FROM chapters JOIN history
-    ON chapters._id = history.chapter_id
-    GROUP BY chapters.manga_id
+    SELECT volumes.manga_id,volumes._id AS volume_id, MAX(history.last_read) AS last_read
+    FROM volumes JOIN history
+    ON volumes._id = history.volume_id
+    GROUP BY volumes.manga_id
 ) AS max_last_read
-ON chapters.manga_id = max_last_read.manga_id;
+ON volumes.manga_id = max_last_read.manga_id;
 
 history:
 SELECT
 id,
 mangaId,
-chapterId,
+volumeId,
 title,
 thumbnailUrl,
 source,
 favorite,
 cover_last_modified,
-chapterNumber,
+volumeNumber,
 readAt,
 readDuration
 FROM historyView
 WHERE historyView.readAt > 0
-AND maxReadAtChapterId = historyView.chapterId
+AND maxReadAtVolumeId = historyView.volumeId
 AND lower(historyView.title) LIKE ('%' || :query || '%')
 ORDER BY readAt DESC;
 
@@ -49,13 +49,13 @@ getLatestHistory:
 SELECT
 id,
 mangaId,
-chapterId,
+volumeId,
 title,
 thumbnailUrl,
 source,
 favorite,
 cover_last_modified,
-chapterNumber,
+volumeNumber,
 readAt,
 readDuration
 FROM historyView

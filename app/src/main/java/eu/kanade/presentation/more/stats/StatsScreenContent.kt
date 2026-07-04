@@ -44,7 +44,7 @@ fun StatsScreenContent(
             TitlesStats(state.titles)
         }
         item {
-            ChapterStats(state.chapters)
+            VolumeStats(state.chapters)
         }
         item {
             TrackerStats(state.trackers)
@@ -109,8 +109,8 @@ private fun LazyItemScope.TitlesStats(
 }
 
 @Composable
-private fun LazyItemScope.ChapterStats(
-    data: StatsData.Chapters,
+private fun LazyItemScope.VolumeStats(
+    data: StatsData.Volumes,
 ) {
     SectionCard(MR.strings.chapters) {
         Row {
@@ -121,10 +121,6 @@ private fun LazyItemScope.ChapterStats(
             StatsItem(
                 data.readChapterCount.toString(),
                 stringResource(MR.strings.label_read_chapters),
-            )
-            StatsItem(
-                data.downloadCount.toString(),
-                stringResource(MR.strings.label_downloaded),
             )
         }
     }

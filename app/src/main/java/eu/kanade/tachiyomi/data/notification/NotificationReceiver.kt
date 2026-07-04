@@ -7,7 +7,6 @@ import android.content.Intent
 import android.net.Uri
 import androidx.core.net.toUri
 import eu.kanade.tachiyomi.data.backup.restore.BackupRestoreJob
-import eu.kanade.tachiyomi.data.download.DownloadManager
 import eu.kanade.tachiyomi.data.library.LibraryUpdateJob
 import eu.kanade.tachiyomi.data.updater.AppUpdateDownloadJob
 import eu.kanade.tachiyomi.ui.main.MainActivity
@@ -20,14 +19,12 @@ import eu.kanade.tachiyomi.util.system.toast
 import kotlinx.coroutines.runBlocking
 import tachiyomi.core.common.Constants
 import tachiyomi.core.common.util.lang.launchIO
-import tachiyomi.domain.chapter.interactor.GetChapter
-import tachiyomi.domain.chapter.interactor.UpdateChapter
-import tachiyomi.domain.chapter.model.Chapter
-import tachiyomi.domain.chapter.model.toChapterUpdate
-import tachiyomi.domain.download.service.DownloadPreferences
+import tachiyomi.domain.chapter.interactor.GetVolume
+import tachiyomi.domain.chapter.interactor.UpdateVolume
+import tachiyomi.domain.chapter.model.Volume
+import tachiyomi.domain.chapter.model.toVolumeUpdate
 import tachiyomi.domain.manga.interactor.GetManga
 import tachiyomi.domain.manga.model.Manga
-import tachiyomi.domain.source.service.SourceManager
 import tachiyomi.i18n.MR
 import uy.kohesive.injekt.Injekt
 import uy.kohesive.injekt.api.get
@@ -42,20 +39,13 @@ import eu.kanade.tachiyomi.BuildConfig.APPLICATION_ID as ID
 class NotificationReceiver : BroadcastReceiver() {
 
     private val getManga: GetManga by injectLazy()
-    private val getChapter: GetChapter by injectLazy()
-    private val updateChapter: UpdateChapter by injectLazy()
-    private val downloadManager: DownloadManager by injectLazy()
+    private val getChapter: GetVolume by injectLazy()
+    private val updateChapter: UpdateVolume by injectLazy()
 
     override fun onReceive(context: Context, intent: Intent) {
         when (intent.action) {
             // Dismiss notification
             ACTION_DISMISS_NOTIFICATION -> dismissNotification(context, intent.getIntExtra(EXTRA_NOTIFICATION_ID, -1))
-            // Resume the download service
-            ACTION_RESUME_DOWNLOADS -> downloadManager.startDownloads()
-            // Pause the download service
-            ACTION_PAUSE_DOWNLOADS -> downloadManager.pauseDownloads()
-            // Clear the download queue
-            ACTION_CLEAR_DOWNLOADS -> downloadManager.clearQueue()
             // Launch share activity and dismiss notification
             ACTION_SHARE_IMAGE ->
                 shareImage(
@@ -96,18 +86,6 @@ class NotificationReceiver : BroadcastReceiver() {
                     markAsRead(urls, mangaId)
                 }
             }
-            // Download manga chapters
-            ACTION_DOWNLOAD_CHAPTER -> {
-                val notificationId = intent.getIntExtra(EXTRA_NOTIFICATION_ID, -1)
-                if (notificationId > -1) {
-                    dismissNotification(context, notificationId, intent.getIntExtra(EXTRA_GROUP_ID, 0))
-                }
-                val urls = intent.getStringArrayExtra(EXTRA_CHAPTER_URL) ?: return
-                val mangaId = intent.getLongExtra(EXTRA_MANGA_ID, -1)
-                if (mangaId > -1) {
-                    downloadChapters(urls, mangaId)
-                }
-            }
         }
     }
 
@@ -145,11 +123,11 @@ class NotificationReceiver : BroadcastReceiver() {
      *
      * @param context context of application
      * @param mangaId id of manga
-     * @param chapterId id of chapter
+     * @param volumeId id of chapter
      */
-    private fun openChapter(context: Context, mangaId: Long, chapterId: Long) {
+    private fun openChapter(context: Context, mangaId: Long, volumeId: Long) {
         val manga = runBlocking { getManga.await(mangaId) }
-        val chapter = runBlocking { getChapter.await(chapterId) }
+        val chapter = runBlocking { getChapter.await(volumeId) }
         if (manga != null && chapter != null) {
             val intent = ReaderActivity.newIntent(context, manga.id, chapter.id).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -194,39 +172,10 @@ class NotificationReceiver : BroadcastReceiver() {
      * @param mangaId id of manga
      */
     private fun markAsRead(chapterUrls: Array<String>, mangaId: Long) {
-        val downloadPreferences: DownloadPreferences = Injekt.get()
-        val sourceManager: SourceManager = Injekt.get()
-
         launchIO {
             val toUpdate = chapterUrls.mapNotNull { getChapter.await(it, mangaId) }
-                .map {
-                    val chapter = it.copy(read = true)
-                    if (downloadPreferences.removeAfterMarkedAsRead.get()) {
-                        val manga = getManga.await(mangaId)
-                        if (manga != null) {
-                            val source = sourceManager.get(manga.source)
-                            if (source != null) {
-                                downloadManager.deleteChapters(listOf(it), manga, source)
-                            }
-                        }
-                    }
-                    chapter.toChapterUpdate()
-                }
+                .map { it.copy(read = true).toVolumeUpdate() }
             updateChapter.awaitAll(toUpdate)
-        }
-    }
-
-    /**
-     * Method called when user wants to download chapters
-     *
-     * @param chapterUrls URLs of chapter to download
-     * @param mangaId id of manga
-     */
-    private fun downloadChapters(chapterUrls: Array<String>, mangaId: Long) {
-        launchIO {
-            val manga = getManga.await(mangaId) ?: return@launchIO
-            val chapters = chapterUrls.mapNotNull { getChapter.await(it, mangaId) }
-            downloadManager.downloadChapters(manga, chapters)
         }
     }
 
@@ -246,13 +195,8 @@ class NotificationReceiver : BroadcastReceiver() {
 
         private const val ACTION_MARK_AS_READ = "$ID.$NAME.MARK_AS_READ"
         private const val ACTION_OPEN_CHAPTER = "$ID.$NAME.ACTION_OPEN_CHAPTER"
-        private const val ACTION_DOWNLOAD_CHAPTER = "$ID.$NAME.ACTION_DOWNLOAD_CHAPTER"
 
         private const val ACTION_OPEN_ENTRY = "$ID.$NAME.ACTION_OPEN_ENTRY"
-
-        private const val ACTION_RESUME_DOWNLOADS = "$ID.$NAME.ACTION_RESUME_DOWNLOADS"
-        private const val ACTION_PAUSE_DOWNLOADS = "$ID.$NAME.ACTION_PAUSE_DOWNLOADS"
-        private const val ACTION_CLEAR_DOWNLOADS = "$ID.$NAME.ACTION_CLEAR_DOWNLOADS"
 
         private const val ACTION_DISMISS_NOTIFICATION = "$ID.$NAME.ACTION_DISMISS_NOTIFICATION"
 
@@ -262,60 +206,6 @@ class NotificationReceiver : BroadcastReceiver() {
         private const val EXTRA_MANGA_ID = "$ID.$NAME.EXTRA_MANGA_ID"
         private const val EXTRA_CHAPTER_ID = "$ID.$NAME.EXTRA_CHAPTER_ID"
         private const val EXTRA_CHAPTER_URL = "$ID.$NAME.EXTRA_CHAPTER_URL"
-
-        /**
-         * Returns a [PendingIntent] that resumes the download of a chapter
-         *
-         * @param context context of application
-         * @return [PendingIntent]
-         */
-        internal fun resumeDownloadsPendingBroadcast(context: Context): PendingIntent {
-            val intent = Intent(context, NotificationReceiver::class.java).apply {
-                action = ACTION_RESUME_DOWNLOADS
-            }
-            return PendingIntent.getBroadcast(
-                context,
-                0,
-                intent,
-                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
-            )
-        }
-
-        /**
-         * Returns [PendingIntent] that pauses the download queue
-         *
-         * @param context context of application
-         * @return [PendingIntent]
-         */
-        internal fun pauseDownloadsPendingBroadcast(context: Context): PendingIntent {
-            val intent = Intent(context, NotificationReceiver::class.java).apply {
-                action = ACTION_PAUSE_DOWNLOADS
-            }
-            return PendingIntent.getBroadcast(
-                context,
-                0,
-                intent,
-                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
-            )
-        }
-
-        /**
-         * Returns a [PendingIntent] that clears the download queue
-         *
-         * @param context context of application
-         * @return [PendingIntent]
-         */
-        internal fun clearDownloadsPendingBroadcast(context: Context): PendingIntent {
-            val intent = Intent(context, NotificationReceiver::class.java).apply {
-                action = ACTION_CLEAR_DOWNLOADS
-            }
-            return PendingIntent.getBroadcast(
-                context,
-                0,
-                intent,
-                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
-            )
-        }
 
         /**
          * Returns [PendingIntent] that starts a service which dismissed the notification
@@ -401,7 +291,7 @@ class NotificationReceiver : BroadcastReceiver() {
          * @param manga manga of chapter
          * @param chapter chapter that needs to be opened
          */
-        internal fun openChapterPendingActivity(context: Context, manga: Manga, chapter: Chapter): PendingIntent {
+        internal fun openChapterPendingActivity(context: Context, manga: Manga, chapter: Volume): PendingIntent {
             val newIntent = ReaderActivity.newIntent(context, manga.id, chapter.id)
             return PendingIntent.getActivity(
                 context,
@@ -441,38 +331,11 @@ class NotificationReceiver : BroadcastReceiver() {
         internal fun markAsReadPendingBroadcast(
             context: Context,
             manga: Manga,
-            chapters: Array<Chapter>,
+            chapters: Array<Volume>,
             groupId: Int,
         ): PendingIntent {
             val newIntent = Intent(context, NotificationReceiver::class.java).apply {
                 action = ACTION_MARK_AS_READ
-                putExtra(EXTRA_CHAPTER_URL, chapters.map { it.url }.toTypedArray())
-                putExtra(EXTRA_MANGA_ID, manga.id)
-                putExtra(EXTRA_NOTIFICATION_ID, manga.id.hashCode())
-                putExtra(EXTRA_GROUP_ID, groupId)
-            }
-            return PendingIntent.getBroadcast(
-                context,
-                manga.id.hashCode(),
-                newIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
-            )
-        }
-
-        /**
-         * Returns [PendingIntent] that downloads chapters
-         *
-         * @param context context of application
-         * @param manga manga of chapter
-         */
-        internal fun downloadChaptersPendingBroadcast(
-            context: Context,
-            manga: Manga,
-            chapters: Array<Chapter>,
-            groupId: Int,
-        ): PendingIntent {
-            val newIntent = Intent(context, NotificationReceiver::class.java).apply {
-                action = ACTION_DOWNLOAD_CHAPTER
                 putExtra(EXTRA_CHAPTER_URL, chapters.map { it.url }.toTypedArray())
                 putExtra(EXTRA_MANGA_ID, manga.id)
                 putExtra(EXTRA_NOTIFICATION_ID, manga.id.hashCode())
@@ -556,25 +419,6 @@ class NotificationReceiver : BroadcastReceiver() {
                 action = ACTION_CANCEL_APP_UPDATE_DOWNLOAD
             }
             return PendingIntent.getBroadcast(
-                context,
-                0,
-                intent,
-                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
-            )
-        }
-
-        /**
-         * Returns [PendingIntent] that opens the extensions controller.
-         *
-         * @param context context of application
-         * @return [PendingIntent]
-         */
-        internal fun openExtensionsPendingActivity(context: Context): PendingIntent {
-            val intent = Intent(context, MainActivity::class.java).apply {
-                action = Constants.SHORTCUT_EXTENSIONS
-                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            }
-            return PendingIntent.getActivity(
                 context,
                 0,
                 intent,

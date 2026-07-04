@@ -1,0 +1,5 @@
+-- Task 5a (legacy extension cleanup): drop the now-unused extension_store table.
+-- The extension-repo/store feature was removed in Task 2; this table has had no
+-- readers or writers since (never populated, not touched by backup restore) and
+-- no foreign keys, views, or triggers reference it. Safe, data-preserving drop.
+DROP TABLE IF EXISTS extension_store;

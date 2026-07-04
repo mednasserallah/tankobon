@@ -31,37 +31,6 @@ import java.time.temporal.ChronoUnit
 import kotlin.math.absoluteValue
 
 @Composable
-fun DeleteChaptersDialog(
-    onDismissRequest: () -> Unit,
-    onConfirm: () -> Unit,
-) {
-    AlertDialog(
-        onDismissRequest = onDismissRequest,
-        dismissButton = {
-            TextButton(onClick = onDismissRequest) {
-                Text(text = stringResource(MR.strings.action_cancel))
-            }
-        },
-        confirmButton = {
-            TextButton(
-                onClick = {
-                    onDismissRequest()
-                    onConfirm()
-                },
-            ) {
-                Text(text = stringResource(MR.strings.action_ok))
-            }
-        },
-        title = {
-            Text(text = stringResource(MR.strings.are_you_sure))
-        },
-        text = {
-            Text(text = stringResource(MR.strings.confirm_delete_chapters))
-        },
-    )
-}
-
-@Composable
 fun SetIntervalDialog(
     interval: Int,
     nextUpdate: Instant?,

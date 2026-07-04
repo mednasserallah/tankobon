@@ -190,12 +190,6 @@ object SettingsMainScreen : Screen() {
             screen = SettingsReaderScreen,
         ),
         Item(
-            titleRes = MR.strings.pref_category_downloads,
-            subtitleRes = MR.strings.pref_downloads_summary,
-            icon = Icons.Outlined.GetApp,
-            screen = SettingsDownloadScreen,
-        ),
-        Item(
             titleRes = MR.strings.pref_category_tracking,
             subtitleRes = MR.strings.pref_tracking_summary,
             icon = Icons.Outlined.Sync,

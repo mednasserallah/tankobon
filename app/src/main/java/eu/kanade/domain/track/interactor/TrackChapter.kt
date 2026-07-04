@@ -21,14 +21,14 @@ class TrackChapter(
     private val delayedTrackingStore: DelayedTrackingStore,
 ) {
 
-    suspend fun await(context: Context, mangaId: Long, chapterNumber: Double, setupJobOnFailure: Boolean = true) {
+    suspend fun await(context: Context, mangaId: Long, volumeNumber: Double, setupJobOnFailure: Boolean = true) {
         withNonCancellableContext {
             val tracks = getTracks.await(mangaId)
             if (tracks.isEmpty()) return@withNonCancellableContext
 
             tracks.mapNotNull { track ->
                 val service = trackerManager.get(track.trackerId)
-                if (service == null || !service.isLoggedIn || chapterNumber <= track.lastChapterRead) {
+                if (service == null || !service.isLoggedIn || volumeNumber <= track.lastChapterRead) {
                     return@mapNotNull null
                 }
 
@@ -37,12 +37,12 @@ class TrackChapter(
                         try {
                             val updatedTrack = service.refresh(track.toDbTrack())
                                 .toDomainTrack(idRequired = true)!!
-                                .copy(lastChapterRead = chapterNumber)
+                                .copy(lastChapterRead = volumeNumber)
                             service.update(updatedTrack.toDbTrack(), true)
                             insertTrack.await(updatedTrack)
                             delayedTrackingStore.remove(track.id)
                         } catch (e: Exception) {
-                            delayedTrackingStore.add(track.id, chapterNumber)
+                            delayedTrackingStore.add(track.id, volumeNumber)
                             if (setupJobOnFailure) {
                                 DelayedTrackingUpdateJob.setupTask(context)
                             }

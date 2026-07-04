@@ -12,10 +12,7 @@ import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.Circle
 import androidx.compose.material.icons.outlined.BookmarkAdd
 import androidx.compose.material.icons.outlined.BookmarkRemove
-import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.Done
-import androidx.compose.material.icons.outlined.Download
-import androidx.compose.material.icons.outlined.FileDownloadOff
 import androidx.compose.material.icons.outlined.RemoveDone
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
@@ -36,7 +33,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import eu.kanade.tachiyomi.data.download.model.Download
 import me.saket.swipe.SwipeableActionsBox
 import tachiyomi.domain.library.service.LibraryPreferences
 import tachiyomi.i18n.MR
@@ -46,7 +42,7 @@ import tachiyomi.presentation.core.i18n.stringResource
 import tachiyomi.presentation.core.util.selectedBackground
 
 @Composable
-fun MangaChapterListItem(
+fun MangaVolumeListItem(
     title: String,
     date: String?,
     readProgress: String?,
@@ -54,14 +50,10 @@ fun MangaChapterListItem(
     read: Boolean,
     bookmark: Boolean,
     selected: Boolean,
-    downloadIndicatorEnabled: Boolean,
-    downloadStateProvider: () -> Download.State,
-    downloadProgressProvider: () -> Int,
     chapterSwipeStartAction: LibraryPreferences.ChapterSwipeAction,
     chapterSwipeEndAction: LibraryPreferences.ChapterSwipeAction,
     onLongClick: () -> Unit,
     onClick: () -> Unit,
-    onDownloadClick: ((ChapterDownloadAction) -> Unit)?,
     onChapterSwipe: (LibraryPreferences.ChapterSwipeAction) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -69,7 +61,6 @@ fun MangaChapterListItem(
         action = chapterSwipeStartAction,
         read = read,
         bookmark = bookmark,
-        downloadState = downloadStateProvider(),
         background = MaterialTheme.colorScheme.primaryContainer,
         onSwipe = { onChapterSwipe(chapterSwipeStartAction) },
     )
@@ -77,7 +68,6 @@ fun MangaChapterListItem(
         action = chapterSwipeEndAction,
         read = read,
         bookmark = bookmark,
-        downloadState = downloadStateProvider(),
         background = MaterialTheme.colorScheme.primaryContainer,
         onSwipe = { onChapterSwipe(chapterSwipeEndAction) },
     )
@@ -170,14 +160,6 @@ fun MangaChapterListItem(
                     }
                 }
             }
-
-            ChapterDownloadIndicator(
-                enabled = downloadIndicatorEnabled,
-                modifier = Modifier.padding(start = 4.dp),
-                downloadStateProvider = downloadStateProvider,
-                downloadProgressProvider = downloadProgressProvider,
-                onClick = { onDownloadClick?.invoke(it) },
-            )
         }
     }
 }
@@ -186,7 +168,6 @@ private fun getSwipeAction(
     action: LibraryPreferences.ChapterSwipeAction,
     read: Boolean,
     bookmark: Boolean,
-    downloadState: Download.State,
     background: Color,
     onSwipe: () -> Unit,
 ): me.saket.swipe.SwipeAction? {
@@ -203,16 +184,9 @@ private fun getSwipeAction(
             isUndo = bookmark,
             onSwipe = onSwipe,
         )
-        LibraryPreferences.ChapterSwipeAction.Download -> swipeAction(
-            icon = when (downloadState) {
-                Download.State.NOT_DOWNLOADED, Download.State.ERROR -> Icons.Outlined.Download
-                Download.State.QUEUE, Download.State.DOWNLOADING -> Icons.Outlined.FileDownloadOff
-                Download.State.DOWNLOADED -> Icons.Outlined.Delete
-            },
-            background = background,
-            onSwipe = onSwipe,
-        )
-        LibraryPreferences.ChapterSwipeAction.Disabled -> null
+        LibraryPreferences.ChapterSwipeAction.Download,
+        LibraryPreferences.ChapterSwipeAction.Disabled,
+        -> null
     }
 }
 

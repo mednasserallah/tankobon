@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">Mihon</string>
+    <string name="app_name" translatable="false">Tankobon</string>
 
     <!-- Generic strings -->
     <string name="on">On</string>
@@ -14,7 +14,7 @@
     <string name="name">Name</string>
     <string name="categories">Categories</string>
     <string name="manga">Library entries</string>
-    <string name="chapters">Chapters</string>
+    <string name="chapters">Volumes</string>
     <string name="track">Tracking</string>
     <string name="delete_downloaded">Delete downloaded</string>
     <string name="history">History</string>
@@ -33,8 +33,6 @@
     <string name="label_data_storage">Data and storage</string>
     <string name="label_stats">Statistics</string>
     <string name="label_migration">Migrate</string>
-    <string name="label_extensions">Extensions</string>
-    <string name="label_extension_info">Extension info</string>
     <string name="label_help">Help</string>
     <string name="label_support_us">Support Us</string>
     <string name="label_default">Default</string>
@@ -67,7 +65,7 @@
     <string name="action_sort_last_manga_update">Last update check</string>
     <string name="action_sort_unread_count">Unread count</string>
     <string name="action_sort_next_updated">Next expected update</string>
-    <string name="action_sort_latest_chapter">Latest chapter</string>
+    <string name="action_sort_latest_chapter">Latest volume</string>
     <string name="action_sort_chapter_fetch_date">Chapter fetch date</string>
     <string name="action_sort_date_added">Date added</string>
     <string name="action_sort_tracker_score">Tracker score</string>
@@ -75,15 +73,14 @@
     <string name="action_search">Search</string>
     <string name="action_search_hint">Search…</string>
     <string name="action_search_settings">Search settings</string>
-    <string name="action_global_search">Global search</string>
     <string name="action_select_all">Select all</string>
     <string name="action_select_inverse">Select inverse</string>
     <string name="action_mark_as_read">Mark as read</string>
     <string name="action_mark_as_unread">Mark as unread</string>
     <string name="action_mark_previous_as_read">Mark previous as read</string>
     <string name="action_download">Download</string>
-    <string name="action_bookmark">Bookmark chapter</string>
-    <string name="action_remove_bookmark">Unbookmark chapter</string>
+    <string name="action_bookmark">Bookmark volume</string>
+    <string name="action_remove_bookmark">Unbookmark volume</string>
     <string name="action_delete">Delete</string>
     <string name="action_update_library">Update library</string>
     <string name="action_enable_all">Enable all</string>
@@ -99,10 +96,10 @@
     <string name="delete_category_confirmation">Do you wish to delete the category \"%s\"?</string>
     <string name="delete_category">Delete category</string>
     <string name="action_edit_cover">Edit cover</string>
-    <string name="action_view_chapters">View chapters</string>
+    <string name="action_view_chapters">View volumes</string>
     <string name="action_pause">Pause</string>
-    <string name="action_previous_chapter">Previous chapter</string>
-    <string name="action_next_chapter">Next chapter</string>
+    <string name="action_previous_chapter">Previous volume</string>
+    <string name="action_next_chapter">Next volume</string>
     <string name="action_retry">Retry</string>
     <string name="action_remove">Remove</string>
     <string name="action_remove_everything">Remove everything</string>
@@ -139,7 +136,7 @@
     <string name="cancel_all_for_series">Cancel all for this series</string>
     <string name="action_sort">Sort</string>
     <string name="action_order_by_upload_date">By upload date</string>
-    <string name="action_order_by_chapter_number">By chapter number</string>
+    <string name="action_order_by_chapter_number">By volume number</string>
     <string name="action_newest">Newest</string>
     <string name="action_oldest">Oldest</string>
     <string name="action_asc">Ascending</string>
@@ -316,66 +313,26 @@
     <string name="pref_chapter_swipe_end">Chapter on swipe to right</string>
     <!-- This should be to the right for RTL locales -->
     <string name="pref_chapter_swipe_start">Chapter on swipe to left</string>
-    <string name="pref_mark_duplicate_read_chapter_read">Mark duplicate read chapter as read</string>
-    <string name="pref_mark_duplicate_read_chapter_read_existing">After reading a chapter</string>
-    <string name="pref_mark_duplicate_read_chapter_read_new">After fetching new chapter</string>
+    <string name="pref_mark_duplicate_read_chapter_read">Mark duplicate read volume as read</string>
+    <string name="pref_mark_duplicate_read_chapter_read_existing">After reading a volume</string>
+    <string name="pref_mark_duplicate_read_chapter_read_new">After fetching new volume</string>
 
-    <string name="pref_hide_missing_chapter_indicators">Hide missing chapter indicators</string>
+    <string name="pref_hide_missing_chapter_indicators">Hide missing volume indicators</string>
     <string name="pref_disallow_non_ascii_filenames">Disallow non-ASCII filenames</string>
     <string name="pref_disallow_non_ascii_filenames_details">Ensures compatibility with certain storage media that don't support Unicode. When this is enabled, you'll need to manually rename source and manga folders by replacing non-ASCII characters with their lowercase UTF-8 hexadecimal representations. Chapter files don't need to be renamed.</string>
 
       <!-- Extension section -->
     <string name="multi_lang">Multi</string>
-    <string name="ext_updates_pending">Updates pending</string>
-    <string name="ext_update">Update</string>
-    <string name="ext_update_all">Update all</string>
-    <string name="ext_obsolete">Orphaned</string>
-    <string name="ext_install">Install</string>
-    <string name="ext_pending">Pending</string>
-    <string name="ext_downloading">Downloading</string>
-    <string name="ext_installing">Installing</string>
-    <string name="ext_installed">Installed</string>
-    <string name="ext_trust">Trust</string>
-    <string name="ext_untrusted">Untrusted</string>
-    <string name="ext_uninstall">Uninstall</string>
-    <string name="ext_remove">Remove</string>
-    <string name="ext_confirm_remove">Remove Extension?</string>
-    <string name="ext_app_info">App info</string>
     <string name="untrusted_extension">Untrusted extension</string>
     <string name="untrusted_extension_message">Malicious extensions can read any stored login credentials or execute arbitrary code.\n\nBy trusting this extension, you accept these risks.</string>
     <string name="obsolete_extension_message">This extension is not associated with any store. It will not receive updates, may not function properly, and can cause issues with the app. Uninstalling it is recommended.</string>
     <string name="remove_private_extension_message">Do you really want to remove \"%s\" extension?</string>
-    <string name="extension_api_error">Failed to fetch available extensions</string>
-    <string name="ext_info_version">Version</string>
-    <string name="ext_info_language">Language</string>
-    <string name="ext_info_age_rating">Age rating</string>
-    <string name="ext_nsfw_short">18+</string>
-    <string name="ext_nsfw_warning">Sources from this extension may contain NSFW (18+) content</string>
-    <string name="ext_permission_install_apps_warning">Permissions are needed to install extensions. Tap here to grant.</string>
-    <string name="ext_install_service_notif">Installing extension…</string>
-    <string name="ext_installer_pref">Installer</string>
-    <string name="ext_installer_legacy">Legacy</string>
-    <string name="ext_installer_packageinstaller" translatable="false">PackageInstaller</string>
-    <string name="ext_installer_shizuku" translatable="false">Shizuku</string>
-    <string name="ext_installer_private" translatable="false">Private</string>
-    <string name="ext_installer_shizuku_stopped">Shizuku is not running</string>
-    <string name="ext_installer_shizuku_unavailable_dialog">Install and start Shizuku to use Shizuku as extension installer.</string>
-    <string name="ext_revoke_trust">Revoke trusted unknown extensions</string>
 
     <!-- Extension repos -->
     <string name="action_open_repo">Open source repo</string>
 
     <!-- Extension store -->
-    <string name="extensionStores">Extension stores</string>
     <string name="action.addExtensionStore">Add extension store</string>
-    <string name="extensionStoresScreen.emptyLabel">You haven\'t added an extension store yet</string>
-    <string name="extensionStoresScreen.addStore.title">Add extension store</string>
-    <string name="extensionStoresScreen.addStore.alreadyExists">This extension store already exists</string>
-    <string name="extensionStoresScreen.addStore.processing">Processing…</string>
-    <string name="extensionStoresScreen.addStoreInput.inputLabel">Store index URL</string>
-    <string name="extensionStoresScreen.addStoreDeeplink.bodyText">Do you wish to add the extension store below?</string>
-    <string name="extensionStoresScreen.deleteStore.title">Remove extension store</string>
-    <string name="extensionStoresScreen.deleteStore.body">Do you wish to remove the extension store \"%1$s\" (%2$s)?</string>
 
       <!-- Reader section -->
     <string name="pref_fullscreen">Fullscreen</string>
@@ -422,9 +379,9 @@
     <string name="filter_mode_lighten">Dodge / Lighten</string>
     <string name="filter_mode_darken">Burn / Darken</string>
     <string name="pref_keep_screen_on">Keep screen on</string>
-    <string name="pref_skip_read_chapters">Skip chapters marked read</string>
-    <string name="pref_skip_filtered_chapters">Skip filtered chapters</string>
-    <string name="pref_skip_dupe_chapters">Skip duplicate chapters</string>
+    <string name="pref_skip_read_chapters">Skip volumes marked read</string>
+    <string name="pref_skip_filtered_chapters">Skip filtered volumes</string>
+    <string name="pref_skip_dupe_chapters">Skip duplicate volumes</string>
     <string name="pref_reader_navigation">Navigation</string>
     <string name="pref_read_with_volume_keys">Volume keys</string>
     <string name="pref_read_with_volume_keys_inverted">Invert volume keys</string>
@@ -488,7 +445,7 @@
     <string name="color_filter_g_value">Green</string>
     <string name="color_filter_b_value">Blue</string>
     <string name="color_filter_a_value">Alpha</string>
-    <string name="pref_always_show_chapter_transition">Always show chapter transition</string>
+    <string name="pref_always_show_chapter_transition">Always show volume transition</string>
     <string name="pref_category_reading_mode">Reading mode</string>
     <string name="pref_category_reading">Reading</string>
     <string name="pref_webtoon_side_padding">Side padding</string>
@@ -510,7 +467,7 @@
     <string name="storage_failed_to_create_download_directory">Failed to create download directory</string>
     <string name="storage_failed_to_create_directory">Failed to create directory: %s</string>
     <string name="disabled">Disabled</string>
-    <string name="last_read_chapter">Last read chapter</string>
+    <string name="last_read_chapter">Last read volume</string>
     <string name="second_to_last">Second to last read chapter</string>
     <string name="third_to_last">Third to last read chapter</string>
     <string name="fourth_to_last">Fourth to last read chapter</string>
@@ -694,8 +651,6 @@
     <string name="other_source">Other</string>
     <string name="last_used_source">Last used</string>
     <string name="pinned_sources">Pinned</string>
-    <string name="action_global_search_hint">Global search…</string>
-    <string name="action_global_search_query">Search for \"%1$s\" globally</string>
     <string name="latest">Latest</string>
     <string name="popular">Popular</string>
     <string name="browse">Browse</string>
@@ -739,7 +694,7 @@
     <string name="description_placeholder">No description</string>
 
     <!-- Manga chapters -->
-    <string name="display_mode_chapter">Chapter %1$s</string>
+    <string name="display_mode_chapter">Volume %1$s</string>
     <string name="manga_display_interval_title">Estimate every</string>
     <string name="manga_display_modified_interval_title">Set to update every</string>
     <!-- "... around 2 days" -->
@@ -751,9 +706,9 @@
     <string name="chapter_error">Error</string>
     <string name="chapter_paused">Paused</string>
     <string name="show_title">Source title</string>
-    <string name="show_chapter_number">Chapter number</string>
+    <string name="show_chapter_number">Volume number</string>
     <string name="sort_by_source">By source</string>
-    <string name="sort_by_number">By chapter number</string>
+    <string name="sort_by_number">By volume number</string>
     <string name="sort_by_upload_date">By upload date</string>
     <string name="manga_download">Download</string>
     <string name="download_unread">Unread</string>
@@ -763,8 +718,8 @@
     <string name="cover_saved">Cover saved</string>
     <string name="error_saving_cover">Error saving cover</string>
     <string name="error_sharing_cover">Error sharing cover</string>
-    <string name="confirm_delete_chapters">Are you sure you want to delete the selected chapters?</string>
-    <string name="chapter_settings">Chapter settings</string>
+    <string name="confirm_delete_chapters">Are you sure you want to delete the selected volumes?</string>
+    <string name="chapter_settings">Volume settings</string>
     <string name="confirm_set_chapter_settings">Are you sure you want to save these settings as default?</string>
     <string name="also_set_chapter_settings_for_library">Also apply to all entries in my library</string>
     <string name="set_chapter_settings_as_default">Set as default</string>
@@ -828,11 +783,26 @@
 
     <!-- Reader activity -->
     <string name="custom_filter">Custom filter</string>
+    <string name="action_detect_text">Detect text</string>
+    <string name="text_detection_title">Detected text</string>
+    <string name="text_detection_empty">No text detected on this page.</string>
+    <string name="text_detection_error">Couldn\'t detect text. Please try again.</string>
+    <string name="action_translate">Translate</string>
+    <string name="action_translate_all">Translate all</string>
+    <string name="translation_downloading">Downloading Arabic language pack…</string>
+    <string name="translation_in_progress">Translating…</string>
+    <string name="translation_error">Translation unavailable. Try again.</string>
+    <string name="translation_powered_by_google">Translation powered by Google Translate</string>
+    <string name="pref_translation_wifi_only">Download translation pack over Wi-Fi only</string>
+    <string name="pref_translation_wifi_only_summary">The Arabic language pack (~30 MB) downloads only on Wi-Fi. Turn off to allow mobile data.</string>
+    <string name="pref_delete_translation_model">Delete Arabic translation pack</string>
+    <string name="pref_delete_translation_model_summary">Free up storage. It will download again next time you translate.</string>
+    <string name="translation_model_deleted">Arabic translation pack deleted</string>
     <string name="set_as_cover">Set as cover</string>
     <string name="cover_updated">Cover updated</string>
     <string name="share_page_info">%1$s: %2$s, page %3$d</string>
     <string name="chapter_progress">Page: %1$d</string>
-    <string name="no_next_chapter">Next chapter not found</string>
+    <string name="no_next_chapter">Next volume not found</string>
     <string name="decode_image_error">The image couldn\'t be loaded</string>
     <string name="confirm_set_image_as_cover">Use this image as cover art?</string>
     <string name="pref_category_for_this_series">For this series</string>
@@ -841,8 +811,8 @@
     <string name="transition_current">Current:</string>
     <string name="transition_next">Next:</string>
     <string name="transition_previous">Previous:</string>
-    <string name="transition_no_next">There\'s no next chapter</string>
-    <string name="transition_no_previous">There\'s no previous chapter</string>
+    <string name="transition_no_next">There\'s no next volume</string>
+    <string name="transition_no_previous">There\'s no previous volume</string>
     <string name="transition_pages_loading">Loading pages…</string>
     <string name="transition_pages_error">Failed to load pages: %1$s</string>
     <string name="page_list_empty_error">No pages found</string>
@@ -851,7 +821,7 @@
     <!-- Updates -->
     <string name="updating_library">Updating library</string>
     <string name="update_already_running">An update is already running</string>
-    <string name="cant_open_last_read_chapter">Unable to open last read chapter</string>
+    <string name="cant_open_last_read_chapter">Unable to open last read volume</string>
     <string name="updates_last_update_info">Library last updated: %s</string>
     <string name="updates_last_update_info_just_now">Just now</string>
     <string name="relative_time_span_never">Never</string>
@@ -876,10 +846,7 @@
     <string name="source_filter_empty_screen">No installed source found</string>
 
     <!-- Source migration screen -->
-    <string name="migration_help_guide">Source migration guide</string>
     <string name="migration_dialog_what_to_include">Select data to include</string>
-    <string name="migration_selection_prompt">Select a source to migrate from</string>
-    <string name="migrate">Migrate</string>
     <!-- Make a copy (noun) when migrating. Don't use for copying to clipboard. -->
     <string name="copy">Copy</string>
     <string name="empty_screen">Well, this is awkward</string>
@@ -916,7 +883,7 @@
     <!-- Library update service notifications -->
     <string name="notification_updating_progress">Updating library… (%s)</string>
     <string name="notification_size_warning">Large updates harm sources and may lead to slower updates and also increased battery usage. Tap to learn more.</string>
-    <string name="notification_new_chapters">New chapters found</string>
+    <string name="notification_new_chapters">New volumes found</string>
     <string name="notification_chapters_single">Chapter %1$s</string>
     <string name="notification_chapters_single_and_more">Chapter %1$s and %2$d more</string>
     <string name="notification_chapters_multiple">Chapters %1$s</string>
@@ -985,9 +952,8 @@
     <string name="channel_progress">Progress</string>
     <string name="channel_complete">Complete</string>
     <string name="channel_errors">Errors</string>
-    <string name="channel_new_chapters">Chapter updates</string>
+    <string name="channel_new_chapters">Volume updates</string>
     <string name="channel_app_updates">App updates</string>
-    <string name="channel_ext_updates">Extension updates</string>
 
     <!-- S Pen actions -->
     <string name="spen_previous_page">Previous page</string>
@@ -1007,45 +973,6 @@
     <!-- Notes screen -->
     <string name="notes_placeholder">Enjoyed the part where…</string>
 
-    <string name="migrationConfigScreen.selectedHeader">Selected</string>
-    <string name="migrationConfigScreen.availableHeader">Available</string>
-    <string name="migrationConfigScreen.selectAllLabel">Select all</string>
-    <string name="migrationConfigScreen.selectNoneLabel">Select none</string>
-    <string name="migrationConfigScreen.selectEnabledLabel">Select enabled sources</string>
-    <string name="migrationConfigScreen.selectPinnedLabel">Select pinned sources</string>
-    <string name="migrationConfigScreen.continueButtonText">Continue</string>
-    <string name="migrationConfigScreen.dataToMigrateHeader">Data to migrate</string>
-    <string name="migrationConfigScreen.removeDownloadsTitle">Delete downloads of current entry after migration</string>
-    <string name="migrationConfigScreen.additionalSearchQueryLabel">Additional keywords (optional)</string>
-    <string name="migrationConfigScreen.additionalSearchQuerySupportingText">Helps narrow down search results by adding additional keywords</string>
-    <string name="migrationConfigScreen.hideUnmatchedTitle">Hide entries without a match</string>
-    <string name="migrationConfigScreen.hideWithoutUpdatesTitle">Hide entries without newer chapters</string>
-    <string name="migrationConfigScreen.hideWithoutUpdatesSubtitle">Only show entry if the match has additional chapters</string>
-    <string name="migrationConfigScreen.enhancedOptionsWarning">These options are slow and dangerous and may lead to restrictions from sources</string>
-    <string name="migrationConfigScreen.deepSearchModeTitle">Advanced search mode</string>
-    <string name="migrationConfigScreen.deepSearchModeSubtitle">Breaks down the title into keywords for a wider search</string>
-    <string name="migrationConfigScreen.prioritizeByChaptersTitle">Match based on chapter number</string>
-    <string name="migrationConfigScreen.prioritizeByChaptersSubtitle">If enabled, chooses the match furthest ahead. Otherwise, picks the first match by source priority.</string>
-    <string name="migrationListScreenTitle">Migration</string>
-    <string name="migrationListScreenTitleWithProgress">Migration (%1$d/%2$d)</string>
-    <string name="migrationListScreen.copyActionLabel">Copy</string>
-    <string name="migrationListScreen.migrateActionLabel">Migrate</string>
-    <string name="migrationListScreen.noMatchFoundText">No alternatives found</string>
-    <string name="migrationListScreen.latestChapterLabel">Latest: %1$s</string>
-    <string name="migrationListScreen.unknownLatestChapter">Unknown</string>
-    <string name="migrationListScreen.searchManuallyActionLabel">Search manually</string>
-    <string name="migrationListScreen.skipActionLabel">Don\'t migrate</string>
-    <string name="migrationListScreen.migrateNowActionLabel">Migrate now</string>
-    <string name="migrationListScreen.copyNowActionLabel">Copy now</string>
-    <string name="migrationListScreen.copyNowActionLabel">Copy now</string>
-    <string name="migrationListScreen.exitDialogTitle">Stop migrating?</string>
-    <string name="migrationListScreen.exitDialog.stopLabel">Stop</string>
-    <string name="migrationListScreen.exitDialog.cancelLabel">Cancel</string>
-    <string name="migrationListScreen.migrateDialog.copyLabel">Copy</string>
-    <string name="migrationListScreen.migrateDialog.migrateLabel">Migrate</string>
-    <string name="migrationListScreen.migrateDialog.cancelLabel">Cancel</string>
-    <string name="migrationListScreen.progressDialog.cancelLabel">Cancel</string>
-    <string name="migrationListScreen.matchWithoutChapterToast">No chapters found, this entry cannot be used for migration</string>
 
     <string name="supportUsScreen.perks">Patrons get access to exclusive channels, with more perks to come.</string>
     <string name="supportUsScreen.donationPlatform.patreon">Patreon (preferred)</string>

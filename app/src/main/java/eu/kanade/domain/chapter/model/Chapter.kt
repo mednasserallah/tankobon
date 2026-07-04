@@ -1,34 +1,36 @@
 package eu.kanade.domain.chapter.model
 
-import eu.kanade.tachiyomi.data.database.models.ChapterImpl
-import eu.kanade.tachiyomi.source.model.SChapter
-import tachiyomi.domain.chapter.model.Chapter
-import eu.kanade.tachiyomi.data.database.models.Chapter as DbChapter
+import eu.kanade.tachiyomi.data.database.models.VolumeImpl
+import eu.kanade.tachiyomi.source.model.SVolume
+import tachiyomi.domain.chapter.model.Volume
+import eu.kanade.tachiyomi.data.database.models.Volume as DbVolume
 
 // TODO: Remove when all deps are migrated
-fun Chapter.toSChapter(): SChapter {
-    return SChapter.create().also {
+fun Volume.toSVolume(): SVolume {
+    return SVolume.create().also {
         it.url = url
         it.name = name
         it.date_upload = dateUpload
-        it.chapter_number = chapterNumber.toFloat()
+        it.volume_number = volumeNumber.toInt()
+        it.volume_number_end = volumeNumberEnd?.toInt()
         it.scanlator = scanlator
         it.memo = memo
     }
 }
 
-fun Chapter.copyFromSChapter(sChapter: SChapter): Chapter {
+fun Volume.copyFromSVolume(sVolume: SVolume): Volume {
     return this.copy(
-        name = sChapter.name,
-        url = sChapter.url,
-        dateUpload = sChapter.date_upload,
-        chapterNumber = sChapter.chapter_number.toDouble(),
-        scanlator = sChapter.scanlator?.ifBlank { null }?.trim(),
-        memo = sChapter.memo,
+        name = sVolume.name,
+        url = sVolume.url,
+        dateUpload = sVolume.date_upload,
+        volumeNumber = sVolume.volume_number.toLong(),
+        volumeNumberEnd = sVolume.volume_number_end?.toLong(),
+        scanlator = sVolume.scanlator?.ifBlank { null }?.trim(),
+        memo = sVolume.memo,
     )
 }
 
-fun Chapter.toDbChapter(): DbChapter = ChapterImpl().also {
+fun Volume.toDbVolume(): DbVolume = VolumeImpl().also {
     it.id = id
     it.manga_id = mangaId
     it.url = url
@@ -39,7 +41,8 @@ fun Chapter.toDbChapter(): DbChapter = ChapterImpl().also {
     it.last_page_read = lastPageRead.toInt()
     it.date_fetch = dateFetch
     it.date_upload = dateUpload
-    it.chapter_number = chapterNumber.toFloat()
+    it.volume_number = volumeNumber.toInt()
+    it.volume_number_end = volumeNumberEnd?.toInt()
     it.source_order = sourceOrder.toInt()
     it.memo = memo
 }

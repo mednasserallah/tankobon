@@ -4,9 +4,9 @@ import eu.kanade.tachiyomi.source.Source
 import eu.kanade.tachiyomi.source.model.FilterList
 import eu.kanade.tachiyomi.source.model.MangasPage
 import eu.kanade.tachiyomi.source.model.Page
-import eu.kanade.tachiyomi.source.model.SChapter
 import eu.kanade.tachiyomi.source.model.SManga
 import eu.kanade.tachiyomi.source.model.SMangaUpdate
+import eu.kanade.tachiyomi.source.model.SVolume
 
 class StubSource(
     override val id: Long,
@@ -27,12 +27,12 @@ class StubSource(
 
     override suspend fun getMangaUpdate(
         manga: SManga,
-        chapters: List<SChapter>,
+        chapters: List<SVolume>,
         fetchDetails: Boolean,
         fetchChapters: Boolean,
     ): SMangaUpdate = throw SourceNotInstalledException()
 
-    override suspend fun getPageList(chapter: SChapter): List<Page> =
+    override suspend fun getPageList(chapter: SVolume): List<Page> =
         throw SourceNotInstalledException()
 
     override fun toString(): String =

@@ -16,7 +16,7 @@ import tachiyomi.data.subscribeToOneOrNull
 import tachiyomi.domain.library.model.LibraryManga
 import tachiyomi.domain.manga.model.Manga
 import tachiyomi.domain.manga.model.MangaUpdate
-import tachiyomi.domain.manga.model.MangaWithChapterCount
+import tachiyomi.domain.manga.model.MangaWithVolumeCount
 import tachiyomi.domain.manga.repository.MangaRepository
 import java.time.LocalDate
 import java.time.ZoneId
@@ -79,7 +79,7 @@ class MangaRepositoryImpl(
             .subscribeToList()
     }
 
-    override suspend fun getDuplicateLibraryManga(id: Long, title: String): List<MangaWithChapterCount> {
+    override suspend fun getDuplicateLibraryManga(id: Long, title: String): List<MangaWithVolumeCount> {
         return database.mangasQueries
             .getDuplicateLibraryManga(id, title, MangaMapper::mapMangaWithChapterCount)
             .awaitAsList()
@@ -156,6 +156,7 @@ class MangaRepositoryImpl(
                     updateStrategy = it.updateStrategy,
                     version = it.version,
                     memo = it.memo,
+                    edition = it.edition,
                     updateTitle = it.title.isNotBlank(),
                     updateCover = !it.thumbnailUrl.isNullOrBlank(),
                     updateDetails = it.initialized,
@@ -194,6 +195,7 @@ class MangaRepositoryImpl(
                     isSyncing = 0,
                     notes = value.notes,
                     memo = value.memo?.let(MemoColumnAdapter::encode),
+                    edition = value.edition,
                 )
             }
         }

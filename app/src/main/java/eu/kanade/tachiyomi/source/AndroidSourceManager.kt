@@ -1,9 +1,6 @@
 package eu.kanade.tachiyomi.source
 
 import android.content.Context
-import eu.kanade.tachiyomi.data.download.DownloadManager
-import eu.kanade.tachiyomi.extension.ExtensionManager
-import eu.kanade.tachiyomi.source.online.HttpSource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -21,66 +18,38 @@ import tachiyomi.domain.source.service.SourceManager
 import tachiyomi.source.local.LocalSource
 import uy.kohesive.injekt.Injekt
 import uy.kohesive.injekt.api.get
-import uy.kohesive.injekt.injectLazy
 import java.util.concurrent.ConcurrentHashMap
 
 class AndroidSourceManager(
     private val context: Context,
-    private val extensionManager: ExtensionManager,
     private val sourceRepository: StubSourceRepository,
 ) : SourceManager {
 
     private val _isInitialized = MutableStateFlow(false)
     override val isInitialized: StateFlow<Boolean> = _isInitialized.asStateFlow()
 
-    private val downloadManager: DownloadManager by injectLazy()
-
     private val scope = CoroutineScope(Job() + Dispatchers.IO)
 
-    private val sourcesMapFlow = MutableStateFlow(ConcurrentHashMap<Long, Source>())
+    private val sourcesMapFlow = MutableStateFlow(
+        ConcurrentHashMap<Long, Source>(
+            mapOf(LocalSource.ID to LocalSource(context, Injekt.get(), Injekt.get())),
+        ),
+    )
 
     private val stubSourcesMap = ConcurrentHashMap<Long, StubSource>()
 
     override val sources: Flow<List<Source>> = sourcesMapFlow.map { it.values.toList() }
 
     init {
+        _isInitialized.value = true
         scope.launch {
-            extensionManager.installedExtensionsFlow
-                .collectLatest { extensions ->
-                    val mutableMap = ConcurrentHashMap<Long, Source>(
-                        mapOf(
-                            LocalSource.ID to LocalSource(
-                                context,
-                                Injekt.get(),
-                                Injekt.get(),
-                            ),
-                        ),
-                    )
-                    extensions.forEach { extension ->
-                        extension.sources.forEach {
-                            mutableMap[it.id] = it
-                            registerStubSource(StubSource.from(it))
-                        }
-                    }
-                    sourcesMapFlow.value = mutableMap
-                    _isInitialized.value = true
-                }
-        }
-
-        scope.launch {
-            sourceRepository.subscribeAll()
-                .collectLatest { sources ->
-                    val mutableMap = stubSourcesMap.toMutableMap()
-                    sources.forEach {
-                        mutableMap[it.id] = it
-                    }
-                }
+            sourceRepository.subscribeAll().collectLatest { sources ->
+                sources.forEach { stubSourcesMap[it.id] = it }
+            }
         }
     }
 
-    override fun get(sourceKey: Long): Source? {
-        return sourcesMapFlow.value[sourceKey]
-    }
+    override fun get(sourceKey: Long): Source? = sourcesMapFlow.value[sourceKey]
 
     override fun getOrStub(sourceKey: Long): Source {
         return sourcesMapFlow.value[sourceKey] ?: stubSourcesMap.getOrPut(sourceKey) {
@@ -88,34 +57,10 @@ class AndroidSourceManager(
         }
     }
 
-    override fun getAll() = sourcesMapFlow.value.values.toList()
-
-    override fun getOnlineSources() = sourcesMapFlow.value.values.filterIsInstance<HttpSource>()
-
-    override fun getStubSources(): List<StubSource> {
-        val onlineSourceIds = getOnlineSources().map { it.id }
-        return stubSourcesMap.values.filterNot { it.id in onlineSourceIds }
-    }
-
-    private fun registerStubSource(source: StubSource) {
-        scope.launch {
-            val dbSource = sourceRepository.getStubSource(source.id)
-            if (dbSource == source) return@launch
-            sourceRepository.upsertStubSource(source.id, source.lang, source.name)
-            if (dbSource != null) {
-                downloadManager.renameSource(dbSource, source)
-            }
-        }
-    }
+    override fun getAll(): List<Source> = sourcesMapFlow.value.values.toList()
 
     private suspend fun createStubSource(id: Long): StubSource {
-        sourceRepository.getStubSource(id)?.let {
-            return it
-        }
-        extensionManager.getSourceData(id)?.let {
-            registerStubSource(it)
-            return it
-        }
+        sourceRepository.getStubSource(id)?.let { return it }
         return StubSource(id = id, lang = "", name = "")
     }
 }

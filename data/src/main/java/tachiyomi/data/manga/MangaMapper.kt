@@ -4,7 +4,7 @@ import eu.kanade.tachiyomi.source.model.UpdateStrategy
 import kotlinx.serialization.json.JsonObject
 import tachiyomi.domain.library.model.LibraryManga
 import tachiyomi.domain.manga.model.Manga
-import tachiyomi.domain.manga.model.MangaWithChapterCount
+import tachiyomi.domain.manga.model.MangaWithVolumeCount
 
 object MangaMapper {
     @Suppress("UNUSED_PARAMETER")
@@ -35,6 +35,7 @@ object MangaMapper {
         isSyncing: Long,
         notes: String,
         memo: JsonObject,
+        edition: String?,
     ): Manga = Manga(
         id = id,
         source = source,
@@ -61,6 +62,7 @@ object MangaMapper {
         version = version,
         notes = notes,
         memo = memo,
+        edition = edition,
     )
 
     fun mapLibraryManga(
@@ -90,10 +92,11 @@ object MangaMapper {
         isSyncing: Long,
         notes: String,
         memo: JsonObject,
+        edition: String?,
         totalCount: Long,
         readCount: Double,
         latestUpload: Long,
-        chapterFetchedAt: Long,
+        volumeFetchedAt: Long,
         lastRead: Long,
         bookmarkCount: Double,
         categories: String,
@@ -125,13 +128,14 @@ object MangaMapper {
             isSyncing,
             notes,
             memo,
+            edition,
         ),
         categories = categories.split(",").map { it.toLong() },
         totalChapters = totalCount,
         readCount = readCount.toLong(),
         bookmarkCount = bookmarkCount.toLong(),
         latestUpload = latestUpload,
-        chapterFetchedAt = chapterFetchedAt,
+        volumeFetchedAt = volumeFetchedAt,
         lastRead = lastRead,
     )
 
@@ -162,8 +166,9 @@ object MangaMapper {
         isSyncing: Long,
         notes: String,
         memo: JsonObject,
+        edition: String?,
         totalCount: Long,
-    ): MangaWithChapterCount = MangaWithChapterCount(
+    ): MangaWithVolumeCount = MangaWithVolumeCount(
         manga = mapManga(
             id,
             source,
@@ -191,6 +196,7 @@ object MangaMapper {
             isSyncing,
             notes,
             memo,
+            edition,
         ),
         chapterCount = totalCount,
     )

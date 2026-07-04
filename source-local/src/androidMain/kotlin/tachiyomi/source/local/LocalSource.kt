@@ -7,9 +7,9 @@ import eu.kanade.tachiyomi.source.UnmeteredSource
 import eu.kanade.tachiyomi.source.model.FilterList
 import eu.kanade.tachiyomi.source.model.MangasPage
 import eu.kanade.tachiyomi.source.model.Page
-import eu.kanade.tachiyomi.source.model.SChapter
 import eu.kanade.tachiyomi.source.model.SManga
 import eu.kanade.tachiyomi.source.model.SMangaUpdate
+import eu.kanade.tachiyomi.source.model.SVolume
 import eu.kanade.tachiyomi.util.lang.compareToCaseInsensitiveNaturalOrder
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -26,13 +26,14 @@ import tachiyomi.core.common.storage.extension
 import tachiyomi.core.common.storage.nameWithoutExtension
 import tachiyomi.core.common.util.lang.withIOContext
 import tachiyomi.core.common.util.system.ImageUtil
+import tachiyomi.core.common.util.system.VolumeCoverSelector
 import tachiyomi.core.common.util.system.logcat
 import tachiyomi.core.metadata.comicinfo.COMIC_INFO_FILE
 import tachiyomi.core.metadata.comicinfo.ComicInfo
 import tachiyomi.core.metadata.comicinfo.copyFromComicInfo
 import tachiyomi.core.metadata.comicinfo.getComicInfo
 import tachiyomi.core.metadata.tachiyomi.MangaDetails
-import tachiyomi.domain.chapter.service.ChapterRecognition
+import tachiyomi.domain.chapter.service.VolumeRecognition
 import tachiyomi.domain.manga.model.Manga
 import tachiyomi.i18n.MR
 import tachiyomi.source.local.filter.OrderBy
@@ -123,12 +124,17 @@ actual class LocalSource(
         val mangas = mangaDirs
             .map { mangaDir ->
                 async {
+                    val dirName = mangaDir.name.orEmpty()
+                    val seriesInfo = VolumeRecognition.parseSeries(dirName)
                     SManga.create().apply {
-                        title = mangaDir.name.orEmpty()
-                        url = mangaDir.name.orEmpty()
+                        // The folder name is the stable key/url; the displayed title has the
+                        // edition tag stripped and the edition captured as its own field.
+                        title = seriesInfo.title
+                        edition = seriesInfo.edition
+                        url = dirName
 
                         // Try to find the cover
-                        coverManager.find(mangaDir.name.orEmpty())?.let {
+                        coverManager.find(dirName)?.let {
                             thumbnail_url = it.uri.toString()
                         }
                     }
@@ -141,17 +147,21 @@ actual class LocalSource(
 
     override suspend fun getMangaUpdate(
         manga: SManga,
-        chapters: List<SChapter>,
+        volumes: List<SVolume>,
         fetchDetails: Boolean,
-        fetchChapters: Boolean,
+        fetchVolumes: Boolean,
     ): SMangaUpdate = supervisorScope {
         val asyncManga = if (fetchDetails) async { getMangaDetails(manga) } else null
-        val asyncChapters = if (fetchChapters) async { getChapterList(manga) } else null
-        SMangaUpdate(asyncManga?.await() ?: manga, asyncChapters?.await() ?: chapters)
+        val asyncVolumes = if (fetchVolumes) async { getVolumeList(manga) } else null
+        SMangaUpdate(asyncManga?.await() ?: manga, asyncVolumes?.await() ?: volumes)
     }
 
     // Manga details related
     private suspend fun getMangaDetails(manga: SManga): SManga = withIOContext {
+        // The edition tag is a folder-level property; always re-derive it from the folder name
+        // so rescans of existing library entries pick it up.
+        manga.edition = VolumeRecognition.parseSeries(manga.url).edition
+
         coverManager.find(manga.url)?.let {
             manga.thumbnail_url = it.uri.toString()
         }
@@ -256,71 +266,76 @@ actual class LocalSource(
         manga.copyFromComicInfo(parseComicInfo(stream))
     }
 
-    private fun setChapterDetailsFromComicInfoFile(stream: InputStream, chapter: SChapter) {
+    private fun setVolumeDetailsFromComicInfoFile(stream: InputStream, volume: SVolume) {
         val comicInfo = parseComicInfo(stream)
 
-        comicInfo.title?.let { chapter.name = it.value }
-        comicInfo.number?.value?.toFloatOrNull()?.let { chapter.chapter_number = it }
-        comicInfo.translator?.let { chapter.scanlator = it.value }
+        // The volume number/name come from the filename convention; only augment the scanlator
+        // (translator) from ComicInfo so metadata cannot mislabel "Volume 01" as a chapter title.
+        comicInfo.translator?.let { volume.scanlator = it.value }
     }
 
-    // Chapters
-    private suspend fun getChapterList(manga: SManga): List<SChapter> = withIOContext {
-        val chapters = fileSystem.getFilesInMangaDirectory(manga.url)
-            // Only keep supported formats
+    // Volumes
+    private suspend fun getVolumeList(manga: SManga): List<SVolume> = withIOContext {
+        val volumes = fileSystem.getFilesInMangaDirectory(manga.url)
+            // Skip hidden files and any non-volume file. Sidecars (cover.jpg, details.json,
+            // ComicInfo.xml, .noxml, …) are not archives/epubs/directories, so they drop out here.
             .filterNot { it.name.orEmpty().startsWith('.') }
             .filter { it.isDirectory || Archive.isSupported(it) || it.extension.equals("epub", true) }
-            .map { chapterFile ->
-                SChapter.create().apply {
-                    url = "${manga.url}/${chapterFile.name}"
-                    name = if (chapterFile.isDirectory) {
-                        chapterFile.name
-                    } else {
-                        chapterFile.nameWithoutExtension
-                    }.orEmpty()
-                    date_upload = chapterFile.lastModified()
-                    chapter_number = ChapterRecognition
-                        .parseChapterNumber(manga.title, this.name, this.chapter_number.toDouble())
-                        .toFloat()
+            .map { volumeFile ->
+                val baseName = if (volumeFile.isDirectory) {
+                    volumeFile.name
+                } else {
+                    volumeFile.nameWithoutExtension
+                }.orEmpty()
+                val parsed = VolumeRecognition.parseVolume(baseName)
 
-                    val format = Format.valueOf(chapterFile)
+                SVolume.create().apply {
+                    url = "${manga.url}/${volumeFile.name}"
+                    name = parsed.name
+                    volume_number = parsed.number
+                    volume_number_end = parsed.numberEnd
+                    date_upload = volumeFile.lastModified()
+
+                    val format = Format.valueOf(volumeFile)
                     if (format is Format.Epub) {
                         format.file.epubReader(context).use { epub ->
                             epub.fillMetadata(manga, this)
                         }
                     } else {
-                        getComicInfoForChapter(chapterFile) { stream ->
-                            setChapterDetailsFromComicInfoFile(stream, this)
+                        getComicInfoForChapter(volumeFile) { stream ->
+                            setVolumeDetailsFromComicInfoFile(stream, this)
                         }
                     }
                 }
             }
-            .sortedWith { c1, c2 ->
-                c2.name.compareToCaseInsensitiveNaturalOrder(c1.name)
-            }
+            // Sort numerically by volume number (1, 2, … 9, 10), not lexically; tie-break by name.
+            .sortedWith(
+                compareByDescending<SVolume> { it.volume_number }
+                    .thenByDescending { it.name.lowercase() },
+            )
 
-        // Copy the cover from the first chapter found if not available
+        // Copy the cover from the first volume (lowest number) if not available.
         if (manga.thumbnail_url.isNullOrBlank()) {
-            chapters.lastOrNull()?.let { chapter ->
-                updateCover(chapter, manga)
+            volumes.lastOrNull()?.let { volume ->
+                updateCover(volume, manga)
             }
         }
 
-        chapters
+        volumes
     }
 
     // Filters
     override fun getFilterList() = FilterList(OrderBy.Popular(context))
 
     // Unused stuff
-    override suspend fun getPageList(chapter: SChapter): List<Page> = throw UnsupportedOperationException("Unused")
+    override suspend fun getPageList(volume: SVolume): List<Page> = throw UnsupportedOperationException("Unused")
 
-    fun getFormat(chapter: SChapter): Format {
+    fun getFormat(chapter: SVolume): Format {
         try {
-            val (mangaDirName, chapterName) = chapter.url.split('/', limit = 2)
+            val (mangaDirName, volumeName) = chapter.url.split('/', limit = 2)
             return fileSystem.getBaseDirectory()
                 ?.findFile(mangaDirName)
-                ?.findFile(chapterName)
+                ?.findFile(volumeName)
                 ?.let(Format.Companion::valueOf)
                 ?: throw Exception(context.stringResource(MR.strings.chapter_not_found))
         } catch (e: Format.UnknownFormatException) {
@@ -330,7 +345,48 @@ actual class LocalSource(
         }
     }
 
-    private fun updateCover(chapter: SChapter, manga: SManga): UniFile? {
+    /**
+     * Reads the first (natural-sorted) image inside a single volume as raw bytes, for use as that
+     * volume's cover thumbnail. Only the chosen entry is decoded — entry names are listed first
+     * (cheap) and just that one entry's bytes are read. The whole image is read into memory (a
+     * single page) so the result is independent of the archive handle's lifetime.
+     *
+     * @param volumeUrl the volume's url (`mangaDirName/volumeName`), i.e. [SVolume.url].
+     * @return the cover image bytes, or null if the volume has no images or can't be read.
+     */
+    fun getVolumeCoverBytes(volumeUrl: String): ByteArray? {
+        return try {
+            when (val format = getFormat(SVolume.create().apply { url = volumeUrl })) {
+                is Format.Directory -> {
+                    val files = format.file.listFiles()?.filterNot { it.isDirectory }.orEmpty()
+                    VolumeCoverSelector.selectCover(files.mapNotNull { it.name })
+                        ?.let { name -> files.firstOrNull { it.name == name } }
+                        ?.openInputStream()
+                        ?.use { it.readBytes() }
+                }
+                is Format.Archive -> {
+                    format.file.archiveReader(context).use { reader ->
+                        reader.useEntries { entries ->
+                            val names = entries.filter { it.isFile }.map { it.name }.toList()
+                            VolumeCoverSelector.selectCover(names)
+                                ?.let { name -> reader.getInputStream(name)?.use { it.readBytes() } }
+                        }
+                    }
+                }
+                is Format.Epub -> {
+                    format.file.epubReader(context).use { epub ->
+                        epub.getImagesFromPages().firstOrNull()
+                            ?.let { entry -> epub.getInputStream(entry)?.use { it.readBytes() } }
+                    }
+                }
+            }
+        } catch (e: Throwable) {
+            logcat(LogPriority.ERROR, e) { "Error extracting volume cover for $volumeUrl" }
+            null
+        }
+    }
+
+    private fun updateCover(chapter: SVolume, manga: SManga): UniFile? {
         return try {
             when (val format = getFormat(chapter)) {
                 is Format.Directory -> {

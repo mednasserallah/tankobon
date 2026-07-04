@@ -32,8 +32,8 @@ android {
     defaultConfig {
         applicationId = "app.mihon"
 
-        versionCode = 24
-        versionName = "0.20.0"
+        versionCode = 1
+        versionName = "0.1.0"
 
         buildConfigField("String", "COMMIT_COUNT", "\"${getLatestCommitCount()}\"")
         buildConfigField("String", "COMMIT_SHA", "\"${getLatestCommitSha()}\"")
@@ -141,7 +141,6 @@ android {
                 "libarchive-jni",
                 "libconscrypt_jni",
                 "libimagedecoder",
-                "libquickjs",
                 "libsqlite3x",
             )
                 .map { "**/$it.so" }
@@ -291,7 +290,6 @@ dependencies {
 
     // UI libraries
     implementation(libs.material)
-    implementation(libs.flexibleAdapter)
     implementation(libs.photoView)
     implementation(libs.directionalViewPager) {
         exclude(group = "androidx.viewpager", module = "viewpager")
@@ -307,11 +305,14 @@ dependencies {
     implementation(libs.bundles.markdown)
     implementation(libs.materialKolor)
 
+    // On-device text recognition (OCR) — Latin script bundle only
+    implementation(libs.mlkit.textRecognition)
+
+    // On-device translation (offline after one-time language-pack download)
+    implementation(libs.mlkit.translate)
+
     // Logging
     implementation(libs.logcat)
-
-    // Shizuku
-    implementation(libs.bundles.shizuku)
 
     // String similarity
     implementation(libs.stringSimilarity)

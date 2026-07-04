@@ -30,9 +30,8 @@ import eu.kanade.tachiyomi.ui.reader.ReaderActivity
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.receiveAsFlow
-import mihon.feature.migration.dialog.MigrateMangaDialog
 import tachiyomi.core.common.i18n.stringResource
-import tachiyomi.domain.chapter.model.Chapter
+import tachiyomi.domain.chapter.model.Volume
 import tachiyomi.i18n.MR
 import tachiyomi.presentation.core.i18n.stringResource
 
@@ -101,7 +100,6 @@ data object HistoryTab : Tab {
                     onDismissRequest = onDismissRequest,
                     onConfirm = { screenModel.addFavorite(dialog.manga) },
                     onOpenManga = { navigator.push(MangaScreen(it.id)) },
-                    onMigrate = { screenModel.showMigrateDialog(dialog.manga, it) },
                 )
             }
             is HistoryScreenModel.Dialog.ChangeCategory -> {
@@ -112,15 +110,6 @@ data object HistoryTab : Tab {
                     onConfirm = { include, _ ->
                         screenModel.moveMangaToCategoriesAndAddToLibrary(dialog.manga, include)
                     },
-                )
-            }
-            is HistoryScreenModel.Dialog.Migrate -> {
-                MigrateMangaDialog(
-                    current = dialog.current,
-                    target = dialog.target,
-                    // Initiated from the context of [dialog.target] so we show [dialog.current].
-                    onClickTitle = { navigator.push(MangaScreen(dialog.current.id)) },
-                    onDismissRequest = onDismissRequest,
                 )
             }
             null -> {}
@@ -139,7 +128,7 @@ data object HistoryTab : Tab {
                         snackbarHostState.showSnackbar(context.stringResource(MR.strings.internal_error))
                     HistoryScreenModel.Event.HistoryCleared ->
                         snackbarHostState.showSnackbar(context.stringResource(MR.strings.clear_history_completed))
-                    is HistoryScreenModel.Event.OpenChapter -> openChapter(context, e.chapter)
+                    is HistoryScreenModel.Event.OpenVolume -> openChapter(context, e.chapter)
                 }
             }
         }
@@ -151,7 +140,7 @@ data object HistoryTab : Tab {
         }
     }
 
-    private suspend fun openChapter(context: Context, chapter: Chapter?) {
+    private suspend fun openChapter(context: Context, chapter: Volume?) {
         if (chapter != null) {
             val intent = ReaderActivity.newIntent(context, chapter.mangaId, chapter.id)
             context.startActivity(intent)

@@ -10,8 +10,8 @@ import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.LinearLayout
 import androidx.appcompat.widget.AppCompatTextView
 import com.google.android.material.progressindicator.CircularProgressIndicator
-import eu.kanade.tachiyomi.ui.reader.model.ChapterTransition
-import eu.kanade.tachiyomi.ui.reader.model.ReaderChapter
+import eu.kanade.tachiyomi.ui.reader.model.ReaderVolume
+import eu.kanade.tachiyomi.ui.reader.model.VolumeTransition
 import eu.kanade.tachiyomi.ui.reader.viewer.ReaderButton
 import eu.kanade.tachiyomi.ui.reader.viewer.ReaderTransitionView
 import eu.kanade.tachiyomi.util.system.dpToPx
@@ -30,7 +30,7 @@ import tachiyomi.i18n.MR
 class PagerTransitionHolder(
     readerThemedContext: Context,
     val viewer: PagerViewer,
-    val transition: ChapterTransition,
+    val transition: VolumeTransition,
 ) : LinearLayout(readerThemedContext), ViewPagerAdapter.PositionableView {
 
     private val scope = MainScope()
@@ -62,7 +62,7 @@ class PagerTransitionHolder(
         addView(transitionView)
         addView(pagesContainer)
 
-        transitionView.bind(transition, viewer.downloadManager, viewer.activity.viewModel.manga)
+        transitionView.bind(transition)
 
         transition.to?.let(::observeStatus)
     }
@@ -79,16 +79,16 @@ class PagerTransitionHolder(
      * Observes the status of the page list of the next/previous chapter. Whenever there's a new
      * state, the pages container is cleaned up before setting the new state.
      */
-    private fun observeStatus(chapter: ReaderChapter) {
+    private fun observeStatus(chapter: ReaderVolume) {
         stateJob?.cancel()
         stateJob = scope.launch {
             chapter.stateFlow
                 .collectLatest { state ->
                     pagesContainer.removeAllViews()
                     when (state) {
-                        is ReaderChapter.State.Loading -> setLoading()
-                        is ReaderChapter.State.Error -> setError(state.error)
-                        is ReaderChapter.State.Wait, is ReaderChapter.State.Loaded -> {
+                        is ReaderVolume.State.Loading -> setLoading()
+                        is ReaderVolume.State.Error -> setError(state.error)
+                        is ReaderVolume.State.Wait, is ReaderVolume.State.Loaded -> {
                             // No additional view is added
                         }
                     }

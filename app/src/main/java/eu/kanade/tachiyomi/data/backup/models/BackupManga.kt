@@ -30,7 +30,7 @@ class BackupManga(
     @ProtoNumber(13) var dateAdded: Long = 0,
     @ProtoNumber(14) var viewer: Int = 0, // Replaced by viewer_flags
     // @ProtoNumber(15) val flags: Int = 0, 1.x value, not used in 0.x
-    @ProtoNumber(16) var chapters: List<BackupChapter> = emptyList(),
+    @ProtoNumber(16) var chapters: List<BackupVolume> = emptyList(),
     @ProtoNumber(17) var categories: List<Long> = emptyList(),
     @ProtoNumber(18) var tracking: List<BackupTracking> = emptyList(),
     // Bump by 100 for values that are not saved/implemented in 1.x but are used in 0.x
@@ -48,6 +48,8 @@ class BackupManga(
     @ProtoNumber(110) var notes: String = "",
     @ProtoNumber(111) var initialized: Boolean = false,
     @ProtoNumber(112) var memo: ByteArray = JsonObjectEmptyBytes,
+    // New in Tankobon: series edition tag (e.g. "Omnibus Edition"); null when absent.
+    @ProtoNumber(113) var edition: String? = null,
 ) {
     fun getMangaImpl(): Manga {
         return Manga.create().copy(
@@ -71,6 +73,7 @@ class BackupManga(
             notes = this@BackupManga.notes,
             initialized = this@BackupManga.initialized,
             memo = MemoColumnAdapter.decode(this@BackupManga.memo),
+            edition = this@BackupManga.edition,
         )
     }
 }

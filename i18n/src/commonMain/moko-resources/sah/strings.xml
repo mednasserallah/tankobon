@@ -14,7 +14,6 @@
     <string name="action_mark_as_read">Аахтым диэн бэлиэтээ</string>
     <string name="action_select_inverse">Төттөрөтүн тал</string>
     <string name="action_select_all">Барытын тал</string>
-    <string name="action_global_search">Толору көрдөөһүн</string>
     <string name="action_search">Көрдөөһүн</string>
     <string name="action_sort_date_added">Киирбит кэмэ</string>
     <string name="action_sort_latest_chapter">Бүтэһик түһүмэх</string>
@@ -38,8 +37,6 @@
     <string name="information_no_recent">Саҥардыылар суохтар</string>
     <string name="information_no_downloads">Хачаайдааһын суох</string>
     <string name="label_help">Көмө</string>
-    <string name="label_extension_info">Кэҥэтии туһунан</string>
-    <string name="label_extensions">Кэҥэтии</string>
     <string name="label_migration">Көһүү</string>
     <string name="label_backup">Хаппаас куопуйа</string>
     <string name="label_sources">Төрүттэр</string>
@@ -203,17 +200,6 @@
 \n
 \nБу туоһу сурукка эрэнэр буоллаххына, бэйэҕин кутталга угаҕын.</string>
     <string name="untrusted_extension">Эрэлэ суох кэҥэтии</string>
-    <string name="ext_uninstall">Сотон кэбис</string>
-    <string name="ext_untrusted">Эрэлэ суох</string>
-    <string name="ext_trust">Эрэллээх</string>
-    <string name="ext_installed">Турда</string>
-    <string name="ext_installing">ТуруорааҺын</string>
-    <string name="ext_downloading">Хачайдааһын</string>
-    <string name="ext_pending">Кэтэһэбит</string>
-    <string name="ext_install">Туруор</string>
-    <string name="ext_obsolete">Эргэрбит</string>
-    <string name="ext_update">Саҥардыы</string>
-    <string name="ext_updates_pending">Саҥардыылары кэтэһэбит</string>
     <string name="all">Барыта</string>
     <string name="pref_clear_cookies">Кукины ырааста</string>
     <string name="label_network">Ситим</string>
@@ -270,7 +256,6 @@
     <string name="website">Үөп сир</string>
     <string name="licenses">Аһаҕас төрүттээх лицензиялар</string>
     <string name="check_for_updates">Саҥардыы баар буолуутун бэрэбиэркэлээһин</string>
-    <string name="action_global_search_hint">Толору көрдөөһүн…</string>
     <string name="pinned_sources">Иҥиннэриллибит</string>
     <string name="last_used_source">Бүтэһигинэн туттуллубут</string>
     <string name="other_source">Атыттар</string>
@@ -310,7 +295,6 @@
     <string name="local_source_help_guide">Төрүт локальнай салалтата</string>
     <string name="browse">Көрдөөһүн</string>
     <string name="latest">Тиһэх</string>
-    <string name="action_global_search_query">\"%1$s\" толору көрдөө</string>
     <string name="pref_remove_bookmarked_chapters">Кыбытыылах түһүмэхтэри соттор</string>
     <string name="pref_category_delete_chapters">Түһүмэхтэри соттор</string>
     <string name="manga_tracking_tab">Кэтээһин</string>
@@ -330,8 +314,6 @@
     <string name="source_not_installed">Төрүт туруоруллубатах: %1$s</string>
     <string name="copied_to_clipboard">Хоспоххо куопуйаланна:
 \n %1$s</string>
-    <string name="ext_nsfw_warning">18+ контент баар буолуон сөп</string>
-    <string name="ext_nsfw_short">18+</string>
     <string name="parental_controls_info">Ити официальнайа суох эбэтэр сыыһа бэлиэтэммит 18+ контенны эбиликкж киирэрин тохтоппот.</string>
     <string name="custom_filter">Туттааччы биилтирэ</string>
     <string name="picture_saved">Хартыыҥка оннунан хаалла</string>
@@ -390,7 +372,6 @@
     <string name="spen_next_page">Аныгыскы сирэй</string>
     <string name="spen_previous_page">Иннинээҕи сирэй</string>
     <string name="file_picker_error">Билэни талар эбилик булуллубата</string>
-    <string name="migration_help_guide">Төрүттэр көһөрүүтүн туһунан салалта</string>
     <string name="myanimelist_relogin">Бука диэн MALга эмиэ киир</string>
     <string name="pref_viewer_nav">Нэбигээссийэ бэлиэтэ</string>
     <string name="edge_nav">Кытыы</string>
