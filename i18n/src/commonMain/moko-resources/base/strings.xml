@@ -783,6 +783,21 @@
 
     <!-- Reader activity -->
     <string name="custom_filter">Custom filter</string>
+    <string name="action_detect_text">Detect text</string>
+    <string name="text_detection_title">Detected text</string>
+    <string name="text_detection_empty">No text detected on this page.</string>
+    <string name="text_detection_error">Couldn\'t detect text. Please try again.</string>
+    <string name="action_translate">Translate</string>
+    <string name="action_translate_all">Translate all</string>
+    <string name="translation_downloading">Downloading Arabic language pack…</string>
+    <string name="translation_in_progress">Translating…</string>
+    <string name="translation_error">Translation unavailable. Try again.</string>
+    <string name="translation_powered_by_google">Translation powered by Google Translate</string>
+    <string name="pref_translation_wifi_only">Download translation pack over Wi-Fi only</string>
+    <string name="pref_translation_wifi_only_summary">The Arabic language pack (~30 MB) downloads only on Wi-Fi. Turn off to allow mobile data.</string>
+    <string name="pref_delete_translation_model">Delete Arabic translation pack</string>
+    <string name="pref_delete_translation_model_summary">Free up storage. It will download again next time you translate.</string>
+    <string name="translation_model_deleted">Arabic translation pack deleted</string>
     <string name="set_as_cover">Set as cover</string>
     <string name="cover_updated">Cover updated</string>
     <string name="share_page_info">%1$s: %2$s, page %3$d</string>

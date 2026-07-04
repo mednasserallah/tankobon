@@ -1,5 +1,6 @@
 package eu.kanade.tachiyomi.ui.reader.viewer
 
+import android.graphics.Rect
 import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.View
@@ -42,4 +43,11 @@ interface Viewer {
      * return true if the event was handled, false otherwise.
      */
     fun handleGenericMotionEvent(event: MotionEvent): Boolean
+
+    /**
+     * Returns the region of the current page currently visible on screen (in original-image pixel
+     * coordinates) when the user is zoomed in, or null to detect text on the whole page. Defaults
+     * to null (whole page) for viewers that don't support scoped detection.
+     */
+    fun getCurrentPageVisibleRegion(): Rect? = null
 }

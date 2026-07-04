@@ -1,6 +1,7 @@
 package eu.kanade.tachiyomi.ui.reader.viewer.pager
 
 import android.graphics.PointF
+import android.graphics.Rect
 import android.view.InputDevice
 import android.view.KeyEvent
 import android.view.MotionEvent
@@ -165,6 +166,15 @@ abstract class PagerViewer(val activity: ReaderActivity) : Viewer {
         pager.children
             .filterIsInstance(PagerPageHolder::class.java)
             .firstOrNull { it.item == page }
+
+    /**
+     * When zoomed into the current page, returns the visible region in source-image pixels so text
+     * detection can scope to what's on screen; null (whole page) at default zoom or on a transition.
+     */
+    override fun getCurrentPageVisibleRegion(): Rect? {
+        val page = currentPage as? ReaderPage ?: return null
+        return getPageHolder(page)?.getVisibleImageRegion()
+    }
 
     /**
      * Called when a new page (either a [ReaderPage] or [VolumeTransition]) is marked as active
