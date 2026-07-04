@@ -312,7 +312,6 @@
     <string name="action_move_to_top">Перемістити догори</string>
     <string name="action_move_to_bottom">Перемістити додолу</string>
     <string name="pref_category_reading">Читання</string>
-    <string name="label_sources">Джерела</string>
     <string name="updating_library">Оновлення бібліотеки</string>
     <string name="pref_skip_filtered_chapters">Пропускати відфільтровані розділи</string>
     <string name="pref_webtoon_side_padding">Бічний відступ</string>
@@ -593,7 +592,6 @@
     <string name="pref_reader_summary">Режим читання, відображення, навігація</string>
     <string name="pref_downloads_summary">Автоматичне завантаження, завантаження наперед</string>
     <string name="pref_tracking_summary">Одностороння синхронізація прогресу, розширена синхронізація</string>
-    <string name="pref_browse_summary">Джерела, розширення, глобальний пошук</string>
     <string name="pref_backup_summary">Ручне та автоматичне резервування, сховище</string>
     <string name="pref_security_summary">Блокування застосунку, захист екрану</string>
     <string name="pref_advanced_summary">Вивантаження журнала з помилками, оптимізація батареї</string>
@@ -644,7 +642,6 @@
     <string name="pref_skip_dupe_chapters">Пропуск повторюваних розділів</string>
     <string name="track_error">%1$s помилка: %2$s</string>
     <string name="information_required_plain">*необхідно</string>
-    <string name="pref_hide_in_library_items">Приховати записи, які вже є в бібліотеці</string>
     <string name="action_copy_to_clipboard">Копіювати в буфер обміну</string>
     <string name="action_update_category">Оновити категорію</string>
     <string name="split_tall_images">Розділяти довгі зображення</string>
@@ -796,7 +793,6 @@
     <string name="library_list">Список бібліотеки</string>
     <string name="possible_duplicates_summary">У вашій бібліотеці є записи зі схожою назвою.\n\nВиберіть запис для перенесення або просто додайте.</string>
     <string name="clear_db_exclude_read">Зберегти записи з прочитаними розділами</string>
-    <string name="label_support_us">Підтримати нас</string>
     <string name="action_webview_close_tab">Закрити вкладку</string>
     <string name="theme_catppuccin">Catppuccin</string>
     <string name="pref_display_images_description">Рендерити зображення в описах манґи</string>

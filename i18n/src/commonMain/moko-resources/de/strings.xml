@@ -314,7 +314,6 @@
     <string name="updating_library">Bibliothek wird aktualisiert</string>
     <string name="pref_skip_filtered_chapters">Gefilterte Kapitel überspringen</string>
     <string name="pref_category_reading">Beim Lesen</string>
-    <string name="label_sources">Quellen</string>
     <string name="action_select_inverse">Auswahl umkehren</string>
     <string name="vertical_plus_viewer">Langer Streifen mit Lücken</string>
     <string name="pref_webtoon_side_padding">Seitenränder</string>
@@ -595,7 +594,6 @@
     <string name="pref_library_summary">Kategorien, globale Aktualisierungen, Kapitelaktionen</string>
     <string name="crash_screen_restart_application">App neustarten</string>
     <string name="pref_tracking_summary">Einweg-Synchronisation, erweiterte Synchronisation</string>
-    <string name="pref_browse_summary">Quellen, Erweiterungen, globale Suche</string>
     <string name="crash_screen_title">Ups!</string>
     <string name="pref_advanced_summary">Absturzprotokolle ausgeben, Akkuverbrauch-Optimierung</string>
     <string name="pref_backup_summary">Manuelle und automatische Datensicherungen, Speicherplatz</string>
@@ -644,7 +642,6 @@
     <string name="pref_skip_dupe_chapters">Doppelte Kapitel überspringen</string>
     <string name="track_error">%1$s-Fehler: %2$s</string>
     <string name="information_required_plain">*erforderlich</string>
-    <string name="pref_hide_in_library_items">Einträge verbergen, die bereits in der Bibliothek sind</string>
     <string name="action_copy_to_clipboard">In die Zwischenablage kopieren</string>
     <string name="action_update_category">Kategorie aktualisieren</string>
     <string name="split_tall_images">Hohe Bilder teilen</string>
@@ -818,19 +815,6 @@
     <string name="action_webview_close_tab">Tab schließen</string>
     <string name="action_filter_excluded_scanlators">Ausgeschlossene Scanlationgruppen herausfiltern</string>
     <string name="download_bookmarked">Mit Lesezeichen versehen</string>
-    <string name="label_support_us">Unterstütze Uns</string>
-    <string name="supportUsScreen.perks">Unterstützende erhalten Zugang zu exklusiven Kanälen. Weitere Vorteile folgen.</string>
-    <string name="supportUsScreen.donationPlatform.patreon">Patreon (bevorzugt)</string>
-    <string name="supportUsScreen.donationPlatform.opencollective">OpenCollective</string>
-    <string name="supportUsScreen.currentlySupportedBy">Mihon wird aktuell von %d+ Personen unterstützt. Wir bedanken uns bei euch allen. Lasst uns Mihon gemeinsam noch besser machen.</string>
-    <string name="supportUsScreen.contactForDetailsMessage">Trete unserem Discord-Server für alternative Optionen oder bei weiteren Fragen bei.</string>
-    <string name="supportUsScreen.contactPlatform">Discord</string>
-    <string name="donationCampaign.title">Gefällt dir die App?</string>
-    <string name="donationCampaign.paragraph1">Hi! Ich bin der Hauptentwickler von Mihon und möchte darum bitten, die Entwicklung finanziell zu unterstützen. Mit genügend Unterstützung werde ich in der Lage sein, in Vollzeit an Mihon zu arbeiten und sowohl langjährige Probleme zu beheben als auch häufig gewünschte Features zu implementieren.</string>
-    <string name="donationCampaign.paragraph2">Du kannst entweder mittels Patreon (bevorzugt) oder OpenCollective spenden. Wenn du Fragen hast oder auf anderem Wege die Entwicklung unterstützen möchstest, dann kannst du mich gerne über Mihons Discord-Server erreichen.</string>
-    <string name="donationCampaign.paragraph3">Unabhängig davon wird Mihon weiterhin von mir und anderen Freiwilligen entwickelt werden und bleibt open-source.</string>
-    <string name="donationCampaign.contactPlatform">Discord</string>
-    <string name="donationCampaign.dismiss">Verwerfen</string>
     <string name="action.addExtensionStore">Erweiterungsdepot hinzufügen</string>
     <string name="pref_webtoon_vertical_navigator">Vertikalen Navigatior für das Lesen langer Streifen verwenden</string>
     <string name="pref_webtoon_vertical_navigator_on_left">Vertikalen Navigator auf der linken Seite platzieren</string>

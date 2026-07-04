@@ -341,7 +341,6 @@
     <string name="action_select_inverse">Избери обратно</string>
     <string name="action_sort_latest_chapter">Последна глава</string>
     <string name="action_menu">Меню</string>
-    <string name="label_sources">Източници</string>
     <string name="label_more">Още</string>
     <string name="viewer">Режим на четене</string>
     <string name="pref_category_for_this_series">За тази поредица</string>
@@ -595,7 +594,6 @@
     <string name="pref_reader_summary">Режим на четене, показване, навигация</string>
     <string name="pref_downloads_summary">Автоматични изтегляния, предстоящи изтегляния</string>
     <string name="pref_tracking_summary">Еднопосочна синхронизация, подобрена синхронизация</string>
-    <string name="pref_browse_summary">Източници, разширения, глобално търсене</string>
     <string name="pref_backup_summary">Ръчно и автоматично създаване на бекъп</string>
     <string name="pref_security_summary">Заключване на приложението, екран за сигурност</string>
     <string name="pref_advanced_summary">Покажи записи от крашове, оптимизации за батерията</string>
@@ -663,7 +661,6 @@
     <string name="action_edit_notes">Редактирай бележки</string>
     <string name="onboarding_action_next">Следващ</string>
     <string name="onboarding_guides_returning_user">Преинсталираш %s?</string>
-    <string name="pref_hide_in_library_items">Скрий манги, които са вече в библиотеката</string>
     <string name="source_settings">Настройки на източници</string>
     <string name="manga_interval_expected_update">Нови глави предвидени да бъдат качени след около %1$s, проверяване около всеки %2$s.</string>
     <string name="upcoming_calendar_prev">Предишен месец</string>

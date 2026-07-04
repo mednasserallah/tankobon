@@ -337,7 +337,6 @@
     <string name="action_sort_latest_chapter">Νεότερο κεφάλαιο</string>
     <string name="action_menu">Μενού</string>
     <string name="label_downloaded_only">Ληφθέντα μόνο</string>
-    <string name="label_sources">Πηγές</string>
     <string name="action_oldest">Παλαιότερο</string>
     <string name="action_newest">Νεότερο</string>
     <string name="downloaded_only_summary">Φιλτράρει όλες τις καταχωρήσεις στη βιβλιοθήκη σας</string>
@@ -589,7 +588,6 @@
     <string name="missing_storage_permission">Δεν έχουν χορηγηθεί δικαιώματα αποθήκευσης</string>
     <string name="skipped_reason_not_always_update">Παραλείφθηκε επειδή η σειρά δεν απαιτεί ενημερώσεις</string>
     <string name="action_search_hint">Αναζήτηση…</string>
-    <string name="pref_browse_summary">Πηγές, επεκτάσεις, καθολική αναζήτηση</string>
     <string name="crash_screen_title">Ουπς!</string>
     <string name="pref_appearance_summary">Θέμα, μορφή ημερομηνίας και ώρας</string>
     <string name="pref_library_summary">Κατηγορίες, καθολική ενημέρωση, σύρσιμο κεφαλαίου</string>
@@ -644,7 +642,6 @@
     <string name="enhanced_services_not_installed">Διαθέσιμο αλλά η πηγή δεν έχει εγκατασταθεί: %s</string>
     <string name="track_error">%1$s σφάλμα: %2$s</string>
     <string name="information_required_plain">*απαιτούμενο</string>
-    <string name="pref_hide_in_library_items">Απόκρυψη καταχωρήσεων που βρίσκονται ήδη στη βιβλιοθήκη</string>
     <string name="action_copy_to_clipboard">Αντιγραφή στο πρόχειρο</string>
     <string name="action_update_category">Ενημέρωση κατηγορίας</string>
     <string name="split_tall_images">Διαχωρισμός ψηλών εικόνων</string>
@@ -818,20 +815,7 @@
     <string name="pref_download_concurrent_pages_summary">Σελίδες που λήφθηκαν ταυτόχρονα ανά πηγή</string>
     <string name="download_bookmarked">Προστέθηκε στους σελιδοδείκτες</string>
     <string name="action_filter_excluded_scanlators">Φιλτράρισμα εξαιρούμενων scanlator</string>
-    <string name="label_support_us">Υποστηρίξτε μας</string>
     <string name="action.addExtensionStore">Προσθήκη καταστήματος επεκτάσεων</string>
     <string name="pref_webtoon_vertical_navigator">Χρησιμοποιήστε τον κάθετο πλοηγό για ανάγνωση μεγάλων λωρίδων</string>
     <string name="pref_webtoon_vertical_navigator_on_left">Τοποθέτηση του κάθετου πλοηγού στην αριστερή πλευρά</string>
-    <string name="supportUsScreen.perks">Οι Patrons έχουν πρόσβαση σε αποκλειστικά κανάλια, ενώ θα ακολουθήσουν και άλλα προνόμια.</string>
-    <string name="supportUsScreen.donationPlatform.patreon">Patreon (προτιμάται)</string>
-    <string name="supportUsScreen.donationPlatform.opencollective">OpenCollective</string>
-    <string name="supportUsScreen.currentlySupportedBy">Το Mihon υποστηρίζεται αυτήν τη στιγμή από %d+ χρήστες. Θέλουμε να ευχαριστήσουμε τον καθένα από εσάς ξεχωριστά. Ας κάνουμε το Mihon ακόμα καλύτερο μαζί.</string>
-    <string name="supportUsScreen.contactForDetailsMessage">Για εναλλακτικές επιλογές ή οποιεσδήποτε σχετικές ερωτήσεις, εγγραφείτε στον Discord server.</string>
-    <string name="supportUsScreen.contactPlatform">Discord</string>
-    <string name="donationCampaign.title">Σας αρέσει η εφαρμογή;</string>
-    <string name="donationCampaign.paragraph1">Γεια σας! Είμαι ο κύριος προγραμματιστής πίσω από το Mihon και θα ήθελα να σας ζητήσω να εξετάσετε το ενδεχόμενο οικονομικής υποστήριξης στην ανάπτυξή του. Με επαρκή υποστήριξη, θα μπορώ να εργάζομαι στο Mihon με πλήρη απασχόληση και να επικεντρωθώ σε μακροχρόνια προβλήματα καθώς και σε λειτουργίες που έχουν μεγάλη ζήτηση.</string>
-    <string name="donationCampaign.paragraph2">Μπορείτε να κάνετε δωρεά μέσω του Patreon (προτιμάται) ή του OpenCollective. Εάν έχετε ερωτήσεις ή θέλετε να υποστηρίξετε χρησιμοποιώντας εναλλακτικές μεθόδους, μη διστάσετε να επικοινωνήσετε μαζί μου μέσω του Discord server του Mihon.</string>
-    <string name="donationCampaign.paragraph3">Ανεξάρτητα από αυτό, το Mihon θα συνεχίσει να συντηρείται από εμένα και τους εθελοντές και θα παραμείνει ανοιχτού κώδικα.</string>
-    <string name="donationCampaign.contactPlatform">Discord</string>
-    <string name="donationCampaign.dismiss">Απόρριψη</string>
 </resources>

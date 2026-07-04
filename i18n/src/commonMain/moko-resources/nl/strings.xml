@@ -299,7 +299,6 @@
     <string name="action_newest">Nieuwste</string>
     <string name="action_menu">Menu</string>
     <string name="action_pin">Vastpinnen</string>
-    <string name="label_sources">Bronnen</string>
     <string name="action_select_inverse">Selectie omkeren</string>
     <string name="restoring_backup_canceled">Herstellen geannuleerd</string>
     <string name="restoring_backup_error">Herstellen mislukt</string>
@@ -571,7 +570,6 @@
     <string name="pref_library_summary">Categorieën, globaal bijwerken</string>
     <string name="pref_reader_summary">Leesmodus, weergave, navigatie</string>
     <string name="pref_downloads_summary">Automatische downloads, vooraf downloaden</string>
-    <string name="pref_browse_summary">Bronnen, extensies, globaal zoeken</string>
     <string name="pref_backup_summary">Handmatige &amp; automatische back-ups, opslagruimte</string>
     <string name="pref_security_summary">App-vergrendeling, schermbeveiliging</string>
     <string name="pref_reset_viewer_flags_success">Alle leesinstellingen teruggezet naar de standaardwaarden</string>
@@ -606,7 +604,6 @@
     <string name="pref_library_update_show_tab_badge">Toon aantal ongelezen op updates icon</string>
     <string name="source_filter_empty_screen">Geen geïnstalleerde bron gevonden</string>
     <string name="not_installed">Niet geïnstalleerd</string>
-    <string name="pref_hide_in_library_items">Verberg manga die al in de bibliotheek staat</string>
     <string name="update_already_running">Er is al een update bezig</string>
     <string name="action_copy_to_clipboard">Kopiëren naar klembord</string>
     <string name="updates_last_update_info_just_now">Net nu</string>
@@ -811,20 +808,7 @@
     <string name="upcoming_guide">Toekomstige Updatesgids</string>
     <string name="file_picker_uri_permission_unsupported">Kon geen permanente toegang tot map vergijken. De app kan zich onverwacht gedragen.</string>
     <string name="onboarding_action_finish">Beginnen</string>
-    <string name="label_support_us">Steun Ons</string>
     <string name="action.addExtensionStore">Extensiewinkel toevoegen</string>
     <string name="pref_webtoon_vertical_navigator">Gebruik verticale navigator voor lange strips lezen</string>
     <string name="pref_webtoon_vertical_navigator_on_left">Plaats verticale navigator aan de linkerkant</string>
-    <string name="supportUsScreen.perks">Donateurs krijgen toegang tot exclusieve kanalen, met meer voordelen in de toekomst.</string>
-    <string name="supportUsScreen.donationPlatform.patreon">Patreon (bij voorkeur)</string>
-    <string name="supportUsScreen.donationPlatform.opencollective">OpenCollective</string>
-    <string name="supportUsScreen.currentlySupportedBy">Mihon wordt op dit moment gesteund door %d+ donateurs. Wij willen ieder van jullie bedanken. Laten we Mihon samen nog beter maken.</string>
-    <string name="supportUsScreen.contactForDetailsMessage">Voor alternatieve opties of gerelateerde vragen, wordt lid van onze Discord server.</string>
-    <string name="supportUsScreen.contactPlatform">Discord</string>
-    <string name="donationCampaign.title">Bevalt de app je?</string>
-    <string name="donationCampaign.paragraph1">Hoi! Ik ben de hoofddeveloper van Mihon en ik wil je vragen om te overwegen de ontwikkeling financieel te ondersteunen. Met genoeg steun zal ik voltijds aan Mihon kunnen werken en mij kunnen focussen op lang bestaande problemen alsook veelgevraagde functies.</string>
-    <string name="donationCampaign.paragraph2">Je kan doneren via Patreon (bij voorkeur) of OpenCollective. Als je vragen hebt of op een andere manier wil steunen, kan je altijd naar mij uitreiken via Mihon\'s Discord server.</string>
-    <string name="donationCampaign.paragraph3">Hoe dan ook, Mihon zal blijven onderhouden worden door mij en de vrijwilligers, en het zal open source blijven.</string>
-    <string name="donationCampaign.contactPlatform">Discord</string>
-    <string name="donationCampaign.dismiss">Afwijzen</string>
 </resources>

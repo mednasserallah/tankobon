@@ -28,13 +28,11 @@
     <string name="label_recent_updates">Updates</string>
     <string name="label_upcoming">Upcoming</string>
     <string name="label_recent_manga">History</string>
-    <string name="label_sources">Sources</string>
     <string name="label_backup">Backup and restore</string>
     <string name="label_data_storage">Data and storage</string>
     <string name="label_stats">Statistics</string>
     <string name="label_migration">Migrate</string>
     <string name="label_help">Help</string>
-    <string name="label_support_us">Support Us</string>
     <string name="label_default">Default</string>
     <string name="label_warning">Warning</string>
     <string name="label_auto">Auto</string>
@@ -217,7 +215,6 @@
     <string name="pref_text_detection_summary">Engine, DeepL key, offline language pack</string>
     <string name="pref_downloads_summary">Automatic download, download ahead</string>
     <string name="pref_tracking_summary">One-way progress sync, enhanced sync</string>
-    <string name="pref_browse_summary">Sources, extensions, global search</string>
     <string name="pref_backup_summary">Manual &amp; automatic backups, storage space</string>
     <string name="pref_security_summary">App lock, secure screen</string>
     <string name="pref_advanced_summary">Dump crash logs, battery optimizations</string>
@@ -500,7 +497,6 @@
     <string name="track_activity_name">Tracker login</string>
 
       <!-- Browse section -->
-    <string name="pref_hide_in_library_items">Hide entries already in library</string>
 
       <!-- Data and storage section -->
     <string name="pref_storage_location">Storage location</string>
@@ -1004,17 +1000,5 @@
     <string name="notes_placeholder">Enjoyed the part where…</string>
 
 
-    <string name="supportUsScreen.perks">Patrons get access to exclusive channels, with more perks to come.</string>
-    <string name="supportUsScreen.donationPlatform.patreon">Patreon (preferred)</string>
-    <string name="supportUsScreen.donationPlatform.opencollective">OpenCollective</string>
-    <string name="supportUsScreen.currentlySupportedBy">Mihon is currently backed by %d+ patrons. We want to thank each and everyone of you. Let's make Mihon even better together.</string>
-    <string name="supportUsScreen.contactForDetailsMessage">For alternative options or any related questions, join our Discord server.</string>
-    <string name="supportUsScreen.contactPlatform">Discord</string>
 
-    <string name="donationCampaign.title">Enjoying the app?</string>
-    <string name="donationCampaign.paragraph1">Hi! I’m the main developer behind Mihon, and I’d like to ask you to consider supporting its development financially. With enough support, I’ll be able to work on Mihon full-time and focus on long-standing issues as well as highly requested features.</string>
-    <string name="donationCampaign.paragraph2">You can donate through either Patreon (preferred) or OpenCollective. If you have questions or would like to support using alternative methods, feel free to reach out to me through Mihon's Discord server.</string>
-    <string name="donationCampaign.paragraph3">Regardless, Mihon will continue to be maintained by me and the volunteers, and it will stay open source.</string>
-    <string name="donationCampaign.contactPlatform">Discord</string>
-    <string name="donationCampaign.dismiss">Dismiss</string>
 </resources>

@@ -34,7 +34,6 @@
     <string name="history">வரலாறு</string>
     <string name="label_upcoming">வரவிருக்கும்</string>
     <string name="label_recent_manga">வரலாறு</string>
-    <string name="label_sources">மூலங்கள்</string>
     <string name="label_backup">காப்புப்பிரதி மற்றும் மீட்டமை</string>
     <string name="label_data_storage">தரவு மற்றும் சேமிப்பு</string>
     <string name="label_stats">புள்ளிவிவரங்கள்</string>
@@ -219,7 +218,6 @@
     <string name="pref_reader_summary">படித்தல் பயன்முறை, காட்சி, வழிசெலுத்தல்</string>
     <string name="pref_downloads_summary">தானியங்கி பதிவிறக்க, முன்னால் பதிவிறக்குங்கள்</string>
     <string name="pref_tracking_summary">ஒரு வழி முன்னேற்ற ஒத்திசைவு, மேம்பட்ட ஒத்திசைவு</string>
-    <string name="pref_browse_summary">ஆதாரங்கள், நீட்டிப்புகள், உலகளாவிய தேடல்</string>
     <string name="pref_backup_summary">கையேடு மற்றும் தானியங்கி காப்புப்பிரதிகள், சேமிப்பு இடம்</string>
     <string name="pref_security_summary">பயன்பாட்டு பூட்டு, பாதுகாப்பான திரை</string>
     <string name="pref_advanced_summary">செயலிழப்பு பதிவுகள், பேட்டரி மேம்படுத்தல்கள்</string>
@@ -452,7 +450,6 @@
     <string name="enhanced_tracking_info">குறிப்பிட்ட மூலங்களுக்கான மேம்பட்ட அம்சங்களை வழங்குகிறது. உங்கள் நூலகத்தில் சேர்க்கும்போது உள்ளீடுகள் தானாகவே கண்காணிக்கப்படும்.</string>
     <string name="action_track">மின்தடம்</string>
     <string name="track_activity_name">டிராக்கர் உள்நுழைவு</string>
-    <string name="pref_hide_in_library_items">ஏற்கனவே நூலகத்தில் உள்ளீடுகளை மறைக்கவும்</string>
     <string name="pref_storage_location">சேமிப்பக இடம்</string>
     <string name="pref_storage_location_info">தானியங்கி காப்புப்பிரதிகள், அத்தியாயம் பதிவிறக்கங்கள் மற்றும் உள்ளக மூலங்களுக்குப் பயன்படுத்தப்படுகிறது.</string>
     <string name="pref_create_backup">காப்புப்பிரதியை உருவாக்கவும்</string>

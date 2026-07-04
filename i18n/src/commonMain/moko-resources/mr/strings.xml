@@ -35,7 +35,6 @@
     <string name="information_no_recent">कोणतेही अलीकडील अद्यतने नाही</string>
     <string name="information_no_downloads">डाऊनलोड नाहीत</string>
     <string name="label_migration">स्त्रोत स्तालांतर</string>
-    <string name="label_sources">स्त्रोत</string>
     <string name="label_recent_updates">अपडेट्स</string>
     <string name="label_library">संग्रहालय</string>
     <string name="label_download_queue">डाऊनलोड रांग</string>

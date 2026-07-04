@@ -34,8 +34,6 @@ class SourcePreferences(
 
     val showNsfwSource: Preference<Boolean> = preferenceStore.getBoolean("show_nsfw_source", true)
 
-    val hideInLibraryItems: Preference<Boolean> = preferenceStore.getBoolean("browse_hide_in_library_items", false)
-
     val globalSearchFilterState: Preference<Boolean> = preferenceStore.getBoolean(
         Preference.appStateKey("has_filters_toggle_state"),
         false,

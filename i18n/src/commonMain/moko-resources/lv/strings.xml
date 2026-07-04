@@ -93,7 +93,6 @@
     <string name="information_no_downloads">Nav lejuplāžu</string>
     <string name="label_help">Palīdzība</string>
     <string name="label_migration">Migrēt</string>
-    <string name="label_sources">Avoti</string>
     <string name="label_more">Vairāk</string>
     <string name="action_display_comfortable_grid">Ērts režģis</string>
     <string name="action_migrate">Migrēt</string>
@@ -618,7 +617,6 @@
     <string name="action_copy_to_clipboard">Kopēt starpliktuvē</string>
     <string name="pref_downloads_summary">Automātiskā lejupielāde, lejupielādes rinda</string>
     <string name="pref_tracking_summary">Vienvirziena progresa sinhronizācija, uzlabota sinhronizācija</string>
-    <string name="pref_browse_summary">Avoti, paplašinājumi, globālā meklēšana</string>
     <string name="pref_appearance_summary">Tēma, datuma un laika formāti</string>
     <string name="pref_library_summary">Kategorijas, globāli atjauninājumi, nodaļu vilkšana</string>
     <string name="pref_library_update_show_tab_badge">Rādīt nelasīto skaitu uz atjauninājumu ikonas</string>
@@ -632,7 +630,6 @@
     <string name="pref_page_rotate">Pagrieziet platas lapas, lai tās ietilptu</string>
     <string name="pref_page_rotate_invert">Apvērst orientācija pagrieztām platām lapām</string>
     <string name="split_tall_images">Sadalīt augstus attēlus</string>
-    <string name="pref_hide_in_library_items">Slēpt ierakstus, kas jau ir bibliotēkā</string>
     <string name="track_remove_date_conf_title">Vai noņemt datumu?</string>
     <string name="information_no_manga_category">Kategorija ir tukša</string>
     <string name="appwidget_updates_description">Skatiet savus nesen atjauninātos bibliotēkas ierakstus</string>

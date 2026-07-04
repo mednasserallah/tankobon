@@ -311,7 +311,6 @@
     <string name="action_oldest">Più vecchi</string>
     <string name="action_newest">Più recenti</string>
     <string name="action_menu">Menù</string>
-    <string name="label_sources">Fonti</string>
     <string name="updating_library">Libreria in aggiornamento</string>
     <string name="pref_category_reading">In Lettura</string>
     <string name="pref_skip_filtered_chapters">Salta capitoli filtrati</string>
@@ -593,7 +592,6 @@
     <string name="crash_screen_description">%s ha riscontrato un errore imprevisto. Ti suggeriamo di condividere il registro degli arresti anomali nel nostro canale di supporto su Discord.</string>
     <string name="pref_library_summary">Categorie, aggiornamenti globali, azioni di scorrimento capitoli</string>
     <string name="pref_downloads_summary">Download automatico, download anticipato</string>
-    <string name="pref_browse_summary">Fonti, estensioni, ricerca globale</string>
     <string name="pref_reader_summary">Modalità di lettura, aspetto, navigazione</string>
     <string name="pref_tracking_summary">Sincronizzazione unidirezionale avanzamenti, sincronizzazione migliorata</string>
     <string name="pref_backup_summary">Backup manuali e automatici, spazio di archiviazione</string>
@@ -644,7 +642,6 @@
     <string name="pref_skip_dupe_chapters">Salta i capitoli duplicati</string>
     <string name="track_error">%1$s errore: %2$s</string>
     <string name="information_required_plain">*obbligatorio</string>
-    <string name="pref_hide_in_library_items">Nascondi le voci già in libreria</string>
     <string name="action_copy_to_clipboard">Copia negli appunti</string>
     <string name="action_update_category">Aggiorna categoria</string>
     <string name="split_tall_images">Dividi immagini alte</string>

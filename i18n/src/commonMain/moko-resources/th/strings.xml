@@ -355,7 +355,6 @@
     <string name="action_sort_latest_chapter">ตอนล่าสุด</string>
     <string name="action_filter_tracked">ติดตามแล้ว</string>
     <string name="action_menu">เมนู</string>
-    <string name="label_sources">แหล่งที่มา</string>
     <string name="label_more">เพิ่มเติม</string>
     <string name="pref_webtoon_side_padding">ช่องว่างด้านข้าง</string>
     <string name="pref_category_reading">การอ่าน</string>
@@ -594,7 +593,6 @@
     <string name="pref_reader_summary">โหมดการอ่าน, การแสดงผล, การนำทาง</string>
     <string name="pref_downloads_summary">การดาวน์โหลดอัตโนมัติ, การดาวน์โหลดล่วงหน้า</string>
     <string name="pref_tracking_summary">การอัพเดทความคืบหน้าหลังอ่าน, การซิงค์กับแหล่งที่มาภายนอก</string>
-    <string name="pref_browse_summary">แหล่งที่มา, ส่วนขยาย, การค้นหาทั้งหมด</string>
     <string name="pref_backup_summary">การสำรองข้อมูลและพื้นที่เก็บข้อมูลด้วยตนเองและอัตโนมัติ</string>
     <string name="pref_security_summary">การล็อกแอป, หน้าจอความปลอดภัย</string>
     <string name="pref_advanced_summary">ดัมพ์บันทึกข้อขัดข้อง, การเพิ่มประสิทธิภาพแบตเตอรี่</string>
@@ -644,7 +642,6 @@
     <string name="enhanced_services_not_installed">พร้อมใช้งานแต่ไม่ได้ติดตั้งแหล่งที่มา: %s</string>
     <string name="track_error">%1$s ข้อผิดพลาด: %2$s</string>
     <string name="information_required_plain">*จำเป็น</string>
-    <string name="pref_hide_in_library_items">ซ่อนรายการที่มีอยู่ในคลังอยู่แล้ว</string>
     <string name="action_copy_to_clipboard">คัดลอกไปยังคลิปบอร์ด</string>
     <string name="action_update_category">อัปเดตหมวดหมู่</string>
     <string name="split_tall_images">แยกภาพสูงยาว</string>

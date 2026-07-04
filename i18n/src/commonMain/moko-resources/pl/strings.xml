@@ -306,7 +306,6 @@
     <string name="action_select_inverse">Odwróć zaznaczenie</string>
     <string name="action_sort_latest_chapter">Ostatni rozdział</string>
     <string name="action_menu">Menu</string>
-    <string name="label_sources">Źródła</string>
     <string name="notification_chapters_single">Rozdział %1$s</string>
     <string name="updating_library">Aktualizowanie biblioteki</string>
     <string name="pref_category_for_this_series">Dla tej serii</string>
@@ -600,7 +599,6 @@
     <string name="invalid_location">Nieprawidłowa lokalizacja: %s</string>
     <string name="action_display_show_continue_reading_button">Przycisk wznów czytanie</string>
     <string name="pref_tracking_summary">Jednokierunkowa synchronizacja postępu, ulepszona synchronizacja</string>
-    <string name="pref_browse_summary">Źródła, rozszerzenia, globalne wyszukiwanie</string>
     <string name="pref_security_summary">Blokada aplikacji, bezpieczny ekran</string>
     <string name="pref_appearance_summary">Tło, data &amp; format czasu</string>
     <string name="pref_advanced_summary">Zrzuć logi, optymalizacje baterii</string>
@@ -648,7 +646,6 @@
     <string name="enhanced_services_not_installed">Dostępne, ale źródło nie jest zainstalowane: %s</string>
     <string name="track_error">Błąd %1$s: %2$s</string>
     <string name="information_required_plain">*wymagane</string>
-    <string name="pref_hide_in_library_items">Ukryj pozycje znajdujące się już w bibliotece</string>
     <string name="action_copy_to_clipboard">Kopiuj do schowka</string>
     <string name="action_update_category">Aktualizuj kategorię</string>
     <string name="split_tall_images">Dziel długie obrazy</string>

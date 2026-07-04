@@ -316,7 +316,6 @@
     <string name="vertical_plus_viewer">Sebaris panjang dengan sela</string>
     <string name="pref_skip_filtered_chapters">Lingkau bab yang ditapis</string>
     <string name="action_select_inverse">Pilih songsang</string>
-    <string name="label_sources">Sumber</string>
     <string name="pref_webtoon_side_padding">Tambahan sisi</string>
     <string name="information_webview_required">WebView diperlukan untuk aplikasi berfungsi</string>
     <string name="recent_manga_time">Bab %1$s - %2$s</string>
@@ -599,7 +598,6 @@
     <string name="pref_security_summary">Kekunci aplikasi, skrin keselamatan</string>
     <string name="crash_screen_title">Aduhai!</string>
     <string name="crash_screen_restart_application">Mulakan semula aplikasi</string>
-    <string name="pref_browse_summary">Sumber, sambungan, carian keseluruhan</string>
     <string name="crash_screen_description">%s mengalami ralat tidak dijangka. Kami mencadangkan anda untuk kongsi log kerosakan pada Discord kami di saluran bantuan.</string>
     <string name="unknown_title">Tajuk tidak diketahui</string>
     <string name="invalid_location">Lokasi tidak sah: %s</string>
@@ -644,7 +642,6 @@
     <string name="copied_to_clipboard_plain">Disalin ke papan keratan</string>
     <string name="track_error">%1$s ralat: %2$s</string>
     <string name="information_required_plain">*diperlukan</string>
-    <string name="pref_hide_in_library_items">Sembunyikan entri yang sudah ada di dalam pustaka</string>
     <string name="action_copy_to_clipboard">Salin ke papan keratan</string>
     <string name="action_update_category">Kemas kini kategori</string>
     <string name="split_tall_images">Memisah imej yang tinggi</string>
