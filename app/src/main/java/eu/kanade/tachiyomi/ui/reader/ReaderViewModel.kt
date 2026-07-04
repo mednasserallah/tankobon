@@ -16,6 +16,7 @@ import eu.kanade.domain.manga.model.readingMode
 import eu.kanade.domain.source.interactor.GetIncognitoState
 import eu.kanade.domain.track.interactor.TrackChapter
 import eu.kanade.domain.track.service.TrackPreferences
+import eu.kanade.tachiyomi.data.cache.CharacterPortraitCache
 import eu.kanade.tachiyomi.data.saver.Image
 import eu.kanade.tachiyomi.data.saver.ImageSaver
 import eu.kanade.tachiyomi.data.saver.Location
@@ -79,6 +80,10 @@ import tachiyomi.domain.chapter.interactor.GetVolumesByMangaId
 import tachiyomi.domain.chapter.interactor.UpdateVolume
 import tachiyomi.domain.chapter.model.VolumeUpdate
 import tachiyomi.domain.chapter.service.getVolumeSort
+import tachiyomi.domain.character.interactor.DeleteCharacter
+import tachiyomi.domain.character.interactor.GetCharactersByMangaId
+import tachiyomi.domain.character.interactor.UpsertCharacter
+import tachiyomi.domain.character.model.Character
 import tachiyomi.domain.history.interactor.UpsertHistory
 import tachiyomi.domain.history.model.HistoryUpdate
 import tachiyomi.domain.library.service.LibraryPreferences
@@ -113,6 +118,10 @@ class ReaderViewModel @JvmOverloads constructor(
     private val deepLKeyStore: DeepLKeyStore = Injekt.get(),
     private val networkHelper: NetworkHelper = Injekt.get(),
     private val json: Json = Injekt.get(),
+    private val getCharactersByMangaId: GetCharactersByMangaId = Injekt.get(),
+    private val upsertCharacter: UpsertCharacter = Injekt.get(),
+    private val deleteCharacter: DeleteCharacter = Injekt.get(),
+    private val characterPortraitCache: CharacterPortraitCache = Injekt.get(),
 ) : ViewModel() {
 
     private val mutableState = MutableStateFlow(State())
@@ -819,11 +828,47 @@ class ReaderViewModel @JvmOverloads constructor(
     }
 
     /**
-     * Persists the character from the save form. Implemented in Phase 3 (portrait file + DB row);
-     * for now it simply closes the form.
+     * Persists the character from the save form: inserts (or updates) the DB row and writes the
+     * portrait JPEG to persistent storage keyed by the character id. Nothing is written to disk
+     * until this point, so cancelling the form never leaves an orphaned file.
      */
     fun saveCharacter(name: String, note: String?) {
+        val target = (state.value.dialog as? Dialog.CharacterSave)?.target ?: return
+        val portrait = target.portrait
         closeDialog()
+
+        viewModelScope.launchNonCancellable {
+            try {
+                val id = if (target.editingCharacterId >= 0) {
+                    target.editingCharacterId
+                } else {
+                    upsertCharacter.await(
+                        Character.create().copy(
+                            mangaId = target.mangaId,
+                            name = name,
+                            note = note,
+                            createdAt = Instant.now().toEpochMilli(),
+                        ),
+                    )
+                }
+                if (id < 0) return@launchNonCancellable
+                val path = characterPortraitCache.writePortrait(id, portrait)
+                upsertCharacter.await(
+                    Character(
+                        id = id,
+                        mangaId = target.mangaId,
+                        name = name,
+                        note = note,
+                        portraitPath = path,
+                        createdAt = 0L,
+                    ),
+                )
+            } catch (e: Exception) {
+                logcat(LogPriority.ERROR, e) { "Failed to save character" }
+            } finally {
+                portrait.recycle()
+            }
+        }
     }
 
     /** Translates every detected line that hasn't been translated yet. */
