@@ -83,7 +83,7 @@ User-facing / documentation rename Mihon → Tankobon:
 
 ### Phase B — DEFERRED (do NOT do blindly; separate deliberate tasks)
 - **Kotlin package namespace `mihon.*`** (dirs under `*/src/*/java|kotlin/mihon/`, `app/src/main/aidl/mihon/`, package decls, imports). Hundreds of files — use Android Studio *Refactor → Rename Package* + full rebuild, not find-and-replace.
-- **`applicationId = "app.mihon"`** in `app/build.gradle.kts` — changing it breaks update paths / signing identity for existing installs. Deliberate decision.
+- ~~**`applicationId = "app.mihon"`**~~ — ✅ **DONE** (v0.1.0 release prep): changed to `app.tankobon` in `app/build.gradle.kts`. Safe to do now because there were no prior Tankobon installs to break an update path for. Dependent references updated in the same pass: `google-services.json` `package_name`s (inert — telemetry is off by default and gated by a certificate fingerprint) and `TelemetryConfig.MIHON_PACKAGES`. Debug/foss/preview/benchmark suffixes still apply (debug = `app.tankobon.dev`).
 - **Gradle version catalog `mihonx`** + `gradle/mihon.versions.toml` filename, and `mihon.gradle.*` build-logic package.
 - **Branding assets:** `ic_mihon.xml`, `ic_mihon_splash.xml` drawables, splash in `app/src/main/res/values/themes.xml`, `.github/assets/logo.png`. Design task.
 - **Tracker `User-Agent` headers** `"Mihon v..."` in `app/.../data/track/*Interceptor.kt` / `KomgaApi.kt` (some may be tied to API registrations, e.g. bangumi `antsylich/Mihon/...`). Functional identifiers — change deliberately.
@@ -306,7 +306,7 @@ The OCR pipeline in `openTextDetectionDialog` is now: `recognize → TextLineMer
 ## Gotchas
 
 - After deleting code, run `./gradlew spotlessApply` — it auto-prunes unused imports and reformats. (`spotlessCheck` is the CI gate; ktlint's unused-import rule is inconsistent here, so don't rely on it to catch every orphaned import — prune them yourself / via `spotlessApply`.)
-- On this machine there is no JDK on PATH — every Gradle/`adb`-driving shell must `export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"` first. A running emulator is `emulator-5554`; `adb` lives at `~/Library/Android/sdk/platform-tools/adb`; debug app id is `app.mihon.dev`.
+- On this machine there is no JDK on PATH — every Gradle/`adb`-driving shell must `export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"` first. A running emulator is `emulator-5554`; `adb` lives at `~/Library/Android/sdk/platform-tools/adb`; debug app id is `app.tankobon.dev` (renamed from `app.mihon.dev` in v0.1.0 release prep).
 - `app_name` is `translatable="false"`; only edit it in `base/strings.xml`, not per-locale files.
 - Don't confuse the `mihon.*` Kotlin package (internal namespace, Phase B) with the word "Mihon" as a display/brand string (Phase A).
 </content>

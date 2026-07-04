@@ -30,7 +30,7 @@ android {
     namespace = "eu.kanade.tachiyomi"
 
     defaultConfig {
-        applicationId = "app.mihon"
+        applicationId = "app.tankobon"
 
         versionCode = 1
         versionName = "0.1.0"
