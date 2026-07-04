@@ -11,6 +11,7 @@ import eu.kanade.presentation.more.settings.Preference
 import eu.kanade.tachiyomi.ui.reader.setting.ReaderOrientation
 import eu.kanade.tachiyomi.ui.reader.setting.ReaderPreferences
 import eu.kanade.tachiyomi.ui.reader.setting.ReadingMode
+import eu.kanade.tachiyomi.ui.reader.textdetection.translation.TranslationEngine
 import eu.kanade.tachiyomi.ui.reader.textdetection.translation.deleteArabicTranslationModel
 import eu.kanade.tachiyomi.util.system.hasDisplayCutout
 import eu.kanade.tachiyomi.util.system.toast
@@ -436,9 +437,21 @@ object SettingsReaderScreen : SearchableSettings {
     private fun getTextTranslationGroup(readerPreferences: ReaderPreferences): Preference.PreferenceGroup {
         val context = LocalContext.current
         val scope = rememberCoroutineScope()
+        val selectedEngine by readerPreferences.translationEngine.collectAsState()
         return Preference.PreferenceGroup(
             title = stringResource(MR.strings.action_detect_text),
             preferenceItems = listOf(
+                Preference.PreferenceItem.ListPreference(
+                    preference = readerPreferences.translationEngine,
+                    entries = TranslationEngine.entries
+                        .associateWith { stringResource(it.titleRes) },
+                    title = stringResource(MR.strings.pref_translation_engine),
+                ),
+                Preference.PreferenceItem.CustomPreference(
+                    title = stringResource(MR.strings.pref_deepl_api_key),
+                ) {
+                    DeepLApiKeyPreference(selectedEngine = selectedEngine)
+                },
                 Preference.PreferenceItem.SwitchPreference(
                     preference = readerPreferences.translationWifiOnly,
                     title = stringResource(MR.strings.pref_translation_wifi_only),

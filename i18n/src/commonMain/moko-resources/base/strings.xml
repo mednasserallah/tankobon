@@ -816,6 +816,7 @@
     <string name="deepl_key_quota">DeepL quota exceeded for this key.</string>
     <string name="deepl_key_rate_limited">Too many requests to DeepL. Try again in a moment.</string>
     <string name="deepl_key_network_error">Couldn\'t reach DeepL. Check your connection.</string>
+    <string name="deepl_key_error">Couldn\'t validate the key. Try again.</string>
     <string name="deepl_key_saved">DeepL API key saved</string>
     <string name="deepl_key_cleared">DeepL API key removed</string>
     <string name="deepl_engine_no_key_warning">DeepL is selected but no valid key is set. Translations use on-device ML Kit until you add one.</string>
