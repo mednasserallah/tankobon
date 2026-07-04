@@ -4,9 +4,11 @@ This document covers Tankobon's app-icon assets: what exists today, logo concept
 directions for a future Tankobon-original mark, ready-to-paste image-generation
 prompts, and the exact procedure for swapping in final artwork once it exists.
 
-> **Status:** the current icon is still the **Mihon-derived** mark (a stylized
-> hiragana "み"). No Tankobon-original artwork exists yet. Generating and swapping it
-> in is a deliberate, user-driven step — see [Asset swap procedure](#asset-swap-procedure).
+> **Status:** ✅ **Done.** The app icon is the Tankobon-original **本** (*hon*, "book") mark in a
+> sumi-e brush style — black brush glyph on a cream (`#FDF9F4`) field. It replaced the Mihon-derived
+> "み" across the adaptive icon (foreground/background/monochrome), the debug variant, the repo/README
+> logo, and the IDE project icon. The inventory below is kept for reference; the "current icon
+> assets" section describes the *original* layout the swap followed.
 
 ---
 
@@ -77,12 +79,20 @@ master:
   project icon** shown in the IDE project switcher (a dark `#2e3943` circle with a light
   "み"). Not the app launcher.
 
-### Separate in-app brand marks (not the launcher)
+### In-app brand marks — ✅ also swapped to 本
 
-`app/src/main/res/drawable/ic_mihon.xml` (256dp, `viewport 148×141`) and
-`ic_mihon_splash.xml` drive in-app branding / the splash screen. These are tracked as a
-deferred rename in `CLAUDE.md` (Phase B) and are **out of scope** for the launcher-icon
-swap, but should eventually be replaced too for a full rebrand.
+`ic_mihon` (used by the **More** header via `LogoHeader.kt`, the **splash** via
+`ic_mihon_splash.xml`, and as the **notification** small icon) was replaced with the white
+brush **本** — now density PNGs (`drawable-*/ic_mihon.png`, anchored to 72dp, glyph ~88%),
+replacing the old "み" vector `ic_mihon.xml` (deleted). White works everywhere: the header
+re-tints it via `Icon(tint = onSurface)` so it follows light/dark; the splash shows it white on
+the accent-blue background; notifications use its alpha as a silhouette. The `.kt`/`.xml`
+*filenames* still say `ic_mihon` (an internal rename is a separate Phase B step) — only the
+artwork changed.
+
+> **Gotcha (learned the hard way):** the brush SVG converted to a VectorDrawable **crashes
+> Compose's `PathParser`** ("Unknown command for: R") on the converted arc commands. Raster PNGs
+> sidestep the parser entirely — hence `ic_mihon` is raster, not vector.
 
 ### Summary of what a full icon replacement must cover
 
