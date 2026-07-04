@@ -171,17 +171,17 @@ class LibraryPreferences(
     // and upload date
     val sortChapterBySourceOrNumber: Preference<Long> = preferenceStore.getLong(
         "default_chapter_sort_by_source_or_number",
-        Manga.CHAPTER_SORTING_SOURCE,
+        Manga.CHAPTER_SORTING_NUMBER,
     )
 
     val displayChapterByNameOrNumber: Preference<Long> = preferenceStore.getLong(
         "default_chapter_display_by_name_or_number",
-        Manga.CHAPTER_DISPLAY_NAME,
+        Manga.CHAPTER_DISPLAY_NUMBER,
     )
 
     val sortChapterByAscendingOrDescending: Preference<Long> = preferenceStore.getLong(
         "default_chapter_sort_by_ascending_or_descending",
-        Manga.CHAPTER_SORT_DESC,
+        Manga.CHAPTER_SORT_ASC,
     )
 
     fun setChapterSettingsDefault(manga: Manga) {
