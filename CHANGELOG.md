@@ -10,6 +10,13 @@ The format is a modified version of [Keep a Changelog](https://keepachangelog.co
 - `Fixed` - for any bug fixes.
 - `Other` - for technical stuff.
 
+## [v0.3.1] - 2026-07-05
+### Fixed
+- **Character notebook: the crop square is much easier to resize.** The corner handles used to
+  require landing a finger almost exactly on the corner point, which was very fiddly on a real
+  device (moving worked, resizing barely did). Grabbing anywhere near a corner now resizes it, while
+  grabbing the middle still moves the square.
+
 ## [v0.3.0] - 2026-07-05
 ### Added
 - **Character notebook.** While reading, save a **character** for the current series — a **name**, a
