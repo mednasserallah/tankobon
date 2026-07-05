@@ -9,9 +9,7 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -57,9 +55,11 @@ fun CharacterCropDialog(
 ) {
     val image = remember(target) { target.displayBitmap.asImageBitmap() }
     val density = LocalDensity.current
-    val handleRadiusPx = with(density) { 12.dp.toPx() }
-    val handleTouchPx = with(density) { 44.dp.toPx() }
-    val minSizePx = with(density) { 64.dp.toPx() }
+    val handleRadiusPx = with(density) { 14.dp.toPx() }
+    // Radial grab zone around each corner. Kept comfortably below half the min square size so the
+    // centre of even the smallest square stays a "move" zone (corner-to-centre = size/√2 > grab).
+    val cornerGrabPx = with(density) { 44.dp.toPx() }
+    val minSizePx = with(density) { 96.dp.toPx() }
     val topReservePx = with(density) { 64.dp.toPx() }
     val bottomReservePx = with(density) { 104.dp.toPx() }
 
@@ -124,46 +124,61 @@ fun CharacterCropDialog(
                 )
             }
 
-            // Move: drag anywhere inside the square body.
+            // A single gesture layer over the whole page. The corner nearest the touch-down point
+            // is resized (1:1 preserved) when the down lands within [cornerGrabPx] of it; otherwise
+            // a down inside the square body moves it. One layer (instead of five overlapping ones)
+            // makes the corner grab zones generous and finger-friendly on real devices.
             Box(
                 modifier = Modifier
-                    .offset { IntOffset(sqLeft.roundToInt(), sqTop.roundToInt()) }
-                    .sizePx(sqSize)
+                    .fillMaxSize()
                     .pointerInput(target, dispW, dispH) {
-                        detectDragGestures { change, drag ->
+                        var mode = DragMode.NONE
+                        detectDragGestures(
+                            onDragStart = { start ->
+                                mode = pickDragMode(start, sqLeft, sqTop, sqSize, cornerGrabPx)
+                            },
+                            onDragEnd = { mode = DragMode.NONE },
+                            onDragCancel = { mode = DragMode.NONE },
+                        ) { change, drag ->
+                            if (mode == DragMode.NONE) return@detectDragGestures
                             change.consume()
-                            sqLeft += drag.x
-                            sqTop += drag.y
-                            clampPosition()
+                            val dx = drag.x
+                            val dy = drag.y
+                            when (mode) {
+                                DragMode.MOVE -> {
+                                    sqLeft += dx
+                                    sqTop += dy
+                                    clampPosition()
+                                }
+                                DragMode.RESIZE_TL -> {
+                                    val brX = sqLeft + sqSize
+                                    val brY = sqTop + sqSize
+                                    val maxSize = min(brX - imageLeft, brY - imageTop)
+                                    sqSize = (sqSize - (dx + dy) / 2f).coerceIn(minSizePx, maxSize)
+                                    sqLeft = brX - sqSize
+                                    sqTop = brY - sqSize
+                                }
+                                DragMode.RESIZE_TR -> {
+                                    val blY = sqTop + sqSize
+                                    val maxSize = min(imageRight - sqLeft, blY - imageTop)
+                                    sqSize = (sqSize + (dx - dy) / 2f).coerceIn(minSizePx, maxSize)
+                                    sqTop = blY - sqSize
+                                }
+                                DragMode.RESIZE_BL -> {
+                                    val trX = sqLeft + sqSize
+                                    val maxSize = min(trX - imageLeft, imageBottom - sqTop)
+                                    sqSize = (sqSize + (-dx + dy) / 2f).coerceIn(minSizePx, maxSize)
+                                    sqLeft = trX - sqSize
+                                }
+                                DragMode.RESIZE_BR -> {
+                                    val maxSize = min(imageRight - sqLeft, imageBottom - sqTop)
+                                    sqSize = (sqSize + (dx + dy) / 2f).coerceIn(minSizePx, maxSize)
+                                }
+                                DragMode.NONE -> Unit
+                            }
                         }
                     },
             )
-
-            // Four corner resize handles (proportional — 1:1 preserved).
-            CornerHandle(sqLeft, sqTop, handleTouchPx, target, dispW, dispH) { dx, dy ->
-                val brX = sqLeft + sqSize
-                val brY = sqTop + sqSize
-                val maxSize = min(brX - imageLeft, brY - imageTop)
-                sqSize = (sqSize - (dx + dy) / 2f).coerceIn(minSizePx, maxSize)
-                sqLeft = brX - sqSize
-                sqTop = brY - sqSize
-            }
-            CornerHandle(sqLeft + sqSize, sqTop, handleTouchPx, target, dispW, dispH) { dx, dy ->
-                val blY = sqTop + sqSize
-                val maxSize = min(imageRight - sqLeft, blY - imageTop)
-                sqSize = (sqSize + (dx - dy) / 2f).coerceIn(minSizePx, maxSize)
-                sqTop = blY - sqSize
-            }
-            CornerHandle(sqLeft, sqTop + sqSize, handleTouchPx, target, dispW, dispH) { dx, dy ->
-                val trX = sqLeft + sqSize
-                val maxSize = min(trX - imageLeft, imageBottom - sqTop)
-                sqSize = (sqSize + (-dx + dy) / 2f).coerceIn(minSizePx, maxSize)
-                sqLeft = trX - sqSize
-            }
-            CornerHandle(sqLeft + sqSize, sqTop + sqSize, handleTouchPx, target, dispW, dispH) { dx, dy ->
-                val maxSize = min(imageRight - sqLeft, imageBottom - sqTop)
-                sqSize = (sqSize + (dx + dy) / 2f).coerceIn(minSizePx, maxSize)
-            }
 
             // Instruction.
             Text(
@@ -201,40 +216,39 @@ fun CharacterCropDialog(
     }
 }
 
-/** A transparent, draggable touch target centered on ([centerX], [centerY]); reports drag deltas. */
-@Composable
-private fun CornerHandle(
-    centerX: Float,
-    centerY: Float,
-    touchSizePx: Float,
-    key: Any,
-    keyW: Float,
-    keyH: Float,
-    onDrag: (dx: Float, dy: Float) -> Unit,
-) {
-    Box(
-        modifier = Modifier
-            .offset {
-                IntOffset(
-                    (centerX - touchSizePx / 2f).roundToInt(),
-                    (centerY - touchSizePx / 2f).roundToInt(),
-                )
-            }
-            .sizePx(touchSizePx)
-            .pointerInput(key, keyW, keyH) {
-                detectDragGestures { change, drag ->
-                    change.consume()
-                    onDrag(drag.x, drag.y)
-                }
-            },
-    )
-}
+private enum class DragMode { NONE, MOVE, RESIZE_TL, RESIZE_TR, RESIZE_BL, RESIZE_BR }
 
-/** px-sized [Modifier.size] helper (the crop math is all in raw pixels). */
-@Composable
-private fun Modifier.sizePx(px: Float): Modifier {
-    val dp = with(LocalDensity.current) { px.toDp() }
-    return this.size(dp)
+/**
+ * Decide what a drag starting at [start] should do: resize the nearest corner if the down landed
+ * within [cornerGrabPx] of one, else move the square if the down was inside its body, else nothing.
+ */
+private fun pickDragMode(
+    start: Offset,
+    sqLeft: Float,
+    sqTop: Float,
+    sqSize: Float,
+    cornerGrabPx: Float,
+): DragMode {
+    val corners = listOf(
+        DragMode.RESIZE_TL to Offset(sqLeft, sqTop),
+        DragMode.RESIZE_TR to Offset(sqLeft + sqSize, sqTop),
+        DragMode.RESIZE_BL to Offset(sqLeft, sqTop + sqSize),
+        DragMode.RESIZE_BR to Offset(sqLeft + sqSize, sqTop + sqSize),
+    )
+    var best = DragMode.NONE
+    var bestDist = cornerGrabPx * cornerGrabPx
+    for ((mode, c) in corners) {
+        val ddx = start.x - c.x
+        val ddy = start.y - c.y
+        val d = ddx * ddx + ddy * ddy
+        if (d <= bestDist) {
+            bestDist = d
+            best = mode
+        }
+    }
+    if (best != DragMode.NONE) return best
+    val insideBody = start.x in sqLeft..(sqLeft + sqSize) && start.y in sqTop..(sqTop + sqSize)
+    return if (insideBody) DragMode.MOVE else DragMode.NONE
 }
 
 private fun DrawScope.drawSquareMask(
