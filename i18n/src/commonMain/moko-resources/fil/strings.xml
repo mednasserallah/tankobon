@@ -81,7 +81,6 @@
     <string name="label_help">Tulong</string>
     <string name="label_migration">Maglipat</string>
     <string name="label_backup">Pag-backup at Pag-restore</string>
-    <string name="label_sources">Mga Source</string>
     <string name="label_recent_manga">Kasaysayan</string>
     <string name="label_recent_updates">Bago</string>
     <string name="label_library">Aklatan</string>
@@ -597,7 +596,6 @@
     <string name="pref_security_summary">Pag-lock sa app, bantayan ang screen</string>
     <string name="pref_advanced_summary">Itambak ang mga crash log, pag-o-optimisa sa baterya</string>
     <string name="pref_library_summary">Mga kategorya, panlahatang update, pag-swipe ng kabanata</string>
-    <string name="pref_browse_summary">Mga source, extension, panlahatang paghanap</string>
     <string name="crash_screen_description">Nagkaroon ng hindi inaasahang error ang %s. Iminumungkahi naming ibahagi mo ang mga crash log sa aming support channel sa Discord.</string>
     <string name="crash_screen_title">Ay Naku!</string>
     <string name="crash_screen_restart_application">Buksan muli ang app</string>
@@ -645,7 +643,6 @@
     <string name="minute_short">%dm</string>
     <string name="seconds_short">%ds</string>
     <string name="action_copy_to_clipboard">Kopyahin sa clipboard</string>
-    <string name="pref_hide_in_library_items">Itago ang mga entry na nasa aklatan na</string>
     <string name="action_update_category">I-update ang kategorya</string>
     <string name="pref_page_rotate">I-rotate ang malalawak na pahina upang magkasya</string>
     <string name="pref_page_rotate_invert">I-flip ang oryentasyon ng mga pinaikot na malalawak na pahina</string>
@@ -818,19 +815,6 @@
     <string name="theme_catppuccin">Catppuccin</string>
     <string name="action_filter_excluded_scanlators">Isala ang na-ibukod na mga scanlator</string>
     <string name="download_bookmarked">Na-bookmark</string>
-    <string name="label_support_us">Suportahan Kami</string>
-    <string name="supportUsScreen.perks">Ang mga patron ay may access sa exclusive channels, at marami pang perks ang darating.</string>
-    <string name="supportUsScreen.donationPlatform.patreon">Patreon (mas mainam)</string>
-    <string name="supportUsScreen.donationPlatform.opencollective">OpenCollective</string>
-    <string name="supportUsScreen.currentlySupportedBy">Ang Mihon ay kasalukuyang sinusuportahan ng %d+ na patron. Nais naming pasalamatan ang bawat isa sa inyo. Sama-sama nating pagandahin pa lalo ang Mihon.</string>
-    <string name="supportUsScreen.contactForDetailsMessage">Para sa iba pang alternatibong opsyon o anumang mga katanungan, sumali sa aming Discord server.</string>
-    <string name="supportUsScreen.contactPlatform">Discord</string>
-    <string name="donationCampaign.title">Nasisiyahan ka ba sa paggamit ng app?</string>
-    <string name="donationCampaign.paragraph1">Kumusta! Ako ang main developer ng Mihon. Nais ko sanang humiling ng inyong suportang pinansyal para sa development nito. Sa sapat na suporta, magagawa kong pagtuunan ng panahon ang Mihon full-time at mabigyang-pansin ang mga dati pang isyu pati na ang mga feature na madalas ninyong hinihiling.</string>
-    <string name="donationCampaign.paragraph2">Maaari kang mag-donate sa pamamagitan ng Patreon (mas mainam) o OpenCollective. Kung mayroon kang mga katanungan o nais tumulong gamit ang ibang paraan, huwag mag-atubiling makipag-ugnayan sa akin sa Discord server ng Mihon.</string>
-    <string name="donationCampaign.paragraph3">Anuman ang mangyari, patuloy na itataguyod ang Mihon ko at ng mga volunteer, at mananatili itong open source.</string>
-    <string name="donationCampaign.contactPlatform">Discord</string>
-    <string name="donationCampaign.dismiss">Alisin</string>
     <string name="action.addExtensionStore">Magdagdag ng extension store</string>
     <string name="pref_webtoon_vertical_navigator">Gamitin ang vertical na navigator sa pagbabasa ng long strip</string>
     <string name="pref_webtoon_vertical_navigator_on_left">Ilagay ang vertical na navigator sa kaliwa</string>

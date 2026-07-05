@@ -72,7 +72,6 @@
     <string name="name">Назва</string>
     <string name="label_migration">Міграваць</string>
     <string name="label_backup">Рэзерваванне і аднаўленне</string>
-    <string name="label_sources">Крыніцы</string>
     <string name="label_recent_manga">Гісторыя</string>
     <string name="label_recent_updates">Абнаўленні</string>
     <string name="label_library">Бібліятэка</string>
@@ -371,7 +370,6 @@
     <string name="pref_reader_summary">Рэжым чытання, адлюстраванне, навігацыя</string>
     <string name="pref_downloads_summary">Аўтаматычнае спампоўванне, спампоўванне наперад</string>
     <string name="pref_tracking_summary">Аднабаковая сінхранізацыя прагрэсу, пашыраная сінхранізацыя</string>
-    <string name="pref_browse_summary">Крыніцы, пашырэнні, глабальны пошук</string>
     <string name="pref_backup_summary">Ручныя і аўтаматычныя рэзервоўкі, сховішча</string>
     <string name="pref_security_summary">Блакіроўка праграмы, абарона экрана</string>
     <string name="pref_advanced_summary">Выгрузка журнала збояў, аптымізацыя батарэі</string>
@@ -442,7 +440,6 @@
     <string name="pref_auto_update_manga_on_mark_read">Абнаўляць прагрэс пасля пазначэння прачытаным</string>
     <string name="enhanced_services_not_installed">Даступна, але крыніца не ўсталявана: %s</string>
     <string name="track_activity_name">Уваход у трэкер</string>
-    <string name="pref_hide_in_library_items">Хаваць творы, якія ўжо ёсць у бібліятэцы</string>
     <string name="pref_storage_location">Месца сховішча</string>
     <string name="pref_storage_location_info">Для аўтаматычных рэзервовак, спампоўвання раздзелаў і лакальных крыніц.</string>
     <string name="pref_create_backup">Зарэзерваваць</string>

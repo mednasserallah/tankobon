@@ -33,7 +33,6 @@
     <string name="label_recent_updates">അപ്ഡേറ്റുകൾ</string>
     <string name="label_upcoming">അടുത്തതായി</string>
     <string name="label_recent_manga">ചരിത്രം</string>
-    <string name="label_sources">ഉൽഭവം</string>
     <string name="label_backup">ബാക്കപ്പും റിസ്റ്റോറും</string>
     <string name="manga">ലൈബ്രറി എൻട്രികൾ</string>
     <string name="label_stats">സ്ഥിതിവിവരക്കണക്കുകൾ</string>
@@ -191,7 +190,6 @@
     <string name="onboarding_permission_notifications_description">ലൈബ്രറി അപ്‌ഡേറ്റുകൾക്കും മറ്റും അറിയിപ്പ് നേടുക.</string>
     <string name="onboarding_permission_ignore_battery_opts">പശ്ചാത്തല ബാറ്ററി ഉപയോഗം</string>
     <string name="onboarding_permission_ignore_battery_opts_description">ദീർഘകാല ലൈബ്രറി അപ്‌ഡേറ്റുകൾ, ഡൗൺലോഡ്, ബാക്കപ്പ് പുനഃസ്ഥാപിക്കൽ എന്നിവയ്ക്കുള്ള തടസ്സങ്ങൾ ഒഴിവാക്കുക.</string>
-    <string name="label_support_us">ഞങ്ങളെ സഹായിക്കു</string>
     <string name="label_auto">യാന്ത്രികമായ</string>
     <string name="action_display_unread_badge">വായിച്ചിട്ടിലാത്ത അദ്ധ്യായം</string>
     <string name="action_move_to_bottom_all_for_series">പരമ്പര അടിത്തട്ടിലേക്ക് നീക്കുക</string>
@@ -207,7 +205,6 @@
     <string name="pref_category_reader">വായനവസ്തു</string>
     <string name="pref_category_downloads">ഇറക്കിവെച്ചത്</string>
     <string name="pref_category_advanced">പുരോഗമിച്ച</string>
-    <string name="pref_browse_summary">ഉത്ഭവങ്ങൾ, വിപുലീകരണങ്ങൾ, മുഴുവൻ തിരയുക</string>
     <string name="pref_behavior">സ്വഭാവം</string>
     <string name="pref_category_delete_chapters">അദ്ധ്യായം മായ്ച്ചുകളയുക</string>
     <string name="pref_remove_after_marked_as_read">സ്വന്തമായി വായിച്ചെൻ അടയാളപ്പെടുത്തിയതിൻ ശേഷം</string>

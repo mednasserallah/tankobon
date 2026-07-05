@@ -303,7 +303,6 @@
     <string name="action_pin">Fest</string>
     <string name="action_select_inverse">Velg motsatt</string>
     <string name="action_menu">Meny</string>
-    <string name="label_sources">Kilder</string>
     <string name="information_webview_required">Appen fungerer ikke uten WebView</string>
     <string name="add_tracking">Legg til sporing</string>
     <string name="manga_info_collapse">Mindre</string>
@@ -545,7 +544,6 @@
     <string name="webview_data_deleted">WebView data slettet</string>
     <string name="empty_screen">Vel, dette er pinlig</string>
     <string name="pref_tracking_summary">Enveis fremdriftssynkronisering, forbedret synkronisering</string>
-    <string name="pref_browse_summary">Kilder, utvidelser, globalt søk</string>
     <string name="pref_backup_summary">Manuelle &amp; automatiske sikkerhetskopier</string>
     <string name="theme_lavender">Lavendel</string>
     <string name="network_not_metered">Bare på nettverk uten datamåling</string>
@@ -644,7 +642,6 @@
     <string name="pref_skip_dupe_chapters">Hopp over dupliserte kapitler</string>
     <string name="track_error">%1$s feil: %2$s</string>
     <string name="information_required_plain">*påkrevd</string>
-    <string name="pref_hide_in_library_items">Skjul oppføringer som allerede er i biblioteket</string>
     <string name="action_copy_to_clipboard">Kopier til utklippstavle</string>
     <string name="action_update_category">Oppdater kategori</string>
     <string name="split_tall_images">Del opp høye bilder</string>

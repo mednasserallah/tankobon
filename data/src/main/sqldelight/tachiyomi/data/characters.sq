@@ -1,0 +1,39 @@
+CREATE TABLE characters(
+    _id INTEGER NOT NULL PRIMARY KEY,
+    manga_id INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    note TEXT,
+    portrait_path TEXT,
+    created_at INTEGER NOT NULL,
+    FOREIGN KEY(manga_id) REFERENCES mangas (_id)
+    ON DELETE CASCADE
+);
+
+CREATE INDEX characters_manga_id_index ON characters(manga_id);
+
+getCharacterById:
+SELECT *
+FROM characters
+WHERE _id = :id;
+
+getCharactersByMangaId:
+SELECT *
+FROM characters
+WHERE manga_id = :mangaId
+ORDER BY created_at DESC, _id DESC;
+
+insertReturningId:
+INSERT INTO characters(manga_id, name, note, portrait_path, created_at)
+VALUES (:mangaId, :name, :note, :portraitPath, :createdAt)
+RETURNING _id;
+
+update:
+UPDATE characters
+SET name = :name,
+    note = :note,
+    portrait_path = :portraitPath
+WHERE _id = :id;
+
+delete:
+DELETE FROM characters
+WHERE _id = :id;

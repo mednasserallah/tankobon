@@ -3,7 +3,6 @@
     <string name="label_settings">Axustes</string>
     <string name="label_more">Máis</string>
     <string name="name">Nome</string>
-    <string name="label_sources">Fontes</string>
     <string name="label_recent_manga">Historial</string>
     <string name="label_recent_updates">Actualizacións</string>
     <string name="label_library">Biblioteca</string>
@@ -225,7 +224,6 @@
     <string name="action_start_downloading_now">Comezar a descarga agora</string>
     <string name="pref_app_theme">Tema da aplicación</string>
     <string name="pref_tracking_summary">Sincronización unidireccional do progreso de lectura; sincronización mellorada</string>
-    <string name="pref_browse_summary">Fontes, extensións, procura global</string>
     <string name="pref_advanced_summary">Envorcar os rexistros de erros, optimizacións de batería</string>
     <string name="theme_tidalwave">Maremoto</string>
     <string name="relative_time_today">Hoxe</string>
@@ -646,7 +644,6 @@
     <string name="channel_errors">Erros</string>
     <string name="split_tall_images">Dividir as imaxes altas</string>
     <string name="action_update_category">Actualizar categoría</string>
-    <string name="pref_hide_in_library_items">Ocultar elementos que xa estén na biblioteca</string>
     <string name="action_copy_to_clipboard">Copiar ao portapapeis</string>
     <string name="pref_page_rotate">Xirar as páxinas anchas para adaptalas á pantalla</string>
     <string name="pref_page_rotate_invert">Voltear a orientación das páxinas anchas xiradas</string>

@@ -238,7 +238,6 @@
     <string name="information_no_recent_manga">Ништа није недавно читано</string>
     <string name="information_no_recent">Нема недавних ажурирања</string>
     <string name="information_no_downloads">Нема преузимања</string>
-    <string name="label_sources">Извори</string>
     <string name="secure_screen_summary">Сакриј приказ апликације приликом пребацивања између апликација и онемогући снимке екрана</string>
     <string name="lock_with_biometrics">Захтевај закључавање</string>
     <string name="action_move_to_bottom">Премести на дно</string>
@@ -552,7 +551,6 @@
     <string name="pref_reader_summary">Режим читања, дисплеј, навигација</string>
     <string name="pref_downloads_summary">Аутоматско преузимање, преузимање унапред</string>
     <string name="pref_tracking_summary">Једносмерна синхронизација напретка, побољшана синхронизација</string>
-    <string name="pref_browse_summary">Извори, додаци, глобална претрага</string>
     <string name="pref_backup_summary">Ручне и аутоматске резервне копије</string>
     <string name="auto_download_while_reading">Преузми аутоматски током читања</string>
     <string name="copied_to_clipboard_plain">Копирано</string>
@@ -650,7 +648,6 @@
     <string name="track_error">%1$s грешка: %2$s</string>
     <string name="information_required_plain">*неопходно</string>
     <string name="action_update_category">Ажурирај категорију</string>
-    <string name="pref_hide_in_library_items">Сакри уносе који се већ налазе у колекцији</string>
     <string name="overlay_header">Прекривање</string>
     <string name="split_tall_images">Растави високе слике</string>
     <string name="pref_chapter_swipe_end">Превуци удесно</string>

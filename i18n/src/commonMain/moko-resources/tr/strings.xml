@@ -314,7 +314,6 @@
     <string name="updating_library">Kitaplık güncelleniyor</string>
     <string name="pref_category_reading">Okuma</string>
     <string name="pref_skip_filtered_chapters">Filtrelenmiş bölümleri atla</string>
-    <string name="label_sources">Kaynaklar</string>
     <string name="action_select_inverse">Tersini seç</string>
     <string name="vertical_plus_viewer">Aralıklı uzun şerit</string>
     <string name="pref_webtoon_side_padding">Kenar boşluğu</string>
@@ -593,7 +592,6 @@
     <string name="pref_security_summary">Uygulama kilidi, güvenli ekran</string>
     <string name="pref_advanced_summary">Çökme günlükleri dökümü, pil iyileştirmeleri</string>
     <string name="pref_library_summary">Kategoriler, genel güncelleme, kaydırma kontrolleri</string>
-    <string name="pref_browse_summary">Kaynaklar, uzantılar, genel arama</string>
     <string name="pref_downloads_summary">Otomatik indirme, önceden indirme</string>
     <string name="pref_reader_summary">Okuma modu, görüntüleme, gezinme</string>
     <string name="pref_appearance_summary">Tema, tarih ve saat biçimi</string>
@@ -644,7 +642,6 @@
     <string name="pref_skip_dupe_chapters">Yinelenen bölümleri atla</string>
     <string name="track_error">%1$s hatası: %2$s</string>
     <string name="information_required_plain">*gerekli</string>
-    <string name="pref_hide_in_library_items">Zaten kitaplıkta bulunan girdileri gizle</string>
     <string name="action_copy_to_clipboard">Panoya kopyala</string>
     <string name="action_update_category">Kategoriyi güncelle</string>
     <string name="split_tall_images">Uzun görselleri böl</string>
@@ -818,19 +815,6 @@
     <string name="action_webview_close_tab">Sekmeyi kapat</string>
     <string name="action_filter_excluded_scanlators">Hariç tutulan Çevirenleri filtrele</string>
     <string name="download_bookmarked">Yer imli</string>
-    <string name="label_support_us">Bizi Destekleyin</string>
-    <string name="supportUsScreen.perks">Patronlar, özel kanallara ve gelecekte daha fazlasına erişim elde eder.</string>
-    <string name="supportUsScreen.donationPlatform.patreon">Patreon (tercih edilen)</string>
-    <string name="supportUsScreen.donationPlatform.opencollective">OpenCollective</string>
-    <string name="supportUsScreen.currentlySupportedBy">Mihon, şu anda %d+ patron tarafından desteklenmektedir. Her birinize ayrı olarak teşekkür etmek istiyoruz. Hadi Mihon\'u birlikte daha iyi yapalım.</string>
-    <string name="supportUsScreen.contactForDetailsMessage">Başka seçenekler ve sorularınız için Discord sunucumuza katılın.</string>
-    <string name="supportUsScreen.contactPlatform">Discord</string>
-    <string name="donationCampaign.title">Uygulamayı beğendiniz mi?</string>
-    <string name="donationCampaign.paragraph1">Merhaba! Ben, Mihon\'un ana geliştiricisiyim ve geliştirme sürecine maddi olarak destek olmayı düşünmenizi isterim. Yeterli destek olursa Mihon üzerinde tam zamanlı olarak çalışabilirim ve uzun zamandır olan sorunlara ve çok istenen özelliklere odaklanabilirim.</string>
-    <string name="donationCampaign.paragraph2">Patreon (tercih edilen) veya OpenCollective üzerinden bağışta bulunabilirsiniz. Sorularınız varsa veya başka bir yolla destek olmak isterseniz Mihon\'un Discord sunucusu üzerinden bana ulaşmaktan çekinmeyin.</string>
-    <string name="donationCampaign.paragraph3">Ancak ne olursa olsun Mihon, ben ve gönüllü insanlar tarafından geliştirilmeye devam edecek ve açık kaynak kodlu olarak kalacaktır.</string>
-    <string name="donationCampaign.contactPlatform">Discord</string>
-    <string name="donationCampaign.dismiss">Kapat</string>
     <string name="action.addExtensionStore">Uzantı mağazası ekle</string>
     <string name="pref_webtoon_vertical_navigator">Uzun şerit okuma için dikey gezinti kullan</string>
     <string name="pref_webtoon_vertical_navigator_on_left">Dikey gezinti bölmesini sol tarafa yerleştir</string>

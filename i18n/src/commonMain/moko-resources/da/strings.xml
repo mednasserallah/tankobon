@@ -29,7 +29,6 @@
     <string name="manga">Biblioteksposter</string>
     <string name="chapters">Kapitler</string>
     <string name="track">Sporing</string>
-    <string name="label_sources">Kilder</string>
     <string name="label_settings">Indstillinger</string>
     <string name="name">Navn</string>
     <string name="information_no_recent">Ingen nylige opdateringer</string>
@@ -245,7 +244,6 @@
     <string name="gray_background">Grå</string>
     <string name="pref_relative_format_summary">\"%1$s\" i stedet for \"%2$s\"</string>
     <string name="action_sort_next_updated">Næste forventede opdatering</string>
-    <string name="pref_browse_summary">Kilder, udvidelser, global søgning</string>
     <string name="nav_zone_left">Venstre</string>
     <string name="backup_created">Sikkerhedskopi oprettet</string>
     <string name="pref_always_show_chapter_transition">Vis altid kapitelovergang</string>

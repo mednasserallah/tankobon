@@ -117,7 +117,6 @@
     <string name="label_help">Segítség</string>
     <string name="label_downloaded_only">Csak letöltött</string>
     <string name="label_more">Több</string>
-    <string name="label_sources">Források</string>
     <string name="pref_date_format">Dátum formátum</string>
     <string name="theme_dark">Sötét</string>
     <string name="theme_light">Világos</string>
@@ -606,7 +605,6 @@
     <string name="pref_tracking_summary">Egyirányú haladás szinkronizálás, fejlesztett szinkronizálás</string>
     <string name="pref_backup_summary">Manuális és automatikus biztonsági mentés</string>
     <string name="multi_lang">Több</string>
-    <string name="pref_browse_summary">Források, bővítmények, globális keresés</string>
     <string name="action_copy_to_clipboard">Másolás a vágólapra</string>
     <string name="action_update_category">Kategória frissítése</string>
     <string name="copied_to_clipboard_plain">Vágólapra másolva</string>
@@ -641,7 +639,6 @@
     <string name="action_filter_interval_custom">Egyedi frissítési időköz</string>
     <string name="action_sort_next_updated">Következő várt frissítés</string>
     <string name="pref_double_tap_zoom">Dupla koppintás a nagyításhoz</string>
-    <string name="pref_hide_in_library_items">Már könyvtári elemek elrejtése</string>
     <string name="track_activity_name">Bejelentkezés nyilvántartóhoz</string>
     <string name="delete_downloaded">Letöltött törlése</string>
     <string name="split_tall_images">Magas képek szétvágása</string>

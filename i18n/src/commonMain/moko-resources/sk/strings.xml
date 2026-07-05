@@ -293,7 +293,6 @@
     <string name="action_sort_chapter_fetch_date">Dátum načítania kapitoly</string>
     <string name="confirm_lock_change">Prihlásiť sa pre potvrdenie zmien</string>
     <string name="label_default">Predvolené</string>
-    <string name="label_sources">Zdroje</string>
     <string name="label_more">Viac</string>
     <string name="notification_chapters_multiple">Kapitoly %1$s</string>
     <string name="notification_chapters_single_and_more">Kapitola %1$s a %2$d ďalšie</string>
@@ -665,7 +664,6 @@
     <string name="pref_reader_summary">Režim čítania, displej, navigácia</string>
     <string name="pref_downloads_summary">Automatické sťahovanie, sťahovanie dopredu</string>
     <string name="pref_tracking_summary">Jednosmerná synchronizácia postupu, vylepšená synchronizácia</string>
-    <string name="pref_browse_summary">Zdroje, rozšírenia, globálne vyhľadávanie</string>
     <string name="pref_backup_summary">Manuálne &amp; automatické zálohy, miesto v úložisku</string>
     <string name="pref_security_summary">Zamknutie aplikácie, bezpečná obrazovka</string>
     <string name="pref_advanced_summary">Uložiť záznamy o zlyhaní aplikácie, optimalizácie batérie</string>

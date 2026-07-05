@@ -1,6 +1,7 @@
 package eu.kanade.tachiyomi.ui.reader
 
 import android.app.Application
+import android.graphics.Rect
 import android.net.Uri
 import androidx.annotation.IntRange
 import androidx.compose.runtime.Immutable
@@ -15,11 +16,14 @@ import eu.kanade.domain.manga.model.readingMode
 import eu.kanade.domain.source.interactor.GetIncognitoState
 import eu.kanade.domain.track.interactor.TrackChapter
 import eu.kanade.domain.track.service.TrackPreferences
+import eu.kanade.tachiyomi.data.cache.CharacterPortraitCache
 import eu.kanade.tachiyomi.data.saver.Image
 import eu.kanade.tachiyomi.data.saver.ImageSaver
 import eu.kanade.tachiyomi.data.saver.Location
 import eu.kanade.tachiyomi.network.NetworkHelper
 import eu.kanade.tachiyomi.source.model.Page
+import eu.kanade.tachiyomi.ui.reader.character.CharacterCropTarget
+import eu.kanade.tachiyomi.ui.reader.character.CharacterSaveTarget
 import eu.kanade.tachiyomi.ui.reader.loader.VolumeLoader
 import eu.kanade.tachiyomi.ui.reader.model.InsertPage
 import eu.kanade.tachiyomi.ui.reader.model.ReaderPage
@@ -36,6 +40,7 @@ import eu.kanade.tachiyomi.ui.reader.textdetection.TextLineMerger
 import eu.kanade.tachiyomi.ui.reader.textdetection.TextRecognizer
 import eu.kanade.tachiyomi.ui.reader.textdetection.TranslationState
 import eu.kanade.tachiyomi.ui.reader.textdetection.decodePageBitmap
+import eu.kanade.tachiyomi.ui.reader.textdetection.decodePageForDisplay
 import eu.kanade.tachiyomi.ui.reader.textdetection.isNumberOnlyLine
 import eu.kanade.tachiyomi.ui.reader.textdetection.translation.DeepLKeyStore
 import eu.kanade.tachiyomi.ui.reader.textdetection.translation.DeepLTranslator
@@ -51,6 +56,7 @@ import eu.kanade.tachiyomi.util.storage.DiskUtil
 import eu.kanade.tachiyomi.util.storage.cacheImageDir
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -75,6 +81,10 @@ import tachiyomi.domain.chapter.interactor.GetVolumesByMangaId
 import tachiyomi.domain.chapter.interactor.UpdateVolume
 import tachiyomi.domain.chapter.model.VolumeUpdate
 import tachiyomi.domain.chapter.service.getVolumeSort
+import tachiyomi.domain.character.interactor.DeleteCharacter
+import tachiyomi.domain.character.interactor.GetCharactersByMangaId
+import tachiyomi.domain.character.interactor.UpsertCharacter
+import tachiyomi.domain.character.model.Character
 import tachiyomi.domain.history.interactor.UpsertHistory
 import tachiyomi.domain.history.model.HistoryUpdate
 import tachiyomi.domain.library.service.LibraryPreferences
@@ -87,6 +97,7 @@ import uy.kohesive.injekt.Injekt
 import uy.kohesive.injekt.api.get
 import java.time.Instant
 import java.util.Date
+import kotlin.math.roundToInt
 
 /**
  * Presenter used by the activity to perform background operations.
@@ -108,6 +119,10 @@ class ReaderViewModel @JvmOverloads constructor(
     private val deepLKeyStore: DeepLKeyStore = Injekt.get(),
     private val networkHelper: NetworkHelper = Injekt.get(),
     private val json: Json = Injekt.get(),
+    private val getCharactersByMangaId: GetCharactersByMangaId = Injekt.get(),
+    private val upsertCharacter: UpsertCharacter = Injekt.get(),
+    private val deleteCharacter: DeleteCharacter = Injekt.get(),
+    private val characterPortraitCache: CharacterPortraitCache = Injekt.get(),
 ) : ViewModel() {
 
     private val mutableState = MutableStateFlow(State())
@@ -129,6 +144,9 @@ class ReaderViewModel @JvmOverloads constructor(
     // One "DeepL failed, fell back to on-device" notice per open sheet, so "Translate all" doesn't
     // spam a toast per line. Re-armed each time the detection sheet is opened.
     private var fallbackNoticeShown = false
+
+    // Collects the character list for the notebook sheet while it's open; cancelled on close.
+    private var characterListJob: Job? = null
 
     /**
      * The manga loaded in the reader. It can be null when instantiated for a short time.
@@ -729,6 +747,169 @@ class ReaderViewModel @JvmOverloads constructor(
         }
     }
 
+    // --- Character notebook -------------------------------------------------
+
+    /**
+     * Opens the square (1:1) crop tool over a fresh, zoom-independent render of the current page.
+     * When [editingCharacterId] is non-negative the crop will re-crop an existing character's
+     * portrait (its [initialName]/[initialNote] seed the follow-up save form).
+     */
+    fun openCharacterCrop(
+        editingCharacterId: Long = -1L,
+        initialName: String = "",
+        initialNote: String = "",
+    ) {
+        val manga = manga ?: return
+        val page = state.value.currentChapter?.pages?.getOrNull(state.value.currentPage - 1)
+        if (page?.status != Page.State.Ready || page.stream == null) {
+            eventChannel.trySend(Event.CharacterMessage(MR.strings.character_page_unavailable))
+            return
+        }
+        characterListJob?.cancel()
+        characterListJob = null
+        val streamProvider = page.stream!!
+        mutableState.update { it.copy(dialog = Dialog.Loading) }
+
+        viewModelScope.launchIO {
+            val decoded = runCatching { decodePageForDisplay(streamProvider) }
+                .onFailure { logcat(LogPriority.ERROR, it) { "Failed to decode page for character crop" } }
+                .getOrNull()
+            if (decoded == null) {
+                eventChannel.trySend(Event.CharacterMessage(MR.strings.character_page_unavailable))
+                mutableState.update { if (it.dialog is Dialog.Loading) it.copy(dialog = null) else it }
+                return@launchIO
+            }
+            val target = CharacterCropTarget(
+                mangaId = manga.id,
+                editingCharacterId = editingCharacterId,
+                initialName = initialName,
+                initialNote = initialNote,
+                displayBitmap = decoded.bitmap,
+                sourceWidth = decoded.sourceWidth,
+                sourceHeight = decoded.sourceHeight,
+                streamProvider = streamProvider,
+            )
+            mutableState.update { it.copy(dialog = Dialog.CharacterCrop(target)) }
+        }
+    }
+
+    /**
+     * Crops the confirmed square — given in display-bitmap pixels — from the page at **full source
+     * resolution** (via [BitmapRegionDecoder], not the downscaled on-screen bitmap) and advances to
+     * the save form.
+     */
+    fun confirmCharacterCrop(leftBmpPx: Int, topBmpPx: Int, sideBmpPx: Int) {
+        val target = (state.value.dialog as? Dialog.CharacterCrop)?.target ?: return
+        val scale = target.sourceWidth.toFloat() / target.displayBitmap.width.toFloat()
+        val srcLeft = (leftBmpPx * scale).roundToInt().coerceIn(0, target.sourceWidth)
+        val srcTop = (topBmpPx * scale).roundToInt().coerceIn(0, target.sourceHeight)
+        val srcSide = (sideBmpPx * scale).roundToInt()
+            .coerceAtMost(minOf(target.sourceWidth - srcLeft, target.sourceHeight - srcTop))
+        if (srcSide <= 0) {
+            closeDialog()
+            return
+        }
+        val region = Rect(srcLeft, srcTop, srcLeft + srcSide, srcTop + srcSide)
+        val streamProvider = target.streamProvider
+        mutableState.update { it.copy(dialog = Dialog.Loading) }
+
+        viewModelScope.launchIO {
+            val crop = runCatching { decodePageBitmap(streamProvider, maxDimension = 1024, region = region) }
+                .onFailure { logcat(LogPriority.ERROR, it) { "Failed to crop character portrait" } }
+                .getOrNull()
+            if (crop == null) {
+                eventChannel.trySend(Event.CharacterMessage(MR.strings.character_page_unavailable))
+                mutableState.update { if (it.dialog is Dialog.Loading) it.copy(dialog = null) else it }
+                return@launchIO
+            }
+            val saveTarget = CharacterSaveTarget(
+                mangaId = target.mangaId,
+                editingCharacterId = target.editingCharacterId,
+                initialName = target.initialName,
+                initialNote = target.initialNote,
+                portrait = crop,
+            )
+            mutableState.update { it.copy(dialog = Dialog.CharacterSave(saveTarget)) }
+        }
+    }
+
+    /**
+     * Persists the character from the save form: inserts (or updates) the DB row and writes the
+     * portrait JPEG to persistent storage keyed by the character id. Nothing is written to disk
+     * until this point, so cancelling the form never leaves an orphaned file.
+     */
+    fun saveCharacter(name: String, note: String?) {
+        val target = (state.value.dialog as? Dialog.CharacterSave)?.target ?: return
+        val portrait = target.portrait
+        closeDialog()
+
+        viewModelScope.launchNonCancellable {
+            try {
+                val id = if (target.editingCharacterId >= 0) {
+                    target.editingCharacterId
+                } else {
+                    upsertCharacter.await(
+                        Character.create().copy(
+                            mangaId = target.mangaId,
+                            name = name,
+                            note = note,
+                            createdAt = Instant.now().toEpochMilli(),
+                        ),
+                    )
+                }
+                if (id < 0) return@launchNonCancellable
+                val path = characterPortraitCache.writePortrait(id, portrait)
+                upsertCharacter.await(
+                    Character(
+                        id = id,
+                        mangaId = target.mangaId,
+                        name = name,
+                        note = note,
+                        portraitPath = path,
+                        createdAt = 0L,
+                    ),
+                )
+            } catch (e: Exception) {
+                logcat(LogPriority.ERROR, e) { "Failed to save character" }
+            } finally {
+                portrait.recycle()
+            }
+        }
+    }
+
+    /** Opens the notebook sheet listing the characters saved for the current series. */
+    fun openCharacterList() {
+        val manga = manga ?: return
+        mutableState.update { it.copy(dialog = Dialog.CharacterList(emptyList())) }
+        characterListJob?.cancel()
+        characterListJob = viewModelScope.launchIO {
+            getCharactersByMangaId.subscribe(manga.id).collect { characters ->
+                mutableState.update {
+                    if (it.dialog is Dialog.CharacterList) {
+                        it.copy(dialog = Dialog.CharacterList(characters))
+                    } else {
+                        it
+                    }
+                }
+            }
+        }
+    }
+
+    /** Updates a saved character's name/note (portrait unchanged). */
+    fun updateCharacterDetails(character: Character, name: String, note: String?) {
+        viewModelScope.launchNonCancellable {
+            upsertCharacter.await(character.copy(name = name, note = note))
+        }
+    }
+
+    /** Deletes a saved character and its portrait file from disk. */
+    fun removeCharacter(character: Character) {
+        viewModelScope.launchNonCancellable {
+            characterPortraitCache.deletePortrait(character.id)
+            deleteCharacter.await(character.id)
+        }
+    }
+
     /** Translates every detected line that hasn't been translated yet. */
     fun translateDetectedText() {
         val success = currentDetectionSuccess() ?: return
@@ -832,6 +1013,8 @@ class ReaderViewModel @JvmOverloads constructor(
     }
 
     fun closeDialog() {
+        characterListJob?.cancel()
+        characterListJob = null
         mutableState.update { it.copy(dialog = null) }
     }
 
@@ -999,6 +1182,9 @@ class ReaderViewModel @JvmOverloads constructor(
         data object OrientationModeSelect : Dialog
         data class PageActions(val page: ReaderPage) : Dialog
         data class TextDetection(val state: TextDetectionState) : Dialog
+        data class CharacterCrop(val target: CharacterCropTarget) : Dialog
+        data class CharacterSave(val target: CharacterSaveTarget) : Dialog
+        data class CharacterList(val characters: List<Character>) : Dialog
     }
 
     sealed interface Event {
@@ -1013,5 +1199,8 @@ class ReaderViewModel @JvmOverloads constructor(
 
         /** DeepL translation failed and the app fell back to on-device ML Kit; [reason] explains why. */
         data class TranslationFallback(val reason: StringResource) : Event
+
+        /** A short user-facing message from the character-notebook flow (shown as a toast). */
+        data class CharacterMessage(val message: StringResource) : Event
     }
 }

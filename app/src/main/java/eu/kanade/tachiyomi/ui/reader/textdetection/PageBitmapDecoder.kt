@@ -68,6 +68,40 @@ private fun decodeRegionBitmap(bytes: ByteArray, region: Rect, maxDimension: Int
     }
 }
 
+/**
+ * A page decoded for display in the character-crop tool, paired with the *true* source-image
+ * dimensions ([sourceWidth]/[sourceHeight]) so a square drawn over the downscaled [bitmap] can be
+ * mapped back to full-resolution source pixels for a crisp crop.
+ */
+class DecodedPage(
+    val bitmap: Bitmap,
+    val sourceWidth: Int,
+    val sourceHeight: Int,
+)
+
+/**
+ * Decodes a whole reader page for on-screen display (downscaled so the longest side is at most
+ * [maxDimension]) while also reporting the original source dimensions. Uses the same read-whole-entry
+ * approach as [decodePageBitmap] to sidestep the `ArchiveInputStream` partial-read crash. Returns
+ * null if the image can't be decoded.
+ */
+fun decodePageForDisplay(
+    streamProvider: () -> InputStream,
+    maxDimension: Int = 1600,
+): DecodedPage? {
+    val bytes = streamProvider().use { it.readBytes() }
+    if (bytes.isEmpty()) return null
+    val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
+    BitmapFactory.decodeByteArray(bytes, 0, bytes.size, bounds)
+    if (bounds.outWidth <= 0 || bounds.outHeight <= 0) return null
+
+    val options = BitmapFactory.Options().apply {
+        inSampleSize = sampleSizeFor(maxOf(bounds.outWidth, bounds.outHeight), maxDimension)
+    }
+    val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size, options) ?: return null
+    return DecodedPage(bitmap, bounds.outWidth, bounds.outHeight)
+}
+
 private fun sampleSizeFor(longestSide: Int, maxDimension: Int): Int {
     var sampleSize = 1
     while (longestSide / sampleSize > maxDimension) {

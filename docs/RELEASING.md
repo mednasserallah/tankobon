@@ -84,12 +84,26 @@ Verify the signature with `apksigner verify --print-certs <apk>` (the cert DN sh
 ## 6. Tag
 
 ```bash
-git tag -a vX.Y.Z -m "Tankobon vX.Y.Z — …"
-git push origin vX.Y.Z
+git tag -fa vX.Y.Z <release-sha> -m "Tankobon vX.Y.Z — …"
+git push origin refs/tags/vX.Y.Z --force-with-lease
 ```
 
-> Heads-up: the repo inherits **old upstream tags** (e.g. a 2016 `v0.1.0` from Tachiyomi). If a tag
-> name collides, delete the stale tag locally and on origin, then recreate it on the release commit.
+**Always create the tag on an explicit commit and push it by its full `refs/tags/…` refspec.** A
+bare `git push origin vX.Y.Z` pushes whatever that *local* tag ref already points at — and the repo
+shares Mihon's history, so many `vX.Y.Z` names are **already taken by old upstream tags** (e.g. a
+2016 `v0.3.0`/`v0.4.0`/`v0.5.0` from Tachiyomi). Pushing a bare name can therefore publish a 2016
+commit as your release. The `-f` + explicit refspec above sidesteps that.
+
+> Prevention (already configured once): inherited upstream tags were deleted locally and
+> `remote.upstream.tagOpt` is set to `--no-tags`, so `git fetch upstream` no longer re-imports them.
+> If they ever creep back in, re-run:
+>
+> ```bash
+> git tag | grep -vxE 'v0\.1\.0|v0\.1\.1|v0\.2\.0|…keep your release tags…' | xargs git tag -d
+> git config remote.upstream.tagOpt --no-tags
+> ```
+>
+> To inspect a specific Mihon tag without importing all of them: `git fetch upstream tag vX.Y.Z`.
 
 ## 7. Changelog + GitHub Release
 
