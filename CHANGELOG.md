@@ -10,6 +10,21 @@ The format is a modified version of [Keep a Changelog](https://keepachangelog.co
 - `Fixed` - for any bug fixes.
 - `Other` - for technical stuff.
 
+## [v0.3.0] - 2026-07-05
+### Added
+- **Character notebook.** While reading, save a **character** for the current series — a **name**, a
+  personal **note**, and a **square portrait cropped from the current page**. A new top-bar action
+  opens a full-screen crop tool with a draggable, corner-resizable 1:1 square (the crop is taken at
+  full page resolution), and an overflow action opens a per-series notebook to browse, search,
+  re-crop, edit, and delete your saved characters. Everything is stored on-device; nothing leaves
+  the device.
+
+### Removed
+- **The "Support Us" / donation screen** and its entry point have been removed — they solicited
+  donations for Mihon, which don't apply to this fork.
+- **The Browse settings screen** has been removed; it only held extension/source options that no
+  longer exist in this local-only fork.
+
 ## [v0.2.0] - 2026-07-04
 ### Added
 - **Choose your translation engine.** A new **Settings → Translation** screen lets you pick between
