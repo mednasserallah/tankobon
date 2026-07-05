@@ -154,7 +154,7 @@ private fun CharacterRow(
             .padding(vertical = MaterialTheme.padding.small),
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            CharacterPortrait(character.portraitPath, 56.dp)
+            CharacterPortrait(character.portraitPath, 80.dp)
             Column(
                 modifier = Modifier
                     .weight(1f)
@@ -214,6 +214,13 @@ private fun CharacterRow(
                 }
             }
         } else if (expanded) {
+            CharacterPortrait(
+                path = character.portraitPath,
+                size = 220.dp,
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(top = MaterialTheme.padding.small),
+            )
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.End),
@@ -236,7 +243,7 @@ private fun CharacterRow(
 }
 
 @Composable
-private fun CharacterPortrait(path: String?, size: Dp) {
+private fun CharacterPortrait(path: String?, size: Dp, modifier: Modifier = Modifier) {
     val context = LocalContext.current
     // Key the Coil request on the file's mtime so a re-cropped portrait (same path) isn't served
     // stale from cache.
@@ -255,7 +262,7 @@ private fun CharacterPortrait(path: String?, size: Dp) {
         model = model,
         contentDescription = null,
         contentScale = ContentScale.Crop,
-        modifier = Modifier
+        modifier = modifier
             .size(size)
             .clip(RoundedCornerShape(8.dp))
             .background(PortraitPlaceholderColor),
