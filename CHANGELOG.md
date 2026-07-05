@@ -16,6 +16,9 @@ The format is a modified version of [Keep a Changelog](https://keepachangelog.co
   require landing a finger almost exactly on the corner point, which was very fiddly on a real
   device (moving worked, resizing barely did). Grabbing anywhere near a corner now resizes it, while
   grabbing the middle still moves the square.
+- **Character notebook: the keyboard no longer hides the Save button.** When naming a character on a
+  phone, the save form now lifts above the on-screen keyboard so the Name/Note fields and the Save
+  button stay visible while you type.
 
 ## [v0.3.0] - 2026-07-05
 ### Added
