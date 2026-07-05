@@ -32,7 +32,7 @@ android {
     defaultConfig {
         applicationId = "app.tankobon"
 
-        versionCode = 6
+        versionCode = 7
         versionName = "0.3.1"
 
         buildConfigField("String", "COMMIT_COUNT", "\"${getLatestCommitCount()}\"")

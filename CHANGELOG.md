@@ -20,6 +20,11 @@ The format is a modified version of [Keep a Changelog](https://keepachangelog.co
   phone, the save form now lifts above the on-screen keyboard so the Name/Note fields and the Save
   button stay visible while you type.
 
+### Improved
+- **Character notebook: larger, more recognizable portraits.** The thumbnails in the character list
+  are bigger, and tapping a character now shows a large portrait preview so faces are easy to make
+  out at a glance.
+
 ## [v0.3.0] - 2026-07-05
 ### Added
 - **Character notebook.** While reading, save a **character** for the current series — a **name**, a
