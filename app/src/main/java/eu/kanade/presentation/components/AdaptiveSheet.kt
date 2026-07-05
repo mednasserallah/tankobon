@@ -1,13 +1,17 @@
 package eu.kanade.presentation.components
 
+import android.view.WindowManager
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import androidx.compose.ui.window.DialogWindowProvider
 import cafe.adriel.voyager.core.annotation.InternalVoyagerApi
 import cafe.adriel.voyager.core.lifecycle.DisposableEffectIgnoringConfiguration
 import cafe.adriel.voyager.core.screen.Screen
@@ -72,6 +76,14 @@ fun AdaptiveSheet(
         onDismissRequest = onDismissRequest,
         properties = dialogProperties,
     ) {
+        // Resize the sheet window when the soft keyboard opens so bottom-anchored content (e.g. a
+        // Save button beneath a text field) stays above the keyboard. The default dialog behaviour
+        // pans to reveal only the focused field, hiding anything below it.
+        val view = LocalView.current
+        SideEffect {
+            (view.parent as? DialogWindowProvider)?.window
+                ?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+        }
         AdaptiveSheetImpl(
             isTabletUi = isTabletUi,
             enableImplicitDismiss = enableImplicitDismiss,
