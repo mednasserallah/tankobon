@@ -16,6 +16,7 @@ import eu.kanade.core.util.addOrRemove
 import eu.kanade.core.util.insertSeparators
 import eu.kanade.domain.chapter.interactor.GetAvailableScanlators
 import eu.kanade.domain.chapter.interactor.SetReadStatus
+import eu.kanade.domain.chapter.interactor.ShelveVolume
 import eu.kanade.domain.manga.interactor.GetExcludedScanlators
 import eu.kanade.domain.manga.interactor.SetExcludedScanlators
 import eu.kanade.domain.manga.interactor.UpdateManga
@@ -43,6 +44,7 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import logcat.LogPriority
 import mihon.domain.source.interactor.UpdateMangaFromRemote
+import tachiyomi.core.common.i18n.pluralStringResource
 import tachiyomi.core.common.i18n.stringResource
 import tachiyomi.core.common.preference.CheckboxState
 import tachiyomi.core.common.preference.TriState
@@ -104,6 +106,12 @@ class MangaScreenModel(
     private val setMangaCategories: SetMangaCategories = Injekt.get(),
     private val mangaRepository: MangaRepository = Injekt.get(),
     private val updateMangaFromRemote: UpdateMangaFromRemote = Injekt.get(),
+    private val shelveVolume: ShelveVolume = ShelveVolume(
+        context = context,
+        sourceManager = Injekt.get(),
+        volumeCoverCache = Injekt.get(),
+        updateVolume = Injekt.get(),
+    ),
     val snackbarHostState: SnackbarHostState = SnackbarHostState(),
 ) : StateScreenModel<MangaScreenModel.State>(State.Loading) {
 
@@ -575,6 +583,24 @@ class MangaScreenModel(
     }
 
     /**
+     * Shelves the given volumes: deletes their files from disk to free space while keeping their
+     * rows, metadata and covers (flagged as archived). Read state is left untouched.
+     * @param chapters the list of volumes to shelve.
+     */
+    fun shelveVolumes(chapters: List<Volume>) {
+        toggleAllSelection(false)
+        if (chapters.isEmpty()) return
+        screenModelScope.launchIO {
+            val count = shelveVolume.await(chapters)
+            if (count > 0) {
+                withUIContext {
+                    context.toast(context.pluralStringResource(MR.plurals.volumes_shelved, count, count))
+                }
+            }
+        }
+    }
+
+    /**
      * Sets the read filter and requests an UI update.
      * @param state whether to display only unread chapters or all chapters.
      */
@@ -794,6 +820,7 @@ class MangaScreenModel(
         ) : Dialog
         data class DuplicateManga(val manga: Manga, val duplicates: List<MangaWithVolumeCount>) : Dialog
         data class SetFetchInterval(val manga: Manga) : Dialog
+        data class ShelveVolumes(val volumes: List<Volume>) : Dialog
         data object SettingsSheet : Dialog
         data object TrackSheet : Dialog
         data object FullCover : Dialog
@@ -813,6 +840,11 @@ class MangaScreenModel(
 
     fun showCoverDialog() {
         updateSuccessState { it.copy(dialog = Dialog.FullCover) }
+    }
+
+    fun showShelveDialog(volumes: List<Volume>) {
+        if (volumes.isEmpty()) return
+        updateSuccessState { it.copy(dialog = Dialog.ShelveVolumes(volumes)) }
     }
 
     fun setExcludedScanlators(excludedScanlators: Set<String>) {

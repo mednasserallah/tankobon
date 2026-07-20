@@ -20,6 +20,8 @@ data class Volume(
     val lastModifiedAt: Long,
     val version: Long,
     val memo: JsonObject,
+    /** True when the user shelved this volume: its file was deleted to free space, but the row/cover are kept. */
+    val isArchived: Boolean = false,
 ) {
     val isRecognizedNumber: Boolean
         get() = volumeNumber >= 0
@@ -57,6 +59,7 @@ data class Volume(
             lastModifiedAt = 0,
             version = 1,
             memo = JsonObject.EMPTY,
+            isArchived = false,
         )
     }
 }

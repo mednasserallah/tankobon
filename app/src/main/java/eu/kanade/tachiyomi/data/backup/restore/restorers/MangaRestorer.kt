@@ -213,6 +213,7 @@ class MangaRestorer(
                     chapter.dateUpload,
                     chapter.version,
                     chapter.memo,
+                    chapter.isArchived,
                 )
             }
         }
@@ -238,6 +239,7 @@ class MangaRestorer(
                     version = chapter.version,
                     isSyncing = 0,
                     memo = chapter.memo.let(MemoColumnAdapter::encode),
+                    isArchived = chapter.isArchived,
                 )
             }
         }

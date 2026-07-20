@@ -18,6 +18,7 @@ data class VolumeUpdate(
     val scanlator: String? = null,
     val version: Long? = null,
     val memo: JsonObject? = null,
+    val isArchived: Boolean? = null,
 )
 
 fun Volume.toVolumeUpdate(): VolumeUpdate {
@@ -37,5 +38,6 @@ fun Volume.toVolumeUpdate(): VolumeUpdate {
         scanlator,
         version,
         memo,
+        isArchived,
     )
 }
