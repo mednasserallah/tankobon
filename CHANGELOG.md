@@ -10,7 +10,15 @@ The format is a modified version of [Keep a Changelog](https://keepachangelog.co
 - `Fixed` - for any bug fixes.
 - `Other` - for technical stuff.
 
-## [v0.3.1] - 2026-07-05
+## [v0.4.0] - 2026-07-20
+### Added
+- **Shelve a volume to free up space.** Finished a volume and want the storage back without losing
+  it from your library? Select one or more volumes in a series (list or covers grid) and tap
+  **Shelve**. The volume's file is deleted from the device, but its cover, name, and details stay on
+  the shelf with a **"Shelved"** badge — like putting a book back on the shelf after reading it.
+  Tapping a shelved volume reminds you it was shelved; add its file back to the folder and it
+  automatically becomes readable again on the next library refresh. Everything stays on-device.
+
 ### Fixed
 - **Character notebook: the crop square is much easier to resize.** The corner handles used to
   require landing a finger almost exactly on the corner point, which was very fiddly on a real
