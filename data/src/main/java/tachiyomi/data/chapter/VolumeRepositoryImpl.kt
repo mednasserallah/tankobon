@@ -39,6 +39,7 @@ class VolumeRepositoryImpl(
                         chapter.dateUpload,
                         chapter.version,
                         chapter.memo,
+                        chapter.isArchived,
                     )
                         .awaitAsOne()
                     chapter.copy(id = volumeId)
@@ -78,6 +79,7 @@ class VolumeRepositoryImpl(
                     version = chapterUpdate.version,
                     isSyncing = 0,
                     memo = chapterUpdate.memo?.let(MemoColumnAdapter::encode),
+                    isArchived = chapterUpdate.isArchived,
                 )
             }
         }
@@ -152,6 +154,7 @@ class VolumeRepositoryImpl(
         version: Long,
         isSyncing: Long,
         memo: JsonObject,
+        isArchived: Boolean,
     ): Volume = Volume(
         id = id,
         mangaId = mangaId,
@@ -169,5 +172,6 @@ class VolumeRepositoryImpl(
         lastModifiedAt = lastModifiedAt,
         version = version,
         memo = memo,
+        isArchived = isArchived,
     )
 }

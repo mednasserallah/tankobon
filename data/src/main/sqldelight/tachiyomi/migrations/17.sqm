@@ -1,0 +1,5 @@
+-- Shelve volumes (Tankobon): let the user delete a volume's file to free device
+-- space while keeping its DB row, metadata and cached cover. A shelved volume is
+-- flagged here so the library sync no longer hard-deletes its row when the file
+-- disappears from disk. Defaults to 0 (not shelved) for every existing row.
+ALTER TABLE volumes ADD COLUMN is_archived INTEGER NOT NULL DEFAULT 0;

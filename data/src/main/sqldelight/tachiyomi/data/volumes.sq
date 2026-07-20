@@ -19,6 +19,7 @@ CREATE TABLE volumes(
     version INTEGER NOT NULL DEFAULT 0,
     is_syncing INTEGER NOT NULL DEFAULT 0,
     memo BLOB AS JsonObject NOT NULL DEFAULT '{}',
+    is_archived INTEGER AS Boolean NOT NULL DEFAULT 0,
     FOREIGN KEY(manga_id) REFERENCES mangas (_id)
     ON DELETE CASCADE
 );
@@ -101,12 +102,12 @@ SET is_syncing = 0
 WHERE is_syncing = 1;
 
 insert:
-INSERT INTO volumes(manga_id, url, name, scanlator, read, bookmark, last_page_read, volume_number, volume_number_end, source_order, date_fetch, date_upload, last_modified_at, version, is_syncing, memo)
-VALUES (:mangaId, :url, :name, :scanlator, :read, :bookmark, :lastPageRead, :volumeNumber, :volumeNumberEnd, :sourceOrder, :dateFetch, :dateUpload, 0, :version, 0, :memo);
+INSERT INTO volumes(manga_id, url, name, scanlator, read, bookmark, last_page_read, volume_number, volume_number_end, source_order, date_fetch, date_upload, last_modified_at, version, is_syncing, memo, is_archived)
+VALUES (:mangaId, :url, :name, :scanlator, :read, :bookmark, :lastPageRead, :volumeNumber, :volumeNumberEnd, :sourceOrder, :dateFetch, :dateUpload, 0, :version, 0, :memo, :isArchived);
 
 insertReturningId:
-INSERT INTO volumes(manga_id, url, name, scanlator, read, bookmark, last_page_read, volume_number, volume_number_end, source_order, date_fetch, date_upload, last_modified_at, version, is_syncing, memo)
-VALUES (:mangaId, :url, :name, :scanlator, :read, :bookmark, :lastPageRead, :volumeNumber, :volumeNumberEnd, :sourceOrder, :dateFetch, :dateUpload, 0, :version, 0, :memo)
+INSERT INTO volumes(manga_id, url, name, scanlator, read, bookmark, last_page_read, volume_number, volume_number_end, source_order, date_fetch, date_upload, last_modified_at, version, is_syncing, memo, is_archived)
+VALUES (:mangaId, :url, :name, :scanlator, :read, :bookmark, :lastPageRead, :volumeNumber, :volumeNumberEnd, :sourceOrder, :dateFetch, :dateUpload, 0, :version, 0, :memo, :isArchived)
 RETURNING _id;
 
 update:
@@ -125,5 +126,6 @@ SET manga_id = coalesce(:mangaId, manga_id),
     date_upload = coalesce(:dateUpload, date_upload),
     version = coalesce(:version, version),
     is_syncing = coalesce(:isSyncing, is_syncing),
-    memo = coalesce(:memo, memo)
+    memo = coalesce(:memo, memo),
+    is_archived = coalesce(:isArchived, is_archived)
 WHERE _id = :volumeId;

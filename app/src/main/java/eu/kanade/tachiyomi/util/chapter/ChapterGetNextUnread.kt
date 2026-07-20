@@ -12,9 +12,9 @@ import tachiyomi.domain.manga.model.Manga
 fun List<Volume>.getNextUnread(manga: Manga): Volume? {
     return applyFilters(manga).let { chapters ->
         if (manga.sortDescending()) {
-            chapters.findLast { !it.read }
+            chapters.findLast { !it.read && !it.isArchived }
         } else {
-            chapters.find { !it.read }
+            chapters.find { !it.read && !it.isArchived }
         }
     }
 }
@@ -26,9 +26,9 @@ fun List<Volume>.getNextUnread(manga: Manga): Volume? {
 fun List<VolumeList.Item>.getNextUnread(manga: Manga): Volume? {
     return applyFilters(manga).let { chapters ->
         if (manga.sortDescending()) {
-            chapters.findLast { !it.chapter.read }
+            chapters.findLast { !it.chapter.read && !it.chapter.isArchived }
         } else {
-            chapters.find { !it.chapter.read }
+            chapters.find { !it.chapter.read && !it.chapter.isArchived }
         }
     }?.chapter
 }

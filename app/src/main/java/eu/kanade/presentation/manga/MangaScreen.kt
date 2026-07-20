@@ -114,6 +114,7 @@ fun MangaScreen(
     onMultiBookmarkClicked: (List<Volume>, bookmarked: Boolean) -> Unit,
     onMultiMarkAsReadClicked: (List<Volume>, markAsRead: Boolean) -> Unit,
     onMarkPreviousAsReadClicked: (Volume) -> Unit,
+    onMultiShelveClicked: (List<Volume>) -> Unit,
 
     // For chapter swipe
     onChapterSwipe: (VolumeList.Item, LibraryPreferences.ChapterSwipeAction) -> Unit,
@@ -155,6 +156,7 @@ fun MangaScreen(
             onMultiBookmarkClicked = onMultiBookmarkClicked,
             onMultiMarkAsReadClicked = onMultiMarkAsReadClicked,
             onMarkPreviousAsReadClicked = onMarkPreviousAsReadClicked,
+            onMultiShelveClicked = onMultiShelveClicked,
             onChapterSwipe = onChapterSwipe,
             onChapterSelected = onChapterSelected,
             onAllChapterSelected = onAllChapterSelected,
@@ -185,6 +187,7 @@ fun MangaScreen(
             onMultiBookmarkClicked = onMultiBookmarkClicked,
             onMultiMarkAsReadClicked = onMultiMarkAsReadClicked,
             onMarkPreviousAsReadClicked = onMarkPreviousAsReadClicked,
+            onMultiShelveClicked = onMultiShelveClicked,
             onChapterSwipe = onChapterSwipe,
             onChapterSelected = onChapterSelected,
             onAllChapterSelected = onAllChapterSelected,
@@ -227,6 +230,7 @@ private fun MangaScreenSmallImpl(
     onMultiBookmarkClicked: (List<Volume>, bookmarked: Boolean) -> Unit,
     onMultiMarkAsReadClicked: (List<Volume>, markAsRead: Boolean) -> Unit,
     onMarkPreviousAsReadClicked: (Volume) -> Unit,
+    onMultiShelveClicked: (List<Volume>) -> Unit,
 
     // For chapter swipe
     onChapterSwipe: (VolumeList.Item, LibraryPreferences.ChapterSwipeAction) -> Unit,
@@ -298,6 +302,7 @@ private fun MangaScreenSmallImpl(
                 onMultiBookmarkClicked = onMultiBookmarkClicked,
                 onMultiMarkAsReadClicked = onMultiMarkAsReadClicked,
                 onMarkPreviousAsReadClicked = onMarkPreviousAsReadClicked,
+                onMultiShelveClicked = onMultiShelveClicked,
                 fillFraction = 1f,
             )
         },
@@ -470,6 +475,7 @@ fun MangaScreenLargeImpl(
     onMultiBookmarkClicked: (List<Volume>, bookmarked: Boolean) -> Unit,
     onMultiMarkAsReadClicked: (List<Volume>, markAsRead: Boolean) -> Unit,
     onMarkPreviousAsReadClicked: (Volume) -> Unit,
+    onMultiShelveClicked: (List<Volume>) -> Unit,
 
     // For swipe actions
     onChapterSwipe: (VolumeList.Item, LibraryPreferences.ChapterSwipeAction) -> Unit,
@@ -538,6 +544,7 @@ fun MangaScreenLargeImpl(
                     onMultiBookmarkClicked = onMultiBookmarkClicked,
                     onMultiMarkAsReadClicked = onMultiMarkAsReadClicked,
                     onMarkPreviousAsReadClicked = onMarkPreviousAsReadClicked,
+                    onMultiShelveClicked = onMultiShelveClicked,
                     fillFraction = 0.5f,
                 )
             }
@@ -682,6 +689,7 @@ private fun SharedMangaBottomActionMenu(
     onMultiBookmarkClicked: (List<Volume>, bookmarked: Boolean) -> Unit,
     onMultiMarkAsReadClicked: (List<Volume>, markAsRead: Boolean) -> Unit,
     onMarkPreviousAsReadClicked: (Volume) -> Unit,
+    onMultiShelveClicked: (List<Volume>) -> Unit,
     fillFraction: Float,
     modifier: Modifier = Modifier,
 ) {
@@ -703,6 +711,9 @@ private fun SharedMangaBottomActionMenu(
         onMarkPreviousAsReadClicked = {
             onMarkPreviousAsReadClicked(selected[0].chapter)
         }.takeIf { selected.size == 1 },
+        onShelveClicked = {
+            onMultiShelveClicked(selected.fastMap { it.chapter })
+        }.takeIf { selected.fastAny { !it.chapter.isArchived } },
     )
 }
 
@@ -754,6 +765,7 @@ private fun LazyListScope.sharedChapterItems(
                     scanlator = item.chapter.scanlator.takeIf { !it.isNullOrBlank() },
                     read = item.chapter.read,
                     bookmark = item.chapter.bookmark,
+                    archived = item.chapter.isArchived,
                     selected = item.selected,
                     chapterSwipeStartAction = chapterSwipeStartAction,
                     chapterSwipeEndAction = chapterSwipeEndAction,

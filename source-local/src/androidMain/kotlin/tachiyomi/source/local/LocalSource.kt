@@ -386,6 +386,35 @@ actual class LocalSource(
         }
     }
 
+    /**
+     * Deletes a single volume's file (archive) or folder from disk, freeing space. Used by the
+     * "shelve" feature: the volume's DB row and cached cover are kept, only the on-disk file goes.
+     * Folder-based volumes are removed recursively.
+     *
+     * @param volumeUrl the volume's url (`mangaDirName/volumeName`), i.e. [SVolume.url].
+     * @return true if the file was deleted (or was already gone), false if deletion failed.
+     */
+    fun deleteVolume(volumeUrl: String): Boolean {
+        return try {
+            val (mangaDirName, volumeName) = volumeUrl.split('/', limit = 2)
+            val file = fileSystem.getBaseDirectory()
+                ?.findFile(mangaDirName)
+                ?.findFile(volumeName)
+                ?: return true // already gone
+            deleteRecursively(file)
+        } catch (e: Exception) {
+            logcat(LogPriority.ERROR, e) { "Error deleting volume $volumeUrl" }
+            false
+        }
+    }
+
+    private fun deleteRecursively(file: UniFile): Boolean {
+        if (file.isDirectory) {
+            file.listFiles()?.forEach { deleteRecursively(it) }
+        }
+        return file.delete()
+    }
+
     private fun updateCover(chapter: SVolume, manga: SManga): UniFile? {
         return try {
             when (val format = getFormat(chapter)) {
