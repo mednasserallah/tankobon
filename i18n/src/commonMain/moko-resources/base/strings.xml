@@ -80,6 +80,7 @@
     <string name="action_bookmark">Bookmark volume</string>
     <string name="action_remove_bookmark">Unbookmark volume</string>
     <string name="action_delete">Delete</string>
+    <string name="action_shelve_volume">Shelve</string>
     <string name="action_update_library">Update library</string>
     <string name="action_enable_all">Enable all</string>
     <string name="action_disable_all">Disable all</string>
@@ -693,6 +694,8 @@
 
     <!-- Manga chapters -->
     <string name="display_mode_chapter">Volume %1$s</string>
+    <string name="volume_shelved_badge">Shelved</string>
+    <string name="volume_shelved_message">This volume was shelved to save space. Add its file again to read it.</string>
     <string name="manga_display_interval_title">Estimate every</string>
     <string name="manga_display_modified_interval_title">Set to update every</string>
     <!-- "... around 2 days" -->

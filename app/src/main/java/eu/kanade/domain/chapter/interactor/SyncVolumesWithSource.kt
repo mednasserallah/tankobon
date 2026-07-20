@@ -71,9 +71,12 @@ class SyncVolumesWithSource(
         val newChapters = mutableListOf<Volume>()
         val updatedChapters = mutableListOf<Volume>()
         val removedChapters = dbChapters.filterNot { dbChapter ->
-            sourceChapters.any { sourceChapter ->
-                dbChapter.url == sourceChapter.url
-            }
+            // Shelved volumes are kept even though their file is gone from disk — the user
+            // deleted the file to free space but wants the row/metadata/cover preserved.
+            dbChapter.isArchived ||
+                sourceChapters.any { sourceChapter ->
+                    dbChapter.url == sourceChapter.url
+                }
         }
 
         // Used to not set upload date of older chapters
@@ -97,12 +100,15 @@ class SyncVolumesWithSource(
                 }
                 newChapters.add(toAddChapter)
             } else {
-                if (shouldUpdateDbChapter.await(dbChapter, chapter)) {
+                // A file reappeared for a previously shelved volume: un-shelve it so it opens again.
+                val unshelve = dbChapter.isArchived
+                if (unshelve || shouldUpdateDbChapter.await(dbChapter, chapter)) {
                     var toChangeChapter = dbChapter.copy(
                         name = chapter.name,
                         volumeNumber = chapter.volumeNumber,
                         scanlator = chapter.scanlator,
                         sourceOrder = chapter.sourceOrder,
+                        isArchived = false,
                     )
 
                     if (chapter.dateUpload != 0L) {

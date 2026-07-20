@@ -100,6 +100,23 @@ fun MangaVolumeCoverGridItem(
                 )
             }
 
+            if (volume.isArchived) {
+                Text(
+                    text = stringResource(MR.strings.volume_shelved_badge),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer,
+                    maxLines = 1,
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .padding(4.dp)
+                        .background(
+                            color = MaterialTheme.colorScheme.secondaryContainer,
+                            shape = MaterialTheme.shapes.extraSmall,
+                        )
+                        .padding(horizontal = 6.dp, vertical = 2.dp),
+                )
+            }
+
             if (item.selected) {
                 Box(
                     modifier = Modifier

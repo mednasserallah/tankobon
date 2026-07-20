@@ -1,5 +1,6 @@
 package eu.kanade.presentation.manga.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -49,6 +50,7 @@ fun MangaVolumeListItem(
     scanlator: String?,
     read: Boolean,
     bookmark: Boolean,
+    archived: Boolean,
     selected: Boolean,
     chapterSwipeStartAction: LibraryPreferences.ChapterSwipeAction,
     chapterSwipeEndAction: LibraryPreferences.ChapterSwipeAction,
@@ -123,7 +125,23 @@ fun MangaVolumeListItem(
                         overflow = TextOverflow.Ellipsis,
                         onTextLayout = { textHeight = it.size.height },
                         color = LocalContentColor.current.copy(alpha = if (read) DISABLED_ALPHA else 1f),
+                        modifier = Modifier.weight(1f, fill = false),
                     )
+                    if (archived) {
+                        Text(
+                            text = stringResource(MR.strings.volume_shelved_badge),
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onSecondaryContainer,
+                            maxLines = 1,
+                            modifier = Modifier
+                                .padding(start = 6.dp)
+                                .background(
+                                    color = MaterialTheme.colorScheme.secondaryContainer,
+                                    shape = MaterialTheme.shapes.small,
+                                )
+                                .padding(horizontal = 6.dp, vertical = 1.dp),
+                        )
+                    }
                 }
 
                 Row {

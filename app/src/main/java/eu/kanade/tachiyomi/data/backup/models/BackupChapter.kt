@@ -31,6 +31,8 @@ class BackupVolume(
     @ProtoNumber(13) var memo: ByteArray = JsonObjectEmptyBytes,
     // New in Tankobon: end of an omnibus volume range (null for single-volume files).
     @ProtoNumber(14) var volumeNumberEnd: Int? = null,
+    // New in Tankobon: shelved volume (file deleted to free space, row/cover kept).
+    @ProtoNumber(15) var isArchived: Boolean = false,
 ) {
     fun toVolumeImpl(): Volume {
         return Volume.create().copy(
@@ -48,6 +50,7 @@ class BackupVolume(
             lastModifiedAt = this@BackupVolume.lastModifiedAt,
             version = this@BackupVolume.version,
             memo = MemoColumnAdapter.decode(this@BackupVolume.memo),
+            isArchived = this@BackupVolume.isArchived,
         )
     }
 }
@@ -70,6 +73,7 @@ val backupChapterMapper = {
         version: Long,
         _: Long,
         memo: JsonObject,
+        isArchived: Boolean,
     ->
     BackupVolume(
         url = url,
@@ -86,5 +90,6 @@ val backupChapterMapper = {
         lastModifiedAt = lastModifiedAt,
         version = version,
         memo = MemoColumnAdapter.encode(memo),
+        isArchived = isArchived,
     )
 }

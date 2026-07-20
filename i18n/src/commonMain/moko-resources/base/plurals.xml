@@ -56,6 +56,16 @@
         <item quantity="other">%1$s volumes</item>
     </plurals>
 
+    <plurals name="volumes_shelved">
+        <item quantity="one">Shelved %1$d volume to free space</item>
+        <item quantity="other">Shelved %1$d volumes to free space</item>
+    </plurals>
+
+    <plurals name="shelve_volumes_confirmation">
+        <item quantity="one">Delete this volume\'s file to free space? Its cover and details stay on your shelf, and it comes back if you add the file again.</item>
+        <item quantity="other">Delete %1$d volumes\' files to free space? Their covers and details stay on your shelf, and they come back if you add the files again.</item>
+    </plurals>
+
     <plurals name="download_amount">
         <item quantity="one">Next chapter</item>
         <item quantity="other">Next %d chapters</item>
